@@ -1,0 +1,12 @@
+/* Enhanced Gradient Backgrounds - Removed Glaring Effect */
+.gradient-bg {
+  background: var(--gradient-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Removed the glaring shimmer effect that was mentioned as problematic */
+.gradient-bg::before {
+  display: none;
+}
+

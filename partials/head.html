@@ -1,0 +1,55 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nicola Ibrahim - Software Engineer specializing in Python, Django, and scalable backend solutions">
+    <meta name="keywords" content="Software Engineer, Python Developer, Django, Backend Development, Web Development">
+    <meta name="author" content="Nicola Ibrahim">
+    <title>Nicola Ibrahim - Software Engineer</title>
+    
+    <!-- Tailwind CSS CDN with dark mode support -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: [\'class\', \'[data-theme="dark"]\'],
+            theme: {
+                extend: {
+                    colors: {
+                        \'primary\': \'#1e40af\',
+                        \'secondary\': \'#3b82f6\',
+                        \'accent\': \'#60a5fa\',
+                        \'dark\': \'#1f2937\',
+                        \'light\': \'#f8fafc\'
+                    },
+                    fontFamily: {
+                        \'sans\': [\'Inter\', \'system-ui\', \'sans-serif\'],
+                    },
+                    animation: {
+                        \'fade-in-up\': \'fadeInUp 0.8s ease-out\',
+                        \'slide-in-left\': \'slideInLeft 0.8s ease-out\',
+                        \'slide-in-right\': \'slideInRight 0.8s ease-out\',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- External Fonts and Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Theme Detection Script (runs immediately) -->
+    <script>
+        // Prevent flash of wrong theme
+        (function() {
+            const savedTheme = localStorage.getItem(\'theme-preference\');
+            const systemTheme = window.matchMedia(\'(prefers-color-scheme: dark)\\'
+).matches ? \'dark\' : \'light\';
+            const theme = savedTheme || systemTheme;
+            document.documentElement.setAttribute(\'data-theme\', theme);
+        })();
+    </script>
+</head>
+

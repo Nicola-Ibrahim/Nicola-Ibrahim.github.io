@@ -3,7 +3,7 @@
  * Handles dark/light theme switching with localStorage persistence
  */
 
-class ThemeManager {
+export class ThemeManager {
   constructor() {
     this.currentTheme = 'light';
     this.themeToggle = null;
@@ -98,9 +98,9 @@ class ThemeManager {
     mobileThemeContainer.className = 'px-3 py-2';
     
     const mobileToggle = toggle.cloneNode(true);
-    mobileToggle.querySelector('.theme-toggle-indicator').innerHTML =
-      this.currentTheme === 'dark' ? '<i class="fas fa-moon" style="font-size: 0.5rem;"></i>' :
-                                   '<i class="fas fa-sun" style="font-size: 0.5rem;"></i>';
+    mobileToggle.querySelector('.theme-toggle-indicator').innerHTML = 
+      this.currentTheme === 'dark' ? '<i class="fas fa-moon" style="font-size: 0.5rem;"></i>' 
+                                   : '<i class="fas fa-sun" style="font-size: 0.5rem;"></i>';
     
     mobileThemeContainer.appendChild(mobileToggle);
     
@@ -284,10 +284,8 @@ class ThemeManager {
 }
 
 // Initialize theme manager when DOM is ready
-let themeManager;
-
 function initTheme() {
-  themeManager = new ThemeManager();
+  const themeManager = new ThemeManager();
   
   // Make theme manager globally available
   window.themeManager = themeManager;
@@ -302,5 +300,4 @@ if (document.readyState === 'loading') {
 } else {
   initTheme();
 }
-
 
