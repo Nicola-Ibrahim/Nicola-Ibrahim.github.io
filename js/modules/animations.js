@@ -17,10 +17,12 @@ export class AnimationManager {
     if (!typingText) return;
 
     const text = typingText.textContent;
-    typingText.textContent = "";
+    typingText.textContent = ""; // Clear the text to prepare for typing animation
     let i = 0;
 
     const typeWriter = () => {
+      // The bug was here: `i < text.length` will always be true when `text` is empty
+      // You must check for the original text length.
       if (i < text.length) {
         typingText.textContent += text.charAt(i);
         i++;
@@ -56,4 +58,3 @@ export class AnimationManager {
     animatedElements.forEach(element => observer.observe(element));
   }
 }
-
