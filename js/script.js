@@ -6,7 +6,6 @@
 import { NavigationManager } from './modules/navigation.js';
 import { AnimationManager } from './modules/animations.js';
 import { utils } from './modules/utils.js';
-import { ThemeManager } from './modules/theme.js';
 
 class PortfolioWebsite {
   constructor() {
@@ -19,7 +18,6 @@ class PortfolioWebsite {
   init() {
     new NavigationManager();
     new AnimationManager();
-    new ThemeManager();
     this.initFloatingBall();
     this.initKeyboardShortcuts();
     this.initContactForm();
