@@ -238,8 +238,6 @@ function initTheme() {
   // Make theme manager globally available
   window.themeManager = themeManager;
 
-  // Add keyboard shortcut info to console
-  console.log('💡 Theme keyboard shortcut: Ctrl+T');
 }
 
 // Initialize immediately if DOM is ready, otherwise wait

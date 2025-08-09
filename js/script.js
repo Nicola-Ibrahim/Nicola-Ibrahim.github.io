@@ -23,7 +23,6 @@ class PortfolioWebsite {
     this.initContactForm();
     this.initLazyLoading();
 
-    console.log('🚀 Portfolio website initialized successfully!');
   }
 
   /**
@@ -130,10 +129,7 @@ class PortfolioWebsite {
       }
     });
 
-    // Add keyboard shortcut info to console
-    console.log('⌨️ Keyboard shortcuts:');
-    console.log('Alt+1-7: Navigate to sections');
-    console.log('Ctrl+T: Toggle theme');
+
   }
 
   /**
@@ -251,11 +247,3 @@ if (document.readyState === 'loading') {
 } else {
   initPortfolio();
 }
-
-// Handle page visibility changes
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') {
-    console.log('👋 Welcome back!');
-  }
-});
-

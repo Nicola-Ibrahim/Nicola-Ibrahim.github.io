@@ -34,7 +34,7 @@ export class AnimationManager {
     };
 
     // Start typing animation after a short delay
-    setTimeout(typeWriter, 1000);
+    setTimeout(typeWriter, 0);
   }
 
   /**
