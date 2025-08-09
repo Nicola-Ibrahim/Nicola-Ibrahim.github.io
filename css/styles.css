@@ -96,12 +96,12 @@
   .timeline-item {
     padding-left: 1.5rem;
   }
-  
+
   .timeline-item::before {
     width: 0.75rem;
     height: 0.75rem;
   }
-  
+
   .timeline-item::after {
     left: 0.25rem;
   }
@@ -123,5 +123,3 @@
   background-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
 }
-
-

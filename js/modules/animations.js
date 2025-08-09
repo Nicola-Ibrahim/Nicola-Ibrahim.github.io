@@ -13,13 +13,13 @@ export class AnimationManager {
    * Initialize typing animation effect
    */
   initTypingAnimation() {
-    const typingText = document.querySelector(\".typing-animation\");
+    const typingText = document.querySelector(".typing-animation");
     if (!typingText) return;
 
     const text = typingText.textContent;
-    typingText.textContent = \"\";
+    typingText.textContent = "";
     let i = 0;
-    
+
     const typeWriter = () => {
       if (i < text.length) {
         typingText.textContent += text.charAt(i);
@@ -27,10 +27,10 @@ export class AnimationManager {
         setTimeout(typeWriter, 100);
       } else {
         // Add cursor blink class after typing is complete
-        typingText.classList.add(\"cursor-blink\");
+        typingText.classList.add("cursor-blink");
       }
     };
-    
+
     // Start typing animation after a short delay
     setTimeout(typeWriter, 1000);
   }
@@ -39,18 +39,18 @@ export class AnimationManager {
    * Initialize Intersection Observer for animations
    */
   initAnimationObserver() {
-    const animatedElements = document.querySelectorAll(\".card-hover, .timeline-item\");
-    
+    const animatedElements = document.querySelectorAll(".card-hover, .timeline-item");
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add(\"fade-in-up\");
+          entry.target.classList.add("fade-in-up");
           observer.unobserve(entry.target);
         }
       });
     }, {
       threshold: 0.1,
-      rootMargin: \"0px 0px -50px 0px\"
+      rootMargin: "0px 0px -50px 0px"
     });
 
     animatedElements.forEach(element => observer.observe(element));

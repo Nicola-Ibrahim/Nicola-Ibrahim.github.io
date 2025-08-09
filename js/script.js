@@ -6,6 +6,7 @@
 import { NavigationManager } from './modules/navigation.js';
 import { AnimationManager } from './modules/animations.js';
 import { utils } from './modules/utils.js';
+import { ThemeManager } from './modules/theme.js';
 
 class PortfolioWebsite {
   constructor() {
@@ -18,11 +19,13 @@ class PortfolioWebsite {
   init() {
     new NavigationManager();
     new AnimationManager();
+    new ThemeManager();
+    new utils();
     this.initFloatingBall();
     this.initKeyboardShortcuts();
     this.initContactForm();
     this.initLazyLoading();
-    
+
     console.log('🚀 Portfolio website initialized successfully!');
   }
 
@@ -48,7 +51,7 @@ class PortfolioWebsite {
       ballContent.addEventListener('click', (e) => {
         e.stopPropagation();
         window.open('https://agent.minimax.io/agent', '_blank');
-        
+
         // Click animation
         ball.style.transform = 'scale(0.95)';
         setTimeout(() => {
@@ -160,24 +163,24 @@ class PortfolioWebsite {
 
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
+
       // Get form data
       const formData = new FormData(contactForm);
       const data = Object.fromEntries(formData);
-      
+
       // Basic validation
       if (!data.name || !data.email || !data.message) {
         this.showNotification('Please fill in all required fields.', 'error');
         return;
       }
-      
+
       // Email validation
       const emailRegex = /^[\S]+@[\S]+\.[\S]+$/;
       if (!emailRegex.test(data.email)) {
         this.showNotification('Please enter a valid email address.', 'error');
         return;
       }
-      
+
       // Show success message (in real implementation, this would send the email)
       this.showNotification('Thank you for your message! I\'ll get back to you soon.', 'success');
       contactForm.reset();
@@ -192,23 +195,23 @@ class PortfolioWebsite {
   showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm transition-all duration-300 transform translate-x-full`;
-    
+
     const colors = {
       success: 'bg-green-500 text-white',
       error: 'bg-red-500 text-white',
       info: 'bg-blue-500 text-white'
     };
-    
+
     notification.className += ` ${colors[type]}`;
     notification.textContent = message;
-    
+
     document.body.appendChild(notification);
-    
+
     // Animate in
     setTimeout(() => {
       notification.classList.remove('translate-x-full');
     }, 100);
-    
+
     // Animate out and remove
     setTimeout(() => {
       notification.classList.add('translate-x-full');
@@ -223,7 +226,7 @@ class PortfolioWebsite {
    */
   initLazyLoading() {
     const images = document.querySelectorAll('img[data-src]');
-    
+
     const imageObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {

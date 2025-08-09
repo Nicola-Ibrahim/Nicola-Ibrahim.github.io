@@ -18,7 +18,7 @@ export class ThemeManager {
     this.createThemeToggle();
     this.applyTheme(this.currentTheme, false);
     this.bindEvents();
-    
+
     // Listen for system theme changes
     if (window.matchMedia) {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -35,7 +35,7 @@ export class ThemeManager {
    */
   loadThemeFromStorage() {
     const savedTheme = localStorage.getItem('theme-preference');
-    
+
     if (savedTheme) {
       this.currentTheme = savedTheme;
     } else {
@@ -52,10 +52,6 @@ export class ThemeManager {
    * Create theme toggle button and insert into navigation
    */
   createThemeToggle() {
-    // Create theme toggle container
-    const themeContainer = document.createElement('div');
-    themeContainer.className = 'flex items-center ml-4';
-    
     // Create toggle button
     const toggle = document.createElement('button');
     toggle.setAttribute('aria-label', 'Toggle dark/light theme');
@@ -63,70 +59,54 @@ export class ThemeManager {
     toggle.setAttribute('aria-checked', this.currentTheme === 'dark');
     toggle.className = 'theme-toggle focus:outline-none';
     toggle.title = 'Toggle theme';
-    
+
     // Create toggle indicator
     const indicator = document.createElement('div');
     indicator.className = 'theme-toggle-indicator';
-    
+
     // Add icons
     const sunIcon = document.createElement('i');
     sunIcon.className = 'fas fa-sun';
     sunIcon.style.fontSize = '0.5rem';
-    
+
     const moonIcon = document.createElement('i');
     moonIcon.className = 'fas fa-moon';
     moonIcon.style.fontSize = '0.5rem';
-    
+
     // Set initial icon
     if (this.currentTheme === 'dark') {
       indicator.appendChild(moonIcon);
     } else {
       indicator.appendChild(sunIcon);
     }
-    
+
     toggle.appendChild(indicator);
-    themeContainer.appendChild(toggle);
-    
+
     // Insert into desktop navigation
     const desktopNav = document.querySelector('.hidden.md\\:flex');
     if (desktopNav) {
+      const themeContainer = document.createElement('div');
+      themeContainer.className = 'flex items-center ml-4';
+      themeContainer.appendChild(toggle);
       desktopNav.appendChild(themeContainer);
     }
-    
-    // Create mobile theme toggle
-    const mobileThemeContainer = document.createElement('div');
-    mobileThemeContainer.className = 'px-3 py-2';
-    
-    const mobileToggle = toggle.cloneNode(true);
-    mobileToggle.querySelector('.theme-toggle-indicator').innerHTML = 
-      this.currentTheme === 'dark' ? '<i class="fas fa-moon" style="font-size: 0.5rem;"></i>' 
-                                   : '<i class="fas fa-sun" style="font-size: 0.5rem;"></i>';
-    
-    mobileThemeContainer.appendChild(mobileToggle);
-    
-    // Insert into mobile menu
-    const mobileMenu = document.querySelector('#mobile-menu .space-y-1');
-    if (mobileMenu) {
-      mobileMenu.appendChild(mobileThemeContainer);
-    }
-    
-    // Store references
+
+    // Since we're creating only one button, we need to handle the mobile placement
+    // You'll need to adjust your HTML/CSS to show this button in the mobile menu.
+    // For now, we'll store the reference to this single button.
     this.themeToggle = toggle;
-    this.mobileThemeToggle = mobileToggle;
+    this.mobileThemeToggle = null; // We are no longer using a separate mobile toggle.
   }
 
   /**
    * Bind event listeners
    */
   bindEvents() {
+    // Only bind to the single theme toggle button.
     if (this.themeToggle) {
       this.themeToggle.addEventListener('click', () => this.toggleTheme());
     }
-    
-    if (this.mobileThemeToggle) {
-      this.mobileThemeToggle.addEventListener('click', () => this.toggleTheme());
-    }
-    
+
     // Keyboard support
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.key === 't') {
@@ -158,10 +138,10 @@ export class ThemeManager {
     this.applyTheme(theme, true);
     this.saveThemeToStorage(theme);
     this.updateToggleState();
-    
+
     // Dispatch custom event
-    window.dispatchEvent(new CustomEvent('themeChange', { 
-      detail: { theme } 
+    window.dispatchEvent(new CustomEvent('themeChange', {
+      detail: { theme }
     }));
   }
 
@@ -172,23 +152,23 @@ export class ThemeManager {
    */
   applyTheme(theme, animate = true) {
     const html = document.documentElement;
-    
+
     if (animate) {
       // Add transition class
       html.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-      
+
       // Remove transition after animation
       setTimeout(() => {
         html.style.transition = '';
       }, 300);
     }
-    
+
     // Set theme attribute
     html.setAttribute('data-theme', theme);
-    
+
     // Update meta theme-color for mobile browsers
     this.updateMetaThemeColor(theme);
-    
+
     // Announce theme change to screen readers
     this.announceThemeChange(theme);
   }
@@ -199,18 +179,18 @@ export class ThemeManager {
    */
   updateMetaThemeColor(theme) {
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');
-    
+
     if (!metaThemeColor) {
       metaThemeColor = document.createElement('meta');
       metaThemeColor.name = 'theme-color';
       document.head.appendChild(metaThemeColor);
     }
-    
+
     const colors = {
       light: '#ffffff',
       dark: '#1e293b'
     };
-    
+
     metaThemeColor.content = colors[theme];
   }
 
@@ -218,21 +198,21 @@ export class ThemeManager {
    * Update toggle button state
    */
   updateToggleState() {
-    const toggles = [this.themeToggle, this.mobileThemeToggle].filter(Boolean);
-    
-    toggles.forEach(toggle => {
+    const toggle = this.themeToggle;
+
+    if (toggle) {
       const indicator = toggle.querySelector('.theme-toggle-indicator');
       const isDark = this.currentTheme === 'dark';
-      
+
       // Update ARIA attributes
       toggle.setAttribute('aria-checked', isDark);
       toggle.title = `Switch to ${isDark ? 'light' : 'dark'} theme`;
-      
+
       // Update icon
-      indicator.innerHTML = isDark 
+      indicator.innerHTML = isDark
         ? '<i class="fas fa-moon" style="font-size: 0.5rem;"></i>'
         : '<i class="fas fa-sun" style="font-size: 0.5rem;"></i>';
-    });
+    }
   }
 
   /**
@@ -257,9 +237,9 @@ export class ThemeManager {
     announcement.setAttribute('aria-atomic', 'true');
     announcement.className = 'sr-only';
     announcement.textContent = `Switched to ${theme} theme`;
-    
+
     document.body.appendChild(announcement);
-    
+
     // Remove announcement after screen readers have read it
     setTimeout(() => {
       document.body.removeChild(announcement);
@@ -286,10 +266,10 @@ export class ThemeManager {
 // Initialize theme manager when DOM is ready
 function initTheme() {
   const themeManager = new ThemeManager();
-  
+
   // Make theme manager globally available
   window.themeManager = themeManager;
-  
+
   // Add keyboard shortcut info to console
   console.log('💡 Theme keyboard shortcut: Ctrl+T');
 }
@@ -300,4 +280,3 @@ if (document.readyState === 'loading') {
 } else {
   initTheme();
 }
-

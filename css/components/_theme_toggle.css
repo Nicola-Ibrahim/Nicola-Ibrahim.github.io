@@ -42,14 +42,13 @@
     width: 2.5rem;
     height: 1.25rem;
   }
-  
+
   .theme-toggle-indicator {
     width: 0.875rem;
     height: 0.875rem;
   }
-  
+
   [data-theme="dark"] .theme-toggle-indicator {
     transform: translateX(1.25rem);
   }
 }
-
