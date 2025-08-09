@@ -20,7 +20,7 @@
                     colors: {
                         'primary': '#1e40af',
                         'secondary': '#3b82f6',
-                        'accent': '#60a5fa',
+                        'accent': '#06b6d4',
                         'dark': '#1f2937',
                         'light': '#f8fafc'
                     },
@@ -136,14 +136,16 @@
                     </div>
                     <div class="flex justify-center space-x-6 mt-8 fade-in-up">
                         <a href="https://linkedin.com/in/nicolaibrahim" target="_blank" rel="noopener noreferrer"
-                            class="social-link" aria-label="LinkedIn Profile">
+                            class="text-white hover:text-blue-100 transition duration-300"
+                            aria-label="LinkedIn Profile">
                             <i class="fab fa-linkedin text-3xl"></i>
                         </a>
                         <a href="https://github.com/nicolaibrahim" target="_blank" rel="noopener noreferrer"
-                            class="social-link" aria-label="GitHub Profile">
+                            class="text-white hover:text-blue-100 transition duration-300" aria-label="GitHub Profile">
                             <i class="fab fa-github text-3xl"></i>
                         </a>
-                        <a href="mailto:nicola.ibrahim@example.com" class="social-link" aria-label="Email Contact">
+                        <a href="/cdn-cgi/l/email-protection#4a24232925262b2328382b222327737c730a2d272b232664292527"
+                            class="text-white hover:text-blue-100 transition duration-300" aria-label="Email Contact">
                             <i class="fas fa-envelope text-3xl"></i>
                         </a>
                     </div>
@@ -319,72 +321,8 @@
             </div>
         </section>
 
-        <!-- Skills Section (Now before Education) -->
-        <section id="skills" class="section-padding section-bg-secondary">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="section-title text-4xl md:text-5xl">Technical Skills</h2>
-                    <div class="section-divider"></div>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Programming Languages -->
-                    <div class="skill-category">
-                        <div class="text-center mb-6">
-                            <div
-                                class="gradient-bg p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                                <i class="fas fa-code text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-primary">Programming Languages</h3>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="skills-tag">Python</div>
-                            <div class="skills-tag">JavaScript</div>
-                            <div class="skills-tag">HTML</div>
-                            <div class="skills-tag">CSS</div>
-                        </div>
-                    </div>
-
-                    <!-- Frameworks & Libraries -->
-                    <div class="skill-category">
-                        <div class="text-center mb-6">
-                            <div
-                                class="gradient-bg p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                                <i class="fas fa-layer-group text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-primary">Frameworks & Libraries</h3>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="skills-tag">Django</div>
-                            <div class="skills-tag">FastAPI</div>
-                            <div class="skills-tag">RESTful APIs</div>
-                            <div class="skills-tag">AlpineJS</div>
-                            <div class="skills-tag">Tailwind CSS</div>
-                        </div>
-                    </div>
-
-                    <!-- Software Architecture -->
-                    <div class="skill-category">
-                        <div class="text-center mb-6">
-                            <div
-                                class="gradient-bg p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                                <i class="fas fa-sitemap text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-primary">Software Architecture</h3>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="skills-tag">Domain-Driven Design</div>
-                            <div class="skills-tag">Clean Architecture</div>
-                            <div class="skills-tag">Design Patterns</div>
-                            <div class="skills-tag">SOLID Principles</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section (Now after Skills) -->
-        <section id="education" class="section-padding section-bg-tertiary">
+        <!-- Education Section -->
+        <section id="education" class="section-padding section-bg-secondary">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="section-title text-4xl md:text-5xl">Education</h2>
@@ -423,6 +361,70 @@
             </div>
         </section>
 
+        <!-- Skills Section -->
+        <section id="skills" class="section-padding section-bg-tertiary">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="section-title text-4xl md:text-5xl">Technical Skills</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Programming Languages -->
+                    <div class="card-bg rounded-xl shadow-lg p-8 card-hover">
+                        <div class="text-center mb-6">
+                            <div
+                                class="gradient-bg p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-code text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary">Programming Languages</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="skills-tag">Python</div>
+                            <div class="skills-tag">JavaScript</div>
+                            <div class="skills-tag">HTML</div>
+                            <div class="skills-tag">CSS</div>
+                        </div>
+                    </div>
+
+                    <!-- Frameworks & Libraries -->
+                    <div class="card-bg rounded-xl shadow-lg p-8 card-hover">
+                        <div class="text-center mb-6">
+                            <div
+                                class="gradient-bg p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-layer-group text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary">Frameworks & Libraries</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="skills-tag">Django</div>
+                            <div class="skills-tag">FastAPI</div>
+                            <div class="skills-tag">RESTful APIs</div>
+                            <div class="skills-tag">AlpineJS</div>
+                            <div class="skills-tag">Tailwind CSS</div>
+                        </div>
+                    </div>
+
+                    <!-- Software Architecture -->
+                    <div class="card-bg rounded-xl shadow-lg p-8 card-hover">
+                        <div class="text-center mb-6">
+                            <div
+                                class="gradient-bg p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-sitemap text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary">Software Architecture</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="skills-tag">Domain-Driven Design</div>
+                            <div class="skills-tag">Clean Architecture</div>
+                            <div class="skills-tag">Design Patterns</div>
+                            <div class="skills-tag">SOLID Principles</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Projects Section -->
         <section id="projects" class="section-padding section-bg-secondary">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -438,52 +440,52 @@
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Project Placeholder Cards -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-primary mb-3">Web Applications</h3>
-                            <p class="text-secondary mb-4">
+                    <div class="gradient-bg rounded-xl shadow-lg overflow-hidden card-hover">
+                        <div class="p-8 text-white">
+                            <div
+                                class="bg-white bg-opacity-20 p-4 rounded-full w-16 h-16 mb-6 flex items-center justify-center">
+                                <i class="fas fa-globe text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Web Applications</h3>
+                            <p class="text-blue-100 mb-6">
                                 Full-stack web applications built with Django, featuring responsive design and RESTful
                                 APIs.
                             </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-accent font-semibold">Coming Soon</span>
-                                <i class="fas fa-arrow-right text-primary"></i>
+                            <div class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-center">
+                                <span class="font-semibold">Coming Soon</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-primary mb-3">Backend Systems</h3>
-                            <p class="text-secondary mb-4">
+                    <div class="gradient-bg rounded-xl shadow-lg overflow-hidden card-hover">
+                        <div class="p-8 text-white">
+                            <div
+                                class="bg-white bg-opacity-20 p-4 rounded-full w-16 h-16 mb-6 flex items-center justify-center">
+                                <i class="fas fa-server text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Backend Systems</h3>
+                            <p class="text-blue-100 mb-6">
                                 Scalable backend solutions with optimized database queries and efficient API design.
                             </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-accent font-semibold">Coming Soon</span>
-                                <i class="fas fa-arrow-right text-primary"></i>
+                            <div class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-center">
+                                <span class="font-semibold">Coming Soon</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-primary mb-3">DevOps & CI/CD</h3>
-                            <p class="text-secondary mb-4">
+                    <div class="gradient-bg rounded-xl shadow-lg overflow-hidden card-hover">
+                        <div class="p-8 text-white">
+                            <div
+                                class="bg-white bg-opacity-20 p-4 rounded-full w-16 h-16 mb-6 flex items-center justify-center">
+                                <i class="fas fa-cogs text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">DevOps & CI/CD</h3>
+                            <p class="text-blue-100 mb-6">
                                 Automated deployment pipelines and infrastructure management using modern DevOps
                                 practices.
                             </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-accent font-semibold">Coming Soon</span>
-                                <i class="fas fa-arrow-right text-primary"></i>
+                            <div class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-center">
+                                <span class="font-semibold">Coming Soon</span>
                             </div>
                         </div>
                     </div>
@@ -520,7 +522,26 @@
                                 </div>
                                 <div>
                                     <h3 class="text-xl font-semibold mb-1">Email</h3>
-                                    <p class="text-blue-100">nicola.ibrahim@example.com</p>
+                                    <a href="/cdn-cgi/l/email-protection#b6d8dfd5d9dad7dfd4c4d7dedfdb8f808ff6d1dbd7dfda98d5d9db"
+                                        class="text-blue-100 hover:text-white transition duration-300">
+                                        <span class="__cf_email__"
+                                            data-cfemail="5a34333935363b3338283b323337636c631a3d373b333674393537">[email&#160;protected]</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-white bg-opacity-20 p-4 rounded-full">
+                                    <i class="fas fa-phone text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-1">Phone</h3>
+                                    <a href="tel:+4917631782527"
+                                        class="text-blue-100 hover:text-white transition duration-300">
+                                        +49 176 31782527
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -536,38 +557,24 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="contact-item">
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-white bg-opacity-20 p-4 rounded-full">
-                                    <i class="fab fa-linkedin text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold mb-1">LinkedIn</h3>
-                                    <p class="text-blue-100">linkedin.com/in/nicolaibrahim</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
-                    <div class="text-center">
-                        <div
-                            class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 border border-white border-opacity-20">
-                            <h3 class="text-2xl font-bold mb-6">Ready to Start a Project?</h3>
-                            <p class="text-blue-100 mb-8">
-                                Whether you need a robust backend system, a modern web application, or technical
-                                consultation,
-                                I'm here to help bring your ideas to life.
-                            </p>
+                    <div class="space-y-6">
+                        <div class="bg-white bg-opacity-10 rounded-xl p-8 backdrop-filter backdrop-blur-lg">
+                            <h3 class="text-2xl font-bold mb-6 text-center">Get In Touch</h3>
                             <div class="space-y-4">
-                                <a href="mailto:nicola.ibrahim@example.com"
-                                    class="btn-primary bg-white text-primary hover:bg-gray-100 w-full justify-center">
-                                    <i class="fas fa-envelope"></i> Send Email
+                                <a href="/cdn-cgi/l/email-protection#d5bbbcb6bab9b4bcb7a7b4bdbcb8ece3ec95b2b8b4bcb9fbb6bab8"
+                                    class="block w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-center py-3 rounded-lg transition duration-300">
+                                    <i class="fas fa-envelope mr-2"></i> Send Email
                                 </a>
                                 <a href="https://linkedin.com/in/nicolaibrahim" target="_blank"
                                     rel="noopener noreferrer"
-                                    class="btn-secondary border-white text-white hover:bg-white hover:text-primary w-full justify-center">
-                                    <i class="fab fa-linkedin"></i> Connect on LinkedIn
+                                    class="block w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-center py-3 rounded-lg transition duration-300">
+                                    <i class="fab fa-linkedin mr-2"></i> Connect on LinkedIn
+                                </a>
+                                <a href="https://github.com/nicolaibrahim" target="_blank" rel="noopener noreferrer"
+                                    class="block w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-center py-3 rounded-lg transition duration-300">
+                                    <i class="fab fa-github mr-2"></i> View GitHub
                                 </a>
                             </div>
                         </div>
@@ -578,23 +585,25 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8">
+    <footer class="section-bg-secondary py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <p class="text-gray-400">
-                    © 2024 Nicola Ibrahim. Built with passion and modern web technologies.
+                <p class="text-secondary">
+                    © 2024 Nicola Ibrahim. Built with
+                    <span class="text-red-500">❤️</span>
+                    using modern web technologies.
                 </p>
-                <div class="flex justify-center space-x-6 mt-4">
+                <div class="mt-4 flex justify-center space-x-6">
                     <a href="https://linkedin.com/in/nicolaibrahim" target="_blank" rel="noopener noreferrer"
-                        class="text-gray-400 hover:text-white transition duration-300">
+                        class="text-secondary hover:text-accent transition duration-300" aria-label="LinkedIn">
                         <i class="fab fa-linkedin text-xl"></i>
                     </a>
                     <a href="https://github.com/nicolaibrahim" target="_blank" rel="noopener noreferrer"
-                        class="text-gray-400 hover:text-white transition duration-300">
+                        class="text-secondary hover:text-accent transition duration-300" aria-label="GitHub">
                         <i class="fab fa-github text-xl"></i>
                     </a>
-                    <a href="mailto:nicola.ibrahim@example.com"
-                        class="text-gray-400 hover:text-white transition duration-300">
+                    <a href="/cdn-cgi/l/email-protection#650b0c060a09040c0717040d0c085c535c250208040c094b060a08"
+                        class="text-secondary hover:text-accent transition duration-300" aria-label="Email">
                         <i class="fas fa-envelope text-xl"></i>
                     </a>
                 </div>
@@ -602,7 +611,20 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Floating Ball (MiniMax Branding) -->
+    <div id="minimax-floating-ball" class="floating-ball fixed bottom-5 right-5 p-3 rounded-xl z-50 shadow-xl">
+        <div class="minimax-ball-content flex items-center gap-2 cursor-pointer">
+            <div class="minimax-logo-wave w-6 h-5 bg-white opacity-90"></div>
+            <span class="minimax-ball-text text-sm font-medium text-white">Created by MiniMax Agent</span>
+        </div>
+        <div class="minimax-close-icon ml-2 text-white opacity-70 hover:opacity-100 cursor-pointer">×</div>
+    </div>
+
+    <!-- Screen Reader Only Content -->
+    <div class="sr-only" aria-live="polite" id="announcements"></div>
+
+    <!-- JavaScript Files -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/script.js"></script>
 </body>
