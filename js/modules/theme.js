@@ -15,7 +15,8 @@ export class ThemeManager {
    */
   init() {
     this.loadThemeFromStorage();
-    this.createThemeToggle();
+    // No longer creating the button, just finding it.
+    this.findThemeToggle();
     this.applyTheme(this.currentTheme, false);
     this.bindEvents();
 
@@ -29,6 +30,18 @@ export class ThemeManager {
       });
     }
   }
+
+  /**
+   * Find theme toggle buttons in the DOM
+   */
+  findThemeToggle() {
+    // Find the desktop theme toggle button
+    this.themeToggle = document.querySelector('.desktop-theme-toggle');
+
+    // Find the mobile theme toggle button (if you have one)
+    this.mobileThemeToggle = document.querySelector('.mobile-theme-toggle');
+  }
+
 
   /**
    * Load theme preference from localStorage or detect system preference
@@ -49,62 +62,17 @@ export class ThemeManager {
   }
 
   /**
-   * Create theme toggle button and insert into navigation
-   */
-  createThemeToggle() {
-    // Create toggle button
-    const toggle = document.createElement('button');
-    toggle.setAttribute('aria-label', 'Toggle dark/light theme');
-    toggle.setAttribute('role', 'switch');
-    toggle.setAttribute('aria-checked', this.currentTheme === 'dark');
-    toggle.className = 'theme-toggle focus:outline-none';
-    toggle.title = 'Toggle theme';
-
-    // Create toggle indicator
-    const indicator = document.createElement('div');
-    indicator.className = 'theme-toggle-indicator';
-
-    // Add icons
-    const sunIcon = document.createElement('i');
-    sunIcon.className = 'fas fa-sun';
-    sunIcon.style.fontSize = '0.5rem';
-
-    const moonIcon = document.createElement('i');
-    moonIcon.className = 'fas fa-moon';
-    moonIcon.style.fontSize = '0.5rem';
-
-    // Set initial icon
-    if (this.currentTheme === 'dark') {
-      indicator.appendChild(moonIcon);
-    } else {
-      indicator.appendChild(sunIcon);
-    }
-
-    toggle.appendChild(indicator);
-
-    // Insert into desktop navigation
-    const desktopNav = document.querySelector('.hidden.md\\:flex');
-    if (desktopNav) {
-      const themeContainer = document.createElement('div');
-      themeContainer.className = 'flex items-center ml-4';
-      themeContainer.appendChild(toggle);
-      desktopNav.appendChild(themeContainer);
-    }
-
-    // Since we're creating only one button, we need to handle the mobile placement
-    // You'll need to adjust your HTML/CSS to show this button in the mobile menu.
-    // For now, we'll store the reference to this single button.
-    this.themeToggle = toggle;
-    this.mobileThemeToggle = null; // We are no longer using a separate mobile toggle.
-  }
-
-  /**
    * Bind event listeners
    */
   bindEvents() {
-    // Only bind to the single theme toggle button.
+    // Listen for clicks on the desktop button
     if (this.themeToggle) {
       this.themeToggle.addEventListener('click', () => this.toggleTheme());
+    }
+
+    // Listen for clicks on the mobile button
+    if (this.mobileThemeToggle) {
+      this.mobileThemeToggle.addEventListener('click', () => this.toggleTheme());
     }
 
     // Keyboard support
@@ -198,9 +166,9 @@ export class ThemeManager {
    * Update toggle button state
    */
   updateToggleState() {
-    const toggle = this.themeToggle;
+    const toggles = [this.themeToggle, this.mobileThemeToggle].filter(Boolean);
 
-    if (toggle) {
+    toggles.forEach(toggle => {
       const indicator = toggle.querySelector('.theme-toggle-indicator');
       const isDark = this.currentTheme === 'dark';
 
@@ -212,7 +180,7 @@ export class ThemeManager {
       indicator.innerHTML = isDark
         ? '<i class="fas fa-moon" style="font-size: 0.5rem;"></i>'
         : '<i class="fas fa-sun" style="font-size: 0.5rem;"></i>';
-    }
+    });
   }
 
   /**

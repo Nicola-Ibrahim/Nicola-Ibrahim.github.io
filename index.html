@@ -81,6 +81,30 @@
                     <a href="#projects" class="nav-link" data-section="projects">Projects</a>
                     <a href="#contact" class="nav-link" data-section="contact">Contact</a>
                     <!-- Theme toggle will be inserted here by theme.js -->
+                    <div class="hidden md:flex space-x-8 items-center">
+                        <div class="flex items-center ml-4">
+                            <button aria-label="Toggle dark/light theme" role="switch" aria-checked="false"
+                                class="desktop-theme-toggle theme-toggle focus:outline-none" title="Toggle theme">
+                                <div class="theme-toggle-indicator">
+                                    <i class="fas fa-sun" style="font-size: 0.5rem;"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="mobile-menu" class="hidden md:hidden mobile-menu" role="menu"
+                        aria-labelledby="mobile-menu-button">
+                        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                            <div class="px-3 py-2 flex items-center">
+                                <button aria-label="Toggle dark/light theme" role="switch" aria-checked="false"
+                                    class="mobile-theme-toggle theme-toggle focus:outline-none" title="Toggle theme">
+                                    <div class="theme-toggle-indicator">
+                                        <i class="fas fa-sun" style="font-size: 0.5rem;"></i>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Mobile Menu Button -->

@@ -20,7 +20,6 @@ class PortfolioWebsite {
     new NavigationManager();
     new AnimationManager();
     new ThemeManager();
-    new utils();
     this.initFloatingBall();
     this.initKeyboardShortcuts();
     this.initContactForm();
