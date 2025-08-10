@@ -51,9 +51,16 @@
                 document.documentElement.setAttribute('data-theme', theme);
             })();
     </script>
+
+
 </head>
 
 <body class="font-sans">
+
+    <a href="#main"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded-md z-50">
+        Skip to main content
+    </a>
     <!-- Skip to main content (accessibility) -->
     <a href="#main"
         class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded-md z-50">
@@ -130,43 +137,50 @@
         </div>
     </nav>
 
+
+
     <!-- Main Content -->
-    <main id="main">
+    <main id="main" class="relative z-10">
+
         <!-- Hero Section -->
-        <section id="home" class="gradient-bg text-white min-h-screen flex items-center pt-16">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section id="home" class="relative min-h-screen flex items-center pt-16">
+
+            <!-- Black Hole Canvas Background -->
+            <canvas id="blackhole-canvas" class="absolute top-0 left-0 w-full h-full -z-10"></canvas>
+
+            <!-- Overlay for readability -->
+            <div class="absolute inset-0 bg-black/50"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
                 <div class="space-y-6">
                     <h1 class="text-5xl md:text-7xl font-bold mb-4 slide-in-left">
-                        <img src="images/black-hole.png" alt="Black Hole" class="mx-auto w-42 h-42 mr-4"
-                            style="filter: invert(100%);" />
-
-                        Hi, I'm <span class="text-blue-100">Nicola Ibrahim</span>
+                        Hi, I'm <span class="text-blue-300">Nicola Ibrahim</span>
                     </h1>
                     <p class="text-2xl md:text-3xl font-light typing-animation inline-block slide-in-right">
                         Software Engineer
                     </p>
                     <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto fade-in-up">
-                        Based in Paderborn, Germany • Passionate about building scalable backend solutions and modern
-                        web applications
+                        Based in Germany • Passionate about building scalable backend solutions and modern web
+                        applications
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8 fade-in-up">
                         <a href="#contact" class="btn-primary bg-white text-primary hover:bg-gray-100">
                             <i class="fas fa-envelope"></i> Get In Touch
                         </a>
-                        <a href="#experience" class="btn-secondary border-white text-white  hover:text-primary">
+                        <a href="#experience" class="btn-secondary border-white text-white hover:text-primary">
                             <i class="fas fa-user"></i> View My Work
                         </a>
                     </div>
                     <div class="flex justify-center space-x-6 mt-8 fade-in-up">
-                        <a href="https://linkedin.com/in/nicolaibrahim" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.linkedin.com/in/nicola-ibrahim/" target="_blank" rel="noopener noreferrer"
                             class="social-link" aria-label="LinkedIn Profile">
                             <i class="fab fa-linkedin text-3xl"></i>
                         </a>
-                        <a href="https://github.com/nicolaibrahim" target="_blank" rel="noopener noreferrer"
+                        <a href="https://github.com/Nicola-Ibrahim" target="_blank" rel="noopener noreferrer"
                             class="social-link" aria-label="GitHub Profile">
                             <i class="fab fa-github text-3xl"></i>
                         </a>
-                        <a href="mailto:nicola.ibrahim@example.com" class="social-link" aria-label="Email Contact">
+                        <a href="mailto:nicolaibrahim969@gmail.com" class="social-link" aria-label="Email Contact">
                             <i class="fas fa-envelope text-3xl"></i>
                         </a>
                     </div>
@@ -628,6 +642,65 @@
     <!-- Scripts -->
     <script type="module" src="js/theme.js"></script>
     <script type="module" src="js/script.js"></script>
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.165/build/three.module.js';
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('blackhole-canvas'), antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Black hole sphere
+        const blackHoleGeometry = new THREE.SphereGeometry(1, 64, 64);
+        const blackHoleMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+        const blackHole = new THREE.Mesh(blackHoleGeometry, blackHoleMaterial);
+        scene.add(blackHole);
+
+        // Accretion disk (flat torus with glow)
+        const diskGeometry = new THREE.RingGeometry(1.2, 2.0, 64);
+        const diskMaterial = new THREE.MeshBasicMaterial({
+            color: 0x3b82f6,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.7
+        });
+        const accretionDisk = new THREE.Mesh(diskGeometry, diskMaterial);
+        accretionDisk.rotation.x = Math.PI / 2;
+        scene.add(accretionDisk);
+
+        // Starfield background
+        const starGeometry = new THREE.BufferGeometry();
+        const starCount = 2000;
+        const starPositions = [];
+        for (let i = 0; i < starCount; i++) {
+            starPositions.push((Math.random() - 0.5) * 100);
+            starPositions.push((Math.random() - 0.5) * 100);
+            starPositions.push((Math.random() - 0.5) * 100);
+        }
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));
+        const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.1 });
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            accretionDisk.rotation.z += 0.002; // Disk rotation
+            stars.rotation.y += 0.0005; // Subtle starfield movement
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 
 </html>
