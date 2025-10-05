@@ -1,0 +1,236 @@
+/*
+ * Custom cosmic theme overrides and additional styling
+ * This file overrides the default CSS variables provided by Tailwind's generated output
+ * and introduces bespoke components such as a timeline for the experience section
+ * and polished project cards. It helps to modernise and reorganise the portfolio
+ * with a more vibrant, space‑inspired palette.
+ */
+
+/* Cosmic theme variables for light mode */
+:root {
+  /* Core palette: periwinkle and violet hues */
+  --primary-blue: #6c63ff;
+  --secondary-blue: #8e8ffa;
+  --accent-blue: #b09af9;
+
+  /* Light backgrounds and text colours */
+  --bg-primary: #f0f4f8;
+  --bg-secondary: #e8eaf6;
+  --bg-tertiary: #e2e3f1;
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a4a70;
+  --border-color: #d3d5ee;
+  --shadow: rgba(108, 99, 255, 0.1);
+  --nav-bg: rgba(240, 244, 248, 0.9);
+
+  /* Gradients with smooth transitions */
+  --gradient-primary: linear-gradient(135deg, #6c63ff 0%, #8e8ffa 50%, #b09af9 100%);
+  --gradient-secondary: linear-gradient(45deg, #8e8ffa, #b09af9);
+  --card-gradient: linear-gradient(135deg, #6c63ff 0%, #8e8ffa 50%, #b09af9 100%);
+}
+
+/* Cosmic theme variables for dark mode */
+[data-theme="dark"] {
+  --bg-primary: #0a192f;
+  --bg-secondary: #112240;
+  --bg-tertiary: #233554;
+  --text-primary: #e6e6ff;
+  --text-secondary: #b3b3d1;
+  --border-color: #2c3a61;
+  --shadow: rgba(108, 99, 255, 0.2);
+  --nav-bg: rgba(10, 25, 47, 0.9);
+
+  --gradient-primary: linear-gradient(135deg, #2f3a8f 0%, #514ab3 50%, #7c6dff 100%);
+  --gradient-secondary: linear-gradient(45deg, #514ab3, #7c6dff);
+  --card-gradient: linear-gradient(135deg, #2f3a8f 0%, #514ab3 50%, #7c6dff 100%);
+}
+
+/* Timeline component for experience section */
+.timeline {
+  position: relative;
+  margin-left: 1rem;
+  padding-left: 1rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--accent-blue);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.timeline-item:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  left: -1.2rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  box-shadow: 0 0 0 4px var(--bg-primary);
+}
+
+/* Alternate section backgrounds for subtle variation */
+.section-bg-secondary {
+  background-image: linear-gradient(180deg, var(--bg-secondary), var(--bg-tertiary));
+}
+
+.section-bg-tertiary {
+  background-image: linear-gradient(180deg, var(--bg-tertiary), var(--bg-secondary));
+}
+
+.gradient-bg {
+  background-image: var(--gradient-primary);
+}
+
+/* Project card styling for a refined appearance */
+.project-card {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -10px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px -15px var(--shadow);
+}
+
+.project-image {
+  width: 100%;
+  height: 200px;
+  background-image: url('../images/cosmic-blackhole.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon inside project image */
+.project-image i {
+  font-size: 2.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Highlight cards used in the about section */
+.highlight-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -8px var(--shadow);
+}
+
+.highlight-card i {
+  color: var(--accent-blue);
+  margin-bottom: 0.75rem;
+  font-size: 2rem;
+}
+
+/*
+ * Hero icon overlay styling
+ * The black hole icon in the hero is semi‑transparent and monochrome to blend
+ * subtly with the cosmic animation. It does not capture pointer events.
+ */
+.hero-icon img {
+  opacity: 0.15;
+  filter: grayscale(100%);
+  width: 100%;
+  height: 100%;
+}
+
+/* Define a fixed size for the hero icon container. Without an explicit width/height the
+ * container would expand to fill its parent, causing the icon to grow excessively.
+ */
+.hero-icon {
+  /* Increase the hero icon size for the split layout. */
+  width: 20rem;
+  height: 20rem;
+}
+
+/*
+ * Tools section styling
+ * Each tool item is presented as a card with an icon and a label. The
+ * hover effect lifts the card slightly and adds a soft shadow.
+ */
+.tool-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* Constrain the size of tool cards so they form a neat grid. */
+  width: 8rem;
+  height: 8rem;
+}
+
+.tool-item i {
+  font-size: 2rem;
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+}
+
+.tool-item span {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.tool-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -8px var(--shadow);
+}
+
+/* Container for all tool items
+ * Using a flex wrap layout ensures the cards wrap gracefully on smaller screens. */
+.tools-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+/*
+ * Typography overrides for the hero section to mimic the example portfolio style
+ * Poppins is used for headings and subtitles, while body text continues to use Inter.
+ */
+.hero-title {
+  font-family: 'Poppins', sans-serif;
+}
+
+.hero-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+.section-title {
+  font-family: 'Poppins', sans-serif;
+}
+

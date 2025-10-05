@@ -17,7 +17,8 @@ scene.add(blackHole);
 // Accretion disk (flat torus with glow)
 const diskGeometry = new THREE.RingGeometry(1.2, 2.0, 64);
 const diskMaterial = new THREE.MeshBasicMaterial({
-    color: 0x3b82f6,
+    // Cosmic accent colour matching the custom palette (#6c63ff)
+    color: 0x6c63ff,
     side: THREE.DoubleSide,
     transparent: true,
     opacity: 0.7
@@ -36,7 +37,11 @@ for (let i = 0; i < starCount; i++) {
     starPositions.push((Math.random() - 0.5) * 100);
 }
 starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));
-const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.1 });
+const starMaterial = new THREE.PointsMaterial({
+    // Soften starfield colour to a gentle violet (#8e8ffa)
+    color: 0x8e8ffa,
+    size: 0.1
+});
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 

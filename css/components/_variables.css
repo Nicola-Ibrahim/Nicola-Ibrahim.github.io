@@ -1,42 +1,42 @@
 /* CSS Custom Properties for 3-Color Blue Theme */
 :root {
-  /* Primary Blue Palette - Only 3 colors */
-  --primary-blue: #1e40af;
-  /* Deep blue - primary actions, headings */
-  --secondary-blue: #3b82f6;
-  /* Medium blue - secondary elements, hover states */
-  --accent-blue: #60a5fa;
-  /* Light blue - accents, highlights */
+  /* Cosmic Palette – deep indigo and violet tones with a soft accent */
+  --primary-blue: #5d5fef;
+  /* Indigo – primary actions & headings */
+  --secondary-blue: #8369f6;
+  /* Soft violet – secondary elements & hover states */
+  --accent-blue: #a78bfa;
+  /* Pale lavender – highlights & accents */
 
-  /* Light Theme Colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-tertiary: #f1f5f9;
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --border-color: #e5e7eb;
-  --shadow: rgba(30, 64, 175, 0.08);
-  --nav-bg: rgba(255, 255, 255, 0.95);
+  /* Light Theme Colors – gentle lavenders for a subtle cosmic feel */
+  --bg-primary: #f5f3ff;
+  --bg-secondary: #ede9fe;
+  --bg-tertiary: #ddd6fe;
+  --text-primary: #1e1b4b;
+  --text-secondary: #4c51a0;
+  --border-color: #dcd1fe;
+  --shadow: rgba(93, 95, 239, 0.08);
+  --nav-bg: rgba(245, 243, 255, 0.95);
 
-  /* Clean Professional Gradients using only blue colors */
-  --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  /* Cosmic gradients using indigo and violet hues */
+  --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 50%, var(--accent-blue) 100%);
   --gradient-secondary: linear-gradient(45deg, var(--secondary-blue), var(--accent-blue));
-  --card-gradient: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  --card-gradient: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 50%, var(--accent-blue) 100%);
 }
 
 [data-theme="dark"] {
-  /* Dark Theme Colors - Warmer, less harsh */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --border-color: #475569;
-  --shadow: rgba(30, 64, 175, 0.25);
-  --nav-bg: rgba(30, 41, 59, 0.95);
+  /* Dark Theme Colors – inspired by deep space */
+  --bg-primary: #0a0e23;
+  --bg-secondary: #141a33;
+  --bg-tertiary: #1e2453;
+  --text-primary: #e0e7ff;
+  --text-secondary: #a5b4fc;
+  --border-color: #2c356d;
+  --shadow: rgba(93, 95, 239, 0.25);
+  --nav-bg: rgba(10, 14, 35, 0.95);
 
-  /* Improved dark gradients - less harsh, more elegant */
-  --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  /* Deep space gradients – subtle and elegant */
+  --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 50%, var(--accent-blue) 100%);
   --gradient-secondary: linear-gradient(45deg, var(--secondary-blue), var(--accent-blue));
-  --card-gradient: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  --card-gradient: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 50%, var(--accent-blue) 100%);
 }

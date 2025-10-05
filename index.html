@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -10,8 +10,13 @@
     <meta name="author" content="Nicola Ibrahim">
     <title>Nicola Ibrahim - Software Engineer</title>
 
-    <!-- Tailwind CSS CDN with dark mode support -->
-    <link href="/css/output.css" rel="stylesheet">
+    <!-- Tailwind compiled styles (use relative paths so the site renders when opened locally or on GitHub Pages) -->
+    <link href="./css/output.css" rel="stylesheet">
+    <!-- Custom cosmic overrides -->
+    <link href="./css/custom.css" rel="stylesheet">
+
+    <!-- Animate On Scroll Library for section transitions -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <script>
         tailwind.config = {
             darkMode: ["class", '[data-theme="dark"]'],
@@ -40,27 +45,19 @@
     <!-- External Fonts and Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Include Poppins font for headings to mimic the example portfolio style -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Theme Detection Script (runs immediately) -->
-    <script>
-            // Prevent flash of wrong theme
-            (function () {
-                const savedTheme = localStorage.getItem('theme-preference');
-                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                const theme = savedTheme || systemTheme;
-                document.documentElement.setAttribute('data-theme', theme);
-            })();
-    </script>
+    <!-- Dark theme only: removed light/dark theme detection -->
+
+    <!-- Include AOS script early so it can initialise once the DOM is ready -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
 </head>
 
 <body class="font-sans">
 
-    <a href="#main"
-        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded-md z-50">
-        Skip to main content
-    </a>
     <!-- Skip to main content (accessibility) -->
     <a href="#main"
         class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded-md z-50">
@@ -78,37 +75,13 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#home" class="nav-link" data-section="home">Home</a>
-                    <a href="#about" class="nav-link" data-section="about">About</a>
-                    <a href="#experience" class="nav-link" data-section="experience">Experience</a>
-                    <a href="#skills" class="nav-link" data-section="skills">Skills</a>
-                    <a href="#education" class="nav-link" data-section="education">Education</a>
+                    <!-- Updated navigation order: My Tools, Projects, Experience, Education, Contact -->
+                    <a href="#tools" class="nav-link" data-section="tools">My Tools</a>
                     <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                    <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+                    <a href="#education" class="nav-link" data-section="education">Education</a>
                     <a href="#contact" class="nav-link" data-section="contact">Contact</a>
-                    <!-- Theme toggle will be inserted here by theme.js -->
-                    <div class="hidden md:flex space-x-8 items-center">
-                        <div class="flex items-center ml-4">
-                            <button aria-label="Toggle dark/light theme" role="switch" aria-checked="false"
-                                class="desktop-theme-toggle theme-toggle focus:outline-none" title="Toggle theme">
-                                <div class="theme-toggle-indicator">
-                                    <i class="fas fa-sun" style="font-size: 0.5rem;"></i>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="mobile-menu" class="hidden md:hidden mobile-menu" role="menu"
-                        aria-labelledby="mobile-menu-button">
-                        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                            <div class="px-3 py-2 flex items-center">
-                                <button aria-label="Toggle dark/light theme" role="switch" aria-checked="false"
-                                    class="mobile-theme-toggle theme-toggle focus:outline-none" title="Toggle theme">
-                                    <div class="theme-toggle-indicator">
-                                        <i class="fas fa-sun" style="font-size: 0.5rem;"></i>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Theme toggle removed: dark theme is the default -->
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -126,13 +99,12 @@
         <div id="mobile-menu" class="hidden md:hidden mobile-menu" role="menu" aria-labelledby="mobile-menu-button">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="mobile-menu-link" role="menuitem">Home</a>
-                <a href="#about" class="mobile-menu-link" role="menuitem">About</a>
-                <a href="#experience" class="mobile-menu-link" role="menuitem">Experience</a>
-                <a href="#skills" class="mobile-menu-link" role="menuitem">Skills</a>
-                <a href="#education" class="mobile-menu-link" role="menuitem">Education</a>
+                <!-- Updated mobile menu order to match desktop navigation -->
+                <a href="#tools" class="mobile-menu-link" role="menuitem">My Tools</a>
                 <a href="#projects" class="mobile-menu-link" role="menuitem">Projects</a>
+                <a href="#experience" class="mobile-menu-link" role="menuitem">Experience</a>
+                <a href="#education" class="mobile-menu-link" role="menuitem">Education</a>
                 <a href="#contact" class="mobile-menu-link" role="menuitem">Contact</a>
-                <!-- Mobile theme toggle will be inserted here by theme.js -->
             </div>
         </div>
     </nav>
@@ -143,106 +115,201 @@
     <main id="main" class="relative z-10">
 
         <!-- Hero Section -->
-        <section id="home" class="relative min-h-screen flex items-center pt-16">
-
-            <!-- Black Hole Canvas Background -->
+        <!-- Removed static cosmic background and rely solely on the interactive space animation.
+             A subtle black‑hole icon is overlaid as a decorative element. -->
+        <section id="home" class="relative min-h-screen flex items-center pt-16 bg-dark">
+            <!-- 3D dark space simulation canvas -->
             <canvas id="blackhole-canvas" class="absolute top-0 left-0 w-full h-full -z-10"></canvas>
-
-            <!-- Overlay for readability -->
-            <div class="absolute inset-0 bg-black/50"></div>
-
-            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-                <div class="space-y-6">
-                    <h1 class="text-5xl md:text-7xl font-bold mb-4 slide-in-left">
-                        Hi, I'm <span class="text-blue-300">Nicola Ibrahim</span>
-                    </h1>
-                    <p class="text-2xl md:text-3xl font-light typing-animation inline-block slide-in-right">
-                        Backend & AI Software Engineer
-                    </p>
-                    <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto fade-in-up">
-                        Based in Germany • Building scalable backend systems with additional expertise in machine
-                        learning integration
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8 fade-in-up">
-                        <a href="#contact" class="btn-primary bg-white text-primary hover:bg-gray-100">
-                            <i class="fas fa-envelope"></i> Get In Touch
-                        </a>
-                        <a href="#experience" class="btn-secondary border-white text-white hover:text-primary">
-                            <i class="fas fa-user"></i> View My Work
-                        </a>
+            <!-- Gradient overlay for readability -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-indigo-900/60 to-transparent"></div>
+            <!-- Black hole icon overlay (mono/bi colour).  The icon uses a semi‑transparent filter
+                 and does not interfere with the canvas animation. -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white" data-aos="fade-up">
+                <!-- Split layout: left for visual and right for content -->
+                <div class="flex flex-col md:flex-row items-center md:items-start">
+                    <!-- Left: decorative black hole icon (semi‑transparent) -->
+                    <div class="w-full md:w-1/2 flex justify-center md:justify-start mb-12 md:mb-0">
+                        <div class="hero-icon pointer-events-none select-none invert brightness-50 opacity-100"
+                            aria-hidden="true">
+                            <img src="images/black-hole.png" alt="Black hole icon" />
+                        </div>
                     </div>
-                    <div class="flex justify-center space-x-6 mt-8 fade-in-up">
-                        <a href="https://www.linkedin.com/in/nicola-ibrahim/" target="_blank" rel="noopener noreferrer"
-                            class="social-link" aria-label="LinkedIn Profile">
-                            <i class="fab fa-linkedin text-3xl"></i>
-                        </a>
-                        <a href="https://github.com/Nicola-Ibrahim" target="_blank" rel="noopener noreferrer"
-                            class="social-link" aria-label="GitHub Profile">
-                            <i class="fab fa-github text-3xl"></i>
-                        </a>
-                        <a href="mailto:nicolaibrahim969@gmail.com" class="social-link" aria-label="Email Contact">
-                            <i class="fas fa-envelope text-3xl"></i>
-                        </a>
+                    <!-- Right: tagline and professional profile -->
+                    <div class="w-full md:w-1/2 md:pl-12 text-left">
+                        <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold mb-4 slide-in-left">
+                            Hi, I'm <span class="text-blue-300">Nicola Ibrahim</span>
+                        </h1>
+                        <p
+                            class="hero-subtitle text-2xl md:text-3xl font-light typing-animation inline-block slide-in-right">
+                            Backend &amp; AI Software Engineer
+                        </p>
+
+                        <div class="mt-8 space-y-4 fade-in-up">
+                            <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
+                                Backend‑focused software engineer with 3+ years of experience building scalable,
+                                high‑performance APIs and backend systems using Python, Django, and FastAPI. Skilled in
+                                clean architecture, secure authentication and efficient data handling. Broad knowledge
+                                of machine learning enables seamless integration of AI features into production
+                                applications.
+                            </p>
+                            <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
+                                Whether building a typical backend for a web application or adding AI‑driven
+                                functionality, I focus on delivering solutions that are efficient, reliable and aligned
+                                with business goals.
+                            </p>
+                        </div>
+                        <!-- Highlight cards arranged horizontally -->
+                        <div class="flex flex-col sm:flex-row gap-4 md:gap-6 mt-8 fade-in-up">
+                            <div class="highlight-card flex-1">
+                                <i class="fas fa-code"></i>
+                                <h4 class="text-xl font-semibold mb-1">Clean Code</h4>
+                                <p class="text-sm text-blue-100">Maintainable &amp; scalable solutions.</p>
+                            </div>
+                            <div class="highlight-card flex-1">
+                                <i class="fas fa-brain"></i>
+                                <h4 class="text-xl font-semibold mb-1">AI &amp; ML</h4>
+                                <p class="text-sm text-blue-100">Seamless AI integration.</p>
+                            </div>
+                            <div class="highlight-card flex-1">
+                                <i class="fas fa-server"></i>
+                                <h4 class="text-xl font-semibold mb-1">Scalable Systems</h4>
+                                <p class="text-sm text-blue-100">Reliable backend architecture.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="section-padding section-bg-secondary">
+
+        <!-- Tools Section -->
+        <section id="tools" class="section-padding section-bg-secondary" data-aos="fade-up">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
-                    <h2 class="section-title text-4xl md:text-5xl">About Me</h2>
+                    <h2 class="section-title text-4xl md:text-5xl">My Tools</h2>
                     <div class="section-divider"></div>
                 </div>
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-semibold text-primary mb-4">Professional Profile</h3>
-                        <p class="text-lg text-secondary leading-relaxed">
-                            Backend-focused software engineer with 3+ years of experience building scalable,
-                            high-performance APIs and backend systems using Python, Django, and FastAPI. Skilled in
-                            clean architecture, secure authentication, and efficient data handling. Broad knowledge of
-                            machine learning, enabling seamless integration of AI features into production applications
-                        </p>
-                        <p class="text-lg text-secondary leading-relaxed">
-                            Whether building a typical backend for a web application or adding AI-driven functionality,
-                            I focus on delivering solutions that are efficient, reliable, and aligned with business
-                            goals.
-                        </p>
-                        <div class="grid grid-cols-2 gap-4 mt-8">
-                            <div class="card-bg p-4 rounded-lg">
-                                <h4 class="font-semibold text-primary mb-2">Location</h4>
-                                <p class="text-secondary">Paderborn, Germany</p>
+                <!-- Use a custom tools-container for a neat grid layout -->
+                <div class="tools-container">
+                    <div class="tool-item"><i class="fab fa-python"></i><span>Python</span></div>
+                    <div class="tool-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                    <div class="tool-item"><i class="fab fa-html5"></i><span>HTML5</span></div>
+                    <div class="tool-item"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+                    <div class="tool-item"><i class="fas fa-database"></i><span>SQL</span></div>
+                    <div class="tool-item"><i class="fas fa-leaf"></i><span>Django</span></div>
+                    <div class="tool-item"><i class="fas fa-rocket"></i><span>FastAPI</span></div>
+                    <div class="tool-item"><i class="fas fa-plug"></i><span>REST APIs</span></div>
+                    <div class="tool-item"><i class="fas fa-wind"></i><span>Tailwind CSS</span></div>
+                    <div class="tool-item"><i class="fas fa-fire"></i><span>PyTorch</span></div>
+                    <div class="tool-item"><i class="fas fa-cubes"></i><span>NumPy & SciPy</span></div>
+                    <div class="tool-item"><i class="fas fa-table"></i><span>Pandas</span></div>
+                    <div class="tool-item"><i class="fas fa-project-diagram"></i><span>DDD</span></div>
+                    <div class="tool-item"><i class="fas fa-layer-group"></i><span>Clean Architecture</span></div>
+                    <div class="tool-item"><i class="fas fa-puzzle-piece"></i><span>Design Patterns</span></div>
+                    <div class="tool-item"><i class="fas fa-layer-group"></i><span>SOLID</span></div>
+                    <div class="tool-item"><i class="fas fa-brain"></i><span>Generative Models</span></div>
+                    <div class="tool-item"><i class="fas fa-balance-scale"></i><span>Multi‑Objective Optimisation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section-padding section-bg-secondary" data-aos="fade-up">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="section-title text-4xl md:text-5xl">Featured Projects</h2>
+                    <div class="section-divider"></div>
+                    <p class="text-xl text-secondary max-w-3xl mx-auto">
+                        Here are some of the projects I've worked on. Each project represents my commitment to clean
+                        code,
+                        scalable architecture, and user-centered design.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project 1: Bot Chatting System -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="p-6 flex flex-col justify-between h-full">
+                            <div>
+                                <h3 class="text-xl font-bold text-primary mb-3">Bot&nbsp;Chatting&nbsp;System</h3>
+                                <p class="text-secondary mb-6">
+                                    A modular chat system built with FastAPI and Domain‑Driven Design. Features include
+                                    user authentication, conversation management, event‑driven architecture and AI
+                                    integration for natural language interactions.
+                                </p>
                             </div>
-                            <div class="card-bg p-4 rounded-lg">
-                                <h4 class="font-semibold text-primary mb-2">Experience</h4>
-                                <p class="text-secondary">3+ Years</p>
+                            <div class="flex justify-between items-center mt-auto">
+                                <a href="https://github.com/Nicola-Ibrahim/Bot-Chatting" target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-sm text-accent font-semibold hover:underline">View on GitHub</a>
+                                <i class="fas fa-arrow-right text-primary"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <div class="gradient-bg p-8 rounded-2xl text-white card-hover">
-                            <i class="fas fa-code text-6xl mb-6"></i>
-                            <h3 class="text-2xl font-bold mb-4">Code Quality Focused</h3>
-                            <p class="text-blue-100">
-                                I believe in writing code that not only works but is also maintainable,
-                                scalable, and follows industry best practices.
-                            </p>
+                    <!-- Project 2: User Authenticator -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-user-lock"></i>
+                        </div>
+                        <div class="p-6 flex flex-col justify-between h-full">
+                            <div>
+                                <h3 class="text-xl font-bold text-primary mb-3">User&nbsp;Authenticator</h3>
+                                <p class="text-secondary mb-6">
+                                    A secure RESTful API for user authentication and authorization using
+                                    Django&nbsp;REST&nbsp;Framework and JWT. Supports registration, login, token
+                                    management, password reset and email verification with clean architecture.
+                                </p>
+                            </div>
+                            <div class="flex justify-between items-center mt-auto">
+                                <a href="https://github.com/Nicola-Ibrahim/User-Authenticator" target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-sm text-accent font-semibold hover:underline">View on GitHub</a>
+                                <i class="fas fa-arrow-right text-primary"></i>
+                            </div>
                         </div>
                     </div>
+                    <!-- Project 3: DevOps & CI/CD (placeholder for future projects) -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="p-6 flex flex-col justify-between h-full">
+                            <div>
+                                <h3 class="text-xl font-bold text-primary mb-3">DevOps &amp; CI/CD</h3>
+                                <p class="text-secondary mb-6">
+                                    Automated deployment pipelines and infrastructure management using modern DevOps
+                                    practices.
+                                </p>
+                            </div>
+                            <div class="flex justify-between items-center mt-auto">
+                                <span class="text-sm text-accent font-semibold">Coming Soon</span>
+                                <i class="fas fa-arrow-right text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <p class="text-secondary mb-6">More projects will be showcased here soon. Stay tuned!</p>
+                    <a href="https://github.com/Nicola-Ibrahim" target="_blank" rel="noopener noreferrer"
+                        class="btn-primary">
+                        <i class="fab fa-github"></i> View GitHub Profile
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="section-padding section-bg-tertiary">
+        <section id="experience" class="section-padding section-bg-tertiary" data-aos="fade-up">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="section-title text-4xl md:text-5xl">Professional Experience</h2>
                     <div class="section-divider"></div>
                 </div>
 
-                <div class="space-y-8">
+                <div class="timeline">
                     <!-- Experience 1 -->
                     <div class="card-bg rounded-xl shadow-lg p-8 card-hover timeline-item">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
@@ -353,72 +420,9 @@
             </div>
         </section>
 
-        <!-- Skills Section (Now before Education) -->
-        <section id="skills" class="section-padding section-bg-secondary">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="section-title text-4xl md:text-5xl">Technical Skills</h2>
-                    <div class="section-divider"></div>
-                </div>
 
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Programming Languages -->
-                    <div class="skill-category">
-                        <div class="text-center mb-6">
-                            <div
-                                class="gradient-bg p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                                <i class="fas fa-code text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-primary">Programming Languages</h3>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="skills-tag">Python</div>
-                            <div class="skills-tag">JavaScript</div>
-                            <div class="skills-tag">HTML</div>
-                            <div class="skills-tag">CSS</div>
-                        </div>
-                    </div>
-
-                    <!-- Frameworks & Libraries -->
-                    <div class="skill-category">
-                        <div class="text-center mb-6">
-                            <div
-                                class="gradient-bg p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                                <i class="fas fa-layer-group text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-primary">Frameworks & Libraries</h3>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="skills-tag">Django</div>
-                            <div class="skills-tag">FastAPI</div>
-                            <div class="skills-tag">RESTful APIs</div>
-                            <div class="skills-tag">AlpineJS</div>
-                            <div class="skills-tag">Tailwind CSS</div>
-                        </div>
-                    </div>
-
-                    <!-- Software Architecture -->
-                    <div class="skill-category">
-                        <div class="text-center mb-6">
-                            <div
-                                class="gradient-bg p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                                <i class="fas fa-sitemap text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-primary">Software Architecture</h3>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="skills-tag">Domain-Driven Design</div>
-                            <div class="skills-tag">Clean Architecture</div>
-                            <div class="skills-tag">Design Patterns</div>
-                            <div class="skills-tag">SOLID Principles</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section (Now after Skills) -->
-        <section id="education" class="section-padding section-bg-tertiary">
+        <!-- Education Section -->
+        <section id="education" class="section-padding section-bg-tertiary" data-aos="fade-up">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="section-title text-4xl md:text-5xl">Education</h2>
@@ -457,84 +461,12 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="section-padding section-bg-secondary">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="section-title text-4xl md:text-5xl">Featured Projects</h2>
-                    <div class="section-divider"></div>
-                    <p class="text-xl text-secondary max-w-3xl mx-auto">
-                        Here are some of the projects I've worked on. Each project represents my commitment to clean
-                        code,
-                        scalable architecture, and user-centered design.
-                    </p>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project Placeholder Cards -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-primary mb-3">Web Applications</h3>
-                            <p class="text-secondary mb-4">
-                                Full-stack web applications built with Django, featuring responsive design and RESTful
-                                APIs.
-                            </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-accent font-semibold">Coming Soon</span>
-                                <i class="fas fa-arrow-right text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-primary mb-3">Backend Systems</h3>
-                            <p class="text-secondary mb-4">
-                                Scalable backend solutions with optimized database queries and efficient API design.
-                            </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-accent font-semibold">Coming Soon</span>
-                                <i class="fas fa-arrow-right text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-primary mb-3">DevOps & CI/CD</h3>
-                            <p class="text-secondary mb-4">
-                                Automated deployment pipelines and infrastructure management using modern DevOps
-                                practices.
-                            </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-accent font-semibold">Coming Soon</span>
-                                <i class="fas fa-arrow-right text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center mt-12">
-                    <p class="text-secondary mb-6">More projects will be showcased here soon. Stay tuned!</p>
-                    <a href="https://github.com/Nicola-Ibrahim" target="_blank" rel="noopener noreferrer"
-                        class="btn-primary">
-                        <i class="fab fa-github"></i> View GitHub Profile
-                    </a>
-                </div>
-            </div>
-        </section>
+        <!--
+            Removed duplicate Projects section – moved earlier after the Tools section.
+        -->
 
         <!-- Contact Section -->
-        <section id="contact" class="section-padding gradient-bg text-white">
+        <section id="contact" class="section-padding gradient-bg text-white" data-aos="fade-up">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's Connect</h2>
@@ -611,6 +543,17 @@
         </section>
     </main>
 
+    <!-- Initialise AOS for smooth scrolling animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                once: true,
+                duration: 800,
+                offset: 120
+            });
+        });
+    </script>
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -637,11 +580,10 @@
     </footer>
 
     <!-- Scripts -->
-    <script type="module" src="js/theme.js"></script>
+    <!-- Removed theme.js as dark mode is the only theme -->
     <script type="module" src="js/script.js"></script>
+    <!-- 3D dark space animation script restored for an immersive hero background -->
     <script type="module" src="js/modules/space_animaiton.js"></script>
-
-    </script>
 </body>
 
 </html>

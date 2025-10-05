@@ -103,26 +103,27 @@ class PortfolioWebsite {
             break;
           case '2':
             e.preventDefault();
-            this.scrollToSection('about');
+            // Navigate to tools section (previously About)
+            this.scrollToSection('tools');
             break;
           case '3':
             e.preventDefault();
-            this.scrollToSection('experience');
+            // Navigate to projects section (previously experience)
+            this.scrollToSection('projects');
             break;
           case '4':
             e.preventDefault();
-            this.scrollToSection('education');
+            // Navigate to experience section
+            this.scrollToSection('experience');
             break;
           case '5':
             e.preventDefault();
-            this.scrollToSection('skills');
+            // Navigate to education section
+            this.scrollToSection('education');
             break;
           case '6':
             e.preventDefault();
-            this.scrollToSection('projects');
-            break;
-          case '7':
-            e.preventDefault();
+            // Navigate to contact section
             this.scrollToSection('contact');
             break;
         }
