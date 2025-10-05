@@ -602,6 +602,135 @@ select:focus {
   }
 }
 
+/* --------------------------------------------------------------------------
+ * Custom overrides and enhancements
+ *
+ * The following rules adjust the palette to use a purple accent, improve the
+ * layout of long tool names, refine button styling, and remove the vertical
+ * bars in the experience timeline. These overrides ensure the site remains
+ * cohesive when the Tailwind build process compiles this input file.
+ */
+
+/* Override the primary, secondary and accent blues with a purple palette.
+   These values echo the cosmic theme introduced previously.  They are
+   defined after the default variables so they take precedence. */
+:root {
+  --primary-blue: #6c63ff;
+  --secondary-blue: #8e8ffa;
+  --accent-blue: #b09af9;
+}
+
+[data-theme="dark"] {
+  /* Update gradients for the dark theme to match the purple palette */
+  --gradient-primary: linear-gradient(135deg, #2f3a8f 0%, #514ab3 50%, #7c6dff 100%);
+  --gradient-secondary: linear-gradient(45deg, #514ab3, #7c6dff);
+  --card-gradient: linear-gradient(135deg, #2f3a8f 0%, #514ab3 50%, #7c6dff 100%);
+}
+
+/* Ensure tool names wrap within their cards. Long phrases will break onto
+   multiple lines rather than forcing the card to expand beyond its intended
+   width. */
+.tool-item span {
+  white-space: normal;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Remove the vertical connector bars between timeline entries.  Only the
+   circular markers remain visible to indicate each experience entry. */
+.timeline-item:not(:last-child)::after {
+  background: none !important;
+}
+
+/* Remove the timeline container line itself for a cleaner appearance */
+.timeline::before {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+ * Custom component styles ported from the previous custom.css file.
+ *
+ * These definitions ensure the Tools grid, highlight cards and hero icon
+ * behave as intended when Tailwind builds the CSS. Without these rules the
+ * layout would degrade because the original custom stylesheet is no longer
+ * included.
+ */
+
+/* Hero icon overlay styling: semi‑transparent black hole icon */
+.hero-icon img {
+  opacity: 0.15;
+  filter: grayscale(100%);
+  width: 100%;
+  height: 100%;
+}
+
+.hero-icon {
+  width: 20rem;
+  height: 20rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Highlight cards used under the professional profile */
+.highlight-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -8px var(--shadow);
+}
+
+.highlight-card i {
+  color: var(--accent-blue);
+  margin-bottom: 0.75rem;
+  font-size: 2rem;
+}
+
+/* Tools section styling: each tool item becomes a small card */
+.tool-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Slightly larger card dimensions to accommodate multi-line names */
+  /* Increase the card dimensions further so longer tool names fit on two lines
+     without awkward breaking. */
+  width: 10rem;
+  height: 9rem;
+}
+
+.tool-item i {
+  font-size: 2rem;
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+}
+
+/* word-break for tool names handled above */
+.tool-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -8px var(--shadow);
+}
+
+/* Container for all tool items: flexible wrap with gaps */
+.tools-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
 /* Enhanced social links */
 .social-link {
   color: white;

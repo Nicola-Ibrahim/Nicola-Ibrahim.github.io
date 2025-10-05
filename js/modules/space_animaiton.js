@@ -7,6 +7,8 @@ camera.position.z = 5;
 
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('blackhole-canvas'), antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
+// Render with transparency so the underlying CSS background can show through
+renderer.setClearColor(0x000000, 0);
 
 // Black hole sphere
 const blackHoleGeometry = new THREE.SphereGeometry(1, 64, 64);
