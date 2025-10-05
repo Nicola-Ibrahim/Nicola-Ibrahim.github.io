@@ -120,61 +120,67 @@
             <canvas id="blackhole-canvas" class="absolute top-0 left-0 w-full h-full -z-10"></canvas>
             <!-- Gradient overlay for readability -->
             <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-indigo-900/60 to-transparent"></div>
-            <!-- Black hole icon overlay (mono/bi colour).  The icon uses a semi‑transparent filter
-                 and does not interfere with the canvas animation. -->
-            <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white" data-aos="fade-up">
-                <!-- Split layout: left for visual and right for content -->
-                <div class="flex flex-col md:flex-row items-center md:items-start">
 
-                    <!-- Right: tagline and professional profile -->
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white" data-aos="fade-up">
+                <!-- Split layout: left (text) + right (cards) -->
+                <div class="w-full flex flex-col md:flex-row items-center md:items-center">
+                    <!-- Left: tagline and professional profile -->
                     <div class="w-full md:w-1/2 md:pl-12 text-left">
                         <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold mb-4 slide-in-left">
                             Hi, I'm <span class="text-accent">Nicola Ibrahim</span>
                         </h1>
+
                         <p
                             class="hero-subtitle text-2xl md:text-3xl font-light typing-animation inline-block slide-in-right">
                             Backend &amp; AI Software Engineer
                         </p>
-                        <p class="hero-summary text-xl md:text-2xl text-blue-100 mt-4 fade-in-up">
-                            Based in Germany • Building scalable backend systems with additional expertise in machine
-                            learning integration
-                        </p>
-                        <div class="mt-8 space-y-4 fade-in-up">
-                            <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
-                                Backend‑focused software engineer with 3+ years of experience building scalable,
-                                high‑performance APIs and backend systems using Python, Django, and FastAPI. Skilled in
-                                clean architecture, secure authentication and efficient data handling. Broad knowledge
-                                of machine learning enables seamless integration of AI features into production
-                                applications.
-                            </p>
-                            <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
-                                Whether building a typical backend for a web application or adding AI‑driven
-                                functionality, I focus on delivering solutions that are efficient, reliable and aligned
-                                with business goals.
-                            </p>
+
+                        <!-- Profile summary -->
+                        <div class="mt-8 fade-in-up md:flex md:space-x-8">
+                            <div class="space-y-4 md:w-2/3">
+                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
+                                    Backend-focused software engineer with 3+ years of experience building scalable,
+                                    high-performance APIs and backend systems using Python, Django, and FastAPI. Skilled
+                                    in clean architecture, secure authentication and efficient data handling. Broad
+                                    knowledge of machine learning enables seamless integration of AI features into
+                                    production applications.
+                                </p>
+                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
+                                    Whether building a typical backend for a web application or adding AI-driven
+                                    functionality, I focus on delivering solutions that are efficient, reliable and
+                                    aligned with business goals.
+                                </p>
+                            </div>
                         </div>
-                        <!-- Highlight cards arranged horizontally -->
-                        <div class="flex flex-col sm:flex-row gap-4 md:gap-6 mt-8 fade-in-up">
-                            <div class="highlight-card flex-1">
+                    </div>
+
+                    <!-- Right: highlight cards centered on the right with spacing -->
+                    <div class="w-full md:w-1/3 mt-10 md:mt-0 md:pl-8 md:flex md:justify-end">
+                        <div class="flex flex-col items-center md:items-end space-y-6 w-full md:max-w-sm md:ml-auto">
+                            <div class="highlight-card w-full !mt-0">
                                 <i class="fas fa-code"></i>
                                 <h4 class="text-xl font-semibold mb-1">Clean Code</h4>
                                 <p class="text-sm text-blue-100">Maintainable &amp; scalable solutions.</p>
                             </div>
-                            <div class="highlight-card flex-1">
+
+                            <div class="highlight-card w-full !mt-0">
                                 <i class="fas fa-brain"></i>
                                 <h4 class="text-xl font-semibold mb-1">AI &amp; ML</h4>
                                 <p class="text-sm text-blue-100">Seamless AI integration.</p>
                             </div>
-                            <div class="highlight-card flex-1">
+
+                            <div class="highlight-card w-full !mt-0">
                                 <i class="fas fa-server"></i>
                                 <h4 class="text-xl font-semibold mb-1">Scalable Systems</h4>
                                 <p class="text-sm text-blue-100">Reliable backend architecture.</p>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
+
 
 
         <!-- Tools Section -->

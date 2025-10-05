@@ -636,15 +636,22 @@ select:focus {
   hyphens: auto;
 }
 
-/* Remove the vertical connector bars between timeline entries.  Only the
-   circular markers remain visible to indicate each experience entry. */
-.timeline-item:not(:last-child)::after {
-  background: none !important;
+
+/* Restore the vertical connector bars between timeline entries and add spacing.
+   The gradient reinforces the purple palette while connecting each card.
+   Added margin-bottom to separate cards visually. */
+.timeline-item:not(:last-child) {
+  margin-bottom: 3rem;
 }
 
-/* Remove the timeline container line itself for a cleaner appearance */
-.timeline::before {
-  display: none;
+.timeline-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0.375rem;
+  top: 2rem;
+  bottom: -2rem;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--primary-blue), var(--accent-blue));
 }
 
 /* --------------------------------------------------------------------------
