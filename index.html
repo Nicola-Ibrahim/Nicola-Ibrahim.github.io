@@ -122,10 +122,11 @@
             <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-indigo-900/60 to-transparent"></div>
 
             <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white" data-aos="fade-up">
-                <!-- Split layout: left (text) + right (cards) -->
+                <!-- Split layout: left (2/3) + right (1/3) -->
                 <div class="w-full flex flex-col md:flex-row items-center md:items-center">
-                    <!-- Left: tagline and professional profile -->
-                    <div class="w-full md:w-1/2 md:pl-12 text-left">
+
+                    <!-- Left: tagline and professional profile (2/3) -->
+                    <div class="w-full md:w-2/3 md:pl-12 text-left">
                         <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold mb-4 slide-in-left">
                             Hi, I'm <span class="text-accent">Nicola Ibrahim</span>
                         </h1>
@@ -135,17 +136,17 @@
                             Backend &amp; AI Software Engineer
                         </p>
 
-                        <!-- Profile summary -->
-                        <div class="mt-8 fade-in-up md:flex md:space-x-8">
-                            <div class="space-y-4 md:w-2/3">
-                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
+                        <!-- Profile summary (paragraphs span full column width) -->
+                        <div class="mt-8 fade-in-up">
+                            <div class="space-y-4 w-full">
+                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed w-full">
                                     Backend-focused software engineer with 3+ years of experience building scalable,
                                     high-performance APIs and backend systems using Python, Django, and FastAPI. Skilled
                                     in clean architecture, secure authentication and efficient data handling. Broad
                                     knowledge of machine learning enables seamless integration of AI features into
                                     production applications.
                                 </p>
-                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
+                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed w-full">
                                     Whether building a typical backend for a web application or adding AI-driven
                                     functionality, I focus on delivering solutions that are efficient, reliable and
                                     aligned with business goals.
@@ -154,7 +155,7 @@
                         </div>
                     </div>
 
-                    <!-- Right: highlight cards centered on the right with spacing -->
+                    <!-- Right: highlight cards (1/3) -->
                     <div class="w-full md:w-1/3 mt-10 md:mt-0 md:pl-8 md:flex md:justify-end">
                         <div class="flex flex-col items-center md:items-end gap-4 w-full md:max-w-sm md:ml-auto">
                             <div class="highlight-card w-full !mt-0">
@@ -179,7 +180,10 @@
 
                 </div>
             </div>
+
+
         </section>
+
 
 
 
@@ -560,7 +564,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <p class="text-gray-400">
-                    © 2024 Nicola Ibrahim. Built with passion and modern web technologies.
+                    © <time id="year" datetime=""></time> All right reserved.
                 </p>
                 <div class="flex justify-center space-x-6 mt-4">
                     <a href="https://linkedin.com/in/nicolaibrahim" target="_blank" rel="noopener noreferrer"
@@ -585,6 +589,12 @@
     <script type="module" src="js/script.js"></script>
     <!-- 3D dark space animation script restored for an immersive hero background -->
     <script type="module" src="js/modules/space_animaiton.js"></script>
+    <script>
+        const y = String(new Date().getFullYear());
+        const t = document.getElementById('year');
+        t.textContent = y;
+        t.setAttribute('datetime', y);
+    </script>
 </body>
 
 </html>
