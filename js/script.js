@@ -113,8 +113,8 @@ class PortfolioWebsite {
             break;
           case '4':
             e.preventDefault();
-            // Navigate to experience section
-            this.scrollToSection('experience');
+            // Navigate to testimonials section (experience removed)
+            this.scrollToSection('testimonials');
             break;
           case '5':
             e.preventDefault();

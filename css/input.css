@@ -711,11 +711,10 @@ select:focus {
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  /* Slightly larger card dimensions to accommodate multi-line names */
-  /* Increase the card dimensions further so longer tool names fit on two lines
-     without awkward breaking. */
-  width: 10rem;
-  height: 9rem;
+  /* Reduced card dimensions to remove excessive whitespace between skills. Smaller cards still
+     allow for two-line names but create a tighter grid with consistent spacing. */
+  width: 8rem;
+  height: 7rem;
 }
 
 .tool-item i {

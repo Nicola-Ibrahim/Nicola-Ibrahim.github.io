@@ -46,6 +46,15 @@
     <!-- Include Poppins font for headings to mimic the example portfolio style -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <!-- Custom overrides for tool item sizing and spacing -->
+    <style>
+        /* Override default tool card dimensions to reduce whitespace and create a tighter grid */
+        .tool-item {
+            width: 8rem;
+            height: 7rem;
+        }
+    </style>
+
     <!-- Dark theme only: removed light/dark theme detection -->
 
     <!-- Include AOS script early so it can initialise once the DOM is ready -->
@@ -76,8 +85,9 @@
                     <!-- Updated navigation order: My Tools, Projects, Experience, Education, Contact -->
                     <a href="#tools" class="nav-link" data-section="tools">My Tools</a>
                     <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-                    <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+                    <!-- Removed work experience link as the section has been dropped -->
                     <a href="#education" class="nav-link" data-section="education">Education</a>
+                    <a href="#testimonials" class="nav-link" data-section="testimonials">Testimonials</a>
                     <a href="#contact" class="nav-link" data-section="contact">Contact</a>
                     <!-- Theme toggle removed: dark theme is the default -->
                 </div>
@@ -100,8 +110,9 @@
                 <!-- Updated mobile menu order to match desktop navigation -->
                 <a href="#tools" class="mobile-menu-link" role="menuitem">My Tools</a>
                 <a href="#projects" class="mobile-menu-link" role="menuitem">Projects</a>
-                <a href="#experience" class="mobile-menu-link" role="menuitem">Experience</a>
+                <!-- Removed work experience link from the mobile menu -->
                 <a href="#education" class="mobile-menu-link" role="menuitem">Education</a>
+                <a href="#testimonials" class="mobile-menu-link" role="menuitem">Testimonials</a>
                 <a href="#contact" class="mobile-menu-link" role="menuitem">Contact</a>
             </div>
         </div>
@@ -140,7 +151,7 @@
                         <div class="mt-8 fade-in-up">
                             <div class="space-y-4 w-full">
                                 <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
-                                    I’m Nicola, a software engineer in Paderborn, Germany. I design backends that are
+                                    I’m Nicola, a software engineer in Germany. I design backends that are
                                     boring—in the best way: fast, stable, and easy to scale.
                                 </p>
 
@@ -158,6 +169,14 @@
                                 <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
                                     Let’s work together to turn your ideas into reliable software.
                                 </p>
+                                <!-- CV download button placed after the introduction -->
+                                <div class="mt-6">
+                                    <a href="./resources/Nicola_Ibrahim_CV.pdf" target="_blank" download
+                                        class="btn-primary inline-flex items-center gap-2">
+                                        <i class="fas fa-file-download"></i>
+                                        Download&nbsp;CV
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -165,22 +184,29 @@
                     <!-- Right: highlight cards (1/3) -->
                     <div class="w-full md:w-1/3 mt-10 md:mt-0 md:pl-8 md:flex md:justify-end">
                         <div class="flex flex-col items-center md:items-end gap-4 w-full md:max-w-sm md:ml-auto">
+                            <!-- Backend Engineering card -->
+                            <div class="highlight-card w-full !mt-0">
+                                <i class="fas fa-laptop-code"></i>
+                                <h4 class="text-xl font-semibold mb-1">Backend Engineering</h4>
+                                <p class="text-sm text-blue-100">Robust &amp; scalable back‑end solutions.</p>
+                            </div>
+                            <!-- Cloud Deployment card -->
+                            <div class="highlight-card w-full !mt-0">
+                                <i class="fas fa-cloud"></i>
+                                <h4 class="text-xl font-semibold mb-1">Cloud Deployment</h4>
+                                <p class="text-sm text-blue-100">Deploying apps on modern clouds.</p>
+                            </div>
+                            <!-- Clean Code card -->
                             <div class="highlight-card w-full !mt-0">
                                 <i class="fas fa-code"></i>
                                 <h4 class="text-xl font-semibold mb-1">Clean Code</h4>
                                 <p class="text-sm text-blue-100">Maintainable &amp; scalable solutions.</p>
                             </div>
-
+                            <!-- AI & ML card -->
                             <div class="highlight-card w-full !mt-0">
                                 <i class="fas fa-brain"></i>
                                 <h4 class="text-xl font-semibold mb-1">AI &amp; ML</h4>
                                 <p class="text-sm text-blue-100">Seamless AI integration.</p>
-                            </div>
-
-                            <div class="highlight-card w-full !mt-0">
-                                <i class="fas fa-server"></i>
-                                <h4 class="text-xl font-semibold mb-1">Scalable Systems</h4>
-                                <p class="text-sm text-blue-100">Reliable backend architecture.</p>
                             </div>
                         </div>
                     </div>
@@ -201,27 +227,57 @@
                     <h2 class="section-title text-4xl md:text-5xl">My Tools</h2>
                     <div class="section-divider"></div>
                 </div>
-                <!-- Use a custom tools-container for a neat grid layout -->
-                <div class="tools-container">
-                    <div class="tool-item"><i class="fab fa-python"></i><span>Python</span></div>
-                    <div class="tool-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
-                    <div class="tool-item"><i class="fab fa-html5"></i><span>HTML5</span></div>
-                    <div class="tool-item"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
-                    <div class="tool-item"><i class="fas fa-database"></i><span>SQL</span></div>
-                    <div class="tool-item"><i class="fas fa-leaf"></i><span>Django</span></div>
-                    <div class="tool-item"><i class="fas fa-rocket"></i><span>FastAPI</span></div>
-                    <div class="tool-item"><i class="fas fa-plug"></i><span>REST APIs</span></div>
-                    <div class="tool-item"><i class="fas fa-wind"></i><span>Tailwind<br>CSS</span></div>
-                    <div class="tool-item"><i class="fas fa-fire"></i><span>PyTorch</span></div>
-                    <div class="tool-item"><i class="fas fa-cubes"></i><span>NumPy &<br>SciPy</span></div>
-                    <div class="tool-item"><i class="fas fa-table"></i><span>Pandas</span></div>
-                    <div class="tool-item"><i class="fas fa-project-diagram"></i><span>DDD</span></div>
-                    <div class="tool-item"><i class="fas fa-layer-group"></i><span>Clean<br>Architecture</span></div>
-                    <div class="tool-item"><i class="fas fa-puzzle-piece"></i><span>Design<br>Patterns</span></div>
-                    <div class="tool-item"><i class="fas fa-layer-group"></i><span>SOLID</span></div>
-                    <div class="tool-item"><i class="fas fa-brain"></i><span>Generative<br>Models</span></div>
-                    <div class="tool-item"><i
-                            class="fas fa-balance-scale"></i><span>Multi‑Objective<br>Optimisation</span></div>
+                <!-- Introduce a tabbed tool selector instead of a single grid -->
+                <div class="mb-8">
+                    <!-- Tabs navigation -->
+                    <div class="flex flex-wrap justify-center gap-4 mb-8">
+                        <!-- All tabs start with the same base style; the active state is applied via JavaScript -->
+                        <button
+                            class="tools-tab bg-dark border border-primary text-primary px-4 py-2 rounded-full font-medium"
+                            data-target="cat-languages">Languages</button>
+                        <button
+                            class="tools-tab bg-dark border border-primary text-primary px-4 py-2 rounded-full font-medium"
+                            data-target="cat-frameworks">Frameworks</button>
+                        <button
+                            class="tools-tab bg-dark border border-primary text-primary px-4 py-2 rounded-full font-medium"
+                            data-target="cat-architecture">Architecture</button>
+                        <button
+                            class="tools-tab bg-dark border border-primary text-primary px-4 py-2 rounded-full font-medium"
+                            data-target="cat-ai">AI &amp; Data</button>
+                    </div>
+                    <!-- Tab content: Languages -->
+                    <div id="cat-languages" class="tools-content flex flex-wrap justify-center gap-4">
+                        <div class="tool-item"><i class="fab fa-python"></i><span>Python</span></div>
+                        <div class="tool-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                        <div class="tool-item"><i class="fab fa-html5"></i><span>HTML5</span></div>
+                        <div class="tool-item"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+                        <div class="tool-item"><i class="fas fa-database"></i><span>SQL</span></div>
+                    </div>
+                    <!-- Tab content: Frameworks -->
+                    <div id="cat-frameworks" class="tools-content hidden flex flex-wrap justify-center gap-4">
+                        <div class="tool-item"><i class="fas fa-leaf"></i><span>Django</span></div>
+                        <div class="tool-item"><i class="fas fa-rocket"></i><span>FastAPI</span></div>
+                        <div class="tool-item"><i class="fas fa-plug"></i><span>REST&nbsp;APIs</span></div>
+                        <div class="tool-item"><i class="fas fa-wind"></i><span>Tailwind&nbsp;CSS</span></div>
+                    </div>
+                    <!-- Tab content: Architecture -->
+                    <div id="cat-architecture" class="tools-content hidden flex flex-wrap justify-center gap-4">
+                        <div class="tool-item"><i class="fas fa-project-diagram"></i><span>DDD</span></div>
+                        <div class="tool-item"><i class="fas fa-layer-group"></i><span>Clean&nbsp;Architecture</span>
+                        </div>
+                        <div class="tool-item"><i class="fas fa-puzzle-piece"></i><span>Design&nbsp;Patterns</span>
+                        </div>
+                        <div class="tool-item"><i class="fas fa-layer-group"></i><span>SOLID</span></div>
+                    </div>
+                    <!-- Tab content: AI & Data -->
+                    <div id="cat-ai" class="tools-content hidden flex flex-wrap justify-center gap-4">
+                        <div class="tool-item"><i class="fas fa-fire"></i><span>PyTorch</span></div>
+                        <div class="tool-item"><i class="fas fa-cubes"></i><span>NumPy&nbsp;&nbsp;SciPy</span></div>
+                        <div class="tool-item"><i class="fas fa-table"></i><span>Pandas</span></div>
+                        <div class="tool-item"><i class="fas fa-brain"></i><span>Generative&nbsp;Models</span></div>
+                        <div class="tool-item"><i
+                                class="fas fa-balance-scale"></i><span>Multi‑Objective&nbsp;Optimisation</span></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -238,66 +294,92 @@
                         scalable architecture, and user-centered design.
                     </p>
                 </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Stack projects vertically to mimic the example design -->
+                <div class="flex flex-col space-y-12">
                     <!-- Project 1: Bot Chatting System -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-robot"></i>
+                    <div class="project-card flex flex-col lg:flex-row overflow-hidden">
+                        <!-- Left: Placeholder image/icon -->
+                        <div
+                            class="project-image w-full lg:w-1/2 h-64 flex items-center justify-center bg-gradient-secondary text-white">
+                            <i class="fas fa-robot text-6xl"></i>
                         </div>
-                        <div class="p-6 flex flex-col justify-between h-full">
+                        <!-- Right: Description -->
+                        <div class="p-6 flex flex-col justify-between w-full lg:w-1/2">
                             <div>
-                                <h3 class="text-xl font-bold text-primary mb-3">Bot&nbsp;Chatting&nbsp;System</h3>
-                                <p class="text-secondary mb-6">
+                                <h3 class="text-2xl font-bold text-primary mb-3">Bot&nbsp;Chatting&nbsp;System</h3>
+                                <p class="text-secondary mb-4">
                                     A modular chat system built with FastAPI and Domain‑Driven Design. Features include
                                     user authentication, conversation management, event‑driven architecture and AI
                                     integration for natural language interactions.
                                 </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="skills-tag">FastAPI</span>
+                                    <span class="skills-tag">DDD</span>
+                                    <span class="skills-tag">Event&nbsp;Driven</span>
+                                    <span class="skills-tag">AI</span>
+                                </div>
                             </div>
                             <div class="flex justify-between items-center mt-auto">
                                 <a href="https://github.com/Nicola-Ibrahim/Bot-Chatting" target="_blank"
                                     rel="noopener noreferrer"
-                                    class="text-sm text-accent font-semibold hover:underline">View on GitHub</a>
+                                    class="text-sm text-accent font-semibold hover:underline">Source&nbsp;Code</a>
                                 <i class="fas fa-arrow-right text-primary"></i>
                             </div>
                         </div>
                     </div>
                     <!-- Project 2: User Authenticator -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-user-lock"></i>
+                    <div class="project-card flex flex-col lg:flex-row overflow-hidden">
+                        <!-- Left: Placeholder image/icon -->
+                        <div
+                            class="project-image w-full lg:w-1/2 h-64 flex items-center justify-center bg-gradient-secondary text-white">
+                            <i class="fas fa-user-lock text-6xl"></i>
                         </div>
-                        <div class="p-6 flex flex-col justify-between h-full">
+                        <!-- Right: Description -->
+                        <div class="p-6 flex flex-col justify-between w-full lg:w-1/2">
                             <div>
-                                <h3 class="text-xl font-bold text-primary mb-3">User&nbsp;Authenticator</h3>
-                                <p class="text-secondary mb-6">
+                                <h3 class="text-2xl font-bold text-primary mb-3">User&nbsp;Authenticator</h3>
+                                <p class="text-secondary mb-4">
                                     A secure RESTful API for user authentication and authorization using
                                     Django&nbsp;REST&nbsp;Framework and JWT. Supports registration, login, token
                                     management, password reset and email verification with clean architecture.
                                 </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="skills-tag">Django&nbsp;REST</span>
+                                    <span class="skills-tag">JWT</span>
+                                    <span class="skills-tag">Clean&nbsp;Architecture</span>
+                                </div>
                             </div>
                             <div class="flex justify-between items-center mt-auto">
                                 <a href="https://github.com/Nicola-Ibrahim/User-Authenticator" target="_blank"
                                     rel="noopener noreferrer"
-                                    class="text-sm text-accent font-semibold hover:underline">View on GitHub</a>
+                                    class="text-sm text-accent font-semibold hover:underline">Source&nbsp;Code</a>
                                 <i class="fas fa-arrow-right text-primary"></i>
                             </div>
                         </div>
                     </div>
                     <!-- Project 3: DevOps & CI/CD (placeholder for future projects) -->
-                    <div class="project-card">
-                        <div class="project-image">
-                            <i class="fas fa-cogs"></i>
+                    <div class="project-card flex flex-col lg:flex-row overflow-hidden">
+                        <!-- Left: Placeholder image/icon -->
+                        <div
+                            class="project-image w-full lg:w-1/2 h-64 flex items-center justify-center bg-gradient-secondary text-white">
+                            <i class="fas fa-cogs text-6xl"></i>
                         </div>
-                        <div class="p-6 flex flex-col justify-between h-full">
+                        <!-- Right: Description -->
+                        <div class="p-6 flex flex-col justify-between w-full lg:w-1/2">
                             <div>
-                                <h3 class="text-xl font-bold text-primary mb-3">DevOps &amp; CI/CD</h3>
-                                <p class="text-secondary mb-6">
+                                <h3 class="text-2xl font-bold text-primary mb-3">DevOps &amp; CI/CD</h3>
+                                <p class="text-secondary mb-4">
                                     Automated deployment pipelines and infrastructure management using modern DevOps
                                     practices.
                                 </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="skills-tag">Docker</span>
+                                    <span class="skills-tag">CI/CD</span>
+                                    <span class="skills-tag">Kubernetes</span>
+                                </div>
                             </div>
                             <div class="flex justify-between items-center mt-auto">
-                                <span class="text-sm text-accent font-semibold">Coming Soon</span>
+                                <span class="text-sm text-accent font-semibold">Coming&nbsp;Soon</span>
                                 <i class="fas fa-arrow-right text-primary"></i>
                             </div>
                         </div>
@@ -314,123 +396,7 @@
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="section-padding section-bg-tertiary" data-aos="fade-up">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="section-title text-4xl md:text-5xl">Professional Experience</h2>
-                    <div class="section-divider"></div>
-                </div>
-
-                <div class="timeline">
-                    <!-- Experience 1 -->
-                    <div class="card-bg rounded-xl shadow-lg p-8 card-hover timeline-item">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                            <div>
-                                <h3 class="text-2xl font-bold text-primary mb-2">Python Developer</h3>
-                                <p class="text-xl text-accent font-semibold">Choyze GmbH</p>
-                                <p class="text-secondary">Hanover, Germany</p>
-                            </div>
-                            <div class="text-secondary mt-4 md:mt-0">
-                                <i class="fas fa-calendar-alt mr-2"></i>
-                                February 2024 – October 2024
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Engineered modular Django solutions resulting in <strong
-                                        class="text-primary">20% faster feature integration</strong></p>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Collaborated with cross-functional teams achieving <strong
-                                        class="text-primary">15% faster delivery</strong> timelines</p>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Developed automated testing frameworks and CI/CD pipelines
-                                    improving efficiency by <strong class="text-primary">30%</strong></p>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Enhanced frontend with Alpine.js achieving <strong
-                                        class="text-primary">25% better responsiveness</strong></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Experience 2 -->
-                    <div class="card-bg rounded-xl shadow-lg p-8 card-hover timeline-item">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                            <div>
-                                <h3 class="text-2xl font-bold text-primary mb-2">Software Engineer</h3>
-                                <p class="text-xl text-accent font-semibold">Ruhr Entrümpler</p>
-                                <p class="text-secondary">Bochum, Germany</p>
-                            </div>
-                            <div class="text-secondary mt-4 md:mt-0">
-                                <i class="fas fa-calendar-alt mr-2"></i>
-                                May 2023 – October 2023
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Developed backend systems for booking platforms using Django
-                                    framework</p>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Designed modular architectures following SOLID principles with
-                                    <strong class="text-primary">20% faster integration</strong>
-                                </p>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Implemented CI/CD pipelines using GitLab, Docker, and AWS
-                                    achieving <strong class="text-primary">30% better uptime</strong></p>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Participated in architecture review sessions ensuring code
-                                    quality and best practices</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Experience 3 -->
-                    <div class="card-bg rounded-xl shadow-lg p-8 card-hover timeline-item">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                            <div>
-                                <h3 class="text-2xl font-bold text-primary mb-2">Backend Developer</h3>
-                                <p class="text-xl text-accent font-semibold">Intenta GmbH</p>
-                                <p class="text-secondary">Hamburg, Germany</p>
-                            </div>
-                            <div class="text-secondary mt-4 md:mt-0">
-                                <i class="fas fa-calendar-alt mr-2"></i>
-                                June 2022 – February 2023
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Designed high-performance RESTful APIs resulting in <strong
-                                        class="text-primary">30% increased customer engagement</strong></p>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Optimized ORM queries for enhanced database performance and
-                                    scalability</p>
-                            </div>
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                                <p class="text-secondary">Worked cross-functionally to align technical implementations
-                                    with organizational goals</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Experience section removed: professional experience is detailed in the downloadable CV -->
 
 
         <!-- Education Section -->
@@ -468,6 +434,30 @@
                                 distributed systems, and modern development methodologies.
                             </p>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section-padding section-bg-secondary" data-aos="fade-up">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="section-title text-4xl md:text-5xl">Testimonials</h2>
+                    <div class="section-divider"></div>
+                    <p class="text-xl text-secondary max-w-3xl mx-auto">
+                        A few kind words from those I've worked with.
+                    </p>
+                </div>
+                <div class="relative flex justify-center">
+                    <div class="card-bg rounded-xl shadow-xl p-8 max-w-2xl text-center">
+                        <i class="fas fa-quote-left text-3xl text-accent mb-4"></i>
+                        <p class="text-lg text-secondary mb-6">
+                            "Nicola is a brilliant engineer who quickly grasped our complex requirements and delivered a
+                            scalable solution. His dedication and positive attitude made him a pleasure to work with."
+                        </p>
+                        <h4 class="text-xl font-semibold text-primary mb-1">John&nbsp;Doe</h4>
+                        <p class="text-sm text-blue-100">Manager at XYZ Company</p>
                     </div>
                 </div>
             </div>
@@ -601,6 +591,36 @@
         const t = document.getElementById('year');
         t.textContent = y;
         t.setAttribute('datetime', y);
+    </script>
+
+    <!-- Tools tab switching script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tools-tab');
+            const contents = document.querySelectorAll('.tools-content');
+            function activateTab(tab) {
+                const target = tab.getAttribute('data-target');
+                // hide all contents
+                contents.forEach(c => c.classList.add('hidden'));
+                // remove active styles from all tabs
+                tabs.forEach(t => {
+                    // Reset each tab to its default appearance
+                    t.classList.remove('bg-primary', 'text-white');
+                    t.classList.add('bg-dark', 'border', 'border-primary', 'text-primary');
+                });
+                // show selected content
+                const activeContent = document.getElementById(target);
+                if (activeContent) activeContent.classList.remove('hidden');
+                // activate selected tab
+                tab.classList.add('bg-primary', 'text-white');
+                tab.classList.remove('bg-dark', 'text-primary', 'border', 'border-primary');
+            }
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => activateTab(tab));
+            });
+            // Set default active tab
+            if (tabs.length) activateTab(tabs[0]);
+        });
     </script>
 </body>
 
