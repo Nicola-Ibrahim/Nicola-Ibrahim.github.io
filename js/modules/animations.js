@@ -6,7 +6,8 @@
 export class AnimationManager {
   constructor() {
     this.initTypingAnimation();
-    this.initAnimationObserver();
+    // AOS handles most scroll animations now, but we can keep this for custom stuff if needed.
+    // For now, we'll rely on AOS for scroll animations to avoid conflicts.
   }
 
   /**
@@ -16,17 +17,15 @@ export class AnimationManager {
     const typingText = document.querySelector(".typing-animation");
     if (!typingText) return;
 
-    const text = typingText.textContent;
+    const text = typingText.getAttribute('data-text') || typingText.textContent;
     typingText.textContent = ""; // Clear the text to prepare for typing animation
     let i = 0;
 
     const typeWriter = () => {
-      // The bug was here: `i < text.length` will always be true when `text` is empty
-      // You must check for the original text length.
       if (i < text.length) {
         typingText.textContent += text.charAt(i);
         i++;
-        setTimeout(typeWriter, 100);
+        setTimeout(typeWriter, 50); // Faster typing
       } else {
         // Add cursor blink class after typing is complete
         typingText.classList.add("cursor-blink");
@@ -34,27 +33,6 @@ export class AnimationManager {
     };
 
     // Start typing animation after a short delay
-    setTimeout(typeWriter, 0);
-  }
-
-  /**
-   * Initialize Intersection Observer for animations
-   */
-  initAnimationObserver() {
-    const animatedElements = document.querySelectorAll(".card-hover, .timeline-item");
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("fade-in-up");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px"
-    });
-
-    animatedElements.forEach(element => observer.observe(element));
+    setTimeout(typeWriter, 500);
   }
 }

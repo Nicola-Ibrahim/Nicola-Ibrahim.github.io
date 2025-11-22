@@ -15,43 +15,33 @@ export class NavigationManager {
    * Bind navigation related events
    */
   bindNavigationEvents() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenuButton = document.getElementById('mobile-menu-btn'); // Updated ID
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-    if (mobileMenuButton && mobileMenu) {
-      // Toggle mobile menu
-      mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        // Update ARIA attributes
-        const isExpanded = !mobileMenu.classList.contains('hidden');
-        mobileMenuButton.setAttribute('aria-expanded', isExpanded);
-        // Change icon
-        const icon = mobileMenuButton.querySelector('i');
-        if (icon) {
-          icon.className = isExpanded ? 'fas fa-times text-xl' : 'fas fa-bars text-xl';
-        }
-      });
 
-      // Close mobile menu when clicking on a link
+    // Mobile menu logic is already partly in index.html inline script, 
+    // but we can enhance it here or leave it there. 
+    // The inline script handles the toggle. We can add close-on-click here.
+
+    if (mobileMenu) {
       const mobileLinks = mobileMenu.querySelectorAll('a');
       mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');
-          mobileMenuButton.setAttribute('aria-expanded', 'false');
-          // Reset icon
-          const icon = mobileMenuButton.querySelector('i');
-          if (icon) {
-            icon.className = 'fas fa-bars text-xl';
-          }
         });
       });
     }
+
     // Desktop nav: click to set active and persist
     navLinks.forEach(link => {
       link.addEventListener('click', function () {
-        navLinks.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        localStorage.setItem('activeNav', this.dataset.section);
+        navLinks.forEach(l => l.classList.remove('text-primary')); // Active state style
+        this.classList.add('text-primary');
+        const href = this.getAttribute('href');
+        if (href) {
+          const sectionId = href.substring(1);
+          localStorage.setItem('activeNav', sectionId);
+        }
       });
     });
   }
@@ -63,7 +53,10 @@ export class NavigationManager {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = document.querySelector(anchor.getAttribute('href'));
+        const targetId = anchor.getAttribute('href');
+        if (targetId === '#') return;
+
+        const target = document.querySelector(targetId);
 
         if (target) {
           const offsetTop = target.offsetTop - 80; // Account for fixed navbar
@@ -72,11 +65,6 @@ export class NavigationManager {
             top: offsetTop,
             behavior: 'smooth'
           });
-
-          // Focus management for accessibility
-          target.setAttribute('tabindex', '-1');
-          target.focus();
-          target.removeAttribute('tabindex');
         }
       });
     });
@@ -89,16 +77,18 @@ export class NavigationManager {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
     if (sections.length === 0 || navLinks.length === 0) return;
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const currentSection = entry.target.getAttribute('id');
           navLinks.forEach(link => {
-            if (link.dataset.section === currentSection) {
-              link.classList.add('active');
+            const href = link.getAttribute('href');
+            if (href === `#${currentSection}`) {
+              link.classList.add('text-primary');
               localStorage.setItem('activeNav', currentSection);
             } else {
-              link.classList.remove('active');
+              link.classList.remove('text-primary');
             }
           });
         }
@@ -115,13 +105,13 @@ export class NavigationManager {
     const savedSection = localStorage.getItem('activeNav');
     if (savedSection) {
       navLinks.forEach(link => {
-        if (link.dataset.section === savedSection) {
-          link.classList.add('active');
+        const href = link.getAttribute('href');
+        if (href === `#${savedSection}`) {
+          link.classList.add('text-primary');
         } else {
-          link.classList.remove('active');
+          link.classList.remove('text-primary');
         }
       });
     }
   }
 }
-

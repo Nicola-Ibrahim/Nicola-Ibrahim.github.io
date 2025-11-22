@@ -1,625 +1,414 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Nicola Ibrahim - Software Engineer specializing in Python, Django, and scalable backend solutions">
-    <meta name="keywords" content="Software Engineer, Python Developer, Django, Backend Development, Web Development">
+        content="Nicola Ibrahim - Backend & AI Software Engineer. Building scalable solutions in the void.">
+    <meta name="keywords" content="Software Engineer, Python, Django, Backend, AI, Deep Space">
     <meta name="author" content="Nicola Ibrahim">
-    <title>Nicola Ibrahim - Software Engineer</title>
+    <title>Nicola Ibrahim | Software Engineer</title>
 
-    <!-- Tailwind compiled styles (use relative paths so the site renders when opened locally or on GitHub Pages) -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind Output -->
     <link href="./css/output.css" rel="stylesheet">
-
-    <!-- Animate On Scroll Library for section transitions -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-    <script>
-        tailwind.config = {
-            darkMode: ["class", '[data-theme="dark"]'],
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#1e40af",
-                        secondary: "#3b82f6",
-                        accent: "#60a5fa",
-                        dark: "#1f2937",
-                        light: "#f8fafc"
-                    },
-                    fontFamily: {
-                        sans: ["Inter", "system-ui", "sans-serif"]
-                    },
-                    animation: {
-                        'fade-in-up': "fadeInUp 0.8s ease-out",
-                        'slide-in-left': "slideInLeft 0.8s ease-out",
-                        'slide-in-right': "slideInRight 0.8s ease-out"
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- External Fonts and Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Include Poppins font for headings to mimic the example portfolio style -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Custom overrides for tool item sizing and spacing -->
-    <style>
-        /* Override default tool card dimensions to reduce whitespace and create a tighter grid */
-        .tool-item {
-            width: 8rem;
-            height: 7rem;
-        }
-    </style>
-
-    <!-- Dark theme only: removed light/dark theme detection -->
-
-    <!-- Include AOS script early so it can initialise once the DOM is ready -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-
 </head>
 
-<body class="font-sans">
+<body class="bg-dark text-light overflow-x-hidden selection:bg-primary selection:text-white">
 
-    <!-- Skip to main content (accessibility) -->
-    <a href="#main"
-        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded-md z-50">
-        Skip to main content
-    </a>
+    <!-- Background Elements -->
+    <div class="fixed inset-0 z-[-1]">
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[120px] animate-float">
+        </div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/20 blur-[120px] animate-float"
+            style="animation-delay: -3s;"></div>
+    </div>
 
     <!-- Navigation -->
-    <nav class="nav-bg fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="#home" class="nav-brand">Nicola Ibrahim</a>
-                </div>
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#"
+                    class="text-2xl font-heading font-bold tracking-tighter hover:text-primary transition-colors">
+                    NI<span class="text-primary">.</span>
+                </a>
 
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#home" class="nav-link" data-section="home">Home</a>
-                    <!-- Updated navigation order: My Tools, Projects, Experience, Education, Contact -->
-                    <a href="#tools" class="nav-link" data-section="tools">My Tools</a>
-                    <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-                    <!-- Removed work experience link as the section has been dropped -->
-                    <a href="#education" class="nav-link" data-section="education">Education</a>
-                    <a href="#testimonials" class="nav-link" data-section="testimonials">Testimonials</a>
-                    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
-                    <!-- Theme toggle removed: dark theme is the default -->
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-sm font-medium tracking-wide">HOME</a>
+                    <a href="#tools" class="nav-link text-sm font-medium tracking-wide">TOOLS</a>
+                    <a href="#projects" class="nav-link text-sm font-medium tracking-wide">PROJECTS</a>
+                    <a href="#education" class="nav-link text-sm font-medium tracking-wide">EDUCATION</a>
+                    <a href="#contact" class="btn-primary text-sm py-2 px-6">LET'S TALK</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button"
-                        class="nav-link hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent"
-                        aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle mobile menu">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-white focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden mobile-menu" role="menu" aria-labelledby="mobile-menu-button">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="mobile-menu-link" role="menuitem">Home</a>
-                <!-- Updated mobile menu order to match desktop navigation -->
-                <a href="#tools" class="mobile-menu-link" role="menuitem">My Tools</a>
-                <a href="#projects" class="mobile-menu-link" role="menuitem">Projects</a>
-                <!-- Removed work experience link from the mobile menu -->
-                <a href="#education" class="mobile-menu-link" role="menuitem">Education</a>
-                <a href="#testimonials" class="mobile-menu-link" role="menuitem">Testimonials</a>
-                <a href="#contact" class="mobile-menu-link" role="menuitem">Contact</a>
-            </div>
+        <div id="mobile-menu"
+            class="hidden md:hidden absolute top-20 left-0 w-full bg-dark/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col space-y-4">
+            <a href="#home" class="text-lg font-medium hover:text-primary transition-colors">Home</a>
+            <a href="#tools" class="text-lg font-medium hover:text-primary transition-colors">Tools</a>
+            <a href="#projects" class="text-lg font-medium hover:text-primary transition-colors">Projects</a>
+            <a href="#education" class="text-lg font-medium hover:text-primary transition-colors">Education</a>
+            <a href="#contact" class="text-lg font-medium text-primary">Let's Talk</a>
         </div>
     </nav>
 
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Space Canvas Background -->
+        <canvas id="blackhole-canvas" class="absolute inset-0 w-full h-full z-[-1] opacity-60"></canvas>
 
-
-    <!-- Main Content -->
-    <main id="main" class="relative z-10">
-
-        <!-- Hero Section -->
-        <!-- Removed static cosmic background and rely solely on the interactive space animation.
-             A subtle black‑hole icon is overlaid as a decorative element. -->
-        <section id="home" class="relative min-h-screen flex items-center pt-16 bg-dark">
-            <!-- 3D dark space simulation canvas -->
-            <canvas id="blackhole-canvas" class="absolute top-0 left-0 w-full h-full -z-10"></canvas>
-            <!-- Gradient overlay for readability -->
-            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-indigo-900/60 to-transparent"></div>
-
-            <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white" data-aos="fade-up">
-                <!-- Split layout: left (2/3) + right (1/3) -->
-                <div class="w-full flex flex-col md:flex-row items-center md:items-center">
-
-                    <!-- Left: tagline and professional profile (2/3) -->
-                    <div class="w-full md:w-2/3 md:pl-12 text-left">
-                        <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold mb-4 slide-in-left">
-                            Hi, I'm <span class="text-accent">Nicola Ibrahim</span>
-                        </h1>
-
-                        <p
-                            class="hero-subtitle text-2xl md:text-3xl font-light typing-animation inline-block slide-in-right">
-                            Backend &amp; AI Software Engineer
-                        </p>
-
-                        <!-- Profile summary (paragraphs span full column width) -->
-                        <div class="mt-8 fade-in-up">
-                            <div class="space-y-4 w-full">
-                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
-                                    A software engineer in Germany. I design backends that are
-                                    boring—in the best way: fast, stable, and easy to scale.
-                                </p>
-
-                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
-                                    When AI helps, I integrate it cleanly—no drama, just value. My focus is clear
-                                    architecture, predictable performance, and code teams enjoy working with.
-                                </p>
-
-                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
-                                    From shipping reliable APIs to threading AI into real products, I care about
-                                    outcomes:
-                                    maintainable systems that support the business and feel good to use.
-                                </p>
-
-                                <p class="text-lg md:text-xl text-blue-100 leading-relaxed">
-                                    Let’s work together to turn your ideas into reliable software.
-                                </p>
-                                <!-- CV download button placed after the introduction -->
-                                <div class="mt-6">
-                                    <a href="./resources/Nicola_Ibrahim_CV.pdf" target="_blank" download
-                                        class="btn-primary inline-flex items-center gap-2">
-                                        <i class="fas fa-file-download"></i>
-                                        Download&nbsp;CV
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right: highlight cards (1/3) -->
-                    <div class="w-full md:w-1/3 mt-10 md:mt-0 md:pl-8 md:flex md:justify-end">
-                        <div class="flex flex-col items-center md:items-end gap-4 w-full md:max-w-sm md:ml-auto">
-                            <!-- Backend Engineering card -->
-                            <div class="highlight-card w-full !mt-0">
-                                <i class="fas fa-laptop-code"></i>
-                                <h4 class="text-xl font-semibold mb-1">Backend Engineering</h4>
-                                <p class="text-sm text-blue-100">Robust &amp; scalable back‑end solutions.</p>
-                            </div>
-                            <!-- Cloud Deployment card -->
-                            <div class="highlight-card w-full !mt-0">
-                                <i class="fas fa-cloud"></i>
-                                <h4 class="text-xl font-semibold mb-1">Cloud Deployment</h4>
-                                <p class="text-sm text-blue-100">Deploying apps on modern clouds.</p>
-                            </div>
-                            <!-- Clean Code card -->
-                            <div class="highlight-card w-full !mt-0">
-                                <i class="fas fa-code"></i>
-                                <h4 class="text-xl font-semibold mb-1">Clean Code</h4>
-                                <p class="text-sm text-blue-100">Maintainable &amp; scalable solutions.</p>
-                            </div>
-                            <!-- AI & ML card -->
-                            <div class="highlight-card w-full !mt-0">
-                                <i class="fas fa-brain"></i>
-                                <h4 class="text-xl font-semibold mb-1">AI &amp; ML</h4>
-                                <p class="text-sm text-blue-100">Seamless AI integration.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-        </section>
-
-
-
-
-        <!-- Tools Section -->
-        <section id="tools" class="section-padding section-bg-secondary" data-aos="fade-up">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="section-title text-4xl md:text-5xl">My Tools</h2>
-                    <div class="section-divider"></div>
-                </div>
-                <!-- Introduce a tabbed tool selector instead of a single grid -->
-                <div class="mb-8">
-                    <!-- Tabs navigation -->
-                    <div class="flex flex-wrap justify-center gap-4 mb-8">
-                        <!-- All tabs start with the same base style; the active state is applied via JavaScript -->
-                        <button
-                            class="tools-tab bg-dark border border-primary text-primary px-4 py-2 rounded-full font-medium"
-                            data-target="cat-languages">Languages</button>
-                        <button
-                            class="tools-tab bg-dark border border-primary text-primary px-4 py-2 rounded-full font-medium"
-                            data-target="cat-frameworks">Frameworks</button>
-                        <button
-                            class="tools-tab bg-dark border border-primary text-primary px-4 py-2 rounded-full font-medium"
-                            data-target="cat-architecture">Architecture</button>
-                        <button
-                            class="tools-tab bg-dark border border-primary text-primary px-4 py-2 rounded-full font-medium"
-                            data-target="cat-ai">AI &amp; Data</button>
-                    </div>
-                    <!-- Tab content: Languages -->
-                    <div id="cat-languages" class="tools-content flex flex-wrap justify-center gap-4">
-                        <div class="tool-item"><i class="fab fa-python"></i><span>Python</span></div>
-                        <div class="tool-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
-                        <div class="tool-item"><i class="fab fa-html5"></i><span>HTML5</span></div>
-                        <div class="tool-item"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
-                        <div class="tool-item"><i class="fas fa-database"></i><span>SQL</span></div>
-                    </div>
-                    <!-- Tab content: Frameworks -->
-                    <div id="cat-frameworks" class="tools-content hidden flex flex-wrap justify-center gap-4">
-                        <div class="tool-item"><i class="fas fa-leaf"></i><span>Django</span></div>
-                        <div class="tool-item"><i class="fas fa-rocket"></i><span>FastAPI</span></div>
-                        <div class="tool-item"><i class="fas fa-plug"></i><span>REST&nbsp;APIs</span></div>
-                        <div class="tool-item"><i class="fas fa-wind"></i><span>Tailwind&nbsp;CSS</span></div>
-                    </div>
-                    <!-- Tab content: Architecture -->
-                    <div id="cat-architecture" class="tools-content hidden flex flex-wrap justify-center gap-4">
-                        <div class="tool-item"><i class="fas fa-project-diagram"></i><span>DDD</span></div>
-                        <div class="tool-item"><i class="fas fa-layer-group"></i><span>Clean&nbsp;Architecture</span>
-                        </div>
-                        <div class="tool-item"><i class="fas fa-puzzle-piece"></i><span>Design&nbsp;Patterns</span>
-                        </div>
-                        <div class="tool-item"><i class="fas fa-layer-group"></i><span>SOLID</span></div>
-                    </div>
-                    <!-- Tab content: AI & Data -->
-                    <div id="cat-ai" class="tools-content hidden flex flex-wrap justify-center gap-4">
-                        <div class="tool-item"><i class="fas fa-fire"></i><span>PyTorch</span></div>
-                        <div class="tool-item"><i class="fas fa-cubes"></i><span>NumPy&nbsp;&nbsp;SciPy</span></div>
-                        <div class="tool-item"><i class="fas fa-table"></i><span>Pandas</span></div>
-                        <div class="tool-item"><i class="fas fa-brain"></i><span>Generative&nbsp;Models</span></div>
-                        <div class="tool-item"><i
-                                class="fas fa-balance-scale"></i><span>Multi‑Objective&nbsp;Optimisation</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="section-padding section-bg-secondary" data-aos="fade-up">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="section-title text-4xl md:text-5xl">Featured Projects</h2>
-                    <div class="section-divider"></div>
-                    <p class="text-xl text-secondary max-w-3xl mx-auto">
-                        Here are some of the projects I've worked on. Each project represents my commitment to clean
-                        code,
-                        scalable architecture, and user-centered design.
-                    </p>
-                </div>
-                <!-- Stack projects vertically to mimic the example design -->
-                <div class="flex flex-col space-y-12">
-                    <!-- Project 1: Bot Chatting System -->
-                    <div class="project-card flex flex-col lg:flex-row overflow-hidden">
-                        <!-- Left: Placeholder image/icon -->
-                        <div
-                            class="project-image w-full lg:w-1/2 h-64 flex items-center justify-center bg-gradient-secondary text-white">
-                            <i class="fas fa-robot text-6xl"></i>
-                        </div>
-                        <!-- Right: Description -->
-                        <div class="p-6 flex flex-col justify-between w-full lg:w-1/2">
-                            <div>
-                                <h3 class="text-2xl font-bold text-primary mb-3">Bot&nbsp;Chatting&nbsp;System</h3>
-                                <p class="text-secondary mb-4">
-                                    A modular chat system built with FastAPI and Domain‑Driven Design. Features include
-                                    user authentication, conversation management, event‑driven architecture and AI
-                                    integration for natural language interactions.
-                                </p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="skills-tag">FastAPI</span>
-                                    <span class="skills-tag">DDD</span>
-                                    <span class="skills-tag">Event&nbsp;Driven</span>
-                                    <span class="skills-tag">AI</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-auto">
-                                <a href="https://github.com/Nicola-Ibrahim/Bot-Chatting" target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-sm text-accent font-semibold hover:underline">Source&nbsp;Code</a>
-                                <i class="fas fa-arrow-right text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Project 2: User Authenticator -->
-                    <div class="project-card flex flex-col lg:flex-row overflow-hidden">
-                        <!-- Left: Placeholder image/icon -->
-                        <div
-                            class="project-image w-full lg:w-1/2 h-64 flex items-center justify-center bg-gradient-secondary text-white">
-                            <i class="fas fa-user-lock text-6xl"></i>
-                        </div>
-                        <!-- Right: Description -->
-                        <div class="p-6 flex flex-col justify-between w-full lg:w-1/2">
-                            <div>
-                                <h3 class="text-2xl font-bold text-primary mb-3">User&nbsp;Authenticator</h3>
-                                <p class="text-secondary mb-4">
-                                    A secure RESTful API for user authentication and authorization using
-                                    Django&nbsp;REST&nbsp;Framework and JWT. Supports registration, login, token
-                                    management, password reset and email verification with clean architecture.
-                                </p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="skills-tag">Django&nbsp;REST</span>
-                                    <span class="skills-tag">JWT</span>
-                                    <span class="skills-tag">Clean&nbsp;Architecture</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-auto">
-                                <a href="https://github.com/Nicola-Ibrahim/User-Authenticator" target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="text-sm text-accent font-semibold hover:underline">Source&nbsp;Code</a>
-                                <i class="fas fa-arrow-right text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Project 3: DevOps & CI/CD (placeholder for future projects) -->
-                    <div class="project-card flex flex-col lg:flex-row overflow-hidden">
-                        <!-- Left: Placeholder image/icon -->
-                        <div
-                            class="project-image w-full lg:w-1/2 h-64 flex items-center justify-center bg-gradient-secondary text-white">
-                            <i class="fas fa-cogs text-6xl"></i>
-                        </div>
-                        <!-- Right: Description -->
-                        <div class="p-6 flex flex-col justify-between w-full lg:w-1/2">
-                            <div>
-                                <h3 class="text-2xl font-bold text-primary mb-3">DevOps &amp; CI/CD</h3>
-                                <p class="text-secondary mb-4">
-                                    Automated deployment pipelines and infrastructure management using modern DevOps
-                                    practices.
-                                </p>
-                                <div class="flex flex-wrap gap-2 mb-4">
-                                    <span class="skills-tag">Docker</span>
-                                    <span class="skills-tag">CI/CD</span>
-                                    <span class="skills-tag">Kubernetes</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-auto">
-                                <span class="text-sm text-accent font-semibold">Coming&nbsp;Soon</span>
-                                <i class="fas fa-arrow-right text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-12">
-                    <p class="text-secondary mb-6">More projects will be showcased here soon. Stay tuned!</p>
-                    <a href="https://github.com/Nicola-Ibrahim" target="_blank" rel="noopener noreferrer"
-                        class="btn-primary">
-                        <i class="fab fa-github"></i> View GitHub Profile
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-tight">
+                    Building the <br>
+                    <span class="text-gradient">Digital Future</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 font-light">
+                    I'm <span class="text-white font-medium">Nicola Ibrahim</span>, a <span
+                        class="typing-animation text-primary" data-text="Backend & AI Engineer">Backend & AI
+                        Engineer</span> crafting robust systems and intelligent solutions.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#projects" class="btn-primary w-full sm:w-auto group">
+                        View Work <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="./resources/Nicola_Ibrahim_CV.pdf" target="_blank"
+                        class="btn-outline w-full sm:w-auto group">
+                        Download CV <i class="fas fa-download ml-2 group-hover:translate-y-1 transition-transform"></i>
                     </a>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Experience Section -->
-        <!-- Experience section removed: professional experience is detailed in the downloadable CV -->
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#tools" class="text-white/50 hover:text-white transition-colors">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
 
+    <!-- Tools Section -->
+    <section id="tools" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">My Arsenal</h2>
+                <p class="text-gray-400 max-w-xl mx-auto">The technologies I use to bring ideas to life.</p>
+            </div>
 
-        <!-- Education Section -->
-        <section id="education" class="section-padding section-bg-tertiary" data-aos="fade-up">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="section-title text-4xl md:text-5xl">Education</h2>
-                    <div class="section-divider"></div>
+            <!-- Tech Stack Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="100">
+                <!-- Python -->
+                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                    <i
+                        class="fab fa-python text-4xl mb-4 text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">Python</h3>
+                    <p class="text-sm text-gray-500 mt-1">Advanced</p>
+                </div>
+                <!-- Django -->
+                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                    <i
+                        class="fas fa-leaf text-4xl mb-4 text-green-500 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">Django</h3>
+                    <p class="text-sm text-gray-500 mt-1">Expert</p>
+                </div>
+                <!-- FastAPI -->
+                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                    <i
+                        class="fas fa-bolt text-4xl mb-4 text-yellow-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">FastAPI</h3>
+                    <p class="text-sm text-gray-500 mt-1">Proficient</p>
+                </div>
+                <!-- AI/ML -->
+                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                    <i
+                        class="fas fa-brain text-4xl mb-4 text-pink-500 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">AI & ML</h3>
+                    <p class="text-sm text-gray-500 mt-1">PyTorch, Pandas</p>
+                </div>
+                <!-- Docker -->
+                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                    <i
+                        class="fab fa-docker text-4xl mb-4 text-blue-600 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">Docker</h3>
+                    <p class="text-sm text-gray-500 mt-1">Containerization</p>
+                </div>
+                <!-- SQL -->
+                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                    <i
+                        class="fas fa-database text-4xl mb-4 text-orange-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">SQL</h3>
+                    <p class="text-sm text-gray-500 mt-1">PostgreSQL, MySQL</p>
+                </div>
+                <!-- JavaScript -->
+                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                    <i
+                        class="fab fa-js text-4xl mb-4 text-yellow-300 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">JavaScript</h3>
+                    <p class="text-sm text-gray-500 mt-1">ES6+</p>
+                </div>
+                <!-- Architecture -->
+                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                    <i
+                        class="fas fa-layer-group text-4xl mb-4 text-purple-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">Architecture</h3>
+                    <p class="text-sm text-gray-500 mt-1">DDD, Clean Arch</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-dark-lighter relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16" data-aos="fade-up">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4">Featured Work</h2>
+                    <p class="text-gray-400 max-w-xl">A selection of projects that define my journey.</p>
+                </div>
+                <a href="https://github.com/Nicola-Ibrahim" target="_blank"
+                    class="hidden md:inline-flex items-center text-primary hover:text-secondary transition-colors font-medium mt-4 md:mt-0">
+                    View Github <i class="fab fa-github ml-2"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="glass-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fas fa-robot text-9xl"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="p-3 bg-primary/10 rounded-lg text-primary">
+                                <i class="fas fa-comments text-2xl"></i>
+                            </div>
+                            <a href="https://github.com/Nicola-Ibrahim/Bot-Chatting" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Bot Chatting
+                            System</h3>
+                        <p class="text-gray-400 mb-6 line-clamp-3">
+                            A modular chat system built with FastAPI and Domain‑Driven Design. Features user auth,
+                            conversation management, and AI integration.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">FastAPI</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">DDD</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">AI</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="max-w-4xl mx-auto">
-                    <div class="gradient-bg rounded-xl shadow-xl p-8 text-white card-hover">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                            <div class="flex items-start space-x-4">
-                                <div class="bg-white bg-opacity-20 p-4 rounded-full">
-                                    <i class="fas fa-graduation-cap text-3xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold mb-2">Master of Science in Computer Engineering</h3>
-                                    <p class="text-xl text-blue-100 mb-2">Paderborn University</p>
-                                    <p class="text-blue-200">Paderborn, Germany</p>
-                                </div>
+                <!-- Project 2 -->
+                <div class="glass-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fas fa-shield-alt text-9xl"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="p-3 bg-secondary/10 rounded-lg text-secondary">
+                                <i class="fas fa-user-lock text-2xl"></i>
                             </div>
-                            <div class="mt-6 md:mt-0 text-right">
-                                <div class="bg-white bg-opacity-20 rounded-lg p-4">
-                                    <i class="fas fa-calendar-alt mb-2"></i>
-                                    <p class="font-semibold">September 2023 – Present</p>
-                                </div>
+                            <a href="https://github.com/Nicola-Ibrahim/User-Authenticator" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-secondary transition-colors">User
+                            Authenticator</h3>
+                        <p class="text-gray-400 mb-6 line-clamp-3">
+                            Secure RESTful API for auth using Django REST Framework & JWT. Supports registration, login,
+                            and token management.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Django</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">JWT</span>
+                            <span
+                                class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Security</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 (Coming Soon) -->
+                <div class="glass-card group relative overflow-hidden border-dashed border-white/20" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center bg-dark/50 backdrop-blur-[2px] z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-lg font-bold tracking-widest">COMING SOON</span>
+                    </div>
+                    <div class="relative z-10 opacity-50 group-hover:opacity-30 transition-opacity">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="p-3 bg-accent/10 rounded-lg text-accent">
+                                <i class="fas fa-cogs text-2xl"></i>
                             </div>
                         </div>
-                        <div class="mt-6 pt-6 border-t border-white border-opacity-20">
-                            <p class="text-blue-100 text-lg">
-                                Currently pursuing advanced studies in Computer Engineering, focusing on software
-                                architecture,
-                                distributed systems, and modern development methodologies.
-                            </p>
+                        <h3 class="text-2xl font-bold mb-3">DevOps Pipeline</h3>
+                        <p class="text-gray-400 mb-6">
+                            Automated deployment pipelines and infrastructure management using modern DevOps practices.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Docker</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">CI/CD</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="section-padding section-bg-secondary" data-aos="fade-up">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="section-title text-4xl md:text-5xl">Testimonials</h2>
-                    <div class="section-divider"></div>
-                    <p class="text-xl text-secondary max-w-3xl mx-auto">
-                        A few kind words from those I've worked with.
-                    </p>
+            <div class="mt-8 text-center md:hidden">
+                <a href="https://github.com/Nicola-Ibrahim" target="_blank" class="btn-outline w-full">
+                    View Github <i class="fab fa-github ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Testimonials Split -->
+    <section id="education" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+                <!-- Education -->
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl font-bold mb-8 flex items-center">
+                        <i class="fas fa-graduation-cap text-primary mr-4"></i> Education
+                    </h2>
+                    <div class="relative pl-8 border-l-2 border-white/10 space-y-12">
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-primary border-4 border-dark">
+                            </div>
+                            <span class="text-sm text-primary font-medium mb-1 block">2023 - 2026</span>
+                            <h3 class="text-xl font-bold">M.Sc. Computer Engineering</h3>
+                            <p class="text-gray-400">Paderborn University, Germany</p>
+                            <p class="text-gray-500 mt-2 text-sm">Focusing on software architecture, distributed
+                                systems, and modern development methodologies.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="relative flex justify-center">
-                    <div class="card-bg rounded-xl shadow-xl p-8 max-w-2xl text-center">
-                        <i class="fas fa-quote-left text-3xl text-accent mb-4"></i>
-                        <p class="text-lg text-secondary mb-6">
+
+                <!-- Testimonials -->
+                <div data-aos="fade-left">
+                    <h2 class="text-3xl font-bold mb-8 flex items-center">
+                        <i class="fas fa-quote-left text-secondary mr-4"></i> Testimonials
+                    </h2>
+                    <div class="glass-card relative">
+                        <i class="fas fa-quote-right absolute top-6 right-6 text-4xl text-white/5"></i>
+                        <p class="text-lg text-gray-300 italic mb-6 leading-relaxed">
                             "Nicola is a brilliant engineer who quickly grasped our complex requirements and delivered a
                             scalable solution. His dedication and positive attitude made him a pleasure to work with."
                         </p>
-                        <h4 class="text-xl font-semibold text-primary mb-1">Raphael &nbsp;Meyer-Alten</h4>
-                        <p class="text-sm text-blue-100">CEO at Choyze Company</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--
-            Removed duplicate Projects section – moved earlier after the Tools section.
-        -->
-
-        <!-- Contact Section -->
-        <section id="contact" class="section-padding gradient-bg text-white" data-aos="fade-up">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's Connect</h2>
-                    <div class="w-24 h-1 bg-white mx-auto mb-8"></div>
-                    <p class="text-xl text-blue-100 max-w-3xl mx-auto">
-                        I'm always interested in new opportunities and exciting projects.
-                        Let's discuss how we can work together!
-                    </p>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-8">
-                        <div class="contact-item">
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-white bg-opacity-20 p-4 rounded-full">
-                                    <i class="fas fa-envelope text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold mb-1">Email</h3>
-                                    <p class="text-blue-100">nicolaibrahim969@gmail.com</p>
-                                </div>
+                        <div class="flex items-center">
+                            <div
+                                class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm">
+                                RM
                             </div>
-                        </div>
-
-                        <div class="contact-item">
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-white bg-opacity-20 p-4 rounded-full">
-                                    <i class="fas fa-map-marker-alt text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold mb-1">Location</h3>
-                                    <p class="text-blue-100">Paderborn, Germany</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="contact-item">
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-white bg-opacity-20 p-4 rounded-full">
-                                    <i class="fab fa-linkedin text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold mb-1">LinkedIn</h3>
-                                    <p class="text-blue-100">linkedin.com/in/nicola-ibrahim/</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <div
-                            class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 border border-white border-opacity-20">
-                            <h3 class="text-2xl font-bold mb-6">Ready to Start a Project?</h3>
-                            <p class="text-blue-100 mb-8">
-                                Whether you need a robust backend system, a modern web application, or technical
-                                consultation,
-                                I'm here to help bring your ideas to life.
-                            </p>
-                            <div class="space-y-4">
-                                <a href="mailto:nicola.ibrahim@example.com"
-                                    class="btn-primary bg-white text-primary hover:bg-gray-100 w-full justify-center">
-                                    <i class="fas fa-envelope"></i> Send Email
-                                </a>
-                                <a href="https://www.linkedin.com/in/nicola-ibrahim/" target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="btn-primary bg-white text-primary hover:bg-gray-100 w-full justify-center">
-                                    <i class="fab fa-linkedin"></i> Connect on LinkedIn
-                                </a>
+                            <div class="ml-4">
+                                <h4 class="font-bold">Raphael Meyer-Alten</h4>
+                                <p class="text-sm text-gray-500">CEO at Choyze Company</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <!-- Initialise AOS for smooth scrolling animations -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            AOS.init({
-                once: true,
-                duration: 800,
-                offset: 120
-            });
-        });
-    </script>
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center" data-aos="zoom-in">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">Ready to Launch?</h2>
+            <p class="text-xl text-gray-400 mb-10">
+                Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <a href="mailto:nicolaibrahim969@gmail.com" class="btn-primary text-lg px-10 py-4">
+                    <i class="fas fa-envelope mr-2"></i> Say Hello
+                </a>
+                <a href="https://linkedin.com/in/nicola-ibrahim/" target="_blank"
+                    class="btn-outline text-lg px-10 py-4">
+                    <i class="fab fa-linkedin mr-2"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <p class="text-gray-400">
-                    © <time id="year" datetime=""></time> All right reserved.
-                </p>
-                <div class="flex justify-center space-x-6 mt-4">
-                    <a href="https://linkedin.com/in/nicolaibrahim" target="_blank" rel="noopener noreferrer"
-                        class="text-gray-400 hover:text-white transition duration-300">
-                        <i class="fab fa-linkedin text-xl"></i>
-                    </a>
-                    <a href="https://github.com/nicolaibrahim" target="_blank" rel="noopener noreferrer"
-                        class="text-gray-400 hover:text-white transition duration-300">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
-                    <a href="mailto:nicola.ibrahim@example.com"
-                        class="text-gray-400 hover:text-white transition duration-300">
-                        <i class="fas fa-envelope text-xl"></i>
-                    </a>
-                </div>
+    <footer class="py-8 border-t border-white/10 bg-dark-lighter">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+            <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                &copy; <span id="year"></span> Nicola Ibrahim. All rights reserved.
+            </p>
+            <div class="flex space-x-6">
+                <a href="https://github.com/Nicola-Ibrahim" class="text-gray-400 hover:text-white transition-colors"><i
+                        class="fab fa-github text-xl"></i></a>
+                <a href="https://linkedin.com/in/nicola-ibrahim/"
+                    class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
+                <a href="mailto:nicolaibrahim969@gmail.com" class="text-gray-400 hover:text-white transition-colors"><i
+                        class="fas fa-envelope text-xl"></i></a>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <!-- Removed theme.js as dark mode is the only theme -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script type="module" src="js/script.js"></script>
-    <!-- 3D dark space animation script restored for an immersive hero background -->
     <script type="module" src="js/modules/space_animaiton.js"></script>
     <script>
-        const y = String(new Date().getFullYear());
-        const t = document.getElementById('year');
-        t.textContent = y;
-        t.setAttribute('datetime', y);
-    </script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
 
-    <!-- Tools tab switching script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const tabs = document.querySelectorAll('.tools-tab');
-            const contents = document.querySelectorAll('.tools-content');
-            function activateTab(tab) {
-                const target = tab.getAttribute('data-target');
-                // hide all contents
-                contents.forEach(c => c.classList.add('hidden'));
-                // remove active styles from all tabs
-                tabs.forEach(t => {
-                    // Reset each tab to its default appearance
-                    t.classList.remove('bg-primary', 'text-white');
-                    t.classList.add('bg-dark', 'border', 'border-primary', 'text-primary');
-                });
-                // show selected content
-                const activeContent = document.getElementById(target);
-                if (activeContent) activeContent.classList.remove('hidden');
-                // activate selected tab
-                tab.classList.add('bg-primary', 'text-white');
-                tab.classList.remove('bg-dark', 'text-primary', 'border', 'border-primary');
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/90', 'backdrop-blur-md', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-dark/90', 'backdrop-blur-md', 'shadow-lg');
             }
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => activateTab(tab));
-            });
-            // Set default active tab
-            if (tabs.length) activateTab(tabs[0]);
         });
     </script>
 </body>
