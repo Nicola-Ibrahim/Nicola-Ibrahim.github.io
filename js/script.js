@@ -5,9 +5,10 @@
 
 import { NavigationManager } from './modules/navigation.js';
 import { AnimationManager } from './modules/animations.js';
-import { utils } from './modules/utils.js';
+import { CursorManager } from './modules/cursor.js';
+import { utils } from './utils.js';
 
-class PortfolioWebsite {
+class Portfolio {
   constructor() {
     this.init();
   }
@@ -16,13 +17,26 @@ class PortfolioWebsite {
    * Initialize all website functionality
    */
   init() {
-    new NavigationManager();
-    new AnimationManager();
-    this.initFloatingBall();
-    this.initKeyboardShortcuts();
-    this.initContactForm();
-    this.initLazyLoading();
+    // Initialize Managers
+    this.navigationManager = new NavigationManager();
+    this.animationManager = new AnimationManager();
+    this.cursorManager = new CursorManager();
 
+    // Initialize 3D Tilt
+    VanillaTilt.init(document.querySelectorAll(".glass-card"), {
+      max: 10,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.2,
+      scale: 1.02
+    });
+
+
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    // Add any global event listeners here
   }
 
   /**

@@ -25,9 +25,96 @@
 
     <!-- Tailwind Output -->
     <link href="./css/output.css" rel="stylesheet">
+
+    <!-- Critical CSS (Injected due to build issues) -->
+    <style>
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
+
+        .custom-cursor-trailer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+            margin-left: -8px;
+            margin-top: -8px;
+        }
+
+        .custom-cursor.cursor-hover {
+            width: 0;
+            height: 0;
+            opacity: 0;
+        }
+
+        .custom-cursor-trailer.cursor-hover {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: transparent;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Tilt Glare Fix */
+        .js-tilt-glare {
+            border-radius: inherit;
+        }
+
+        .js-tilt-glare-inner {
+            border-radius: inherit;
+        }
+
+        /* Nav Link (Restored) */
+        .nav-link {
+            position: relative;
+            color: #d1d5db;
+            /* gray-300 */
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #6366f1, #ec4899);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body class="bg-dark text-light overflow-x-hidden selection:bg-primary selection:text-white">
+
+
 
     <!-- Background Elements -->
     <div class="fixed inset-0 z-[-1]">
@@ -379,6 +466,7 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script type="module" src="js/script.js"></script>
     <script type="module" src="js/modules/space_animation.js"></script>
     <script>

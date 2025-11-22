@@ -6,8 +6,13 @@
   body {
     @apply bg-dark text-light font-sans antialiased overflow-x-hidden;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading font-bold;
   }
 }
@@ -16,28 +21,28 @@
   .glass {
     @apply bg-white/5 backdrop-blur-lg border border-white/10;
   }
-  
+
   .glass-card {
-    @apply glass rounded-2xl p-6 transition-all duration-300 hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.3)];
+    @apply glass rounded-2xl p-6 transition-all duration-300 hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(99, 102, 241, 0.3)];
   }
 
   .btn-primary {
-    @apply relative px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold tracking-wide overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] hover:scale-105 active:scale-95;
+    @apply relative px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold tracking-wide overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(168, 85, 247, 0.5)] hover:scale-105 active:scale-95;
   }
-  
+
   .btn-outline {
-    @apply relative px-8 py-3 rounded-full border border-primary/50 text-white font-bold tracking-wide overflow-hidden transition-all duration-300 hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:scale-105 active:scale-95;
+    @apply relative px-8 py-3 rounded-full border border-primary/50 text-white font-bold tracking-wide overflow-hidden transition-all duration-300 hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(99, 102, 241, 0.3)] hover:scale-105 active:scale-95;
   }
 
   .nav-link {
     @apply relative text-gray-300 hover:text-white transition-colors duration-300;
   }
-  
+
   .nav-link::after {
     content: '';
     @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300;
   }
-  
+
   .nav-link:hover::after {
     @apply w-full;
   }
@@ -47,13 +52,15 @@
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent;
   }
-  
+
   .animate-delay-100 {
     animation-delay: 100ms;
   }
+
   .animate-delay-200 {
     animation-delay: 200ms;
   }
+
   .animate-delay-300 {
     animation-delay: 300ms;
   }
@@ -70,4 +77,59 @@
 
 ::-webkit-scrollbar-thumb {
   @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
+
+/* --- Custom Cursor --- */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.custom-cursor-trailer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+  margin-left: -8px;
+  margin-top: -8px;
+}
+
+.custom-cursor.cursor-hover {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.custom-cursor-trailer.cursor-hover {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: transparent;
+  backdrop-filter: blur(2px);
+}
+
+/* --- 3D Tilt Glare Fix --- */
+.js-tilt-glare {
+  border-radius: inherit;
+}
+
+.js-tilt-glare-inner {
+  border-radius: inherit;
 }
