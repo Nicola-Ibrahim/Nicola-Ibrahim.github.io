@@ -23,15 +23,15 @@
   }
 
   .glass-card {
-    @apply glass rounded-2xl p-6 transition-all duration-300 hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(99, 102, 241, 0.3)];
+    @apply glass rounded-2xl p-6 transition-all duration-300 hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.3)];
   }
 
   .btn-primary {
-    @apply relative px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold tracking-wide overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(168, 85, 247, 0.5)] hover:scale-105 active:scale-95;
+    @apply relative px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold tracking-wide overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] hover:scale-105 active:scale-95;
   }
 
   .btn-outline {
-    @apply relative px-8 py-3 rounded-full border border-primary/50 text-white font-bold tracking-wide overflow-hidden transition-all duration-300 hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(99, 102, 241, 0.3)] hover:scale-105 active:scale-95;
+    @apply relative px-8 py-3 rounded-full border border-primary/50 text-white font-bold tracking-wide overflow-hidden transition-all duration-300 hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:scale-105 active:scale-95;
   }
 
   .nav-link {

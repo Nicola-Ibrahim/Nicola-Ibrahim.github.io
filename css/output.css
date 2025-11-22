@@ -565,7 +565,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
   font-family: Space Grotesk, sans-serif;
   font-weight: 700;
 }
@@ -2436,10 +2441,6 @@ h1, h2, h3, h4, h5, h6 {
   --tw-bg-opacity: 0.2;
 }
 
-.bg-\[url\(\'\.\.\/images\/noise\.png\'\)\] {
-  background-image: url('../images/noise.png');
-}
-
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -3070,10 +3071,6 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.6;
 }
 
-.opacity-\[0\.03\] {
-  opacity: 0.03;
-}
-
 .bg-blend-normal {
   background-blend-mode: normal;
 }
@@ -3327,11 +3324,6 @@ h1, h2, h3, h4, h5, h6 {
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.backdrop-blur-sm {
-  --tw-backdrop-blur: blur(4px);
-  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-}
-
 .backdrop-blur-xl {
   --tw-backdrop-blur: blur(24px);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -3491,6 +3483,63 @@ h1, h2, h3, h4, h5, h6 {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgb(255 255 255 / 0.2);
+}
+
+/* --- Custom Cursor --- */
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.custom-cursor-trailer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+  margin-left: -8px;
+  margin-top: -8px;
+}
+
+.custom-cursor.cursor-hover {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.custom-cursor-trailer.cursor-hover {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: transparent;
+  backdrop-filter: blur(2px);
+}
+
+/* --- 3D Tilt Glare Fix --- */
+
+.js-tilt-glare {
+  border-radius: inherit;
+}
+
+.js-tilt-glare-inner {
+  border-radius: inherit;
 }
 
 @media (min-width: 640px) {
