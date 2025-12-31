@@ -62,9 +62,9 @@ scene.add(starMesh);
 // --- Black Hole Group ---
 const blackHoleGroup = new THREE.Group();
 blackHoleGroup.position.x = -30; // Move to the left to avoid text overlap
-// Tilt the whole group slightly for better viewing angle
-blackHoleGroup.rotation.x = Math.PI / 1.7;
-blackHoleGroup.rotation.z = Math.PI / 4;
+// Enhanced Tilt for better 3D perspective
+blackHoleGroup.rotation.x = Math.PI / 2.5;
+blackHoleGroup.rotation.z = Math.PI / 6;
 scene.add(blackHoleGroup);
 
 // 1. Event Horizon (The Void)
@@ -73,50 +73,65 @@ const horizonMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
 const horizon = new THREE.Mesh(horizonGeometry, horizonMaterial);
 blackHoleGroup.add(horizon);
 
-// 2. Accretion Disk (Inner Glow)
+// 1.5 Event Horizon Glow (Defining the edge)
+const glowGeometry = new THREE.SphereGeometry(4.05, 64, 64);
+const glowMaterial = new THREE.MeshBasicMaterial({
+    color: colors.accent,
+    transparent: true,
+    opacity: 0.3,
+    side: THREE.BackSide,
+    blending: THREE.AdditiveBlending
+});
+const horizonGlow = new THREE.Mesh(glowGeometry, glowMaterial);
+blackHoleGroup.add(horizonGlow);
+
+// 2. Accretion Disk (Inner Glow - Brighter)
 const diskGeometry = new THREE.RingGeometry(4.1, 7, 64);
 const diskMaterial = new THREE.MeshBasicMaterial({
     color: colors.primary,
     side: THREE.DoubleSide,
     transparent: true,
-    opacity: 0.5,
+    opacity: 0.8, // Increased from 0.5
     blending: THREE.AdditiveBlending
 });
 const disk = new THREE.Mesh(diskGeometry, diskMaterial);
 blackHoleGroup.add(disk);
 
-// 3. Outer Accretion Ring (Secondary Color)
-const outerDiskGeometry = new THREE.RingGeometry(7.2, 10, 64);
+// 3. Outer Accretion Ring (Secondary Color - More visible)
+const outerDiskGeometry = new THREE.RingGeometry(7.2, 11, 64); // Slightly larger
 const outerDiskMaterial = new THREE.MeshBasicMaterial({
     color: colors.secondary,
     side: THREE.DoubleSide,
     transparent: true,
-    opacity: 0.25,
+    opacity: 0.4, // Increased from 0.25
     blending: THREE.AdditiveBlending
 });
 const outerDisk = new THREE.Mesh(outerDiskGeometry, outerDiskMaterial);
 blackHoleGroup.add(outerDisk);
 
-// 4. Particle Ring (Swirling Debris)
+// 4. Particle Ring (Swirling Debris - Enhanced)
 const debrisGeometry = new THREE.BufferGeometry();
-const debrisCount = 500;
+const debrisCount = 1000; // Increased from 500
 const debrisPos = new Float32Array(debrisCount * 3);
+const debrisSizes = new Float32Array(debrisCount);
 
-for (let i = 0; i < debrisCount * 3; i += 3) {
+for (let i = 0; i < debrisCount; i++) {
     const angle = Math.random() * Math.PI * 2;
-    // Radius between 5 and 12
-    const radius = 5 + Math.random() * 7;
-    debrisPos[i] = Math.cos(angle) * radius;
-    debrisPos[i + 1] = Math.sin(angle) * radius;
-    debrisPos[i + 2] = (Math.random() - 0.5) * 0.5; // Slight thickness
+    // Radius between 4.5 and 13
+    const radius = 4.5 + Math.random() * 8.5;
+    const i3 = i * 3;
+    debrisPos[i3] = Math.cos(angle) * radius;
+    debrisPos[i3 + 1] = Math.sin(angle) * radius;
+    debrisPos[i3 + 2] = (Math.random() - 0.5) * 1.5; // Increased thickness for depth
+    debrisSizes[i] = 0.05 + Math.random() * 0.15; // Varying sizes
 }
 
 debrisGeometry.setAttribute('position', new THREE.BufferAttribute(debrisPos, 3));
 const debrisMaterial = new THREE.PointsMaterial({
     color: colors.accent,
-    size: 0.08,
+    size: 0.12, // Slightly larger base size
     transparent: true,
-    opacity: 0.6,
+    opacity: 0.7,
     blending: THREE.AdditiveBlending
 });
 const debrisMesh = new THREE.Points(debrisGeometry, debrisMaterial);
@@ -145,23 +160,23 @@ function animate() {
     const elapsedTime = clock.getElapsedTime();
 
     // Rotate Black Hole Components
-    disk.rotation.z -= 0.002;
-    outerDisk.rotation.z -= 0.001;
-    debrisMesh.rotation.z -= 0.003;
+    disk.rotation.z -= 0.003;
+    outerDisk.rotation.z -= 0.0015;
+    debrisMesh.rotation.z -= 0.004;
 
-    // Pulse effect for disk opacity
-    diskMaterial.opacity = 0.5 + Math.sin(elapsedTime * 1.5) * 0.1;
-    outerDiskMaterial.opacity = 0.25 + Math.sin(elapsedTime) * 0.05;
+    // Pulse effect for disk opacity (Higher frequency and amplitude)
+    diskMaterial.opacity = 0.7 + Math.sin(elapsedTime * 2.5) * 0.15;
+    outerDiskMaterial.opacity = 0.35 + Math.sin(elapsedTime * 1.2) * 0.1;
 
     // Rotate Stars
-    starMesh.rotation.y += 0.0003;
+    starMesh.rotation.y += 0.0002;
 
-    // Mouse Parallax (Subtle movement of the black hole group)
-    targetX = mouseX * 0.0005;
-    targetY = mouseY * 0.0005;
+    // Mouse Parallax (Enhanced movement of the black hole group)
+    targetX = mouseX * 0.0008;
+    targetY = mouseY * 0.0008;
 
-    blackHoleGroup.rotation.y += 0.05 * (targetX - (blackHoleGroup.rotation.y - Math.PI / 8)); // Maintain base rotation
-    blackHoleGroup.rotation.x += 0.05 * (targetY - (blackHoleGroup.rotation.x - Math.PI / 1.7));
+    blackHoleGroup.rotation.y += 0.05 * (targetX - (blackHoleGroup.rotation.y - Math.PI / 6)); // Maintain base rotation
+    blackHoleGroup.rotation.x += 0.05 * (targetY - (blackHoleGroup.rotation.x - Math.PI / 2.5));
 
     renderer.render(scene, camera);
 }
