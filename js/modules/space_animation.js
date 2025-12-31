@@ -171,12 +171,20 @@ function animate() {
     // Rotate Stars
     starMesh.rotation.y += 0.0002;
 
-    // Mouse Parallax (Enhanced movement of the black hole group)
-    targetX = mouseX * 0.0008;
-    targetY = mouseY * 0.0008;
+    // Subtle Depth Parallax (Subtle interaction for a more realistic scene)
+    const blackHoleMultiplier = 0.00015; // Extremely subtle
+    const starMultiplier = 0.0003;      // Moderate background shift
+    const dampingFactor = 0.02;         // Smooth, slow interpolation
 
-    blackHoleGroup.rotation.y += 0.05 * (targetX - (blackHoleGroup.rotation.y - Math.PI / 6)); // Maintain base rotation
-    blackHoleGroup.rotation.x += 0.05 * (targetY - (blackHoleGroup.rotation.x - Math.PI / 2.5));
+    targetX = mouseX * blackHoleMultiplier;
+    targetY = mouseY * blackHoleMultiplier;
+
+    blackHoleGroup.rotation.y += dampingFactor * (targetX - (blackHoleGroup.rotation.y - Math.PI / 6)); // Maintain base rotation
+    blackHoleGroup.rotation.x += dampingFactor * (targetY - (blackHoleGroup.rotation.x - Math.PI / 2.5));
+
+    // Add starfield parallax for depth (Background moves more than object)
+    starMesh.rotation.x += 0.01 * (targetY * starMultiplier / blackHoleMultiplier - starMesh.rotation.x);
+    starMesh.rotation.y += 0.01 * (targetX * starMultiplier / blackHoleMultiplier - starMesh.rotation.y);
 
     renderer.render(scene, camera);
 }
