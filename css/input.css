@@ -46,6 +46,29 @@
   .nav-link:hover::after {
     @apply w-full;
   }
+
+  .skill-tab {
+    @apply px-5 py-2 rounded-full border border-white/[0.08] text-xs font-semibold tracking-wider uppercase cursor-pointer transition-all duration-300;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .skill-tab:hover {
+    @apply border-white/[0.15] text-white;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .skill-tab.active {
+    @apply border-primary/40 text-white;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(168, 85, 247, 0.15));
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+  }
+
+  .skill-card {
+    @apply w-full transition-opacity transition-transform duration-300 flex flex-col items-center justify-center;
+    aspect-ratio: 1 / 1.1;
+    padding: 1.5rem;
+  }
 }
 
 @layer utilities {

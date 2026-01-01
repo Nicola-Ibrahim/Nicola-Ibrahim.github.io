@@ -27,6 +27,7 @@
     <link href="./css/output.css" rel="stylesheet">
 
 
+
 </head>
 
 <body class="bg-dark text-light overflow-x-hidden selection:bg-primary selection:text-white">
@@ -122,65 +123,104 @@
                 <p class="text-gray-400 max-w-xl mx-auto">The technologies I use to bring ideas to life.</p>
             </div>
 
-            <!-- Tech Stack Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="100">
-                <!-- Python -->
-                <div class="glass-card flex flex-col items-center justify-center text-center group">
+            <!-- Tab Navigation -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10" data-aos="fade-up" data-aos-delay="100">
+                <button class="skill-tab active" data-filter="all">All</button>
+                <button class="skill-tab" data-filter="languages">Languages</button>
+                <button class="skill-tab" data-filter="frameworks">Frameworks</button>
+                <button class="skill-tab" data-filter="data-ai">Data & AI</button>
+                <button class="skill-tab" data-filter="infrastructure">Infrastructure</button>
+            </div>
+
+            <!-- Skills Grid -->
+            <div id="skills-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+                data-aos="fade-up" data-aos-delay="200">
+                <!-- Languages -->
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="languages">
                     <i
                         class="fab fa-python text-4xl mb-4 text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
                     <h3 class="text-lg font-semibold">Python</h3>
                     <p class="text-sm text-gray-500 mt-1">Advanced</p>
                 </div>
-                <!-- Django -->
-                <div class="glass-card flex flex-col items-center justify-center text-center group">
-                    <i
-                        class="fas fa-leaf text-4xl mb-4 text-green-500 group-hover:scale-110 transition-transform duration-300"></i>
-                    <h3 class="text-lg font-semibold">Django</h3>
-                    <p class="text-sm text-gray-500 mt-1">Expert</p>
-                </div>
-                <!-- FastAPI -->
-                <div class="glass-card flex flex-col items-center justify-center text-center group">
-                    <i
-                        class="fas fa-bolt text-4xl mb-4 text-yellow-400 group-hover:scale-110 transition-transform duration-300"></i>
-                    <h3 class="text-lg font-semibold">FastAPI</h3>
-                    <p class="text-sm text-gray-500 mt-1">Proficient</p>
-                </div>
-                <!-- AI/ML -->
-                <div class="glass-card flex flex-col items-center justify-center text-center group">
-                    <i
-                        class="fas fa-brain text-4xl mb-4 text-pink-500 group-hover:scale-110 transition-transform duration-300"></i>
-                    <h3 class="text-lg font-semibold">AI & ML</h3>
-                    <p class="text-sm text-gray-500 mt-1">PyTorch, Pandas</p>
-                </div>
-                <!-- Docker -->
-                <div class="glass-card flex flex-col items-center justify-center text-center group">
-                    <i
-                        class="fab fa-docker text-4xl mb-4 text-blue-600 group-hover:scale-110 transition-transform duration-300"></i>
-                    <h3 class="text-lg font-semibold">Docker</h3>
-                    <p class="text-sm text-gray-500 mt-1">Containerization</p>
-                </div>
-                <!-- SQL -->
-                <div class="glass-card flex flex-col items-center justify-center text-center group">
-                    <i
-                        class="fas fa-database text-4xl mb-4 text-orange-400 group-hover:scale-110 transition-transform duration-300"></i>
-                    <h3 class="text-lg font-semibold">SQL</h3>
-                    <p class="text-sm text-gray-500 mt-1">PostgreSQL, MySQL</p>
-                </div>
-                <!-- JavaScript -->
-                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="languages">
                     <i
                         class="fab fa-js text-4xl mb-4 text-yellow-300 group-hover:scale-110 transition-transform duration-300"></i>
                     <h3 class="text-lg font-semibold">JavaScript</h3>
                     <p class="text-sm text-gray-500 mt-1">ES6+</p>
                 </div>
-                <!-- Architecture -->
-                <div class="glass-card flex flex-col items-center justify-center text-center group">
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="languages">
+                    <i
+                        class="fas fa-database text-4xl mb-4 text-orange-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">SQL</h3>
+                    <p class="text-sm text-gray-500 mt-1">PostgreSQL, MySQL</p>
+                </div>
+
+                <!-- Frameworks -->
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="frameworks">
+                    <i
+                        class="fas fa-leaf text-4xl mb-4 text-green-500 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">Django</h3>
+                    <p class="text-sm text-gray-500 mt-1">Expert</p>
+                </div>
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="frameworks">
+                    <i
+                        class="fas fa-bolt text-4xl mb-4 text-teal-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">FastAPI</h3>
+                    <p class="text-sm text-gray-500 mt-1">Proficient</p>
+                </div>
+
+                <!-- Data & AI -->
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="data-ai">
+                    <i
+                        class="fas fa-fire text-4xl mb-4 text-orange-500 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">PyTorch</h3>
+                    <p class="text-sm text-gray-500 mt-1">Deep Learning</p>
+                </div>
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="data-ai">
+                    <i
+                        class="fas fa-table text-4xl mb-4 text-purple-400 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">Pandas</h3>
+                    <p class="text-sm text-gray-500 mt-1">Data Analysis</p>
+                </div>
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="data-ai">
+                    <i
+                        class="fas fa-cubes text-4xl mb-4 text-blue-500 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">NumPy</h3>
+                    <p class="text-sm text-gray-500 mt-1">Computation</p>
+                </div>
+
+                <!-- Infrastructure -->
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="infrastructure">
+                    <i
+                        class="fab fa-docker text-4xl mb-4 text-blue-600 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">Docker</h3>
+                    <p class="text-sm text-gray-500 mt-1">Containerization</p>
+                </div>
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="infrastructure">
+                    <i
+                        class="fab fa-git-alt text-4xl mb-4 text-red-500 group-hover:scale-110 transition-transform duration-300"></i>
+                    <h3 class="text-lg font-semibold">Git</h3>
+                    <p class="text-sm text-gray-500 mt-1">Version Control</p>
+                </div>
+                <div class="skill-card glass-card flex flex-col items-center justify-center text-center group"
+                    data-category="infrastructure">
                     <i
                         class="fas fa-layer-group text-4xl mb-4 text-purple-400 group-hover:scale-110 transition-transform duration-300"></i>
                     <h3 class="text-lg font-semibold">Architecture</h3>
                     <p class="text-sm text-gray-500 mt-1">DDD, Clean Arch</p>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -414,6 +454,37 @@
             } else {
                 navbar.classList.remove('bg-dark/90', 'backdrop-blur-md', 'shadow-lg');
             }
+        });
+
+        // Skill Filtering
+        const skillTabs = document.querySelectorAll('.skill-tab');
+        const skillCards = document.querySelectorAll('.skill-card');
+
+        skillTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                skillTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filter = tab.getAttribute('data-filter');
+
+                skillCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+
+                    if (filter === 'all' || filter === category) {
+                        card.style.display = 'flex';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
         });
     </script>
 </body>
