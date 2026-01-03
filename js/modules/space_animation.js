@@ -182,9 +182,7 @@ function animate() {
     blackHoleGroup.rotation.y += dampingFactor * (targetX - (blackHoleGroup.rotation.y - Math.PI / 6)); // Maintain base rotation
     blackHoleGroup.rotation.x += dampingFactor * (targetY - (blackHoleGroup.rotation.x - Math.PI / 2.5));
 
-    // Add starfield parallax for depth (Background moves more than object)
-    starMesh.rotation.x += 0.01 * (targetY * starMultiplier / blackHoleMultiplier - starMesh.rotation.x);
-    starMesh.rotation.y += 0.01 * (targetX * starMultiplier / blackHoleMultiplier - starMesh.rotation.y);
+
 
     renderer.render(scene, camera);
 }
