@@ -1,44 +1,30 @@
-# Makefile for Nicola-Ibrahim.github.io
-# Usage: make <target>
-# Targets:
-#   build        - Install dependencies and build Tailwind CSS
-#   tailwind     - Rebuild Tailwind CSS (input.css -> output.css)
-#   npm-install  - Install npm dependencies
-#   clean        - Remove output.css and node_modules
-#   dev          - Run Tailwind in watch mode for development
-#   help         - Show help
-
 # Variables
-TAILWIND_BIN=npx tailwindcss
 INPUT_CSS=css/input.css
 OUTPUT_CSS=css/output.css
 NODE_MODULES=node_modules
 
-.PHONY: build tailwind npm-install clean dev help
+.DEFAULT_GOAL := help
 
-build: npm-install tailwind
+.PHONY: setup build watch clean distclean help
 
-npm-build:
-	npm run build
-
-npm-install:
+setup: # install project dependencies
 	npm install
 
-tailwind:
-	$(TAILWIND_BIN) -i $(INPUT_CSS) -o $(OUTPUT_CSS) --minify
+build: $(NODE_MODULES) # build Tailwind CSS
+	npm run build
 
-clean:
+watch: $(NODE_MODULES) # watch and rebuild Tailwind CSS on changes
+	npm run watch
+
+$(NODE_MODULES): # create node_modules by installing dependencies
+	npm install
+
+clean: # remove generated CSS output
 	rm -f $(OUTPUT_CSS)
+
+distclean: clean # remove installed dependencies
 	rm -rf $(NODE_MODULES)
 
-dev:
-	$(TAILWIND_BIN) -i $(INPUT_CSS) -o $(OUTPUT_CSS) --watch
-
-help:
+help: # show help message
 	@echo "Available targets:"
-	@echo "  build        - Install dependencies and build Tailwind CSS"
-	@echo "  tailwind     - Rebuild Tailwind CSS (input.css -> output.css)"
-	@echo "  npm-install  - Install npm dependencies"
-	@echo "  clean        - Remove output.css and node_modules"
-	@echo "  dev          - Run Tailwind in watch mode for development"
-	@echo "  help         - Show this help message"
+	@awk -F ':.*# ' '/^[a-zA-Z0-9_.-]+:.*# / {printf "  \033[36m%-10s\033[0m - \033[33m%s\033[0m\n", $$1, $$2}' Makefile
