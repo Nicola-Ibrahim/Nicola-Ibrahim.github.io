@@ -18,6 +18,9 @@ NODE_MODULES=node_modules
 
 build: npm-install tailwind
 
+npm-build:
+	npm run build
+
 npm-install:
 	npm install
 
