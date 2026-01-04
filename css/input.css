@@ -78,8 +78,8 @@
 
   .skill-card {
     @apply w-full transition-opacity transition-transform duration-300 flex flex-col items-center justify-center;
-    aspect-ratio: 1 / 1.1;
-    padding: 1.5rem;
+    aspect-ratio: 1 / 0.85;
+    padding: 1rem;
   }
 }
 
