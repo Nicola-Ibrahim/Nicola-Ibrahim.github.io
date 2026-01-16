@@ -701,8 +701,14 @@ h1,
   transition-duration: 300ms;
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+  .nav-link-active::after {
   width: 100%;
+}
+
+.nav-link-active {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 .skill-tab {
@@ -1533,6 +1539,11 @@ h1,
 .text-purple-400 {
   --tw-text-opacity: 1;
   color: rgb(192 132 252 / var(--tw-text-opacity, 1));
+}
+
+.text-red-400 {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity, 1));
 }
 
 .text-red-500 {
