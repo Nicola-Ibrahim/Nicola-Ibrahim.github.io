@@ -20,8 +20,8 @@
     <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
 
     <!-- Tailwind Output -->
     <link href="./css/output.css" rel="stylesheet">
@@ -56,6 +56,8 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#home" class="nav-link text-sm font-medium tracking-wide">HOME</a>
+                    <a href="#about" class="nav-link text-sm font-medium tracking-wide">ABOUT</a>
+                    <a href="#services" class="nav-link text-sm font-medium tracking-wide">SERVICES</a>
                     <a href="#tools" class="nav-link text-sm font-medium tracking-wide">TOOLS</a>
                     <a href="#projects" class="nav-link text-sm font-medium tracking-wide">PROJECTS</a>
                     <a href="#education" class="nav-link text-sm font-medium tracking-wide">EDUCATION</a>
@@ -73,6 +75,8 @@
         <div id="mobile-menu"
             class="hidden md:hidden absolute top-20 left-0 w-full bg-dark/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col space-y-4">
             <a href="#home" class="text-lg font-medium hover:text-primary transition-colors">Home</a>
+            <a href="#about" class="text-lg font-medium hover:text-primary transition-colors">About</a>
+            <a href="#services" class="text-lg font-medium hover:text-primary transition-colors">Services</a>
             <a href="#tools" class="text-lg font-medium hover:text-primary transition-colors">Tools</a>
             <a href="#projects" class="text-lg font-medium hover:text-primary transition-colors">Projects</a>
             <a href="#education" class="text-lg font-medium hover:text-primary transition-colors">Education</a>
@@ -83,7 +87,7 @@
     <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         <!-- Space Canvas Background -->
-        <canvas id="blackhole-canvas" class="absolute inset-0 w-full h-full z-[-1] opacity-60"></canvas>
+        <div id="blackhole-container" class="absolute inset-0 w-full h-full z-[-1] opacity-80"></div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
             <div data-aos="fade-up" data-aos-duration="1000">
@@ -95,13 +99,9 @@
                     A <span class="typing-animation text-primary" data-text="Backend & AI Engineer">Backend & AI
                         Engineer</span> crafting robust systems and intelligent solutions.
                 </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#projects" class="btn-primary w-full sm:w-auto group">
+                <div class="flex items-center justify-center">
+                    <a href="#projects" class="btn-primary group">
                         View Work <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="./resources/Nicola_Ibrahim_CV.pdf" target="_blank"
-                        class="btn-outline w-full sm:w-auto group">
-                        Download CV <i class="fas fa-download ml-2 group-hover:translate-y-1 transition-transform"></i>
                     </a>
                 </div>
             </div>
@@ -115,8 +115,104 @@
         </div>
     </section>
 
+    <!-- About Me Section -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
+                        About Me
+                    </span>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-8 leading-[1.1]">
+                        Crafting <span class="text-primary">Backend & AI</span> Excellence
+                    </h2>
+                    <p class="text-lg text-gray-400 mb-6 leading-relaxed">
+                        I am a passionate Backend & AI Engineer with a focus on building robust, scalable systems and intelligent solutions. I bridge the gap between complex architectural requirements and elegant, performant code.
+                    </p>
+                    <p class="text-lg text-gray-400 mb-10 leading-relaxed">
+                        My goal is to design architectures that not only solve immediate problems but also provide a foundation for long-term growth and innovation. Whether it's optimizing a high-traffic API or implementing a sophisticated ML model, I thrive on tackling challenges that push the boundaries of what's possible.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-8 pt-8 border-t border-white/10">
+                        <div>
+                            <p class="text-3xl font-black text-primary mb-1">4+</p>
+                            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">Years Experience</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-black text-accent mb-1">M.Sc.</p>
+                            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">Computer Eng.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative" data-aos="fade-left">
+                    <div class="aspect-square rounded-3xl overflow-hidden relative group">
+                        <!-- Three.js Canvas Container -->
+                        <div id="about-canvas-container" class="absolute inset-0 w-full h-full cursor-pointer"></div>
+                    </div>
+                    <!-- Decorative element -->
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- What I Do Section -->
+    <section id="services" class="py-24 bg-grid-dark relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+            <div data-aos="fade-up" class="mb-16">
+                <span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
+                    What I Do
+                </span>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+                    Specialized Services & Solutions
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                    From initial concept to production-ready systems — I build fast, beautiful, and scalable digital products tailored to complex requirements.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="glass-card flex flex-col items-center p-10 text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-primary/50 transition-colors">
+                        <i class="fas fa-server text-3xl text-primary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Backend Engineering</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Designing high-performance, scalable server architectures and robust REST APIs that form the backbone of modern web applications.
+                    </p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card flex flex-col items-center p-10 text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-secondary/50 transition-colors">
+                        <i class="fas fa-brain text-3xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">AI & Machine Learning</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Integrating intelligent features and training custom models to solve complex data problems and provide actionable insights.
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card flex flex-col items-center p-10 text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-accent/50 transition-colors">
+                        <i class="fas fa-cubes text-3xl text-accent"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Software Architecture</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Applying Domain-Driven Design (DDD) and proven design patterns to create modular, maintainable, and future-proof software systems.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Tools Section -->
-    <section id="tools" class="py-24 relative">
+    <section id="tools" class="py-24 bg-grid-dark relative">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-5xl font-bold mb-4">Technical Toolbox</h2>
@@ -358,108 +454,84 @@
                 <p class="text-gray-400 max-w-xl">A selection of Projects that reflect how I build and think.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="space-y-32">
                 <!-- Project 1 - Thesis -->
-                <div class="glass-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i class="fas fa-brain text-9xl"></i>
-                    </div>
-                    <div class="relative z-10">
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 bg-accent/10 rounded-lg text-accent">
-                                <i class="fas fa-chart-line text-2xl"></i>
+                <div class="relative group" data-aos="fade-up">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div class="order-2 lg:order-1 relative">
+                            <div class="absolute -inset-4 bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl glass transform transition-transform duration-700 group-hover:scale-[1.02] aspect-video flex items-center justify-center bg-white/5">
+                                <i class="fas fa-brain text-7xl md:text-9xl text-white/20 group-hover:text-primary transition-colors duration-500"></i>
                             </div>
-                            <a href="https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards" target="_blank"
-                                class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
                         </div>
-                        <h3 class="text-2xl font-bold mb-3 group-hover:text-accent transition-colors">Tracing Objectives
-                            Backwards</h3>
-                        <p class="text-gray-400 mb-6 line-clamp-3">
-                            Data-driven inverse exploration for multi-objective problems, learning Y to X mappings to
-                            propose feasible designs for target outcomes.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Python</span>
-                            <span
-                                class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">PyTorch</span>
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">AI
-                                &amp; ML</span>
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Inverse
-                                Design</span>
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Domain
-                                Driven Design</span>
+                        <div class="order-1 lg:order-2">
+                            <span class="text-xs font-bold tracking-[0.2em] text-accent uppercase mb-4 block">AI / Research / Optimization</span>
+                            <h3 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">Tracing Objectives Backwards</h3>
+                            <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                                A high-end data-driven inverse exploration system for multi-objective problems. This research focuses on learning complex Y to X mappings to propose feasible designs that achieve target outcomes.
+                            </p>
+                            <div class="flex flex-wrap gap-3 mb-10">
+                                <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">Python</span>
+                                <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">PyTorch</span>
+                                <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">Neural Networks</span>
+                            </div>
+                            <a href="https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards" target="_blank" class="btn-primary inline-flex items-center">
+                                View Project <i class="fas fa-arrow-right ml-3 text-sm"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Project 2 -->
-                <div class="glass-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i class="fas fa-robot text-9xl"></i>
-                    </div>
-                    <div class="relative z-10">
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 bg-primary/10 rounded-lg text-primary">
-                                <i class="fas fa-comments text-2xl"></i>
+                <!-- Project 2 - Bot Chat -->
+                <div class="relative group" data-aos="fade-up">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div class="order-1">
+                            <span class="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-4 block">Backend / DDD / AI Integration</span>
+                            <h3 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">Bot Chatting System</h3>
+                            <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                                A modular, enterprise-grade chat system built with FastAPI and Domain-Driven Design principles. Features secure authentication, real-time conversation management, and seamless LLM integration.
+                            </p>
+                            <div class="flex flex-wrap gap-3 mb-10">
+                                <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">FastAPI</span>
+                                <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">PostgreSQL</span>
+                                <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">Docker</span>
                             </div>
-                            <a href="https://github.com/Nicola-Ibrahim/Bot-Chatting" target="_blank"
-                                class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
+                            <a href="https://github.com/Nicola-Ibrahim/Bot-Chatting" target="_blank" class="btn-primary bg-gradient-to-r from-secondary to-accent inline-flex items-center">
+                                View Case Study <i class="fas fa-arrow-right ml-3 text-sm"></i>
                             </a>
                         </div>
-                        <h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Bot Chatting
-                            System</h3>
-                        <p class="text-gray-400 mb-6 line-clamp-3">
-                            A modular chat system built with FastAPI and Domain‑Driven Design. Features user auth,
-                            conversation management, and AI integration.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Python</span>
-                            <span
-                                class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">FastAPI</span>
-                            <span
-                                class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Tailwind</span>
-                            <span
-                                class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Next.js</span>
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">AI</span>
-                            <span
-                                class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">PostgreSQL</span>
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Domain Driven
-                                Design</span>
+                        <div class="order-2 relative">
+                            <div class="absolute -inset-4 bg-secondary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl glass transform transition-transform duration-700 group-hover:scale-[1.02] aspect-video flex items-center justify-center bg-white/5">
+                                <i class="fas fa-comments text-7xl md:text-9xl text-white/20 group-hover:text-secondary transition-colors duration-500"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="glass-card group relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i class="fas fa-shield-alt text-9xl"></i>
-                    </div>
-                    <div class="relative z-10">
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="p-3 bg-secondary/10 rounded-lg text-secondary">
-                                <i class="fas fa-user-lock text-2xl"></i>
+                <!-- Project 3 - Authenticator -->
+                <div class="relative group" data-aos="fade-up">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div class="order-2 lg:order-1 relative">
+                            <div class="absolute -inset-4 bg-accent/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl glass transform transition-transform duration-700 group-hover:scale-[1.02] aspect-video flex items-center justify-center bg-white/5">
+                                <i class="fas fa-shield-alt text-7xl md:text-9xl text-white/20 group-hover:text-accent transition-colors duration-500"></i>
                             </div>
-                            <a href="https://github.com/Nicola-Ibrahim/User-Authenticator" target="_blank"
-                                class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
                         </div>
-                        <h3 class="text-2xl font-bold mb-3 group-hover:text-secondary transition-colors">User
-                            Authenticator</h3>
-                        <p class="text-gray-400 mb-6 line-clamp-3">
-                            Secure RESTful API for auth using Django REST Framework & JWT. Supports registration, login,
-                            and token management.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Python</span>
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">Django</span>
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">REST
-                                API</span>
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">JWT</span>
-                            <span class="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">SQL</span>
+                        <div class="order-1 lg:order-2">
+                            <span class="text-xs font-bold tracking-[0.2em] text-accent uppercase mb-4 block">Security / REST API / Identity</span>
+                            <h3 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">User Authenticator</h3>
+                            <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                                A secure RESTful API for identity management using Django REST Framework and JWT. Designed with a focus on ease of integration, token management, and robust security protocols.
+                            </p>
+                            <div class="flex flex-wrap gap-3 mb-10">
+                                <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">Django</span>
+                                <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">DRF</span>
+                                <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">JWT Auth</span>
+                            </div>
+                            <a href="https://github.com/Nicola-Ibrahim/User-Authenticator" target="_blank" class="btn-primary bg-gradient-to-r from-accent to-primary inline-flex items-center">
+                                View Project <i class="fas fa-arrow-right ml-3 text-sm"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -574,9 +646,8 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script> -->
-    <!-- <script type="module" src="js/script.js"></script> -->
-    <script type="module" src="js/modules/space_animation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script type="module" src="js/script.js"></script>
     <script>
         // Initialize AOS
         AOS.init({
@@ -674,6 +745,239 @@
         sections.forEach(section => {
             observer.observe(section);
         });
+
+        // --- Three.js Project Visualization (About Me) ---
+        (function() {
+            const container = document.getElementById('about-canvas-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            // Particles
+            const particlesCount = 1500;
+            const positions = new Float32Array(particlesCount * 3);
+            const colors = new Float32Array(particlesCount * 3);
+            
+            const colorPrimary = new THREE.Color('#6366f1');
+            const colorSecondary = new THREE.Color('#a855f7');
+            const colorAccent = new THREE.Color('#ec4899');
+
+            for (let i = 0; i < particlesCount; i++) {
+                // Sphere distribution
+                const r = 2.5 * Math.pow(Math.random(), 0.5);
+                const theta = Math.random() * 2 * Math.PI;
+                const phi = Math.acos(2 * Math.random() - 1);
+                
+                positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+                positions[i * 3 + 2] = r * Math.cos(phi);
+
+                // Mix colors
+                const mixColor = Math.random();
+                let chosenColor;
+                if (mixColor < 0.4) chosenColor = colorPrimary;
+                else if (mixColor < 0.8) chosenColor = colorSecondary;
+                else chosenColor = colorAccent;
+
+                colors[i * 3] = chosenColor.r;
+                colors[i * 3 + 1] = chosenColor.g;
+                colors[i * 3 + 2] = chosenColor.b;
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.015,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const points = new THREE.Points(geometry, material);
+            scene.add(points);
+
+            // Geometric lines (Connect nodes)
+            const lineCount = 40;
+            const lineGeometry = new THREE.BufferGeometry();
+            const linePositions = new Float32Array(lineCount * 2 * 3);
+            
+            for(let i=0; i < lineCount; i++) {
+                const idx1 = Math.floor(Math.random() * particlesCount);
+                const idx2 = Math.floor(Math.random() * particlesCount);
+                
+                linePositions[i*6] = positions[idx1*3];
+                linePositions[i*6+1] = positions[idx1*3+1];
+                linePositions[i*6+2] = positions[idx1*3+2];
+                linePositions[i*6+3] = positions[idx2*3];
+                linePositions[i*6+4] = positions[idx2*3+1];
+                linePositions[i*6+5] = positions[idx2*3+2];
+            }
+            
+            lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+            const lineMaterial = new THREE.LineBasicMaterial({
+                color: 0x6366f1,
+                transparent: true,
+                opacity: 0.15,
+                blending: THREE.AdditiveBlending
+            });
+            const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(lines);
+
+            camera.position.z = 4.5;
+
+            // Automation (Simulated movement)
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const time = Date.now() * 0.001;
+
+                points.rotation.y += 0.002;
+                points.rotation.x += 0.001;
+                
+                // Add a gentle "drift" or "wobble"
+                points.rotation.y += Math.sin(time * 0.2) * 0.001;
+                points.rotation.x += Math.cos(time * 0.3) * 0.001;
+                
+                lines.rotation.copy(points.rotation);
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Resize handle
+            window.addEventListener('resize', () => {
+                const w = container.clientWidth;
+                const h = container.clientHeight;
+                renderer.setSize(w, h);
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+            });
+        })();
+
+        // --- Three.js Black Hole Visualization (Hero) ---
+        (function() {
+            const container = document.getElementById('blackhole-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            // Black Hole Group
+            const blackHoleGroup = new THREE.Group();
+            scene.add(blackHoleGroup);
+
+            // Black Hole (Event Horizon)
+            const holeGeometry = new THREE.SphereGeometry(1.5, 64, 64);
+            const holeMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            const blackHole = new THREE.Mesh(holeGeometry, holeMaterial);
+            blackHoleGroup.add(blackHole);
+
+            // Accretion Disk (Particles)
+            const particlesCount = 8000;
+            const positions = new Float32Array(particlesCount * 3);
+            const colors = new Float32Array(particlesCount * 3);
+            
+            const colorPrimary = new THREE.Color('#6366f1');
+            const colorSecondary = new THREE.Color('#a855f7');
+
+            for (let i = 0; i < particlesCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const radius = 2 + Math.random() * 4;
+                const thickness = (1 - (radius - 2) / 4) * 0.5;
+                
+                positions[i * 3] = radius * Math.cos(angle);
+                positions[i * 3 + 1] = (Math.random() - 0.5) * thickness;
+                positions[i * 3 + 2] = radius * Math.sin(angle);
+
+                const mixedColor = colorPrimary.clone().lerp(colorSecondary, (radius - 2) / 4);
+                colors[i * 3] = mixedColor.r;
+                colors[i * 3 + 1] = mixedColor.g;
+                colors[i * 3 + 2] = mixedColor.b;
+            }
+
+            const diskGeometry = new THREE.BufferGeometry();
+            diskGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            diskGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const diskMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending
+            });
+
+            const accretionDisk = new THREE.Points(diskGeometry, diskMaterial);
+            blackHoleGroup.add(accretionDisk);
+            
+            // Halo / Glow
+            const glowGeometry = new THREE.SphereGeometry(1.7, 64, 64);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: 0x6366f1,
+                transparent: true,
+                opacity: 0.15,
+                side: THREE.BackSide
+            });
+            const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+            blackHoleGroup.add(glow);
+
+            // --- Starfield (Restored for Hero) ---
+            const starGeometry = new THREE.BufferGeometry();
+            const starCount = 3000;
+            const starPositions = new Float32Array(starCount * 3);
+            for (let i = 0; i < starCount * 3; i++) {
+                starPositions[i] = (Math.random() - 0.5) * 100;
+            }
+            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+            const starMaterial = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.5 });
+            const stars = new THREE.Points(starGeometry, starMaterial);
+            scene.add(stars);
+
+            // Offset the entire Black Hole to the left
+            blackHoleGroup.position.x = window.innerWidth > 1024 ? -10 : -6;
+            blackHoleGroup.rotation.x = Math.PI / 6; // Slight tilt for 3D feel
+
+            camera.position.z = 10;
+            camera.position.y = 1;
+            camera.lookAt(0, 0, 0);
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const time = Date.now() * 0.0005;
+                
+                accretionDisk.rotation.y += 0.002;
+                stars.rotation.y += 0.0001;
+                
+                // Pulsing glow
+                glow.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
     </script>
 </body>
 

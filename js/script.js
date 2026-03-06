@@ -253,7 +253,7 @@ class Portfolio {
 
 // Initialize portfolio website when DOM is ready
 function initPortfolio() {
-  new PortfolioWebsite();
+  new Portfolio();
 }
 
 // Initialize immediately if DOM is ready, otherwise wait
