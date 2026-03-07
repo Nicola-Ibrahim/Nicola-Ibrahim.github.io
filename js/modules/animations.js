@@ -3,7 +3,7 @@
  * Handles typing animation and Intersection Observer for fade-in effects
  */
 
-export class AnimationManager {
+class AnimationManager {
   constructor() {
     this.initTypingAnimation();
     // AOS handles most scroll animations now, but we can keep this for custom stuff if needed.

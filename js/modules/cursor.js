@@ -1,4 +1,4 @@
-export class CursorManager {
+class CursorManager {
     constructor() {
         this.cursor = document.createElement('div');
         this.cursor.className = 'custom-cursor';

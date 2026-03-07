@@ -3,7 +3,7 @@
  * Handles mobile menu, smooth scrolling, and scroll spy
  */
 
-export class NavigationManager {
+class NavigationManager {
   constructor() {
     this.bindNavigationEvents();
     this.initSmoothScrolling();
