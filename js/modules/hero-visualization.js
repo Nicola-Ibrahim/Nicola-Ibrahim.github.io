@@ -29,24 +29,40 @@ class HeroVisualization {
         this.blackHole = new THREE.Mesh(holeGeometry, holeMaterial);
         this.blackHoleGroup.add(this.blackHole);
 
-        // Accretion Disk (Particles)
-        const particlesCount = 8000;
+        // Accretion Disk (Particles) - Increased density for better volume
+        const particlesCount = 15000;
+        this.particleData = []; // Store additional data for differential rotation
         const positions = new Float32Array(particlesCount * 3);
         const colors = new Float32Array(particlesCount * 3);
 
-        const colorPrimary = new THREE.Color('#6366f1');
-        const colorSecondary = new THREE.Color('#a855f7');
+        const colorPrimary = new THREE.Color('#ffffff'); // Hot center
+        const colorSecondary = new THREE.Color('#6366f1'); // Mid
+        const colorTertiary = new THREE.Color('#a855f7'); // Outer
 
         for (let i = 0; i < particlesCount; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const radius = 2 + Math.random() * 4;
-            const thickness = (1 - (radius - 2) / 4) * 0.5;
+            const radius = 2 + Math.random() * 4.5;
+            const thickness = (1 - (radius - 2) / 4.5) * 0.4;
 
             positions[i * 3] = radius * Math.cos(angle);
             positions[i * 3 + 1] = (Math.random() - 0.5) * thickness;
             positions[i * 3 + 2] = radius * Math.sin(angle);
 
-            const mixedColor = colorPrimary.clone().lerp(colorSecondary, (radius - 2) / 4);
+            // Store data for animation
+            this.particleData.push({
+                radius: radius,
+                angle: angle,
+                speed: 0.005 + (1 / radius) * 0.02 // Closer particles move faster
+            });
+
+            // Color gradient based on radius
+            let mixedColor;
+            if (radius < 3.2) {
+                mixedColor = colorPrimary.clone().lerp(colorSecondary, (radius - 2) / 1.2);
+            } else {
+                mixedColor = colorSecondary.clone().lerp(colorTertiary, (radius - 3.2) / 1.3);
+            }
+            
             colors[i * 3] = mixedColor.r;
             colors[i * 3 + 1] = mixedColor.g;
             colors[i * 3 + 2] = mixedColor.b;
@@ -57,26 +73,40 @@ class HeroVisualization {
         diskGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
         const diskMaterial = new THREE.PointsMaterial({
-            size: 0.02,
+            size: 0.015,
             vertexColors: true,
             transparent: true,
-            opacity: 0.6,
+            opacity: 0.7,
             blending: THREE.AdditiveBlending
         });
 
         this.accretionDisk = new THREE.Points(diskGeometry, diskMaterial);
         this.blackHoleGroup.add(this.accretionDisk);
 
-        // Halo / Glow
-        const glowGeometry = new THREE.SphereGeometry(1.7, 64, 64);
-        const glowMaterial = new THREE.MeshBasicMaterial({
-            color: 0x6366f1,
-            transparent: true,
-            opacity: 0.15,
-            side: THREE.BackSide
+        // --- Photon Ring (Innermost bright ring) ---
+        const photonGeometry = new THREE.TorusGeometry(1.65, 0.02, 16, 100);
+        const photonMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0xffffff, 
+            transparent: true, 
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending 
         });
-        this.glow = new THREE.Mesh(glowGeometry, glowMaterial);
-        this.blackHoleGroup.add(this.glow);
+        this.photonRing = new THREE.Mesh(photonGeometry, photonMaterial);
+        this.photonRing.rotation.x = Math.PI / 2;
+        this.blackHoleGroup.add(this.photonRing);
+
+        // --- Einstein Ring (Gravitational Lensing Effect) ---
+        // A secondary vertical glow ring
+        const einsteinGeometry = new THREE.TorusGeometry(2.1, 0.05, 16, 100);
+        const einsteinMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0x6366f1, 
+            transparent: true, 
+            opacity: 0.3,
+            blending: THREE.AdditiveBlending 
+        });
+        this.einsteinRing = new THREE.Mesh(einsteinGeometry, einsteinMaterial);
+        // This ring stays more "vertical" to the camera
+        this.blackHoleGroup.add(this.einsteinRing);
 
         // --- Starfield ---
         const starGeometry = new THREE.BufferGeometry();
@@ -92,7 +122,7 @@ class HeroVisualization {
 
         // Initial positioning
         this.updatePosition();
-        this.blackHoleGroup.rotation.x = Math.PI / 6;
+        this.blackHoleGroup.rotation.x = Math.PI / 5; // Tilted for 3D feel
 
         this.camera.position.z = 10;
         this.camera.position.y = 1;
@@ -107,11 +137,28 @@ class HeroVisualization {
 
         const time = Date.now() * 0.0005;
 
-        this.accretionDisk.rotation.y += 0.002;
+        // Differential Rotation for Accretion Disk
+        const positions = this.accretionDisk.geometry.attributes.position.array;
+        for (let i = 0; i < this.particleData.length; i++) {
+            const p = this.particleData[i];
+            p.angle += p.speed;
+            
+            positions[i * 3] = p.radius * Math.cos(p.angle);
+            positions[i * 3 + 2] = p.radius * Math.sin(p.angle);
+        }
+        this.accretionDisk.geometry.attributes.position.needsUpdate = true;
+
+        // Animate Rings
+        this.photonRing.rotation.z += 0.01;
+        this.einsteinRing.rotation.y = Math.sin(time) * 0.1;
+        this.einsteinRing.rotation.x = Math.PI / 2 + Math.cos(time * 0.5) * 0.1;
+        
+        // Static background drift
         this.stars.rotation.y += 0.0001;
 
-        // Pulsing glow
-        this.glow.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
+        // Subtle 3D wobble for the whole group
+        this.blackHoleGroup.rotation.y = Math.sin(time * 0.5) * 0.1;
+        this.blackHoleGroup.rotation.z = Math.cos(time * 0.3) * 0.05;
 
         this.renderer.render(this.scene, this.camera);
     }

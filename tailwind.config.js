@@ -11,8 +11,8 @@ module.exports = {
         primary: "#6366f1", // Indigo 500
         secondary: "#a855f7", // Purple 500
         accent: "#ec4899", // Pink 500
-        dark: "#030712", // Gray 950 (Void Black)
-        "dark-lighter": "#111827", // Gray 900
+        dark: "#0f172a", // Slate 900 (Midnight Slate)
+        "dark-lighter": "#1e293b", // Slate 800
         light: "#f9fafb", // Gray 50
       },
       fontFamily: {

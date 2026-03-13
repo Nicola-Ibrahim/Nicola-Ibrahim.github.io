@@ -84,8 +84,41 @@
 
   .skill-card {
     @apply w-full transition-opacity transition-transform duration-300 flex flex-col items-center justify-center;
-    aspect-ratio: 1 / 0.85;
-    padding: 1rem;
+    aspect-ratio: 1 / 0.7;
+    padding: 0.4rem;
+  }
+
+  .browser-frame {
+    @apply relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl;
+  }
+
+  .browser-header {
+    @apply h-8 bg-white/5 border-b border-white/5 flex items-center px-4 gap-1.5;
+  }
+
+  .browser-dot {
+    @apply w-2.5 h-2.5 rounded-full;
+  }
+
+  .light-sweep {
+    @apply absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700;
+    background: linear-gradient(105deg, 
+      transparent 20%, 
+      rgba(255, 255, 255, 0.1) 40%, 
+      rgba(255, 255, 255, 0.2) 50%, 
+      rgba(255, 255, 255, 0.1) 60%, 
+      transparent 80%
+    );
+    transform: translateX(-100%);
+  }
+
+  .group:hover .light-sweep {
+    animation: sweep 1.5s ease-in-out forwards;
+  }
+
+  @keyframes sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
   }
 }
 
@@ -116,9 +149,9 @@
 }
 
 .bg-grid-dark {
-  background-color: #030712;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-color: #0f172a;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
