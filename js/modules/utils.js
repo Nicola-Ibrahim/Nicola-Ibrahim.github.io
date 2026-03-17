@@ -2,7 +2,7 @@
  * Utility functions
  */
 
-const utils = {
+export const utils = {
   /**
    * Debounce function to limit the rate of function calls
    * @param {Function} func - Function to debounce

@@ -20,8 +20,6 @@
     <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
 
     <!-- Tailwind Output -->
     <link href="./css/output.css" rel="stylesheet">
@@ -657,13 +655,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     
     <!-- Core Application Scripts -->
-    <script src="js/modules/utils.js"></script>
-    <script src="js/modules/navigation.js"></script>
-    <script src="js/modules/animations.js"></script>
-    <script src="js/modules/ui.js"></script>
-    <script src="js/modules/hero-visualization.js"></script>
-    <script src="js/modules/about-visualization.js"></script>
-    <script src="js/script.js"></script>
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.174.0/three.module.min.js"
+      }
+    }
+    </script>
+    <script type="module" src="js/script.js"></script>
 </body>
 
 </html>

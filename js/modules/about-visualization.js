@@ -3,7 +3,9 @@
  * Handles the Three.js particle effect in the About section
  */
 
-class AboutVisualization {
+import * as THREE from 'three';
+
+export class AboutVisualization {
     constructor() {
         this.container = document.getElementById('about-canvas-container');
         if (!this.container) return;

@@ -3,7 +3,9 @@
  * Handles the Three.js black hole effect in the Hero section
  */
 
-class HeroVisualization {
+import * as THREE from 'three';
+
+export class HeroVisualization {
     constructor() {
         this.container = document.getElementById('blackhole-container');
         if (!this.container) return;

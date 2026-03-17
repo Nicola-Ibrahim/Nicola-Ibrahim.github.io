@@ -1,10 +1,16 @@
+import { NavigationManager } from './modules/navigation.js';
+import { AnimationManager } from './modules/animations.js';
+import { UIManager } from './modules/ui.js';
+import { HeroVisualization } from './modules/hero-visualization.js';
+import { AboutVisualization } from './modules/about-visualization.js';
+
 /**
  * Main Website Functionality
  * Orchestrates navigation, animations, and interactive features
  */
 
 
-class Portfolio {
+export class Portfolio {
   constructor() {
     this.init();
   }

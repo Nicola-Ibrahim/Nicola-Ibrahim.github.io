@@ -3,7 +3,7 @@
  * Handles general UI elements like mobile menu, scroll effects, and filtering
  */
 
-class UIManager {
+export class UIManager {
     constructor() {
         this.init();
     }
