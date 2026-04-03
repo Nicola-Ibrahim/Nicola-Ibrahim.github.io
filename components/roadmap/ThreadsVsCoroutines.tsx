@@ -2,7 +2,8 @@
 
 import React from 'react';
 
-export const ThreadsVsCoroutines = () => (
+export default function ThreadsVsCoroutines() {
+  return (
   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8 font-sans">
     <div className="bg-[#1e1e1e] p-6 rounded-2xl border border-slate-700 shadow-lg text-slate-200">
       <h4 className="text-center font-bold mb-2 text-slate-100">Threads (sync workers)</h4>
@@ -51,6 +52,7 @@ export const ThreadsVsCoroutines = () => (
       <p className="text-center text-xs text-slate-400 border-t border-slate-700 pt-4 px-4 leading-relaxed">
         One thread. Switching only at await. Suspended coroutine costs almost nothing — just a Python object.
       </p>
+      </div>
     </div>
-  </div>
-);
+  );
+}

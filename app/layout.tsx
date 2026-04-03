@@ -16,10 +16,10 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "Nicola Ibrahim | Portfolio",
-  description: "Personal portfolio of Nicola Ibrahim, showcasing projects and blog posts.",
+  description: "Personal portfolio of Nicola Ibrahim, showcasing high-performance backend, AI projects, and interactive technical roadmaps.",
 };
 
-import AOSInit from './components/AOSInit';
+import AOSInit from '@/components/ui/AOSInit';
 
 export default function RootLayout({
   children,

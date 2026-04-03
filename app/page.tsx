@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
 import Link from 'next/link';
 import { skills, projects } from '@/content/data';
-import HeroCanvas from './components/HeroCanvas';
-import AboutCanvas from './components/AboutCanvas';
-import TiltWrapper from './components/TiltWrapper';
-import TypingAnimation from './components/TypingAnimation';
+import HeroCanvas from '@/components/home/HeroCanvas';
+import AboutCanvas from '@/components/home/AboutCanvas';
+import TiltWrapper from '@/components/ui/TiltWrapper';
+import TypingAnimation from '@/components/ui/TypingAnimation';
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

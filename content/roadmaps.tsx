@@ -23,9 +23,9 @@ import {
   FileText
 } from 'lucide-react';
 
-import { AsyncDecisionFlowchart } from '../app/components/AsyncDecisionFlowchart';
-import { ThreadsVsCoroutines } from '../app/components/ThreadsVsCoroutines';
-import { EventLoopStepper } from '../app/components/EventLoopStepper';
+import AsyncDecisionFlowchart from '@/components/roadmap/AsyncDecisionFlowchart';
+import ThreadsVsCoroutines from '@/components/roadmap/ThreadsVsCoroutines';
+import EventLoopStepper from '@/components/roadmap/EventLoopStepper';
 
 // --- Types & Interfaces ---
 export interface TaskLink {

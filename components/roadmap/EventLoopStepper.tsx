@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-export const EventLoopStepper = () => {
+export default function EventLoopStepper() {
   const [cur, setCur] = useState(0);
   const [mounted, setMounted] = useState(false);
 
@@ -189,4 +189,4 @@ export const EventLoopStepper = () => {
       </div>
     </div>
   );
-};
+}

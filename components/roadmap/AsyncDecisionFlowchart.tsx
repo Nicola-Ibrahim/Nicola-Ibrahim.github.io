@@ -3,7 +3,8 @@
 import React from 'react';
 import { GitBranch } from 'lucide-react';
 
-export const AsyncDecisionFlowchart = () => (
+export default function AsyncDecisionFlowchart() {
+  return (
   <div className="mt-8 p-6 bg-slate-50 border border-slate-200 rounded-2xl font-sans overflow-x-auto shadow-sm">
     <h4 className="text-center font-bold mb-8 text-slate-800 text-lg flex items-center justify-center gap-2">
       <GitBranch className="w-5 h-5 text-indigo-500" /> The Execution Model Decision Tree
@@ -109,6 +110,7 @@ export const AsyncDecisionFlowchart = () => (
         <div className="text-xs text-emerald-700 mt-1">orchestrates awaits — no raw I/O itself</div>
       </div>
 
+      </div>
     </div>
-  </div>
-);
+  );
+}
