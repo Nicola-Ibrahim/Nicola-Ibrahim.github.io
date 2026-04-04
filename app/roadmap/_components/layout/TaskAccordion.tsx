@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ChevronDown, Terminal, Sparkles, Copy, Check, Code2, ExternalLink } from 'lucide-react';
-import { Task } from '@/content/roadmaps';
+import { Task, TaskLink } from '../../_data/roadmaps';
 import { FormattedText } from './FormattedText';
 
 interface TaskAccordionProps {
@@ -97,7 +97,7 @@ export const TaskAccordion = ({
               <div className="mt-10 pt-8 border-t border-slate-200 dark:border-white/5">
                 <h6 className="text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-[0.2em]">Practice Challenges</h6>
                 <div className="flex flex-wrap gap-3">
-                  {task.links.map((link, idx) => (
+                  {task.links.map((link: TaskLink, idx: number) => (
                     <a 
                       key={idx} 
                       href={link.url} 

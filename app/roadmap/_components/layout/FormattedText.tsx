@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { parseInlineStyles } from '../_lib/roadmap-parser';
+import { parseInlineStyles } from '../../_lib/roadmap-parser';
 
 /**
  * Renders long-form roadmap text with support for lists and basic markdown-like syntax.

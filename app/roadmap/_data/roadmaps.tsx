@@ -23,10 +23,10 @@ import {
   FileText
 } from 'lucide-react';
 
-import AsyncDecisionFlowchart from '@/app/roadmap/_components/AsyncDecisionFlowchart';
-import ThreadsVsCoroutines from '@/app/roadmap/_components/ThreadsVsCoroutines';
-import EventLoopStepper from '@/app/roadmap/_components/EventLoopStepper';
-import NotificationStrategies from '@/app/roadmap/_components/NotificationStrategies';
+import AsyncDecisionFlowchart from '@/app/roadmap/_components/widgets/AsyncDecisionFlowchart';
+import ThreadsVsCoroutines from '@/app/roadmap/_components/widgets/ThreadsVsCoroutines';
+import EventLoopStepper from '@/app/roadmap/_components/widgets/EventLoopStepper';
+import NotificationStrategies from '@/app/roadmap/_components/widgets/NotificationStrategies';
 
 // --- Types & Interfaces ---
 export interface TaskLink {

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Roadmap } from '@/content/roadmaps';
+import { Roadmap } from '../../_data/roadmaps';
 import { Layout, ChevronRight, Hash, Sparkles, ArrowLeft } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 

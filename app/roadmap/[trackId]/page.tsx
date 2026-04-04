@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { trackIds, roadmapsData } from '@/content/roadmaps';
+import { trackIds, roadmapsData } from '@/app/roadmap/_data/roadmaps';
 import { notFound, redirect } from 'next/navigation';
 
 export async function generateStaticParams() {

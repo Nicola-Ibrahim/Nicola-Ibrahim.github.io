@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { RoadmapCategory } from '@/content/roadmaps';
+import { RoadmapCategory } from '../../_data/roadmaps';
 import { List, ChevronRight, Sparkles } from 'lucide-react';
 
 interface TableOfContentsProps {

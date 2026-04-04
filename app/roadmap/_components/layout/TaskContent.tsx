@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Sparkles, Copy, Check, Terminal, Code2, ExternalLink } from 'lucide-react';
-import { Task } from '@/content/roadmaps';
+import { Task, TaskLink } from '../../_data/roadmaps';
 import { FormattedText } from './FormattedText';
 
 interface TaskContentProps {
@@ -90,7 +90,7 @@ export const TaskContent = ({
               <ExternalLink className="w-4 h-4" /> Recommended Practice
             </h4>
             <div className="flex flex-col gap-3">
-              {task.links.map((link, idx) => (
+              {task.links.map((link: TaskLink, idx: number) => (
                 <a 
                   key={idx} 
                   href={link.url} 

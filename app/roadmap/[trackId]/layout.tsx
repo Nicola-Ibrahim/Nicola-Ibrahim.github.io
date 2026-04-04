@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import { roadmapsData } from '@/content/roadmaps';
-import { RoadmapSidebar } from '../_components/RoadmapSidebar';
+import { roadmapsData } from '@/app/roadmap/_data/roadmaps';
+import { RoadmapSidebar } from '../_components/layout/RoadmapSidebar';
 
 export default function TrackLayout({
   children,

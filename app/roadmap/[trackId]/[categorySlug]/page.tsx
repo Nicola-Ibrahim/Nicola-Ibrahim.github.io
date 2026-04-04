@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { trackIds, roadmapsData } from '@/content/roadmaps';
-import { TableOfContents } from '../../_components/TableOfContents';
-import { TaskContent } from '../../_components/TaskContent';
+import { trackIds, roadmapsData } from '@/app/roadmap/_data/roadmaps';
+import { TableOfContents } from '../../_components/layout/TableOfContents';
+import { TaskContent } from '../../_components/layout/TaskContent';
 import { notFound } from 'next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 
