@@ -1,0 +1,16 @@
+---
+title: "GitHub-hosted vs. Self-hosted Runners"
+shortDesc: "Where does your automation actually run?"
+---
+
+When GitHub Actions runs a job, it needs a physical computer (a Runner) to execute your scripts. You have two choices.
+
+**1. GitHub-Hosted Runners**
+
+- **How it works:** GitHub provides fresh, ephemeral Virtual Machines (Ubuntu, Windows, macOS). When the job finishes, the VM is immediately destroyed.
+- **Pros/Cons:** Zero maintenance, completely free for public repos. However, they have limited CPU/RAM and cannot access your private corporate intranet (VPNs/VPCs).
+
+**2. Self-Hosted Runners**
+
+- **How it works:** You install the GitHub Runner agent on your own servers (like an AWS EC2 instance or an on-premise rack).
+- **Pros/Cons:** You have total control over the hardware (e.g., attaching powerful GPUs for AI training) and they sit safely behind your corporate firewall. The downside is you are responsible for updating and securing the server.

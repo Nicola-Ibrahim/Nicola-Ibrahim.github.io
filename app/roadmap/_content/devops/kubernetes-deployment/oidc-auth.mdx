@@ -1,0 +1,12 @@
+---
+title: "OIDC Authentication"
+shortDesc: "Connecting to AWS/GCP without long-lived passwords."
+---
+
+Historically, to deploy to AWS, you had to generate a permanent AWS IAM Access Key and paste it into GitHub Secrets. If a rogue employee or hacker extracted that key, they owned your entire cloud infrastructure.
+
+**The OIDC Revolution**
+
+- **Identity Federation:** OpenID Connect (OIDC) establishes a mathematical trust relationship between your GitHub repo and your Cloud Provider (AWS/GCP/Azure).
+- **No Stored Secrets:** You no longer store any passwords or access keys in GitHub.
+- **Short-Lived Tokens:** When the workflow runs, GitHub proves its identity to AWS. AWS dynamically generates a temporary token that expires in 15 minutes. The deployment finishes, the token dies, and the attack vector is completely eliminated.

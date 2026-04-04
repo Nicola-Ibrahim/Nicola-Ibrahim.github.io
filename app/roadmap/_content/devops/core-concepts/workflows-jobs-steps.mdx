@@ -1,0 +1,12 @@
+---
+title: "Workflows, Jobs, and Steps"
+shortDesc: "The hierarchy of GitHub Actions architecture."
+---
+
+To write efficient pipelines, you must understand the structural hierarchy of GitHub Actions.
+
+**The Anatomy of a Pipeline**
+
+- **Workflow:** The top-level automation process defined in a single YAML file (e.g., "Build and Deploy to Prod").
+- **Job:** A Workflow contains one or more Jobs. **Crucial detail:** Jobs run in parallel by default, and each Job spins up on a completely fresh, isolated Virtual Machine.
+- **Step:** A Job contains a sequence of Steps. These run sequentially on the same VM. A Step can either be a simple shell command (`run: npm test`) or a pre-built Action (`uses: actions/checkout@v3`).

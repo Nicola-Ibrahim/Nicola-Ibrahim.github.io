@@ -1,0 +1,14 @@
+---
+title: "4. The Feature Builder"
+shortDesc: "Safe scaffolding for new features based on architecture rules."
+prompt: |
+  Create a Feature Builder skill. Set up the directory .agent/skills/feature-builder/ with standard subfolders.
+  In SKILL.md, add name: feature-builder and description: Trigger this when I ask you to write new features, scaffold files, or generate database models.
+  Add a strict rule: Always read resources/architecture_rules.md before writing code. Never modify existing files without asking; only scaffold new ones. Create a script in scripts/scaffold.sh that generates standard boilerplate for a new [Insert Framework] module. Create examples/standard_feature.[ext] to show the required folder structure for a new feature.
+---
+
+A constrained skill that ensures the AI reads architecture rules before writing, preventing unexpected overwrites.
+
+- **Rule Enforcement:** Always reads `architecture_rules.md` first.
+- **Safe Scaffolding:** Strictly forbidden from modifying existing files without asking.
+- **Boilerplate Scripts:** Uses scripts to generate standard module folders rapidly.

@@ -1,0 +1,22 @@
+---
+title: "1. Serverful (VPS / Bare Metal)"
+shortDesc: "Raw virtual machines where you control the OS, runtime, and security."
+---
+
+Virtual Private Servers (VPS) or Infrastructure as a Service (IaaS) gives you a raw virtual machine (like AWS EC2 or a DigitalOcean Droplet). You are handed a Linux terminal and full root access.
+
+**The Concept**
+
+- **Full Control:** You choose the OS, install the runtime, manage security patches, and configure the firewalls.
+- **Always On:** You pay a fixed monthly rate 24/7, regardless of whether you have 0 users or 10,000 users.
+
+**When to use it**
+
+- **Predictable Workloads:** If you have constant, heavy traffic, a VPS is significantly cheaper per compute-hour than Serverless or PaaS.
+- **Custom Dependencies:** You need to install low-level C++ libraries, custom network drivers, or specialized monitoring daemons.
+- **Legacy Systems:** Older monoliths that aren't containerized often require a traditional server environment.
+
+**When NOT to use it**
+
+- **Small Teams:** If you don't have a dedicated DevOps engineer, maintaining security patches and configuring Load Balancers manually is a massive time sink.
+- **Unpredictable Traffic:** You either over-provision (wasting money on idle servers) or under-provision (your site crashes during a traffic spike).

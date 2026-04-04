@@ -1,0 +1,19 @@
+---
+title: "1. Sync vs Async vs Parallelism"
+shortDesc: "Understanding execution models: Blocking, Concurrency, and CPU-bound math."
+links: []
+---
+
+Understanding the difference between blocking, concurrent, and parallel execution is crucial for backend performance. When developers say "just make it async", they are usually conflating three entirely different architectural concepts: I/O Concurrency, True Parallelism, and Event Notification.
+
+**1. Synchronous (Sync): "Blocking"**
+By default, Python is synchronous. It executes code exactly one line at a time.
+
+**2. Asynchronous (Async): "Smart Waiting"**
+Asynchronous programming is about dealing with multiple things at once by never wasting time waiting. Best for **I/O Bound** tasks (databases, API calls).
+
+**3. Parallelism: "Brute Force"**
+Parallelism is doing multiple things at the exact same physical millisecond, requiring multiple CPU cores. Best for **CPU Bound** tasks.
+
+<AsyncDecisionFlowchart />
+<ThreadsVsCoroutines />

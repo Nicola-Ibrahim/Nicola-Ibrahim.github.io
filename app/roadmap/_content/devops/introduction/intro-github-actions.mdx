@@ -1,0 +1,12 @@
+---
+title: "Introduction to GitHub Actions"
+shortDesc: "Native automation directly inside your code repository."
+---
+
+Historically, your code lived in Git, but your automation lived on a completely separate server. This caused a disconnect between the code and the pipeline that deployed it.
+
+**The Concept**
+
+- **Native Integration:** GitHub Actions brings the CI/CD pipeline directly into your repository. Your pipeline is just another file (`.github/workflows/main.yml`) that lives alongside your application code.
+- **Infrastructure as Code:** Because the pipeline is defined in YAML and version-controlled, you can review changes to your deployment process exactly like you review a code Pull Request.
+- **Event-Driven Execution:** Workflows don't just trigger on pushes. You can trigger them when an issue is opened, a comment is made, or a release is tagged.

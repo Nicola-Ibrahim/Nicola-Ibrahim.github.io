@@ -1,0 +1,15 @@
+---
+title: "1. Brand Identity & UI Enforcer"
+shortDesc: "Ensure your AI always aligns with brand visual guides and framework constraints."
+prompt: |
+  Create a universal Brand Identity skill. Set up the directory .agent/skills/brand-identity/ with scripts/, resources/, and examples/ folders.
+  In SKILL.md, add the frontmatter name: enforce-brand-identity and description: Use this skill whenever I ask you to build a new UI component or update the frontend.
+  Add a strict rule: You must analyze the visual guides in the resources/ folder (like mockups or wireframes) before writing code. Enforce a [Insert Tone] brand voice. For UI code, strictly use [Insert Framework, e.g., Next.js/Tailwind] and align with the provided reference images. Finally, create examples/ideal_component.[ext] showing a perfect boilerplate component.
+links: []
+---
+
+This skill forces the AI to check mockups and wireframes in the resources folder before writing frontend code.
+
+- **Visual Guide Analysis:** Prevents generic or mismatched UI generation by reviewing design files.
+- **Brand Alignment:** Enforces a specific tone, brand voice, and CSS framework rules.
+- **Standardization:** Automatically generates an ideal component boilerplate matching reference images.
