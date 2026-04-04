@@ -21,6 +21,11 @@ export const ModuleContent = ({
   mdxSource
 }: ModuleContentProps) => {
   const [isCopied, setIsCopied] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -45,8 +50,16 @@ export const ModuleContent = ({
 
       {/* Main Content Body (MDX Rendering) */}
       <div className="flex flex-col gap-6 max-w-4xl">
-        <div className="prose prose-lg dark:prose-invert prose-headings:uppercase prose-headings:tracking-widest prose-headings:font-black prose-p:text-slate-800 dark:prose-p:text-slate-400 prose-strong:text-slate-900 dark:prose-strong:text-slate-200 transition-all">
-          <MDXRemote {...mdxSource} components={mdxComponents} />
+        <div className="prose prose-lg dark:prose-invert prose-headings:uppercase prose-headings:tracking-widest prose-headings:font-black prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed prose-a:text-teal-600 dark:prose-a:text-teal-400 prose-a:no-underline hover:prose-a:underline prose-code:text-teal-600 dark:prose-code:text-teal-400 prose-code:bg-teal-500/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none border-b border-slate-200 dark:border-white/5 pb-10 mb-10">
+          {mounted ? (
+            <MDXRemote {...mdxSource} components={mdxComponents} />
+          ) : (
+            <div className="animate-pulse space-y-4">
+              <div className="h-4 bg-slate-200 dark:bg-white/5 rounded w-3/4"></div>
+              <div className="h-4 bg-slate-200 dark:bg-white/5 rounded w-1/2"></div>
+              <div className="h-4 bg-slate-200 dark:bg-white/5 rounded w-5/6"></div>
+            </div>
+          )}
         </div>
 
         {/* AI Agent Skill Block (Structured Metadata) */}

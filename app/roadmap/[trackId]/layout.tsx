@@ -7,9 +7,9 @@ export default async function TrackLayout({
   params
 }: {
   children: React.ReactNode;
-  params: { trackId: string; categorySlug?: string };
+  params: Promise<{ trackId: string }>;
 }) {
-  const { trackId, categorySlug } = await params;
+  const { trackId } = await params;
   const roadmapsData = await getFullRoadmapsData();
   const roadmaps = Object.values(roadmapsData);
   const activeTab = trackId || 'ai_agents';
@@ -19,8 +19,6 @@ export default async function TrackLayout({
       {/* 1. LEFT SIDEBAR (Track Selector) */}
       <RoadmapSidebar 
         roadmaps={roadmaps as any}
-        activeTab={activeTab}
-        activeCategory={categorySlug}
       />
 
       {/* 2. MAIN CONTENT AREA */}

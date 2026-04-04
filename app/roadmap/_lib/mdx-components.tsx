@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { Terminal, Copy, Check, ExternalLink } from 'lucide-react';
 import AsyncDecisionFlowchart from '@/app/roadmap/_content/backend/async-messaging/AsyncDecisionFlowchart';
