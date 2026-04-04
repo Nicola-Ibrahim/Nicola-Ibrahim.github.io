@@ -6,14 +6,14 @@ import { List, ChevronRight, Sparkles } from 'lucide-react';
 
 interface TableOfContentsProps {
   categories?: RoadmapCategory[];
-  tasks?: { id: string, title: string }[];
+  content?: { id: string, title: string }[];
   activeId?: string;
   onItemClick?: (id: string) => void;
 }
 
 export function TableOfContents({ 
   categories, 
-  tasks,
+  content,
   activeId: passedActiveId,
   onItemClick 
 }: TableOfContentsProps) {
@@ -37,16 +37,16 @@ export function TableOfContents({
       { rootMargin: '-10% 0% -80% 0%' }
     );
 
-    const itemsToWatch = tasks || categories?.map(c => ({ id: c.id })) || [];
-    itemsToWatch.forEach((item) => {
+    const itemsToWatch = content || categories?.map(c => ({ id: c.id })) || [];
+    itemsToWatch.forEach((item: { id: string }) => {
       const element = document.getElementById(item.id);
       if (element) observer.observe(element);
     });
 
     return () => observer.disconnect();
-  }, [categories, tasks]);
+  }, [categories, content]);
 
-  const items = tasks || (categories?.map(c => ({ id: c.id, title: c.title })) || []);
+  const items = content || (categories?.map(c => ({ id: c.id, title: c.title })) || []);
 
   return (
     <aside className="w-64 hidden xl:block sticky top-10 self-start h-[calc(100vh-80px)] overflow-y-auto pl-6 border-l border-slate-200 dark:border-white/5 custom-scrollbar">
@@ -58,7 +58,7 @@ export function TableOfContents({
       </div>
 
       <nav className="space-y-1">
-        {items.map((item) => (
+        {items.map((item: { id: string, title: string }) => (
           <button
             key={item.id}
             onClick={() => {

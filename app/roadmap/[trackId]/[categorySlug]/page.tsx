@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { trackIds, roadmapsData } from '@/app/roadmap/_data/roadmaps';
+import { trackIds, roadmapsData, ContentItem } from '@/app/roadmap/_data/roadmaps';
 import { TableOfContents } from '../../_components/layout/TableOfContents';
-import { TaskContent } from '../../_components/layout/TaskContent';
+import { ModuleContent } from '../../_components/layout/ModuleContent';
 import { notFound } from 'next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 
@@ -81,10 +81,10 @@ export default async function ModulePage({ params }: { params: { trackId: string
         </header>
 
         <div className="space-y-6">
-          {category.tasks.map((task) => (
-            <div key={task.id} id={task.id} className="scroll-mt-24">
-              <TaskContent 
-                task={task} 
+          {category.content.map((item: ContentItem) => (
+            <div key={item.id} id={item.id} className="scroll-mt-24">
+              <ModuleContent 
+                content={item} 
               />
             </div>
           ))}
@@ -92,7 +92,7 @@ export default async function ModulePage({ params }: { params: { trackId: string
       </div>
 
       <TableOfContents 
-        tasks={category.tasks}
+        content={category.content}
       />
     </div>
   );
