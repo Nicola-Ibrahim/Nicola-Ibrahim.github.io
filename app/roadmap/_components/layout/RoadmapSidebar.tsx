@@ -25,12 +25,12 @@ export function RoadmapSidebar({
       <div className="mb-10 px-4">
         <Link 
           href="/" 
-          className="group flex items-center gap-3 text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors mb-8"
+          className="group flex items-center gap-3 text-slate-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors mb-8"
         >
           <div className="p-2 bg-slate-100 dark:bg-white/5 rounded-lg group-hover:bg-teal-500/10 transition-colors border border-transparent group-hover:border-teal-500/20">
             <ArrowLeft className="w-4 h-4" />
           </div>
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60 group-hover:opacity-100 transition-opacity">Back to Home</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80 group-hover:opacity-100 transition-opacity">Back to Home</span>
         </Link>
 
         <div className="flex items-center gap-3 mb-2">
@@ -41,7 +41,7 @@ export function RoadmapSidebar({
             Module <span className="text-teal-600 dark:text-teal-400">Library</span>
           </h2>
         </div>
-        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest pl-11">
+        <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest pl-11">
           {roadmaps.length} Tracks Available
         </p>
       </div>
@@ -51,7 +51,7 @@ export function RoadmapSidebar({
       <div className="space-y-1 px-3">
         <div className="flex items-center gap-2 mb-6 px-3">
           <Sparkles className="w-4 h-4 text-teal-500" />
-          <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+          <h4 className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em]">
             Select Engineering Track
           </h4>
         </div>
@@ -78,7 +78,7 @@ export function RoadmapSidebar({
                 </div>
                 <div className="text-left">
                   <p className={`text-[11px] font-black uppercase tracking-widest ${
-                    activeTab === tab.id ? 'text-teal-700 dark:text-slate-200' : 'text-slate-500 dark:text-slate-600'
+                    activeTab === tab.id ? 'text-teal-700 dark:text-slate-200' : 'text-slate-600 dark:text-slate-400'
                   }`}>
                     {tab.title.replace('Syllabus', '').replace('Technical', '').replace('Engineering', '').replace('Architecture', '').trim()}
                   </p>
@@ -99,7 +99,7 @@ export function RoadmapSidebar({
                     className={`block py-2.5 pl-6 pr-4 text-[11px] font-black transition-all relative uppercase tracking-tighter ${
                       activeCategory === cat.slug
                         ? 'text-teal-600 dark:text-teal-400 font-black bg-teal-500/5'
-                        : 'text-slate-400 dark:text-slate-600 hover:text-slate-900 dark:hover:text-slate-300'
+                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300'
                     }`}
                   >
                     {activeCategory === cat.slug && (
