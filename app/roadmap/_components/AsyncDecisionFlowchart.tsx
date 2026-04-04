@@ -5,48 +5,48 @@ import { GitBranch } from 'lucide-react';
 
 export default function AsyncDecisionFlowchart() {
   return (
-  <div className="mt-8 p-6 bg-slate-50 border border-slate-200 rounded-2xl font-sans overflow-x-auto shadow-sm">
-    <h4 className="text-center font-bold mb-8 text-slate-800 text-lg flex items-center justify-center gap-2">
+  <div className="mt-8 p-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 rounded-2xl font-sans overflow-x-auto shadow-sm transition-colors">
+    <h4 className="text-center font-bold mb-8 text-slate-800 dark:text-slate-100 text-lg flex items-center justify-center gap-2 uppercase tracking-wide">
       <GitBranch className="w-5 h-5 text-indigo-500" /> The Execution Model Decision Tree
     </h4>
-    <div className="flex flex-col items-center min-w-[700px] relative pb-4">
+    <div className="flex flex-col items-center min-w-[700px] relative pb-4 text-center">
       
       {/* Node 1 */}
-      <div className="bg-white border-2 border-slate-300 px-6 py-3 rounded-full font-bold text-slate-700 shadow-sm z-10 flex items-center justify-center min-w-[200px]">
+      <div className="bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 px-6 py-3 rounded-full font-black text-slate-700 dark:text-slate-200 shadow-sm z-10 flex items-center justify-center min-w-[200px] uppercase tracking-tight transition-colors">
         Write a function
       </div>
 
-      <div className="w-0.5 h-6 bg-slate-300"></div>
-      <div className="text-slate-400 text-xs mb-1">↓</div>
+      <div className="w-0.5 h-6 bg-slate-300 dark:bg-slate-600"></div>
+      <div className="text-slate-400 dark:text-slate-500 text-[10px] font-black mb-1">↓</div>
 
       {/* Level 1 Split */}
       <div className="flex items-start w-full justify-center relative">
         {/* Left branch - Plain def */}
         <div className="flex-1 flex flex-col items-end pt-4 pr-6 relative">
-          <div className="absolute right-0 top-0 w-1/2 h-0.5 bg-slate-300"></div>
-          <div className="text-xs font-bold text-slate-500 mb-2 mr-[140px] bg-slate-50 px-1 relative -top-3 z-10">No</div>
+          <div className="absolute right-0 top-0 w-1/2 h-0.5 bg-slate-300 dark:bg-slate-600"></div>
+          <div className="text-[10px] font-black text-slate-500 dark:text-slate-400 mb-2 mr-[140px] bg-slate-50 dark:bg-slate-900 px-2 relative -top-3 z-10">NO</div>
           
-          <div className="bg-indigo-50 border-2 border-indigo-200 px-5 py-3 rounded-xl shadow-sm text-center w-[160px] relative z-10 mr-6">
-            <div className="font-bold text-indigo-900 text-sm">Plain `def`</div>
-            <div className="text-xs text-indigo-700 mt-1">Domain layer</div>
-            <div className="text-[10px] text-indigo-500/80 mt-2 pt-2 border-t border-indigo-200/50">e.g. Order.calculate()</div>
+          <div className="bg-indigo-50 dark:bg-indigo-900/40 border-2 border-indigo-200 dark:border-indigo-500/30 px-5 py-3 rounded-xl shadow-sm text-center w-[160px] relative z-10 mr-6 transition-colors">
+            <div className="font-black text-indigo-900 dark:text-indigo-200 text-xs uppercase tracking-tighter">Plain `def`</div>
+            <div className="text-[10px] text-indigo-700 dark:text-indigo-400 mt-1 font-bold">Domain layer</div>
+            <div className="text-[9px] text-indigo-500/80 dark:text-indigo-300/60 mt-2 pt-2 border-t border-indigo-200/50 dark:border-indigo-500/20">e.g. Order.calculate()</div>
           </div>
         </div>
 
         {/* Center Node 2 */}
         <div className="flex flex-col items-center relative z-10 mx-4">
-          <div className="bg-slate-100 border border-slate-300 px-6 py-4 rounded-xl shadow-sm text-center w-[220px]">
-            <div className="font-bold text-slate-800 text-sm">Does it touch I/O?</div>
-            <div className="text-xs text-slate-500 mt-1">DB, HTTP, Redis, files</div>
+          <div className="bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 px-6 py-4 rounded-xl shadow-sm text-center w-[220px] transition-colors">
+            <div className="font-bold text-slate-800 dark:text-slate-100 text-sm">Does it touch I/O?</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">DB, HTTP, Redis, files</div>
           </div>
           
-          <div className="w-0.5 h-8 bg-slate-300"></div>
-          <div className="text-slate-400 text-xs mb-1">↓ Yes</div>
+          <div className="w-0.5 h-8 bg-slate-300 dark:bg-slate-600"></div>
+          <div className="text-slate-400 dark:text-slate-500 text-[10px] font-black mb-1">↓ YES</div>
           
           {/* Node 3 */}
-          <div className="bg-slate-100 border border-slate-300 px-6 py-4 rounded-xl shadow-sm text-center w-[220px]">
-            <div className="font-bold text-slate-800 text-sm">Async lib available?</div>
-            <div className="text-xs text-slate-500 mt-1">asyncpg, httpx, aioredis...</div>
+          <div className="bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 px-6 py-4 rounded-xl shadow-sm text-center w-[220px] transition-colors">
+            <div className="font-bold text-slate-800 dark:text-slate-100 text-sm">Async lib available?</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">asyncpg, httpx...</div>
           </div>
         </div>
 
@@ -58,89 +58,89 @@ export default function AsyncDecisionFlowchart() {
       <div className="flex items-start w-full justify-center relative mt-1">
         {/* Left branch - Threadpool */}
         <div className="flex-1 flex flex-col items-end pt-4 pr-6 relative">
-          <div className="absolute right-0 top-0 w-1/2 h-0.5 bg-slate-300"></div>
-          <div className="text-xs font-bold text-slate-500 mb-2 mr-[140px] bg-slate-50 px-1 relative -top-3 z-10">No</div>
+          <div className="absolute right-0 top-0 w-1/2 h-0.5 bg-slate-300 dark:bg-slate-600"></div>
+          <div className="text-[10px] font-black text-slate-500 dark:text-slate-400 mb-2 mr-[140px] bg-slate-50 dark:bg-slate-900 px-2 relative -top-3 z-10">NO</div>
           
-          <div className="bg-rose-50 border-2 border-rose-200 px-4 py-3 rounded-xl shadow-sm text-center w-[160px] relative z-10 mr-6">
-            <div className="font-bold text-rose-900 text-sm">`def` + threadpool</div>
-            <div className="text-xs text-rose-700 mt-1">or run_in_executor</div>
-            <div className="text-[10px] text-rose-500/80 mt-2 pt-2 border-t border-rose-200/50">FastAPI runs in thread automatically</div>
+          <div className="bg-rose-50 dark:bg-rose-900/40 border-2 border-rose-200 dark:border-rose-500/30 px-4 py-3 rounded-xl shadow-sm text-center w-[160px] relative z-10 mr-6 transition-colors">
+            <div className="font-black text-rose-900 dark:text-rose-200 text-xs uppercase tracking-tighter">`def` + Thread</div>
+            <div className="text-[10px] text-rose-700 dark:text-rose-400 mt-1 font-bold">In worker pool</div>
+            <div className="text-[9px] text-rose-500/80 dark:text-rose-300/60 mt-2 pt-2 border-t border-rose-200/50 dark:border-rose-500/20">FastAPI handles automatically</div>
           </div>
         </div>
 
         {/* Center Node 4 */}
         <div className="flex flex-col items-center relative z-10 mx-4">
-          <div className="w-0.5 h-8 bg-slate-300"></div>
-          <div className="text-slate-400 text-xs mb-1">↓ Yes</div>
+          <div className="w-0.5 h-8 bg-slate-300 dark:bg-slate-600"></div>
+          <div className="text-slate-400 dark:text-slate-500 text-[10px] font-black mb-1">↓ YES</div>
           
-          <div className="bg-amber-50 border-2 border-amber-200 px-6 py-4 rounded-xl shadow-sm text-center w-[220px]">
-            <div className="font-bold text-amber-900 text-sm">`async def` + `await`</div>
-            <div className="text-xs text-amber-700 mt-1">Infrastructure adapter</div>
-            <div className="text-[10px] text-amber-600/80 mt-2 pt-2 border-t border-amber-200/50">rows = await conn.fetch()</div>
+          <div className="bg-amber-50 dark:bg-amber-900/40 border-2 border-amber-200 dark:border-amber-500/30 px-6 py-4 rounded-xl shadow-sm text-center w-[220px] transition-colors">
+            <div className="font-black text-amber-900 dark:text-amber-200 text-sm uppercase">`async def` + `await`</div>
+            <div className="text-xs text-amber-700 dark:text-amber-400 mt-1 font-bold">Infrastructure adapter</div>
+            <div className="text-[9px] text-amber-600/80 dark:text-amber-300/60 mt-2 pt-2 border-t border-amber-200/50 dark:border-amber-500/20">await conn.fetch()</div>
           </div>
           
-          <div className="w-0.5 h-8 bg-slate-300"></div>
-          <div className="text-slate-400 text-xs mb-1">↓</div>
+          <div className="w-0.5 h-8 bg-slate-300 dark:bg-slate-600"></div>
+          <div className="text-slate-400 dark:text-slate-500 text-[10px] font-black mb-1">↓</div>
           
           {/* Node 5 */}
-          <div className="bg-slate-100 border border-slate-300 px-6 py-4 rounded-xl shadow-sm text-center w-[220px]">
-            <div className="font-bold text-slate-800 text-sm">Heavy CPU or long job?</div>
-            <div className="text-xs text-slate-500 mt-1">analytics, ML, PDF gen</div>
+          <div className="bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 px-6 py-4 rounded-xl shadow-sm text-center w-[220px] transition-colors">
+            <div className="font-bold text-slate-800 dark:text-slate-100 text-sm">Heavy CPU job?</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">analytics, ML, PDFs</div>
           </div>
         </div>
 
         {/* Right branch - Celery */}
         <div className="flex-1 flex flex-col items-start pt-[140px] pl-6 relative">
-          <div className="absolute left-0 top-[125px] w-[50%] h-0.5 bg-slate-300"></div>
-          <div className="text-xs font-bold text-slate-500 mb-2 ml-8 bg-slate-50 px-1 relative -top-3 z-10">Yes</div>
+          <div className="absolute left-0 top-[125px] w-[50%] h-0.5 bg-slate-300 dark:bg-slate-600"></div>
+          <div className="text-[10px] font-black text-slate-500 dark:text-slate-400 mb-2 ml-8 bg-slate-50 dark:bg-slate-900 px-2 relative -top-3 z-10">YES</div>
           
-          <div className="bg-red-50 border-2 border-red-200 px-4 py-3 rounded-xl shadow-sm text-center w-[160px] relative z-10 ml-4">
-            <div className="font-bold text-red-900 text-sm">Celery task</div>
-            <div className="text-xs text-red-700 mt-1">separate process</div>
+          <div className="bg-red-50 dark:bg-red-900/40 border-2 border-red-200 dark:border-red-500/30 px-5 py-3 rounded-xl shadow-sm text-center w-[160px] relative z-10 ml-4 transition-colors">
+            <div className="font-black text-red-900 dark:text-red-200 text-xs uppercase tracking-tighter">Celery Task</div>
+            <div className="text-[10px] text-red-700 dark:text-red-400 mt-1 font-bold">Background process</div>
           </div>
         </div>
       </div>
 
       {/* Final Center Node */}
-      <div className="w-0.5 h-8 bg-slate-300"></div>
-      <div className="text-slate-400 text-xs mb-1">↓ No</div>
+      <div className="w-0.5 h-8 bg-slate-300 dark:bg-slate-600"></div>
+      <div className="text-slate-400 dark:text-slate-500 text-[10px] font-black mb-2">↓ NO</div>
       
-      <div className="bg-emerald-50 border-2 border-emerald-200 px-6 py-4 rounded-xl shadow-sm text-center z-10 min-w-[280px]">
-        <div className="font-bold text-emerald-900 text-sm">`async def` — app / interface layer</div>
-        <div className="text-xs text-emerald-700 mt-1">orchestrates awaits — no raw I/O itself</div>
+      <div className="bg-emerald-50 dark:bg-emerald-900/40 border-2 border-emerald-200 dark:border-emerald-500/30 px-6 py-4 rounded-xl shadow-sm text-center z-10 min-w-[280px] transition-colors">
+        <div className="font-black text-emerald-900 dark:text-emerald-200 text-sm uppercase tracking-tight">`async def` — Application layer</div>
+        <div className="text-xs text-emerald-700 dark:text-emerald-400 mt-1 font-bold">Orchestrates awaits — no raw I/O</div>
       </div>
 
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 font-sans">
-        <div className="bg-slate-800 rounded-xl overflow-hidden shadow-md flex flex-col border border-slate-700">
-          <div className="bg-blue-600 py-3 px-4 text-center font-bold text-white text-sm">FastAPI async/await</div>
-          <div className="p-5 flex flex-col gap-4 text-sm text-center text-slate-300 flex-grow">
-            <p>I/O concurrency<br/>single process</p>
-            <div className="h-px w-full bg-slate-700/50"></div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12 font-sans transition-colors duration-500">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg flex flex-col border border-slate-200 dark:border-slate-700 transition-colors">
+          <div className="bg-indigo-600 py-3 px-4 text-center font-black text-white text-[10px] uppercase tracking-widest">FastAPI async/await</div>
+          <div className="p-6 flex flex-col gap-4 text-xs text-center text-slate-700 dark:text-slate-300 flex-grow">
+            <p className="font-bold">I/O concurrency<br/><span className="text-[10px] font-normal opacity-70">single process</span></p>
+            <div className="h-px w-full bg-slate-200 dark:bg-slate-700/50"></div>
             <p>While awaiting DB/HTTP,<br/>event loop handles<br/>other requests.</p>
-            <div className="h-px w-full bg-slate-700/50"></div>
-            <p className="text-slate-400">NOT parallelism.<br/>NOT multi-process.<br/>Just efficient waiting.</p>
+            <div className="h-px w-full bg-slate-200 dark:bg-slate-700/50"></div>
+            <p className="text-slate-500 dark:text-slate-400 italic">NOT parallelism.<br/>NOT multi-process.<br/>Just efficient waiting.</p>
           </div>
         </div>
-        <div className="bg-slate-800 rounded-xl overflow-hidden shadow-md flex flex-col border border-slate-700">
-          <div className="bg-amber-700 py-3 px-4 text-center font-bold text-white text-sm">Redis + Celery</div>
-          <div className="p-5 flex flex-col gap-4 text-sm text-center text-slate-300 flex-grow">
-            <p>System-level async<br/>true parallelism via workers</p>
-            <div className="h-px w-full bg-slate-700/50"></div>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg flex flex-col border border-slate-200 dark:border-slate-700 transition-colors">
+          <div className="bg-amber-600 py-3 px-4 text-center font-black text-white text-[10px] uppercase tracking-widest">Redis + Celery</div>
+          <div className="p-6 flex flex-col gap-4 text-xs text-center text-slate-700 dark:text-slate-300 flex-grow">
+            <p className="font-bold">System-level async<br/><span className="text-[10px] font-normal opacity-70">true parallelism</span></p>
+            <div className="h-px w-full bg-slate-200 dark:bg-slate-700/50"></div>
             <p>API enqueues a task.<br/>Celery worker picks it<br/>up in its own process.</p>
-            <div className="h-px w-full bg-slate-700/50"></div>
-            <p className="text-slate-400">Redis = the queue<br/>(broker + result store).<br/>CPU-heavy safe.</p>
+            <div className="h-px w-full bg-slate-200 dark:bg-slate-700/50"></div>
+            <p className="text-slate-500 dark:text-slate-400 italic">Redis = the queue<br/>(broker + store).<br/>CPU-heavy safe.</p>
           </div>
         </div>
-        <div className="bg-slate-800 rounded-xl overflow-hidden shadow-md flex flex-col border border-slate-700">
-          <div className="bg-emerald-700 py-3 px-4 text-center font-bold text-white text-sm">Push to frontend</div>
-          <div className="p-5 flex flex-col gap-4 text-sm text-center text-slate-300 flex-grow">
-            <p>Event notification<br/>server → browser</p>
-            <div className="h-px w-full bg-slate-700/50"></div>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg flex flex-col border border-slate-200 dark:border-slate-700 transition-colors">
+          <div className="bg-emerald-600 py-3 px-4 text-center font-black text-white text-[10px] uppercase tracking-widest">Push to frontend</div>
+          <div className="p-6 flex flex-col gap-4 text-xs text-center text-slate-700 dark:text-slate-300 flex-grow">
+            <p className="font-bold">Event notification<br/><span className="text-[10px] font-normal opacity-70">server → browser</span></p>
+            <div className="h-px w-full bg-slate-200 dark:bg-slate-700/50"></div>
             <p>Webhook = backend<br/>to backend only.<br/>For browser: SSE<br/>or WebSocket.</p>
-            <div className="h-px w-full bg-slate-700/50"></div>
-            <p className="text-slate-400">These are three<br/>separate problems.</p>
+            <div className="h-px w-full bg-slate-200 dark:bg-slate-700/50"></div>
+            <p className="text-slate-500 dark:text-slate-400 italic">These are three<br/>separate problems.</p>
           </div>
         </div>
       </div>

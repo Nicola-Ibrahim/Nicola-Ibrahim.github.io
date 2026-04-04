@@ -26,11 +26,11 @@ export default function RoadmapPage() {
   const totalTopics = currentRoadmap?.categories.reduce((acc, cat) => acc + cat.tasks.length, 0) || 0;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 transition-colors duration-500">
       
       {/* Tab Navigation (Desktop & Mobile Sync) */}
       <nav className="flex items-center justify-center mb-12">
-        <div className="flex flex-wrap items-center justify-center bg-white/5 border border-white/10 p-1.5 rounded-3xl md:rounded-full gap-1">
+        <div className="flex flex-wrap items-center justify-center bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-1.5 rounded-3xl md:rounded-full gap-1 transition-colors">
           {Object.values(roadmapsData).map((tab) => (
             <button
               key={tab.id}
@@ -41,7 +41,7 @@ export default function RoadmapPage() {
               className={`flex items-center gap-2 px-6 py-2.5 text-xs font-black rounded-full transition-all duration-300 uppercase tracking-widest ${
                 activeTab === tab.id
                   ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/5'
               }`}
             >
               <span className="shrink-0">{tab.icon}</span>
@@ -68,10 +68,10 @@ export default function RoadmapPage() {
             
             {/* Category Header */}
             <div className="flex items-center gap-5 mb-8 px-2">
-              <div className="p-4 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl text-indigo-400 shadow-inner">
+              <div className="p-4 bg-indigo-600/5 dark:bg-indigo-600/10 border border-indigo-500/10 dark:border-indigo-500/20 rounded-2xl text-indigo-600 dark:text-indigo-400 shadow-sm dark:shadow-inner transition-colors">
                 {category.icon}
               </div>
-              <h3 className="text-2xl font-black text-white uppercase tracking-wider">
+              <h3 className="text-2xl font-black text-slate-800 dark:text-white uppercase tracking-wider">
                 {category.title}
               </h3>
             </div>

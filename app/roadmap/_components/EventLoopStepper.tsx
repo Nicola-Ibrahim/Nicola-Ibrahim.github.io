@@ -116,11 +116,15 @@ export default function EventLoopStepper() {
   if (!mounted) return null;
 
   return (
-    <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm mt-8 font-sans">
-      <div className="font-bold text-slate-800 mb-1 text-[15px]">{s.title}</div>
-      <div className="text-[13px] text-slate-600 mb-6 leading-relaxed min-h-[40px]">{s.note}</div>
+    <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-2xl p-8 shadow-xl mt-8 font-sans transition-colors duration-500 overflow-x-auto min-w-[700px]">
       
-      <div className="relative w-full overflow-x-auto bg-slate-50/50 rounded-xl border border-slate-100 p-2">
+      {/* Header with Step Info */}
+      <div className="mb-6 pb-6 border-b border-slate-100 dark:border-white/5">
+        <div className="font-black text-slate-900 dark:text-white mb-2 text-lg uppercase tracking-tight">{s.title}</div>
+        <div className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed min-h-[40px] font-medium italic">{s.note}</div>
+      </div>
+      
+      <div className="relative w-full overflow-x-auto bg-slate-50 dark:bg-black/20 rounded-2xl border border-slate-100 dark:border-white/5 p-4 transition-colors">
         <svg width="680" height="260" viewBox="0 0 680 260" className="mx-auto block" style={{ maxWidth: '100%', height: 'auto' }}>
           <defs>
             {uniqueColors.map(color => (
@@ -155,12 +159,12 @@ export default function EventLoopStepper() {
             const cy = e.y + e.h / 2;
             return (
               <g key={i}>
-                <rect x={e.x} y={e.y} width={e.w} height={e.h} rx="8" fill={e.bg} stroke={e.border} strokeWidth="1" />
-                <text x={cx} y={e.sub ? cy - 8 : cy} textAnchor="middle" dominantBaseline="central" fontSize="13" fontWeight="600" fill={e.tc} fontFamily="inherit">
+                <rect x={e.x} y={e.y} width={e.w} height={e.h} rx="12" fill={e.bg} stroke={e.border} strokeWidth="2" className="drop-shadow-sm" />
+                <text x={cx} y={e.sub ? cy - 8 : cy} textAnchor="middle" dominantBaseline="central" fontSize="12" fontWeight="900" fill={e.tc} fontFamily="inherit" className="uppercase tracking-tighter">
                   {e.text}
                 </text>
                 {e.sub && (
-                  <text x={cx} y={cy + 12} textAnchor="middle" dominantBaseline="central" fontSize="11" fill={e.sc} fontFamily="inherit">
+                  <text x={cx} y={cy + 12} textAnchor="middle" dominantBaseline="central" fontSize="10" fontWeight="700" fill={e.sc} fontFamily="inherit" className="opacity-70">
                     {e.sub}
                   </text>
                 )}
@@ -170,19 +174,20 @@ export default function EventLoopStepper() {
         </svg>
       </div>
 
-      <div className="flex gap-3 items-center justify-between mt-6">
+      {/* Navigation Controls */}
+      <div className="flex gap-4 items-center justify-between mt-8 pt-6 border-t border-slate-100 dark:border-white/5">
         <button 
           onClick={() => setCur(c => (c - 1 + stepsData.length) % stepsData.length)} 
-          className="px-5 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium text-sm rounded-lg transition-colors shadow-sm"
+          className="px-6 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-xs rounded-xl transition-all shadow-sm uppercase tracking-widest"
         >
           Previous
         </button>
-        <span className="text-sm font-bold text-slate-400 tracking-widest bg-slate-100 px-3 py-1 rounded-full">
-          {cur + 1} / {stepsData.length}
+        <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 tracking-[0.3em] bg-indigo-50 dark:bg-indigo-500/10 px-4 py-2 rounded-full uppercase">
+          Step {cur + 1} / {stepsData.length}
         </span>
         <button 
           onClick={() => setCur(c => (c + 1) % stepsData.length)} 
-          className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-lg transition-colors shadow-sm"
+          className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs rounded-xl transition-all shadow-lg shadow-indigo-500/20 uppercase tracking-widest hover:scale-105 active:scale-95"
         >
           Next Step
         </button>

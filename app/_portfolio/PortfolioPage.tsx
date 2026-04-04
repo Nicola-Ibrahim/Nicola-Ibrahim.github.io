@@ -8,6 +8,7 @@ import HeroCanvas from './_components/HeroCanvas';
 import AboutCanvas from './_components/AboutCanvas';
 import TiltWrapper from '@/components/ui/TiltWrapper';
 import TypingAnimation from '@/components/ui/TypingAnimation';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export default function PortfolioPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -17,9 +18,9 @@ export default function PortfolioPage() {
     const handleScroll = () => {
       const navbar = document.getElementById('navbar');
       if (window.scrollY > 50) {
-        navbar?.classList.add('bg-dark/80', 'backdrop-blur-md', 'border-b', 'border-white/10');
+        navbar?.classList.add('bg-white/80', 'dark:bg-dark/80', 'backdrop-blur-md', 'border-b', 'border-slate-200', 'dark:border-white/10');
       } else {
-        navbar?.classList.remove('bg-dark/80', 'backdrop-blur-md', 'border-b', 'border-white/10');
+        navbar?.classList.remove('bg-white/80', 'dark:bg-dark/80', 'backdrop-blur-md', 'border-b', 'border-slate-200', 'dark:border-white/10');
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -29,14 +30,14 @@ export default function PortfolioPage() {
   const filteredSkills = skills.filter(skill => skill.category === activeFilter);
 
   return (
-    <>
+    <div className="bg-white dark:bg-dark text-slate-900 dark:text-light transition-colors duration-500 min-h-screen">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
       {/* Background Elements */}
-      <div className="fixed inset-0 z-[-1]">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[120px] animate-float"></div>
+      <div className="fixed inset-0 z-[-1] pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 dark:bg-primary/20 blur-[120px] animate-float"></div>
         <div
-          className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/20 blur-[120px] animate-float"
+          className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/10 dark:bg-secondary/20 blur-[120px] animate-float"
           style={{ animationDelay: '-3s' }}
         ></div>
       </div>
@@ -45,19 +46,22 @@ export default function PortfolioPage() {
       <nav className="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <a href="#" className="text-2xl font-heading font-bold tracking-tighter hover:text-primary transition-colors">
+            <a href="#" className="text-2xl font-heading font-bold tracking-tighter hover:text-primary transition-colors text-slate-900 dark:text-white">
               NI<span className="text-primary">.</span>
             </a>
 
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="nav-link text-sm font-medium tracking-wide">HOME</a>
-              <a href="#about" className="nav-link text-sm font-medium tracking-wide">ABOUT</a>
-              <a href="#services" className="nav-link text-sm font-medium tracking-wide">SERVICES</a>
-              <a href="#tools" className="nav-link text-sm font-medium tracking-wide">TOOLS</a>
-              <a href="#projects" className="nav-link text-sm font-medium tracking-wide">PROJECTS</a>
-              <a href="#education" className="nav-link text-sm font-medium tracking-wide">EDUCATION</a>
-              <Link href="/roadmap" className="nav-link text-sm font-medium tracking-wide border-l-2 border-white/10 pl-8 ml-2 text-indigo-400">ROADMAP</Link>
-              <a href="#contact" className="btn-primary text-sm py-2 px-6">LET'S TALK</a>
+              <a href="#home" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">HOME</a>
+              <a href="#about" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">ABOUT</a>
+              <a href="#services" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">SERVICES</a>
+              <a href="#tools" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">TOOLS</a>
+              <a href="#projects" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">PROJECTS</a>
+              <a href="#education" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">EDUCATION</a>
+              <Link href="/roadmap" className="nav-link text-sm font-bold tracking-wide border-l-2 border-slate-200 dark:border-white/10 pl-8 ml-2 text-indigo-600 dark:text-indigo-400">ROADMAP</Link>
+              <div className="flex items-center gap-4 border-l border-slate-200 dark:border-white/10 pl-8">
+                <ThemeToggle />
+                <a href="#contact" className="btn-primary text-sm py-2.5 px-6">LET'S TALK</a>
+              </div>
             </div>
 
             <button
@@ -347,6 +351,6 @@ export default function PortfolioPage() {
         </div>
       </footer>
 
-    </>
+    </div>
   );
 }

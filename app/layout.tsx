@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 };
 
 import AOSInit from '@/components/ui/AOSInit';
+import { ThemeProvider } from '@/components/ui/ThemeProvider';
 
 export default function RootLayout({
   children,
@@ -32,8 +33,10 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
       </head>
       <body className="bg-dark text-light font-sans antialiased overflow-x-hidden">
-        <AOSInit />
-        {children}
+        <ThemeProvider>
+          <AOSInit />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
