@@ -1,0 +1,14 @@
+---
+title: "10. The Database Migrator"
+shortDesc: "Scaffold schema changes safely with data-loss warnings."
+prompt: |
+  Create a Database Migrator skill. Set up the directory .agent/skills/database-migrator/ with standard subfolders.
+  In SKILL.md, add name: database-migrator and description: Trigger this when I ask to change the database schema, add a table, or run migrations.
+  Add a critical safety rule: The agent must boldly warn the user if a migration involves dropping a table or deleting data. Instruct it to use [Insert ORM, e.g., Prisma, SQLAlchemy] conventions. Create resources/schema_rules.md explaining naming conventions (e.g., snake_case for columns). Create a script in scripts/generate_migration.sh to scaffold the file.
+---
+
+Provides the agent with ORM conventions and mandates aggressive warnings for destructive actions.
+
+- **Data Loss Warnings:** Boldly warns if a migration risks dropping tables or deleting data.
+- **Naming Conventions:** Enforces snake_case or camelCase matching your specific ORM.
+- **Safe Scaffolding:** Uses automated scripts to generate the migration file without auto-applying it.

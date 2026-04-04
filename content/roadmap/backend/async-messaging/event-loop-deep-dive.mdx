@@ -1,0 +1,11 @@
+---
+title: "2. Deep Dive: Inside the Event Loop"
+shortDesc: "A step-by-step interactive look at how Coroutines achieve massive concurrency without threading."
+links: []
+---
+
+The magic of asynchronous programming is that the computer never waits. 
+
+When a coroutine hits an `await` statement (like querying a database), it explicitly **yields control** back to the Event Loop, saying: *"I am going to sleep until the database answers. Go run something else!"*
+
+<EventLoopStepper />

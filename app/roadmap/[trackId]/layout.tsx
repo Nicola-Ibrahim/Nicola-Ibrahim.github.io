@@ -1,26 +1,26 @@
-"use client";
-
 import React from 'react';
-import { useParams } from 'next/navigation';
-import { roadmapsData } from '@/app/roadmap/_data/roadmaps';
+import { getFullRoadmapsData } from '../_lib/mdx';
 import { RoadmapSidebar } from '../_components/layout/RoadmapSidebar';
 
-export default function TrackLayout({
+export default async function TrackLayout({
   children,
+  params
 }: {
   children: React.ReactNode;
+  params: { trackId: string; categorySlug?: string };
 }) {
-  const { trackId, categorySlug } = useParams();
+  const { trackId, categorySlug } = await params;
+  const roadmapsData = await getFullRoadmapsData();
   const roadmaps = Object.values(roadmapsData);
-  const activeTab = trackId as string || 'ai_agents';
+  const activeTab = trackId || 'ai_agents';
 
   return (
     <div className="flex gap-8 xl:gap-12">
       {/* 1. LEFT SIDEBAR (Track Selector) */}
       <RoadmapSidebar 
-        roadmaps={roadmaps}
+        roadmaps={roadmaps as any}
         activeTab={activeTab}
-        activeCategory={categorySlug as string}
+        activeCategory={categorySlug}
       />
 
       {/* 2. MAIN CONTENT AREA */}

@@ -1,0 +1,32 @@
+---
+title: "JWT Authentication"
+shortDesc: "Stateless, cryptographically secure user sessions and secure storage."
+---
+
+JSON Web Tokens (JWT) provide stateless, cryptographically secure user sessions for modern APIs. Instead of storing session IDs in a database, the server issues a signed token containing user claims.
+
+**Why is it Stateless?**
+
+- **No Database Lookups:** The token contains the user's identity (Payload) and is mathematically signed (Signature). The server only needs its secret key to verify the token hasn't been tampered with.
+- **Microservice Friendly:** Any backend service with the secret (or public key) can verify the user independently. You don't need a central Redis instance just to check if a user is logged in.
+
+**What to Save in the Payload (Claims):**
+
+- **Standard Identifiers:** Usually, you store the user ID (`sub` or subject), issue time (`iat`), and expiration time (`exp`).
+- **Roles & Permissions:** Storing `role: "admin"` allows the backend to authorize actions instantly without doing a database lookup.
+- **⚠️ Security Warning:** The payload is merely Base64 encoded, **not encrypted**. Anyone who intercepts it can read the contents. NEVER store sensitive data like passwords, SSNs, or PII inside a JWT.
+
+**Where to Store JWTs (Security):**
+
+- **❌ LocalStorage:** Vulnerable to Cross-Site Scripting (XSS). If an attacker runs malicious JS on your site, they can easily steal the token.
+- **✅ HttpOnly Cookies:** The gold standard. The browser stores the token and sends it automatically, but JavaScript *cannot* access it, neutralizing XSS attacks. (Requires CSRF tokens/SameSite attributes).
+
+**Access vs. Refresh Tokens:**
+
+- **Access Tokens:** Short-lived (e.g., 15 minutes). Sent with every API request to minimize the window of opportunity if stolen.
+- **Refresh Tokens:** Long-lived (e.g., 7 days). Stored securely and only sent to a specific `/refresh` endpoint to obtain a new Access Token.
+
+**The Revocation Problem (The Catch):**
+
+- Because JWTs are purely stateless, you cannot easily \"invalidate\" them before they expire. If a user clicks log out, you delete the cookie on the client, but the physical token remains technically valid until its expiration time.
+- **The Fix:** Rely on short-lived access tokens, or maintain a fast \"Deny List\" in Redis for logged-out tokens (though this technically makes the system stateful again!).

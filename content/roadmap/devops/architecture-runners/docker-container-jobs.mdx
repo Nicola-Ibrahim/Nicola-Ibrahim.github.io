@@ -1,0 +1,12 @@
+---
+title: "Running Jobs inside Docker Containers"
+shortDesc: "Ensuring absolute consistency using the container directive."
+---
+
+The classic developer problem: \"The pipeline passes on GitHub, but the code fails in production.\" This happens because the GitHub Ubuntu runner might have different system libraries than your production server.
+
+**The Container Solution**
+
+- **The `container:` Directive:** Instead of running commands directly on the Ubuntu VM, you can instruct GitHub to pull a specific Docker image and run all steps *inside* that container.
+- **Absolute Consistency:** If production runs `python:3.10-slim`, your CI pipeline runs inside the exact same `python:3.10-slim` image. No surprises.
+- **Tooling Isolation:** Prevents conflicts. You don't need to install Python, Node, and Java on the host machine; the container brings exactly the tools it needs.

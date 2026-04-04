@@ -2,12 +2,13 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Roadmap } from '../../_data/roadmaps';
-import { Layout, ChevronRight, Hash, Sparkles, ArrowLeft } from 'lucide-react';
+import { RoadmapData } from '../../_lib/mdx';
+import { getIcon } from '../../_lib/icon-registry';
+import { Layout, ChevronRight, Sparkles, ArrowLeft } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 interface RoadmapSidebarProps {
-  roadmaps: Roadmap[];
+  roadmaps: RoadmapData[];
   activeTab: string;
   onTabChange?: (id: string) => void;
   activeCategory?: string;
@@ -17,12 +18,8 @@ interface RoadmapSidebarProps {
 export function RoadmapSidebar({ 
   roadmaps, 
   activeTab, 
-  onTabChange,
   activeCategory,
-  onCategoryClick 
 }: RoadmapSidebarProps) {
-  const currentRoadmap = roadmaps.find(r => r.id === activeTab);
-
   return (
     <aside className="w-[260px] hidden lg:block sticky top-10 self-start h-[calc(100vh-80px)] overflow-y-auto pr-6 custom-scrollbar">
       {/* Sidebar Branding & Navigation */}
@@ -77,14 +74,14 @@ export function RoadmapSidebar({
                     : 'bg-slate-100 dark:bg-white/5 group-hover:bg-slate-200 dark:group-hover:bg-white/10'
                 }`}>
                   <div className="w-4 h-4 flex items-center justify-center">
-                    {tab.icon}
+                    {getIcon(tab.icon)}
                   </div>
                 </div>
                 <div className="text-left">
                   <p className={`text-[12px] font-semibold uppercase tracking-wider ${
                     activeTab === tab.id ? 'text-teal-600 dark:text-slate-300' : 'text-slate-600 dark:text-slate-400'
                   }`}>
-                    {tab.title.replace('Syllabus', '').replace('Technical', '').trim()}
+                    {tab.title.replace('Syllabus', '').replace('Technical', '').replace('Engineering', '').replace('Architecture', '').trim()}
                   </p>
                 </div>
               </div>

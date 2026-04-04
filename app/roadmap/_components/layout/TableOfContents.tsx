@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { RoadmapCategory } from '../../_data/roadmaps';
-import { List, ChevronRight, Sparkles } from 'lucide-react';
+import { List, Sparkles } from 'lucide-react';
 
 interface TableOfContentsProps {
-  categories?: RoadmapCategory[];
+  categories?: { id: string, title: string }[];
   content?: { id: string, title: string }[];
   activeId?: string;
   onItemClick?: (id: string) => void;
@@ -37,7 +36,7 @@ export function TableOfContents({
       { rootMargin: '-10% 0% -80% 0%' }
     );
 
-    const itemsToWatch = content || categories?.map(c => ({ id: c.id })) || [];
+    const itemsToWatch = content || categories || [];
     itemsToWatch.forEach((item: { id: string }) => {
       const element = document.getElementById(item.id);
       if (element) observer.observe(element);
@@ -46,7 +45,7 @@ export function TableOfContents({
     return () => observer.disconnect();
   }, [categories, content]);
 
-  const items = content || (categories?.map(c => ({ id: c.id, title: c.title })) || []);
+  const items = content || categories || [];
 
   return (
     <aside className="w-64 hidden xl:block sticky top-10 self-start h-[calc(100vh-80px)] overflow-y-auto pl-6 border-l border-slate-200 dark:border-white/5 custom-scrollbar">

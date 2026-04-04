@@ -1,0 +1,14 @@
+---
+title: "11. The Docs Generator"
+shortDesc: "Automatically keep your READMEs and OpenAPI specs up to date."
+prompt: |
+  Create a Docs Generator skill. Set up the directory .agent/skills/docs-generator/ with standard subfolders.
+  In SKILL.md, add name: docs-generator and description: Trigger this when I ask you to update the README, generate API documentation, or write inline comments.
+  Instruct the agent to read the source code and generate clear, markdown-formatted documentation. For APIs, it should format outputs to match [Insert Standard, e.g., OpenAPI/Swagger]. Create an example in examples/api_endpoint_doc.md showing how a standard route should be documented.
+---
+
+Teaches the AI to read source code routes and output structured markdown documentation.
+
+- **Auto-Updating:** Keeps READMEs and inline comments perfectly in sync with codebase changes.
+- **API Formatting:** Formats outputs strictly to standards like OpenAPI or Swagger.
+- **Clear Layouts:** Follows an example route documentation template to ensure consistency.

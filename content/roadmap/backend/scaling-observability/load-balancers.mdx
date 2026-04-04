@@ -1,0 +1,16 @@
+---
+title: "1. Load Balancers"
+shortDesc: "The traffic cop that distributes incoming requests across multiple servers."
+---
+
+The traffic cop of your infrastructure, dynamically distributing incoming network traffic across a group of backend servers.
+
+**The Concept**
+
+- **High Availability:** Prevents any single server from becoming a bottleneck. If Server A crashes, the load balancer detects the failure via Health Checks and automatically routes traffic to Server B.
+- **Layer 4 vs Layer 7:** Layer 4 (Network) routes based on IP and TCP ports (super fast, low overhead). Layer 7 (Application) routes based on HTTP headers, cookies, or URL paths (smarter, context-aware routing).
+
+**Common Algorithms**
+
+- **Round Robin:** Distributes requests sequentially (A, B, C, A, B, C).
+- **Least Connections:** Sends the request to the server with the fewest active connections, which is excellent for long-lived tasks or uneven workloads.

@@ -1,21 +1,24 @@
 "use client";
 
 import React from 'react';
-import { Sparkles, Copy, Check, Terminal, Code2, ExternalLink } from 'lucide-react';
-import { ContentItem, ContentLink } from '../../_data/roadmaps';
-import { FormattedText } from './FormattedText';
+import { Copy, Check, Terminal, ExternalLink } from 'lucide-react';
+import { MDXRemote } from 'next-mdx-remote';
+import { mdxComponents } from '../../_lib/mdx-components';
+import { TopicMeta, ContentLink } from '../../_lib/mdx';
 
 interface ModuleContentProps {
-  content: ContentItem;
+  content: TopicMeta;
+  mdxSource: any;
 }
 
 /**
  * ModuleContent Component
- * Renders a single section of a roadmap module (formerly 'TaskContent').
- * Displays technical explanations, visual widgets, and AI skills in a static document style.
+ * Renders a single section of a roadmap module.
+ * Fully MDX-driven: displays content, components, and structured metadata (prompts/links).
  */
 export const ModuleContent = ({ 
-  content
+  content,
+  mdxSource
 }: ModuleContentProps) => {
   const [isCopied, setIsCopied] = React.useState(false);
 
@@ -35,27 +38,18 @@ export const ModuleContent = ({
         <h3 className="text-xl font-bold text-slate-800 dark:text-slate-300 uppercase tracking-tight group-hover/content:text-teal-600 dark:group-hover/content:text-teal-400 transition-colors">
           {content.title}
         </h3>
-        <p className="text-lg font-medium text-slate-600 dark:text-slate-400 leading-relaxed max-w-4xl">
+        <p className="text-base font-medium text-slate-600 dark:text-slate-400 leading-relaxed max-w-4xl">
           {content.shortDesc}
         </p>
       </div>
 
-      {/* Main Content Body */}
+      {/* Main Content Body (MDX Rendering) */}
       <div className="flex flex-col gap-6 max-w-4xl">
-        
-        {/* Theory & Explanation */}
         <div className="prose prose-lg dark:prose-invert prose-headings:uppercase prose-headings:tracking-widest prose-headings:font-black prose-p:text-slate-800 dark:prose-p:text-slate-400 prose-strong:text-slate-900 dark:prose-strong:text-slate-200 transition-all">
-          <FormattedText text={content.details} />
+          <MDXRemote {...mdxSource} components={mdxComponents} />
         </div>
 
-        {/* Visual Interactive Widgets */}
-        {content.customUI && (
-          <div className="rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-lg shadow-slate-200/20 dark:shadow-black/10 my-4 transform transition-all hover:scale-[1.01] duration-500">
-            {content.customUI}
-          </div>
-        )}
-
-        {/* AI Agent Skill Block */}
+        {/* AI Agent Skill Block (Structured Metadata) */}
         {content.prompt && (
           <div className="bg-slate-50 dark:bg-[#1a1c22] rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-inner group/prompt">
             <div className="flex items-center justify-between px-8 py-5 bg-slate-100 dark:bg-black/20 border-b border-slate-200 dark:border-white/10">
@@ -88,7 +82,7 @@ export const ModuleContent = ({
           </div>
         )}
 
-        {/* Recommended Resources */}
+        {/* Recommended Resources (Structured Metadata) */}
         {content.links && content.links.length > 0 && (
           <div className="p-8 bg-teal-500/5 dark:bg-teal-500/5 rounded-3xl border border-teal-500/10">
             <h4 className="text-[10px] font-black text-teal-600 dark:text-teal-400 mb-4 uppercase tracking-[0.3em] flex items-center gap-2">

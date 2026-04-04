@@ -1,0 +1,14 @@
+---
+title: "8. The Git Manager"
+shortDesc: "Automate Conventional Commits and rich PR summaries."
+prompt: |
+  Create a Git Manager skill. Set up the directory .agent/skills/git-manager/ with standard subfolders.
+  In SKILL.md, add name: git-manager and description: Trigger this when I ask to write a commit message, document a git diff, or write a Pull Request summary.
+  Instruct the agent to use Conventional Commits (feat:, fix:, chore:, etc.). Create a script in scripts/get_diff.sh that safely runs git diff. In examples/pr_template.md, provide the exact Markdown template the agent should fill out when summarizing code changes (including What Changed and How to Test sections).
+---
+
+Teaches the AI to read git diffs safely and generate highly consistent workflow messaging.
+
+- **Conventional Commits:** Enforces strict `feat:`, `fix:`, `chore:` formatting.
+- **Safe Diffing:** Uses scripts to safely extract codebase changes without altering git history.
+- **Rich Summaries:** Auto-fills "What Changed" and "How to Test" PR markdown templates.

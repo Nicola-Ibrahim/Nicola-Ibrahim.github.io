@@ -1,0 +1,16 @@
+---
+title: "2. Microservices"
+shortDesc: "A distributed architecture where each service is an independent application."
+---
+
+A distributed architecture where an application is composed of many small, independent, and loosely coupled services.
+
+**The Concept**
+
+- **Independent Deployments:** The Billing team can deploy their service 10 times a day without coordinating with the Users team.
+- **Decentralized Data:** Every microservice MUST own its own database. Services communicate over the network (HTTP, gRPC, or Pub/Sub).
+
+**The Trade-offs**
+
+- **Pros:** Fault isolation (if the email service dies, checkout still works). Tech stack flexibility (use Python for AI, Go for heavy processing).
+- **Cons:** Dramatically increases operational complexity. Network calls can fail, requiring you to implement retries, circuit breakers, and distributed tracing.

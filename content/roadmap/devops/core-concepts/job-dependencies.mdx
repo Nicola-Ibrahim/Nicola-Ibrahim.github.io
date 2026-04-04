@@ -1,0 +1,12 @@
+---
+title: "Dependencies between jobs (needs)"
+shortDesc: "Creating sequential stages in your pipeline."
+---
+
+Because Jobs run in parallel by default, a basic pipeline will try to deploy your code at the exact same time it runs your tests. This will break your deployment.
+
+**Orchestrating the Flow**
+
+- **The `needs` Keyword:** By adding `needs: [test_job]` to your `deploy_job`, you force the deployment to wait. It will only execute if the tests pass successfully.
+- **Creating Stages:** This is how you map out traditional delivery pipelines: Build -> Test -> Deploy Staging -> Deploy Prod.
+- **Matrix Builds:** You can use jobs to run tests in parallel across different OS versions (Ubuntu, Windows) or Python versions (3.9, 3.10), drastically reducing total CI time.

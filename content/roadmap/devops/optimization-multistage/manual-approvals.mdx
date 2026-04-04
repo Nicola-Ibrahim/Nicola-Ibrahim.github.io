@@ -1,0 +1,12 @@
+---
+title: "Manual Approvals & Environments"
+shortDesc: "Adding human gates before production."
+---
+
+While Continuous Deployment (auto-shipping to prod) is the dream, most enterprise companies require strict governance and human oversight before affecting live users.
+
+**GitHub Environments**
+
+- **Protection Rules:** You can create an Environment called \"Production\" in your repository settings and assign specific team members as \"Required Reviewers.\"
+- **The Pause:** In your YAML, you add `environment: production` to your deployment job. When the pipeline reaches this job, it completely suspends execution.
+- **The Gate:** An authorized manager receives a notification, reviews the staging tests, and clicks \"Approve\" in the UI. Only then does the deployment job execute.
