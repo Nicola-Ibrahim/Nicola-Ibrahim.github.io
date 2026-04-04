@@ -18,9 +18,9 @@ export default function PortfolioPage() {
     const handleScroll = () => {
       const navbar = document.getElementById('navbar');
       if (window.scrollY > 50) {
-        navbar?.classList.add('bg-white/80', 'dark:bg-dark/80', 'backdrop-blur-md', 'border-b', 'border-slate-200', 'dark:border-white/10');
+        navbar?.classList.add('bg-dark/80', 'backdrop-blur-md', 'border-b', 'border-white/10');
       } else {
-        navbar?.classList.remove('bg-white/80', 'dark:bg-dark/80', 'backdrop-blur-md', 'border-b', 'border-slate-200', 'dark:border-white/10');
+        navbar?.classList.remove('bg-dark/80', 'backdrop-blur-md', 'border-b', 'border-white/10');
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -30,7 +30,7 @@ export default function PortfolioPage() {
   const filteredSkills = skills.filter(skill => skill.category === activeFilter);
 
   return (
-    <div className="bg-white dark:bg-dark text-slate-900 dark:text-light transition-colors duration-500 min-h-screen">
+    <div className="dark text-light min-h-screen">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
       {/* Background Elements */}
@@ -46,20 +46,19 @@ export default function PortfolioPage() {
       <nav className="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <a href="#" className="text-2xl font-heading font-bold tracking-tighter hover:text-primary transition-colors text-slate-900 dark:text-white">
+            <a href="#" className="text-2xl font-heading font-bold tracking-tighter hover:text-primary transition-colors text-white">
               NI<span className="text-primary">.</span>
             </a>
 
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">HOME</a>
-              <a href="#about" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">ABOUT</a>
-              <a href="#services" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">SERVICES</a>
-              <a href="#tools" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">TOOLS</a>
-              <a href="#projects" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">PROJECTS</a>
-              <a href="#education" className="nav-link text-sm font-bold tracking-wide text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors">EDUCATION</a>
-              <Link href="/roadmap" className="nav-link text-sm font-bold tracking-wide border-l-2 border-slate-200 dark:border-white/10 pl-8 ml-2 text-indigo-600 dark:text-indigo-400">ROADMAP</Link>
-              <div className="flex items-center gap-4 border-l border-slate-200 dark:border-white/10 pl-8">
-                <ThemeToggle />
+              <a href="#home" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">HOME</a>
+              <a href="#about" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">ABOUT</a>
+              <a href="#services" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">SERVICES</a>
+              <a href="#tools" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">TOOLS</a>
+              <a href="#projects" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">PROJECTS</a>
+              <a href="#education" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">EDUCATION</a>
+              <Link href="/roadmap" className="nav-link text-sm font-bold tracking-wide border-l-2 border-white/10 pl-8 ml-2 text-indigo-400">ROADMAP</Link>
+              <div className="flex items-center gap-4 border-l border-white/10 pl-8">
                 <a href="#contact" className="btn-primary text-sm py-2.5 px-6">LET'S TALK</a>
               </div>
             </div>
