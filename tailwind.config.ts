@@ -10,11 +10,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#6366f1", // Indigo 500
-        secondary: "#a855f7", // Purple 500
-        accent: "#ec4899", // Pink 500
-        dark: "#0f172a", // Slate 900 (Midnight Slate)
-        "dark-lighter": "#1e293b", // Slate 800
+        primary: "#009688", // FastAPI Teal
+        secondary: "#00bcd4", // Cyan 500 (Harmonized)
+        accent: "#00ccb8", // FastAPI Light Teal/Cyan
+        dark: "#1e2127", // FastAPI Slate (Material for MkDocs Slate)
+        "dark-lighter": "#1a1c22", // Depth Slate
         light: "#f9fafb", // Gray 50
       },
       fontFamily: {
@@ -31,8 +31,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-20px)' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 5px #6366f1' },
-          '100%': { boxShadow: '0 0 20px #a855f7, 0 0 10px #6366f1' },
+          '0%': { boxShadow: '0 0 3px rgba(0, 150, 136, 0.3)' },
+          '100%': { boxShadow: '0 0 8px rgba(0, 188, 212, 0.4), 0 0 4px rgba(0, 150, 136, 0.2)' },
         }
       }
     },

@@ -7,7 +7,7 @@ export default function AsyncDecisionFlowchart() {
   return (
   <div className="mt-8 p-6 bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 rounded-2xl font-sans overflow-x-auto shadow-sm transition-colors">
     <h4 className="text-center font-bold mb-8 text-slate-800 dark:text-slate-100 text-lg flex items-center justify-center gap-2 uppercase tracking-wide">
-      <GitBranch className="w-5 h-5 text-indigo-500" /> The Execution Model Decision Tree
+      <GitBranch className="w-5 h-5 text-teal-500" /> The Execution Model Decision Tree
     </h4>
     <div className="flex flex-col items-center min-w-[700px] relative pb-4 text-center">
       
@@ -26,10 +26,10 @@ export default function AsyncDecisionFlowchart() {
           <div className="absolute right-0 top-0 w-1/2 h-0.5 bg-slate-300 dark:bg-slate-600"></div>
           <div className="text-[10px] font-black text-slate-500 dark:text-slate-400 mb-2 mr-[140px] bg-slate-50 dark:bg-slate-900 px-2 relative -top-3 z-10">NO</div>
           
-          <div className="bg-indigo-50 dark:bg-indigo-900/40 border-2 border-indigo-200 dark:border-indigo-500/30 px-5 py-3 rounded-xl shadow-sm text-center w-[160px] relative z-10 mr-6 transition-colors">
-            <div className="font-black text-indigo-900 dark:text-indigo-200 text-xs uppercase tracking-tighter">Plain `def`</div>
-            <div className="text-[10px] text-indigo-700 dark:text-indigo-400 mt-1 font-bold">Domain layer</div>
-            <div className="text-[9px] text-indigo-500/80 dark:text-indigo-300/60 mt-2 pt-2 border-t border-indigo-200/50 dark:border-indigo-500/20">e.g. Order.calculate()</div>
+          <div className="bg-teal-50 dark:bg-teal-900/40 border-2 border-teal-200 dark:border-teal-500/30 px-5 py-3 rounded-xl shadow-sm text-center w-[160px] relative z-10 mr-6 transition-colors">
+            <div className="font-black text-teal-900 dark:text-teal-200 text-xs uppercase tracking-tighter">Plain `def`</div>
+            <div className="text-[10px] text-teal-700 dark:text-teal-400 mt-1 font-bold">Domain layer</div>
+            <div className="text-[9px] text-teal-500/80 dark:text-teal-300/60 mt-2 pt-2 border-t border-teal-200/50 dark:border-teal-500/20">e.g. Order.calculate()</div>
           </div>
         </div>
 
@@ -114,7 +114,7 @@ export default function AsyncDecisionFlowchart() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12 font-sans transition-colors duration-500">
         <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg flex flex-col border border-slate-200 dark:border-slate-700 transition-colors">
-          <div className="bg-indigo-600 py-3 px-4 text-center font-black text-white text-[10px] uppercase tracking-widest">FastAPI async/await</div>
+          <div className="bg-teal-600 py-3 px-4 text-center font-black text-white text-[10px] uppercase tracking-widest">FastAPI async/await</div>
           <div className="p-6 flex flex-col gap-4 text-xs text-center text-slate-700 dark:text-slate-300 flex-grow">
             <p className="font-bold">I/O concurrency<br/><span className="text-[10px] font-normal opacity-70">single process</span></p>
             <div className="h-px w-full bg-slate-200 dark:bg-slate-700/50"></div>

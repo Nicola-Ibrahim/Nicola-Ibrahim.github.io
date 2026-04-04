@@ -15,7 +15,7 @@ export default function EventLoopStepper() {
       title: "Step 1 — two requests arrive, two coroutines created",
       note: "When FastAPI receives two HTTP requests simultaneously, it creates two coroutine objects — Coro A (req A) and Coro B (req B). Neither has started yet. Both sit in the event loop's ready queue.",
       els: [
-        { x: 260, y: 10, w: 160, h: 50, bg: "#EEEDFE", border: "#534AB7", text: "Event loop", sub: "single OS thread", tc: "#3C3489", sc: "#534AB7" },
+        { x: 260, y: 10, w: 160, h: 50, bg: "#f0fdfa", border: "#0d9488", text: "Event loop", sub: "single OS thread", tc: "#134e4a", sc: "#0d9488" },
         { x: 260, y: 80, w: 160, h: 50, bg: "#f1f5f9", border: "#cbd5e1", text: "Ready queue", sub: "", tc: "#0f172a", sc: "" },
         { x: 100, y: 80, w: 130, h: 44, bg: "#B5D4F4", border: "#185FA5", text: "Coro A", sub: "req A · not started", tc: "#0C447C", sc: "#185FA5" },
         { x: 450, y: 80, w: 130, h: 44, bg: "#9FE1CB", border: "#0F6E56", text: "Coro B", sub: "req B · not started", tc: "#085041", sc: "#0F6E56" },
@@ -29,9 +29,9 @@ export default function EventLoopStepper() {
       title: "Step 2 — event loop picks Coro A, runs it until first await",
       note: "The loop dequeues Coro A and starts executing it synchronously. Code runs normally — validate input, call the application layer — until it hits 'await repo.get_by_user()'. That's the yield point.",
       els: [
-        { x: 260, y: 10, w: 160, h: 50, bg: "#EEEDFE", border: "#534AB7", text: "Event loop", sub: "running Coro A", tc: "#3C3489", sc: "#534AB7" },
+        { x: 260, y: 10, w: 160, h: 50, bg: "#f0fdfa", border: "#0d9488", text: "Event loop", sub: "running Coro A", tc: "#134e4a", sc: "#0d9488" },
         { x: 260, y: 80, w: 160, h: 60, bg: "#B5D4F4", border: "#185FA5", text: "Coro A — RUNNING", sub: "validate → app layer →", tc: "#0C447C", sc: "#185FA5" },
-        { x: 260, y: 148, w: 160, h: 36, bg: "#EEEDFE", border: "#534AB7", text: "hits await repo.get()", sub: "", tc: "#3C3489", sc: "#534AB7" },
+        { x: 260, y: 148, w: 160, h: 36, bg: "#f0fdfa", border: "#0d9488", text: "hits await repo.get()", sub: "", tc: "#134e4a", sc: "#0d9488" },
         { x: 500, y: 80, w: 130, h: 44, bg: "#9FE1CB", border: "#0F6E56", text: "Coro B", sub: "still queued", tc: "#085041", sc: "#0F6E56" },
       ],
       arrows: [
@@ -42,7 +42,7 @@ export default function EventLoopStepper() {
       title: "Step 3 — Coro A suspends, kernel takes over the I/O",
       note: "At 'await', Coro A registers its DB socket with the OS kernel via epoll/kqueue (Python's selector). Coro A is now SUSPENDED — stored as a Python object in a 'waiting' dict. The event loop moves on immediately. No thread is blocked.",
       els: [
-        { x: 255, y: 10, w: 170, h: 50, bg: "#EEEDFE", border: "#534AB7", text: "Event loop", sub: "Coro A suspended", tc: "#3C3489", sc: "#534AB7" },
+        { x: 255, y: 10, w: 170, h: 50, bg: "#f0fdfa", border: "#0d9488", text: "Event loop", sub: "Coro A suspended", tc: "#134e4a", sc: "#0d9488" },
         { x: 60, y: 80, w: 150, h: 50, bg: "#D3D1C7", border: "#888780", text: "Coro A — PAUSED", sub: "waiting for DB socket", tc: "#444441", sc: "#888780" },
         { x: 60, y: 148, w: 150, h: 44, bg: "#FAEEDA", border: "#854F0B", text: "OS kernel / epoll", sub: "watching DB socket", tc: "#633806", sc: "#854F0B" },
         { x: 60, y: 206, w: 150, h: 40, bg: "#f1f5f9", border: "#cbd5e1", text: "PostgreSQL", sub: "query running", tc: "#0f172a", sc: "#64748b" },
@@ -59,10 +59,10 @@ export default function EventLoopStepper() {
       title: "Step 4 — event loop runs Coro B while Coro A waits",
       note: "The event loop picks Coro B from the ready queue and runs it. Coro A is asleep — consuming no CPU. This is the concurrency: one thread, two coroutines making progress interleaved in time.",
       els: [
-        { x: 255, y: 10, w: 170, h: 50, bg: "#EEEDFE", border: "#534AB7", text: "Event loop", sub: "now running Coro B", tc: "#3C3489", sc: "#534AB7" },
+        { x: 255, y: 10, w: 170, h: 50, bg: "#f0fdfa", border: "#0d9488", text: "Event loop", sub: "now running Coro B", tc: "#134e4a", sc: "#0d9488" },
         { x: 60, y: 80, w: 150, h: 44, bg: "#D3D1C7", border: "#888780", text: "Coro A — asleep", sub: "zero CPU used", tc: "#444441", sc: "#888780" },
         { x: 460, y: 80, w: 150, h: 60, bg: "#9FE1CB", border: "#0F6E56", text: "Coro B — RUNNING", sub: "validate → use case →", tc: "#085041", sc: "#0F6E56" },
-        { x: 460, y: 148, w: 150, h: 36, bg: "#EEEDFE", border: "#534AB7", text: "hits await http.get()", sub: "", tc: "#3C3489", sc: "#534AB7" },
+        { x: 460, y: 148, w: 150, h: 36, bg: "#f0fdfa", border: "#0d9488", text: "hits await http.get()", sub: "", tc: "#134e4a", sc: "#0d9488" },
         { x: 60, y: 140, w: 150, h: 36, bg: "#FAEEDA", border: "#854F0B", text: "OS: DB query still running", sub: "", tc: "#633806", sc: "#854F0B" },
       ],
       arrows: [
@@ -74,7 +74,7 @@ export default function EventLoopStepper() {
       title: "Step 5 — OS signals: DB socket is ready (Coro A's data arrived)",
       note: "The kernel signals the event loop: the DB socket has data. The loop pulls Coro A out of its 'waiting' dict and puts it back in the ready queue. Coro A doesn't resume yet — the loop finishes its current tick first.",
       els: [
-        { x: 255, y: 10, w: 170, h: 50, bg: "#EEEDFE", border: "#534AB7", text: "Event loop", sub: "got kernel signal", tc: "#3C3489", sc: "#534AB7" },
+        { x: 255, y: 10, w: 170, h: 50, bg: "#f0fdfa", border: "#0d9488", text: "Event loop", sub: "got kernel signal", tc: "#134e4a", sc: "#0d9488" },
         { x: 60, y: 80, w: 150, h: 50, bg: "#FAC775", border: "#854F0B", text: "Coro A — READY", sub: "DB data arrived", tc: "#633806", sc: "#854F0B" },
         { x: 60, y: 148, w: 150, h: 36, bg: "#FAEEDA", border: "#854F0B", text: "epoll: socket readable", sub: "", tc: "#633806", sc: "#854F0B" },
         { x: 460, y: 80, w: 150, h: 44, bg: "#D3D1C7", border: "#888780", text: "Coro B — asleep", sub: "waiting HTTP", tc: "#444441", sc: "#888780" },
@@ -88,7 +88,7 @@ export default function EventLoopStepper() {
       title: "Step 6 — Coro A resumes exactly where it paused",
       note: "The loop picks Coro A again. Execution resumes at the line after 'await' — the DB rows are now in the local variable. Coro A continues: build domain object, call pricing port, hits another await if needed.",
       els: [
-        { x: 255, y: 10, w: 170, h: 50, bg: "#EEEDFE", border: "#534AB7", text: "Event loop", sub: "resuming Coro A", tc: "#3C3489", sc: "#534AB7" },
+        { x: 255, y: 10, w: 170, h: 50, bg: "#f0fdfa", border: "#0d9488", text: "Event loop", sub: "resuming Coro A", tc: "#134e4a", sc: "#0d9488" },
         { x: 60, y: 80, w: 150, h: 80, bg: "#B5D4F4", border: "#185FA5", text: "Coro A — RUNNING", sub: "rows = [...]  ← resumed here", tc: "#0C447C", sc: "#185FA5" },
         { x: 60, y: 170, w: 150, h: 36, bg: "#B5D4F4", border: "#185FA5", text: "domain logic (sync)", sub: "", tc: "#0C447C", sc: "#185FA5" },
         { x: 460, y: 80, w: 150, h: 44, bg: "#D3D1C7", border: "#888780", text: "Coro B — still asleep", sub: "waiting HTTP", tc: "#444441", sc: "#888780" },
@@ -101,7 +101,7 @@ export default function EventLoopStepper() {
       title: "Step 7 — both coroutines finish, responses sent",
       note: "Eventually both coroutines run to completion. Each returns a response object to FastAPI which sends the HTTP response. Total time ≈ max(slowest I/O call) — not the sum of all I/O calls. One OS thread served two requests concurrently.",
       els: [
-        { x: 255, y: 10, w: 170, h: 50, bg: "#EEEDFE", border: "#534AB7", text: "Event loop", sub: "idle — waiting for next req", tc: "#3C3489", sc: "#534AB7" },
+        { x: 255, y: 10, w: 170, h: 50, bg: "#f0fdfa", border: "#0d9488", text: "Event loop", sub: "idle — waiting for next req", tc: "#134e4a", sc: "#0d9488" },
         { x: 60, y: 90, w: 150, h: 44, bg: "#f0fdf4", border: "#16a34a", text: "Coro A — DONE", sub: "response sent", tc: "#16a34a", sc: "#15803d" },
         { x: 460, y: 90, w: 150, h: 44, bg: "#f0fdf4", border: "#16a34a", text: "Coro B — DONE", sub: "response sent", tc: "#16a34a", sc: "#15803d" },
         { x: 175, y: 160, w: 330, h: 60, bg: "#f8fafc", border: "#cbd5e1", text: "One thread. Two requests handled.", sub: "Total time ≈ slowest I/O, not sum of all I/O", tc: "#0f172a", sc: "#475569" },
@@ -116,7 +116,7 @@ export default function EventLoopStepper() {
   if (!mounted) return null;
 
   return (
-    <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-2xl p-8 shadow-xl mt-8 font-sans transition-colors duration-500 overflow-x-auto min-w-[700px]">
+    <div className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-2xl p-8 shadow-lg mt-8 font-sans transition-colors duration-500 overflow-x-auto min-w-[700px]">
       
       {/* Header with Step Info */}
       <div className="mb-6 pb-6 border-b border-slate-100 dark:border-white/5">
@@ -182,12 +182,12 @@ export default function EventLoopStepper() {
         >
           Previous
         </button>
-        <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 tracking-[0.3em] bg-indigo-50 dark:bg-indigo-500/10 px-4 py-2 rounded-full uppercase">
+        <span className="text-[10px] font-black text-teal-600 dark:text-teal-400 tracking-[0.3em] bg-teal-50 dark:bg-teal-500/10 px-4 py-2 rounded-full uppercase">
           Step {cur + 1} / {stepsData.length}
         </span>
         <button 
           onClick={() => setCur(c => (c + 1) % stepsData.length)} 
-          className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs rounded-xl transition-all shadow-lg shadow-indigo-500/20 uppercase tracking-widest hover:scale-105 active:scale-95"
+          className="px-6 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-black text-xs rounded-xl transition-all shadow-md shadow-teal-500/10 uppercase tracking-widest active:scale-95"
         >
           Next Step
         </button>

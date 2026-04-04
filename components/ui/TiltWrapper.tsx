@@ -9,33 +9,9 @@ interface TiltWrapperProps {
   className?: string;
 }
 
-export default function TiltWrapper({ children, options, className }: TiltWrapperProps) {
-  const tiltRef = useRef<HTMLDivElement>(null);
-
-  const defaultOptions: TiltOptions = {
-    max: 10,
-    speed: 400,
-    glare: true,
-    'max-glare': 0.2,
-    scale: 1.02,
-  };
-
-  useEffect(() => {
-    const node = tiltRef.current;
-    if (node) {
-      VanillaTilt.init(node, { ...defaultOptions, ...options });
-    }
-    return () => {
-      // @ts-ignore - vanilla-tilt adds a vanillaTilt property to the element
-      if (node && node.vanillaTilt) {
-        // @ts-ignore
-        node.vanillaTilt.destroy();
-      }
-    };
-  }, [options]);
-
+export default function TiltWrapper({ children, className }: TiltWrapperProps) {
   return (
-    <div ref={tiltRef} className={className}>
+    <div className={className}>
       {children}
     </div>
   );

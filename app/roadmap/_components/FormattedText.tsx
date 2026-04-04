@@ -9,12 +9,12 @@ import { parseInlineStyles } from '../_lib/roadmap-parser';
 export const FormattedText = ({ text }: { text: string }) => {
   const blocks = text.split('\n\n');
   return (
-    <div className="text-slate-700 dark:text-slate-100 text-[15px] leading-relaxed mb-6 space-y-4 font-normal">
+    <div className="text-slate-800 dark:text-slate-200 text-[16px] leading-relaxed mb-6 space-y-4 font-normal">
       {blocks.map((block, idx) => {
         if (block.trim().startsWith('- ') || block.trim().startsWith('• ')) {
           const items = block.trim().split('\n').filter(line => line.trim().startsWith('- ') || line.trim().startsWith('• '));
           return (
-            <ul key={idx} className="list-disc pl-6 space-y-2.5 marker:text-indigo-500 dark:marker:text-indigo-400">
+            <ul key={idx} className="list-disc pl-6 space-y-2.5 marker:text-teal-500 dark:marker:text-teal-400">
               {items.map((item, itemIdx) => {
                 const cleanItem = item.replace(/^[-•]\s*/, '');
                 return <li key={itemIdx} className="pl-1">{parseInlineStyles(cleanItem)}</li>;

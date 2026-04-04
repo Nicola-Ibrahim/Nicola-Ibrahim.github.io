@@ -38,8 +38,8 @@ const HeroCanvas: React.FC = () => {
     const diskColors = new Float32Array(diskParts * 3);
 
     const colorPrimary = new THREE.Color('#ffffff'); // Hot center
-    const colorSecondary = new THREE.Color('#6366f1'); // Mid
-    const colorTertiary = new THREE.Color('#a855f7'); // Outer
+    const colorSecondary = new THREE.Color('#009688'); // Teal 500
+    const colorTertiary = new THREE.Color('#00bcd4'); // Cyan 500
 
     for (let i = 0; i < diskParts; i++) {
       const angle = Math.random() * Math.PI * 2;
@@ -87,7 +87,7 @@ const HeroCanvas: React.FC = () => {
     // 3. Einstein Ring / Light Distortion
     const einsteinRingGeometry = new THREE.TorusGeometry(2.1, 0.05, 16, 100);
     const einsteinRingMaterial = new THREE.MeshBasicMaterial({
-      color: 0x6366f1,
+      color: 0x009688,
       transparent: true,
       opacity: 0.3,
       blending: THREE.AdditiveBlending

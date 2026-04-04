@@ -25,9 +25,9 @@ const AboutCanvas: React.FC = () => {
     const positions = new Float32Array(particlesCount * 3);
     const colors = new Float32Array(particlesCount * 3);
 
-    const colorPrimary = new THREE.Color('#6366f1');
-    const colorSecondary = new THREE.Color('#a855f7');
-    const colorAccent = new THREE.Color('#ec4899');
+    const colorPrimary = new THREE.Color('#009688'); // Teal 500
+    const colorSecondary = new THREE.Color('#00bcd4'); // Cyan 500
+    const colorAccent = new THREE.Color('#00ccb8'); // Accent Teal
 
     for (let i = 0; i < particlesCount; i++) {
       // Sphere distribution
@@ -85,7 +85,7 @@ const AboutCanvas: React.FC = () => {
 
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
     const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0x6366f1,
+      color: 0x009688,
       transparent: true,
       opacity: 0.15,
       blending: THREE.AdditiveBlending

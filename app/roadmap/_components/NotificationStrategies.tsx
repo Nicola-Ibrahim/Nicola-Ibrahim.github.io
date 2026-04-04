@@ -28,10 +28,10 @@ export default function NotificationStrategies() {
         </div>
         
         {/* SSE */}
-        <div className="bg-white dark:bg-slate-900/60 border-2 border-indigo-400 dark:border-indigo-500/50 rounded-xl p-5 shadow-md flex flex-col relative ring-4 ring-indigo-50 dark:ring-indigo-500/5 transition-colors">
+        <div className="bg-white dark:bg-slate-900/60 border-2 border-teal-400 dark:border-teal-500/50 rounded-xl p-5 shadow-md flex flex-col relative ring-4 ring-teal-50 dark:ring-teal-500/5 transition-colors">
           <div className="flex items-center gap-2 mb-2">
             <span className="font-bold text-slate-900 dark:text-slate-100 text-lg uppercase tracking-tight">SSE</span>
-            <span className="text-[10px] bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded-md font-black uppercase tracking-wider">recommended</span>
+            <span className="text-[10px] bg-teal-100 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300 px-2 py-0.5 rounded-md font-black uppercase tracking-wider">recommended</span>
           </div>
           <p className="text-[11px] text-slate-700 dark:text-slate-400 mb-4 leading-relaxed">Server-Sent Events — one persistent HTTP stream, server pushes</p>
           <div className="space-y-1.5 mb-4 flex-grow text-xs font-bold">
@@ -42,7 +42,7 @@ export default function NotificationStrategies() {
             <p className="text-rose-600 dark:text-rose-400 font-black">- No client→server messaging</p>
             <p className="text-rose-600 dark:text-rose-400 font-black">- HTTP/1.1 cap: 6 tabs</p>
           </div>
-          <div className="pt-3 border-t border-slate-100 dark:border-white/5 text-[11px] text-indigo-900 dark:text-indigo-300 font-black">
+          <div className="pt-3 border-t border-slate-100 dark:border-white/5 text-[11px] text-teal-900 dark:text-teal-300 font-black">
             Perfect fit here. Analytics done = server pushes one event. No bidirectional needed.
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function NotificationStrategies() {
 
       {/* Webhook Alert */}
       <div className="mt-6 p-5 bg-slate-100 dark:bg-slate-900/80 rounded-2xl text-xs border border-slate-200 dark:border-slate-800 text-center shadow-inner text-slate-700 dark:text-slate-300 transition-colors">
-        <span className="font-black text-slate-900 dark:text-indigo-400 uppercase tracking-widest mr-2">Webhook</span> = backend calling another backend URL. Never reaches a browser directly — don't use it for this.
+        <span className="font-black text-slate-900 dark:text-teal-400 uppercase tracking-widest mr-2">Webhook</span> = backend calling another backend URL. Never reaches a browser directly — don't use it for this.
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ export default function PortfolioPage() {
               <a href="#tools" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">TOOLS</a>
               <a href="#projects" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">PROJECTS</a>
               <a href="#education" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">EDUCATION</a>
-              <Link href="/roadmap" className="nav-link text-sm font-bold tracking-wide border-l-2 border-white/10 pl-8 ml-2 text-indigo-400">ROADMAP</Link>
+              <Link href="/roadmap" className="nav-link text-sm font-bold tracking-wide border-l-2 border-white/10 pl-8 ml-2 text-teal-400">ROADMAP</Link>
               <div className="flex items-center gap-4 border-l border-white/10 pl-8">
                 <a href="#contact" className="btn-primary text-sm py-2.5 px-6">LET'S TALK</a>
               </div>
@@ -76,7 +76,7 @@ export default function PortfolioPage() {
           {['home', 'about', 'services', 'tools', 'projects', 'education'].map((item) => (
             <a key={item} href={`#${item}`} onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary transition-colors capitalize">{item}</a>
           ))}
-          <Link href="/roadmap" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-indigo-400">Roadmap</Link>
+          <Link href="/roadmap" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-teal-400">Roadmap</Link>
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-primary">Let's Talk</a>
         </div>
       </nav>
@@ -143,7 +143,7 @@ export default function PortfolioPage() {
               <div className="aspect-square rounded-3xl overflow-hidden relative group">
                 <AboutCanvas />
               </div>
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/5 rounded-full blur-2xl animate-float"></div>
             </div>
           </div>
         </div>
@@ -209,7 +209,7 @@ export default function PortfolioPage() {
               <TiltWrapper key={idx}>
                 <div className="skill-card glass-card flex flex-col items-center justify-center text-center group">
                   <i
-                    className={`${skill.icon} text-4xl mb-4 group-hover:scale-110 transition-transform duration-300`}
+                    className={`${skill.icon} text-4xl mb-4 transition-transform duration-300`}
                     style={{ color: skill.color }}
                   ></i>
                   <h3 className="text-lg font-semibold">{skill.name}</h3>
@@ -233,7 +233,7 @@ export default function PortfolioPage() {
               <div key={idx} className="relative group" data-aos="fade-up">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                   <div className={`order-2 ${idx % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} relative`}>
-                    <div className={`absolute -inset-4 bg-${project.highlightColor}/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700`}></div>
+                    <div className={`absolute -inset-4 bg-${project.highlightColor}/5 blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-700`}></div>
                     <div className="browser-frame transform transition-transform duration-700 group-hover:scale-[1.02] aspect-video flex flex-col">
                       <div className="relative flex-1 overflow-hidden flex items-center justify-center bg-white/5">
                         {project.image ? (

@@ -23,15 +23,15 @@ export const skills = [
   { name: "PostgreSQL", icon: "devicon-postgresql-plain colored", color: "#336791", category: "database" },
   { name: "SQL", icon: "devicon-mysql-plain colored", color: "#f29111", category: "database" },
   { name: "Redis", icon: "devicon-redis-plain colored", color: "#dc382d", category: "database" },
-  { name: "ORM", icon: "fas fa-cubes", color: "#a855f7", category: "database" },
+  { name: "ORM", icon: "fas fa-cubes", color: "#009688", category: "database" },
   { name: "Agile", icon: "fas fa-people-group", color: "#4ade80", category: "other-skills" },
   { name: "Scrum & Kanban", icon: "fas fa-clipboard-check", color: "#5eead4", category: "other-skills" },
   { name: "Jira", icon: "devicon-jira-plain colored", color: "#0052cc", category: "other-skills" },
-  { name: "Architecture", icon: "fas fa-layer-group", color: "#a855f7", category: "other-skills" },
-  { name: "Design Patterns", icon: "fas fa-diagram-project", color: "#818cf8", category: "other-skills" },
-  { name: "PyTest", icon: "fas fa-vial", color: "#f472b6", category: "other-skills" },
-  { name: "Academic Research", icon: "fas fa-book-open", color: "#a5b4fc", category: "other-skills" },
-  { name: "Writing Skills", icon: "fas fa-pen-nib", color: "#f9a8d4", category: "other-skills" },
+  { name: "Architecture", icon: "fas fa-layer-group", color: "#009688", category: "other-skills" },
+  { name: "Design Patterns", icon: "fas fa-diagram-project", color: "#00bcd4", category: "other-skills" },
+  { name: "PyTest", icon: "fas fa-vial", color: "#00ccb8", category: "other-skills" },
+  { name: "Academic Research", icon: "fas fa-book-open", color: "#00acc1", category: "other-skills" },
+  { name: "Writing Skills", icon: "fas fa-pen-nib", color: "#4dd0e1", category: "other-skills" },
 ];
 
 export const projects = [

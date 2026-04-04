@@ -7,10 +7,10 @@ export const parseInlineStyles = (text: string) => {
   const parts = text.split(/(\*\*.*?\*\*|`.*?`)/g);
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} className="font-semibold text-slate-900 dark:text-white">{part.slice(2, -2)}</strong>;
+      return <strong key={i} className="font-semibold text-slate-900 dark:text-slate-100">{part.slice(2, -2)}</strong>;
     }
     if (part.startsWith('`') && part.endsWith('`')) {
-      return <code key={i} className="bg-slate-100 dark:bg-white/10 text-pink-600 dark:text-pink-400 px-1.5 py-0.5 rounded text-sm font-mono border border-slate-200 dark:border-white/5">{part.slice(1, -1)}</code>;
+      return <code key={i} className="bg-slate-100 dark:bg-white/10 text-teal-600 dark:text-teal-400 px-1.5 py-0.5 rounded text-sm font-mono border border-slate-200 dark:border-white/5">{part.slice(1, -1)}</code>;
     }
     return part;
   });
