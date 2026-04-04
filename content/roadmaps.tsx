@@ -23,9 +23,10 @@ import {
   FileText
 } from 'lucide-react';
 
-import AsyncDecisionFlowchart from '@/components/roadmap/AsyncDecisionFlowchart';
-import ThreadsVsCoroutines from '@/components/roadmap/ThreadsVsCoroutines';
-import EventLoopStepper from '@/components/roadmap/EventLoopStepper';
+import AsyncDecisionFlowchart from '@/app/roadmap/_components/AsyncDecisionFlowchart';
+import ThreadsVsCoroutines from '@/app/roadmap/_components/ThreadsVsCoroutines';
+import EventLoopStepper from '@/app/roadmap/_components/EventLoopStepper';
+import NotificationStrategies from '@/app/roadmap/_components/NotificationStrategies';
 
 // --- Types & Interfaces ---
 export interface TaskLink {
@@ -520,6 +521,27 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
             shortDesc: 'The hierarchy of GitHub Actions architecture.',
             details: 'To write efficient pipelines, you must understand the structural hierarchy of GitHub Actions.\n\n**The Anatomy of a Pipeline**\n\n- **Workflow:** The top-level automation process defined in a single YAML file (e.g., "Build and Deploy to Prod").\n- **Job:** A Workflow contains one or more Jobs. **Crucial detail:** Jobs run in parallel by default, and each Job spins up on a completely fresh, isolated Virtual Machine.\n- **Step:** A Job contains a sequence of Steps. These run sequentially on the same VM. A Step can either be a simple shell command (`run: npm test`) or a pre-built Action (`uses: actions/checkout@v3`).',
             image: IMG_DATA
+          },
+          { 
+            id: 'd5', 
+            title: 'Executing Workflows Manually', 
+            shortDesc: 'Using the workflow_dispatch event trigger.',
+            details: 'Not every script should run automatically on a git push. Sometimes you need a literal button in the UI to trigger an operational task.\n\n**The `workflow_dispatch` Trigger**\n\n- **Manual Execution:** Adding `on: workflow_dispatch` to your YAML allows team members to run the pipeline directly from the "Actions" tab in GitHub.\n- **Dynamic Inputs:** You can configure this trigger to ask the user for inputs before running. For example, a dropdown menu asking "Which environment do you want to deploy to? (Dev/Staging/Prod)".\n- **Use Cases:** Perfect for manual database migrations, rollback scripts, or triggering heavy data-processing jobs on demand.',
+            image: IMG_CODE
+          },
+          { 
+            id: 'd6', 
+            title: 'Dependencies between jobs (needs)', 
+            shortDesc: 'Creating sequential stages in your pipeline.',
+            details: 'Because Jobs run in parallel by default, a basic pipeline will try to deploy your code at the exact same time it runs your tests. This will break your deployment.\n\n**Orchestrating the Flow**\n\n- **The `needs` Keyword:** By adding `needs: [test_job]` to your `deploy_job`, you force the deployment to wait. It will only execute if the tests pass successfully.\n- **Creating Stages:** This is how you map out traditional delivery pipelines: Build -> Test -> Deploy Staging -> Deploy Prod.\n- **Matrix Builds:** You can use jobs to run tests in parallel across different OS versions (Ubuntu, Windows) or Python versions (3.9, 3.10), drastically reducing total CI time.',
+            image: IMG_ABSTRACT
+          },
+          { 
+            id: 'd7', 
+            title: 'Environment Variables & Secrets', 
+            shortDesc: 'Safely handling API keys and passwords.',
+            details: 'Hardcoding database passwords or AWS keys into your source code is the fastest way to get your company hacked. Pipelines need a way to access credentials safely.\n\n**Secure Configuration**\n\n- **GitHub Secrets:** A secure vault in your repository settings. You store the actual password here, and reference it in your code using `${{ secrets.DB_PASSWORD }}`.\n- **Log Masking:** If your script accidentally tries to print a secret to the console (`echo $DB_PASSWORD`), GitHub intercepts it and prints `***` instead, preventing leaks in the public logs.\n- **Environment Variables (`env`):** Used for non-sensitive data (like `NODE_ENV=production` or `LOG_LEVEL=debug`). You can set them at the Workflow level, Job level, or Step level depending on scope.',
+            image: IMG_SERVER
           }
         ]
       },
@@ -541,6 +563,76 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
             shortDesc: 'Ensuring absolute consistency using the container directive.',
             details: 'The classic developer problem: "The pipeline passes on GitHub, but the code fails in production." This happens because the GitHub Ubuntu runner might have different system libraries than your production server.\n\n**The Container Solution**\n\n- **The `container:` Directive:** Instead of running commands directly on the Ubuntu VM, you can instruct GitHub to pull a specific Docker image and run all steps *inside* that container.\n- **Absolute Consistency:** If production runs `python:3.10-slim`, your CI pipeline runs inside the exact same `python:3.10-slim` image. No surprises.\n- **Tooling Isolation:** Prevents conflicts. You don\'t need to install Python, Node, and Java on the host machine; the container brings exactly the tools it needs.',
             image: IMG_DOCKER
+          }
+        ]
+      },
+      {
+        id: 'c4',
+        title: 'Chapter 4: Real-Life Pipeline for Python',
+        icon: <Code2 className="w-6 h-6 text-yellow-500" />,
+        tasks: [
+          { 
+            id: 'd19', 
+            title: 'Marketplace Actions: setup-python', 
+            shortDesc: 'The fastest way to install Python environments.',
+            details: 'Setting up programming languages manually using bash scripts (`apt-get install python3`) is slow and prone to breaking when OS mirrors go down.\n\n**The Marketplace Advantage**\n\n- **`actions/setup-python`:** This official action instantly provisions exact Python versions (e.g., `3.11.2`) using pre-compiled binaries cached by GitHub.\n- **Matrix Testing:** You can easily pass a list of versions to test your code against multiple Python environments simultaneously.\n- **Dependency Caching:** It has built-in support for `pip`, `pipenv`, and `poetry`. With one flag, it automatically caches your downloaded packages to drastically speed up future pipeline runs.',
+            image: IMG_CODE
+          },
+          { 
+            id: 'd21', 
+            title: 'Running Linters & Formatters', 
+            shortDesc: 'Enforcing code quality with Ruff and Black.',
+            details: 'Running unit tests is computationally expensive. You don\'t want to waste 5 minutes running tests just to find out a developer forgot a trailing comma or left an unused import.\n\n**The Shift-Left Philosophy**\n\n- **Fail Fast:** Place code formatting (Black) and linting (Ruff/Flake8) as the very first steps in your CI pipeline.\n- **Enforcing Standards:** If `black --check .` detects poorly formatted code, the pipeline crashes instantly. This removes subjective arguments in Code Reviews—the CI pipeline becomes the bad guy.\n- **Speed:** Tools like Ruff are written in Rust and can lint thousands of lines of Python in milliseconds.',
+            image: IMG_DATA
+          },
+          { 
+            id: 'd23', 
+            title: 'Building & Pushing Docker Images', 
+            shortDesc: 'Packaging your Python app into a portable artifact.',
+            details: 'Once the code is tested and linted, it needs to be packaged into an immutable artifact that can be deployed anywhere.\n\n**The Build and Push Workflow**\n\n- **Compilation:** The pipeline executes `docker build` to package your Python code, system dependencies, and runtime into a single container.\n- **Dynamic Tagging:** Never use the `latest` tag in CI. Instead, use the `github.sha` (the unique Git commit hash) as the image tag. If commit `a1b2c3d` is deployed, you know exactly what code is running in production.\n- **Registry:** The `docker/build-push-action` securely logs in and pushes the resulting image to the GitHub Container Registry (GHCR) or Docker Hub, making it ready for deployment.',
+            image: IMG_DOCKER
+          }
+        ]
+      },
+      {
+        id: 'c5',
+        title: 'Chapter 5: Optimization & Multi-Stage',
+        icon: <Box className="w-6 h-6 text-purple-500" />,
+        tasks: [
+          { 
+            id: 'd28', 
+            title: 'Configuring Dependency Caching', 
+            shortDesc: 'Slashing build times from minutes to seconds.',
+            details: 'A fresh GitHub Runner starts completely empty. If your Python project requires `numpy` and `pandas`, the runner will waste 2 minutes downloading them from the internet on every single push.\n\n**The Caching Strategy**\n\n- **How it works:** Using the `actions/cache` step, you tell GitHub to zip up your `~/.cache/pip` folder at the end of a successful run and save it to an internal server.\n- **Cache Keys:** The cache is saved under a unique key based on the hash of your `requirements.txt`. If your requirements don\'t change, the key matches.\n- **The Restoration:** On the next workflow run, GitHub instantly injects the zipped folder back into the runner. The `pip install` command finishes in 2 seconds instead of 2 minutes.',
+            image: IMG_ABSTRACT
+          },
+          { 
+            id: 'd31', 
+            title: 'Manual Approvals & Environments', 
+            shortDesc: 'Adding human gates before production.',
+            details: 'While Continuous Deployment (auto-shipping to prod) is the dream, most enterprise companies require strict governance and human oversight before affecting live users.\n\n**GitHub Environments**\n\n- **Protection Rules:** You can create an Environment called "Production" in your repository settings and assign specific team members as "Required Reviewers."\n- **The Pause:** In your YAML, you add `environment: production` to your deployment job. When the pipeline reaches this job, it completely suspends execution.\n- **The Gate:** An authorized manager receives a notification, reviews the staging tests, and clicks "Approve" in the UI. Only then does the deployment job execute.',
+            image: IMG_SERVER
+          }
+        ]
+      },
+      {
+        id: 'c7',
+        title: 'Chapter 7: Kubernetes Deployment',
+        icon: <Cloud className="w-6 h-6 text-cyan-500" />,
+        tasks: [
+          { 
+            id: 'd40', 
+            title: 'OIDC Authentication', 
+            shortDesc: 'Connecting to AWS/GCP without long-lived passwords.',
+            details: 'Historically, to deploy to AWS, you had to generate a permanent AWS IAM Access Key and paste it into GitHub Secrets. If a rogue employee or hacker extracted that key, they owned your entire cloud infrastructure.\n\n**The OIDC Revolution**\n\n- **Identity Federation:** OpenID Connect (OIDC) establishes a mathematical trust relationship between your GitHub repo and your Cloud Provider (AWS/GCP/Azure).\n- **No Stored Secrets:** You no longer store any passwords or access keys in GitHub.\n- **Short-Lived Tokens:** When the workflow runs, GitHub proves its identity to AWS. AWS dynamically generates a temporary token that expires in 15 minutes. The deployment finishes, the token dies, and the attack vector is completely eliminated.',
+            image: IMG_SERVER
+          },
+          { 
+            id: 'd41', 
+            title: 'Deploying with kubectl & Helm', 
+            shortDesc: 'Applying manifests to your K8s cluster.',
+            details: 'Once authenticated, the pipeline must instruct the Kubernetes cluster to start using the newly built Docker image.\n\n**The Deployment Process**\n\n- **Context Switching:** The runner uses the cloud credentials to securely connect to the cluster API (e.g., AWS EKS or GCP GKE).\n- **Manifest Updates:** Using tools like `kubectl` or `Helm`, the pipeline updates the deployment manifest to point to the new image tag (the Git Commit Hash).\n- **Zero Downtime Rollouts:** Kubernetes takes over, spinning up new Pods with the new image, waiting for them to pass Health Checks, and then gracefully terminating the old Pods. Traffic is never dropped.',
+            image: IMG_DATA
           }
         ]
       }
@@ -570,6 +662,27 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
             shortDesc: 'Platform as a Service. Bring your code, and the cloud handles the infrastructure.',
             details: 'Platform as a Service (PaaS) represents the "Sweet Spot" for most modern development teams (e.g., Heroku, Render, Vercel, AWS AppRunner).\n\n**The Concept**\n\n- **Bring Your Own Code:** You simply connect your GitHub repo or push a Docker container. The platform handles the OS, load balancing, SSL certificates, and zero-downtime deployments.\n- **The Sweet Spot:** It abstracts away the headache of Linux administration while still keeping your application running 24/7 like a normal server.\n\n**When to use it**\n\n- **Startups & Small Teams:** When your primary goal is shipping product features fast, not managing infrastructure.\n- **Standard Architectures:** Perfect for standard REST APIs, SSR frameworks (Next.js), and typical background worker queues.\n- **Easy Scaling:** Need more power? Just drag a slider in the UI to add more instances behind their managed load balancer.\n\n**When NOT to use it**\n\n- **Massive Scale (Cost):** The convenience comes at a premium. At massive enterprise scale, PaaS compute costs can be 2x to 5x higher than managing your own raw VPS instances.\n- **Extreme Customization:** You cannot access the underlying host OS. If you need weird network routing or custom kernel modules, PaaS will block you.',
             image: IMG_ABSTRACT
+          },
+          {
+            id: 'cld_comp3',
+            title: '3. Serverless (FaaS)',
+            shortDesc: 'Ephemeral, event-driven compute scaling from zero to thousands instantly.',
+            details: 'Serverless (Function as a Service / FaaS) fundamentally changes how compute is billed and executed (e.g., AWS Lambda, Google Cloud Functions).\n\n**The Concept**\n\n- **Event-Driven:** Your code only runs in response to a trigger (an HTTP request, a file uploaded to a bucket, or a cron schedule).\n- **Pay Per Millisecond:** You are billed exactly for the execution time. If no one visits your site, your bill is literally $0.00.\n- **Infinite Scaling:** The cloud provider spins up thousands of parallel instances instantly to handle sudden spikes.\n\n**When to use it**\n\n- **Unpredictable/Bursty Traffic:** E-commerce sites during Black Friday, or ticket sales. It scales from 0 to 10,000 requests per second instantly without crashing.\n- **Glue Code & Background Jobs:** Perfect for tasks like "Resize this image when it\'s uploaded" or "Send an email when a record hits the queue."\n\n**When NOT to use it**\n\n- **Constant, High Traffic:** If a function runs constantly 24/7, Serverless becomes significantly more expensive than a standard VPS.\n- **Long-Running Processes:** Cloud functions typically have a hard timeout limit (e.g., 15 minutes). You cannot run a 3-hour video encoding job on a single Lambda.\n- **Low Latency / Real-Time:** Suffer from "Cold Starts." If a function hasn\'t run recently, it takes a few seconds to boot up the container, making it poor for real-time multiplayer gaming.',
+            image: IMG_SERVERLESS
+          }
+        ]
+      },
+      {
+        id: 'cl1',
+        title: 'Module 2: Infrastructure as Code (Terraform)',
+        icon: <Layers className="w-6 h-6 text-orange-500" />,
+        tasks: [
+          { 
+            id: 'cld1', 
+            title: 'Declarative Cloud Provisioning', 
+            shortDesc: 'Replacing manual UI clicks with readable code.',
+            details: 'Replacing manual UI clicks with readable, version-controlled code.\n\n- **Declarative Syntax:** You declare *what* you want in HashiCorp Configuration Language (HCL), and Terraform figures out *how* to build it.\n- **Version Control:** Infrastructure can be peer-reviewed and tracked in Git just like application code.\n- **Idempotency:** Running the code multiple times only applies the necessary changes (the diff).',
+            image: IMG_CODE
           }
         ]
       }
@@ -592,6 +705,13 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
             shortDesc: 'Stateless, cryptographically secure user sessions and secure storage.',
             details: 'JSON Web Tokens (JWT) provide stateless, cryptographically secure user sessions for modern APIs. Instead of storing session IDs in a database, the server issues a signed token containing user claims.\n\n**Why is it Stateless?**\n\n- **No Database Lookups:** The token contains the user\'s identity (Payload) and is mathematically signed (Signature). The server only needs its secret key to verify the token hasn\'t been tampered with.\n- **Microservice Friendly:** Any backend service with the secret (or public key) can verify the user independently. You don\'t need a central Redis instance just to check if a user is logged in.\n\n**What to Save in the Payload (Claims):**\n\n- **Standard Identifiers:** Usually, you store the user ID (`sub` or subject), issue time (`iat`), and expiration time (`exp`).\n- **Roles & Permissions:** Storing `role: "admin"` allows the backend to authorize actions instantly without doing a database lookup.\n- **⚠️ Security Warning:** The payload is merely Base64 encoded, **not encrypted**. Anyone who intercepts it can read the contents. NEVER store sensitive data like passwords, SSNs, or PII inside a JWT.\n\n**Where to Store JWTs (Security):**\n\n- **❌ LocalStorage:** Vulnerable to Cross-Site Scripting (XSS). If an attacker runs malicious JS on your site, they can easily steal the token.\n- **✅ HttpOnly Cookies:** The gold standard. The browser stores the token and sends it automatically, but JavaScript *cannot* access it, neutralizing XSS attacks. (Requires CSRF tokens/SameSite attributes).\n\n**Access vs. Refresh Tokens:**\n\n- **Access Tokens:** Short-lived (e.g., 15 minutes). Sent with every API request to minimize the window of opportunity if stolen.\n- **Refresh Tokens:** Long-lived (e.g., 7 days). Stored securely and only sent to a specific `/refresh` endpoint to obtain a new Access Token.\n\n**The Revocation Problem (The Catch):**\n\n- Because JWTs are purely stateless, you cannot easily "invalidate" them before they expire. If a user clicks log out, you delete the cookie on the client, but the physical token remains technically valid until its expiration time.\n- **The Fix:** Rely on short-lived access tokens, or maintain a fast "Deny List" in Redis for logged-out tokens (though this technically makes the system stateful again!).',
             image: IMG_DATA
+          },
+          {
+            id: 'bk1_2',
+            title: 'API Versioning Strategies',
+            shortDesc: 'Choose the right API versioning approach based on your team size and architecture scale.',
+            details: 'Choosing the right API versioning strategy is critical for avoiding breaking changes and maintaining backward compatibility.\n\n**1. Global Versioning (URI Path)**\n- **Pattern:** `/api/v1/users`\n- **Scale:** Small/medium app, one team.\n- **Verdict:** Simpler to manage. Bump versions for the entire API on breaking changes.\n\n**2. Resource-Level Versioning**\n- **Pattern:** `/api/users/v2`, `/api/orders/v1`\n- **Scale:** Microservices, multiple teams.\n- **Verdict:** Teams move independently without global coordination.\n\n**3. Header Versioning**\n- **Pattern:** `Accept: application/vnd.myapi.v2+json`\n- **Scale:** Public APIs (e.g., GitHub).\n- **Verdict:** URLs stay RESTful (versions aren\'t resources). Excellent for public platforms.',
+            image: IMG_ABSTRACT
           }
         ]
       },
@@ -604,15 +724,111 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
             id: 'bk2_0', 
             title: '1. Sync vs Async vs Parallelism', 
             shortDesc: 'Understanding execution models: Blocking, Concurrency, and CPU-bound math.',
-            details: 'Understanding the difference between blocking, concurrent, and parallel execution is crucial for backend performance. When developers say "just make it async", they are usually conflating three entirely different architectural concepts: I/O Concurrency, True Parallelism, and Event Notification.\n\n**1. Synchronous (Sync): "Blocking"**\n\nBy default, Python is synchronous. It executes code exactly one line at a time and will not move to line 2 until line 1 is 100% finished.\n\n- **The Analogy:** You have 1 Waiter. They take an order, walk to the kitchen, and stand there staring at the Chef for 15 minutes. Only after serving Table 1 do they go to Table 2.\n- **The Problem:** The Waiter spends 99% of their time waiting. If a user uploads a large file, the entire server freezes.\n\n**2. Asynchronous (Async): "Smart Waiting"**\n\nAsynchronous programming (concurrency) is about dealing with multiple things at once by never wasting time waiting. It runs in a single process.\n\n- **The Analogy:** You still have 1 Waiter (one CPU thread). They hand Table 1\'s order to the kitchen. Instead of staring at the Chef, they immediately go take Table 2\'s order!\n- **Why we use it:** The server rapidly switches tasks whenever forced to wait. A single FastAPI server can handle 10,000 users by switching tasks during wait times.\n- **Target:** Best for **I/O Bound** tasks (waiting for databases, API calls, file uploads).\n\n**3. Parallelism: "Brute Force"**\n\nParallelism is doing multiple things at the exact same physical millisecond, requiring multiple CPU cores.\n\n- **The Analogy:** You hire 3 Waiters (3 CPU cores). All three can walk up to three different tables and take orders at the exact same second.\n- **Target:** Best for **CPU Bound** tasks (heavy, brain-busting math). You cannot use Async for heavy math; you need a dedicated Worker process on another CPU core.',
-            customUI: <AsyncDecisionFlowchart />
+            details: 'Understanding the difference between blocking, concurrent, and parallel execution is crucial for backend performance. When developers say "just make it async", they are usually conflating three entirely different architectural concepts: I/O Concurrency, True Parallelism, and Event Notification.\n\n**1. Synchronous (Sync): "Blocking"**\nBy default, Python is synchronous. It executes code exactly one line at a time.\n\n**2. Asynchronous (Async): "Smart Waiting"**\nAsynchronous programming is about dealing with multiple things at once by never wasting time waiting. Best for **I/O Bound** tasks (databases, API calls).\n\n**3. Parallelism: "Brute Force"**\nParallelism is doing multiple things at the exact same physical millisecond, requiring multiple CPU cores. Best for **CPU Bound** tasks.',
+            customUI: (
+              <>
+                <AsyncDecisionFlowchart />
+                <ThreadsVsCoroutines />
+              </>
+            )
           },
           {
             id: 'bk2_0b',
             title: '2. Deep Dive: Inside the Event Loop',
             shortDesc: 'A step-by-step interactive look at how Coroutines achieve massive concurrency without threading.',
-            details: 'The magic of asynchronous programming is that the computer never waits. \n\nWhen a coroutine hits an `await` statement (like querying a database), it doesn\'t block the thread. Instead, it explicitly **yields control** back to the Event Loop, saying: *"I am going to sleep until the database answers. Go run something else!"*\n\nInteract with the visualization below to step through exactly how a single OS thread can juggle multiple requests simultaneously.',
+            details: 'The magic of asynchronous programming is that the computer never waits. \n\nWhen a coroutine hits an `await` statement (like querying a database), it explicitly **yields control** back to the Event Loop, saying: *"I am going to sleep until the database answers. Go run something else!"*',
             customUI: <EventLoopStepper />
+          },
+          { 
+            id: 'bk2_1', 
+            title: '3. The Queue (1-to-1 Task List)', 
+            shortDesc: 'A Point-to-Point communication pattern for executing specific background commands once.',
+            details: 'A Queue represents a Point-to-Point communication pattern for executing specific background commands.\n\n- **🧠 The Mindset:** "I need someone to do this specific job once."\n- **🎯 Use Case:** Heavy tasks like image processing or inverse modeling.\n- **🚀 Scaling:** You can add as many workers as you want, but each message is processed exactly once.',
+            image: IMG_QUEUE
+          },
+          { 
+            id: 'bk2_2', 
+            title: '4. Pub/Sub & The Event Bus (1-to-Many)', 
+            shortDesc: 'The Publish/Subscribe paradigm for broadcasting facts to multiple independent listeners.',
+            details: 'Pub/Sub (Publish/Subscribe) is an asynchronous communication paradigm where senders do not target specific receivers.\n\n- **🧠 The Mindset:** "I am announcing a fact. I don\'t care who is listening."\n- **🎯 Use Case:** Real-time dashboards, user notifications, or cross-service updates.\n- **🚀 Decoupling:** Producers never need to know about Consumers.',
+            image: IMG_BROADCAST
+          },
+          { 
+            id: 'bk2_3', 
+            title: '5. The Message Broker (Infrastructure)', 
+            shortDesc: 'The physical software engine that hosts your Queues and Event Buses.',
+            details: 'The physical software engine (RabbitMQ, Kafka, Redis) that hosts your Queues and Event Buses.\n\n- **🏛️ The Golden Rule:** Queues are for **Commands** (Do this action once). Event Buses are for **Events** (This fact happened, react to it).',
+            image: IMG_DATA
+          },
+          {
+            id: 'bk2_4',
+            title: '6. Client-Server Notification Strategies',
+            shortDesc: 'Polling vs Server-Sent Events (SSE) vs WebSockets vs Webhooks.',
+            details: 'When your background worker finishes a 5-minute task, how do you tell the user\'s browser? Use the right tool for the job to avoid over-engineering.',
+            customUI: <NotificationStrategies />
+          }
+        ]
+      },
+      {
+        id: 'b3',
+        title: 'Module 3: System Architecture Patterns',
+        icon: <Box className="w-6 h-6 text-purple-500" />,
+        tasks: [
+          {
+            id: 'bk3_1',
+            title: '1. Modular Monolith',
+            shortDesc: 'A single deployable unit divided into strict, isolated business modules.',
+            details: 'A software architecture that keeps all code in a single deployable application but enforces strict internal boundaries.\n\n**The Concept**\n\n- **Single Deployment:** Everything runs in one process. You deploy one artifact. It is significantly easier to build, test, and release.\n- **Strict Boundaries:** Code is organized by business domain (e.g., Billing, Users). Modules cannot directly access each other\'s databases; they must communicate through strictly defined internal APIs or interfaces.\n\n**Why it\'s popular**\n\n- **Simplicity:** Easier to debug and test than microservices. There is no network latency between modules because communication is strictly in-memory.\n- **Future-Proofing:** Because the boundaries are already strict, it is incredibly easy to break a module out into a separate microservice later if it requires independent scaling.',
+            image: IMG_MONOLITH
+          },
+          {
+            id: 'bk3_2',
+            title: '2. Microservices',
+            shortDesc: 'A distributed architecture where each service is an independent application.',
+            details: 'A distributed architecture where an application is composed of many small, independent, and loosely coupled services.\n\n**The Concept**\n\n- **Independent Deployments:** The Billing team can deploy their service 10 times a day without coordinating with the Users team.\n- **Decentralized Data:** Every microservice MUST own its own database. Services communicate over the network (HTTP, gRPC, or Pub/Sub).\n\n**The Trade-offs**\n\n- **Pros:** Fault isolation (if the email service dies, checkout still works). Tech stack flexibility (use Python for AI, Go for heavy processing).\n- **Cons:** Dramatically increases operational complexity. Network calls can fail, requiring you to implement retries, circuit breakers, and distributed tracing.',
+            image: IMG_NETWORK
+          },
+          {
+            id: 'bk3_3',
+            title: '3. Serverless Architecture',
+            shortDesc: 'Ephemeral, event-driven compute where you pay only for execution time.',
+            details: 'An execution model where the cloud provider dynamically manages the allocation and provisioning of servers (e.g., AWS Lambda, Google Cloud Functions).\n\n**The Concept**\n\n- **Event-Driven:** Code executes only in response to triggers (like an HTTP request, a file uploaded to S3, or a scheduled cron job).\n- **Scale to Zero:** If nobody is using your app, no code runs, and you pay $0. It scales up instantly to thousands of concurrent executions if traffic spikes.\n\n**The Trade-offs**\n\n- **Cold Starts:** If a function hasn\'t been run recently, the cloud provider needs to spin up a container from scratch, causing a noticeable delay (latency) on the first request.\n- **Use Cases:** Perfect for background processing, unpredictable traffic workloads, and rapid prototyping without infrastructure overhead.',
+            image: IMG_SERVERLESS
+          }
+        ]
+      },
+      {
+        id: 'b4',
+        title: 'Module 4: Scaling & Observability',
+        icon: <Target className="w-6 h-6 text-teal-500" />,
+        tasks: [
+          {
+            id: 'bk4_1',
+            title: '1. Load Balancers',
+            shortDesc: 'The traffic cop that distributes incoming requests across multiple servers.',
+            details: 'The traffic cop of your infrastructure, dynamically distributing incoming network traffic across a group of backend servers.\n\n**The Concept**\n\n- **High Availability:** Prevents any single server from becoming a bottleneck. If Server A crashes, the load balancer detects the failure via Health Checks and automatically routes traffic to Server B.\n- **Layer 4 vs Layer 7:** Layer 4 (Network) routes based on IP and TCP ports (super fast, low overhead). Layer 7 (Application) routes based on HTTP headers, cookies, or URL paths (smarter, context-aware routing).\n\n**Common Algorithms**\n\n- **Round Robin:** Distributes requests sequentially (A, B, C, A, B, C).\n- **Least Connections:** Sends the request to the server with the fewest active connections, which is excellent for long-lived tasks or uneven workloads.',
+            image: IMG_LOAD_BALANCER
+          },
+          {
+            id: 'bk4_2',
+            title: '2. Logger Architecture & Observability',
+            shortDesc: 'Centralized logging, tracing, and metrics for distributed systems.',
+            details: 'In a distributed system, simply writing `print("error")` to a terminal is useless. You need centralized observability to figure out what went wrong across dozens of servers.\n\n**The Core Pillars**\n\n- **Structured Logging:** Logs must be emitted as JSON, not plain text. This allows you to easily search, filter, and alert on specific machine-readable fields (e.g., `{"level": "ERROR", "user_id": 123}`).\n- **Centralized Aggregation:** All services send their logs to a central system (like the ELK Stack, Datadog, or CloudWatch) so you can query everything in one dashboard without SSHing into individual servers.\n- **Correlation IDs:** A unique ID generated when a request first hits the API Gateway. This ID is passed to every microservice in the chain. If a request fails deep in the system, you can search the Correlation ID and trace the exact path the request took.',
+            image: IMG_DATA
+          }
+        ]
+      },
+      {
+        id: 'b5',
+        title: 'Module 5: System Design Foundations',
+        icon: <BookOpen className="w-6 h-6 text-indigo-500" />,
+        tasks: [
+          {
+            id: 'bk5_1',
+            title: '1. Functional vs Non-Functional Requirements',
+            shortDesc: 'The difference between what a system does (features) and how it performs (architecture).',
+            details: 'Understanding the difference between Functional and Non-Functional requirements is the absolute foundation of System Design.\n\n**1. Functional Requirements (The "What")**\n\nThese define what the system *must do*. They are the specific behaviors, features, and business rules that the application needs to execute.\n\n- **The Focus:** Features, business logic, user interactions, and APIs.\n- **Examples:** "The user must be able to add an item to the shopping cart." / "The system must generate a PDF invoice after a successful payment."\n- **The Impact:** If you miss a functional requirement, the software simply doesn\'t do its job.\n\n**2. Non-Functional Requirements (The "How")**\n\nThese define how the system *must perform*. Also known as "Quality Attributes" (the "ilities": scalability, reliability, availability, latency).\n\n- **The Focus:** Performance, security, capacity, latency, and availability.\n- **Examples:** "The shopping cart page must load in under 200ms." / "The payment system must be highly available (99.99% uptime)."\n- **The Impact:** If you miss a non-functional requirement, the software works for 10 users, but crashes and burns when 10,000 users log in.\n\n**The Architectural Difference**\n\n- **Functional** requirements dictate your *code* (e.g., writing a new Python function or SQL query).\n- **Non-Functional** requirements dictate your *architecture* (e.g., adding Redis for caching, a Load Balancer for scale, or Read Replicas for database speed).',
+            image: IMG_DESIGN
           }
         ]
       }

@@ -111,6 +111,39 @@ export default function AsyncDecisionFlowchart() {
       </div>
 
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 font-sans">
+        <div className="bg-slate-800 rounded-xl overflow-hidden shadow-md flex flex-col border border-slate-700">
+          <div className="bg-blue-600 py-3 px-4 text-center font-bold text-white text-sm">FastAPI async/await</div>
+          <div className="p-5 flex flex-col gap-4 text-sm text-center text-slate-300 flex-grow">
+            <p>I/O concurrency<br/>single process</p>
+            <div className="h-px w-full bg-slate-700/50"></div>
+            <p>While awaiting DB/HTTP,<br/>event loop handles<br/>other requests.</p>
+            <div className="h-px w-full bg-slate-700/50"></div>
+            <p className="text-slate-400">NOT parallelism.<br/>NOT multi-process.<br/>Just efficient waiting.</p>
+          </div>
+        </div>
+        <div className="bg-slate-800 rounded-xl overflow-hidden shadow-md flex flex-col border border-slate-700">
+          <div className="bg-amber-700 py-3 px-4 text-center font-bold text-white text-sm">Redis + Celery</div>
+          <div className="p-5 flex flex-col gap-4 text-sm text-center text-slate-300 flex-grow">
+            <p>System-level async<br/>true parallelism via workers</p>
+            <div className="h-px w-full bg-slate-700/50"></div>
+            <p>API enqueues a task.<br/>Celery worker picks it<br/>up in its own process.</p>
+            <div className="h-px w-full bg-slate-700/50"></div>
+            <p className="text-slate-400">Redis = the queue<br/>(broker + result store).<br/>CPU-heavy safe.</p>
+          </div>
+        </div>
+        <div className="bg-slate-800 rounded-xl overflow-hidden shadow-md flex flex-col border border-slate-700">
+          <div className="bg-emerald-700 py-3 px-4 text-center font-bold text-white text-sm">Push to frontend</div>
+          <div className="p-5 flex flex-col gap-4 text-sm text-center text-slate-300 flex-grow">
+            <p>Event notification<br/>server → browser</p>
+            <div className="h-px w-full bg-slate-700/50"></div>
+            <p>Webhook = backend<br/>to backend only.<br/>For browser: SSE<br/>or WebSocket.</p>
+            <div className="h-px w-full bg-slate-700/50"></div>
+            <p className="text-slate-400">These are three<br/>separate problems.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
