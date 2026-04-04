@@ -49,7 +49,7 @@ export function TableOfContents({
   const items = tasks || (categories?.map(c => ({ id: c.id, title: c.title })) || []);
 
   return (
-    <aside className="w-64 hidden xl:block sticky top-24 self-start h-[calc(100vh-120px)] overflow-y-auto pl-6 border-l border-slate-200 dark:border-white/5 custom-scrollbar">
+    <aside className="w-64 hidden xl:block sticky top-10 self-start h-[calc(100vh-80px)] overflow-y-auto pl-6 border-l border-slate-200 dark:border-white/5 custom-scrollbar">
       <div className="flex items-center gap-2 mb-6 px-1">
         <List className="w-4 h-4 text-teal-500" />
         <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
@@ -61,7 +61,14 @@ export function TableOfContents({
         {items.map((item) => (
           <button
             key={item.id}
-            onClick={() => onItemClick?.(item.id)}
+            onClick={() => {
+              if (onItemClick) {
+                onItemClick(item.id);
+              } else {
+                const el = document.getElementById(item.id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
             className={`w-full text-left group flex items-start gap-2 py-2 px-1 transition-all duration-200 border-l-2 ${
               activeId === item.id
                 ? 'text-teal-600 dark:text-teal-400 border-teal-600 dark:border-teal-400 bg-teal-500/5'

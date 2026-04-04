@@ -95,7 +95,7 @@ export const roadmapsData: RoadmapsData = {
       {
         id: 'ai_1',
         slug: 'frontend-ui',
-        title: 'Category 1: Frontend & UI Skills',
+        title: 'Frontend & UI Skills',
         icon: <Layout className="w-6 h-6 text-teal-500" />,
         tasks: [
           {
@@ -130,7 +130,7 @@ Instruct the agent to read the target UI component and generate isolated documen
       {
         id: 'ai_2',
         slug: 'core-development',
-        title: 'Category 2: Core Development Skills',
+        title: 'Core Development Skills',
         icon: <Code2 className="w-6 h-6 text-teal-600" />,
         tasks: [
           {
@@ -174,7 +174,7 @@ Instruct the agent to always use [Insert Testing Framework, e.g., PyTest/Jest]. 
       {
         id: 'ai_3',
         slug: 'devops-workflow',
-        title: 'Category 3: DevOps & Workflow Skills',
+        title: 'DevOps & Workflow Skills',
         icon: <GitBranch className="w-6 h-6 text-emerald-500" />,
         tasks: [
           {
@@ -209,7 +209,7 @@ Add a critical safety rule: The agent must boldly warn the user if a migration i
       {
         id: 'ai_4',
         slug: 'docs-knowledge',
-        title: 'Category 4: Documentation & Knowledge Skills',
+        title: 'Documentation & Knowledge Skills',
         icon: <FileText className="w-6 h-6 text-yellow-500" />,
         tasks: [
           {
@@ -243,7 +243,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'algo_1',
         slug: 'arrays-strings',
-        title: 'Module 1: Arrays, Strings & Searching',
+        title: 'Arrays, Strings & Searching',
         icon: <Layers className="w-6 h-6 text-teal-600" />,
         tasks: [
           { 
@@ -292,7 +292,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'algo_2',
         slug: 'linear-data-structures',
-        title: 'Module 2: Linear Data Structures',
+        title: 'Linear Data Structures',
         icon: <GitBranch className="w-6 h-6 text-emerald-500" />,
         tasks: [
           { 
@@ -326,7 +326,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'algo_3',
         slug: 'trees-tries-heaps',
-        title: 'Module 3: Trees, Tries & Heaps',
+        title: 'Trees, Tries & Heaps',
         icon: <Box className="w-6 h-6 text-yellow-500" />,
         tasks: [
           { 
@@ -373,7 +373,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'algo_4',
         slug: 'backtracking-graphs',
-        title: 'Module 4: Backtracking & Graphs',
+        title: 'Backtracking & Graphs',
         icon: <Network className="w-6 h-6 text-teal-600" />,
         tasks: [
           { 
@@ -419,7 +419,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'algo_5',
         slug: 'optimization-logic',
-        title: 'Module 5: Optimization & Logic',
+        title: 'Optimization & Logic',
         icon: <Target className="w-6 h-6 text-cyan-600" />,
         tasks: [
           { 
@@ -454,7 +454,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'algo_6',
         slug: 'math-geometry',
-        title: 'Module 6: Math, Geometry & Bit Manipulation',
+        title: 'Math, Geometry & Bit Manipulation',
         icon: <Terminal className="w-6 h-6 text-slate-500" />,
         tasks: [
           { 
@@ -664,7 +664,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'cl_compute',
         slug: 'compute-hosting',
-        title: 'Module 1: Compute & Hosting Paradigms',
+        title: 'Compute & Hosting Paradigms',
         icon: <Server className="w-6 h-6 text-teal-600" />,
         tasks: [
           {
@@ -693,7 +693,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'cl1',
         slug: 'infrastructure-as-code',
-        title: 'Module 2: Infrastructure as Code (Terraform)',
+        title: 'Infrastructure as Code (Terraform)',
         icon: <Layers className="w-6 h-6 text-cyan-500" />,
         tasks: [
           { 
@@ -716,7 +716,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'b1',
         slug: 'authentication',
-        title: 'Module 1: API Design & Security',
+        title: 'API Design & Security',
         icon: <ShieldCheck className="w-6 h-6 text-teal-600" />,
         tasks: [
           { 
@@ -738,7 +738,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'b2',
         slug: 'async-messaging',
-        title: 'Module 2: Pub/Sub & Async Messaging',
+        title: 'Pub/Sub & Async Messaging',
         icon: <Waypoints className="w-6 h-6 text-teal-600" />,
         tasks: [
           { 
@@ -793,7 +793,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'b3',
         slug: 'architecture-patterns',
-        title: 'Module 3: System Architecture Patterns',
+        title: 'System Architecture Patterns',
         icon: <Box className="w-6 h-6 text-cyan-600" />,
         tasks: [
           {
@@ -822,7 +822,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'b4',
         slug: 'scaling-observability',
-        title: 'Module 4: Scaling & Observability',
+        title: 'Scaling & Observability',
         icon: <Target className="w-6 h-6 text-teal-500" />,
         tasks: [
           {
@@ -844,7 +844,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'b5',
         slug: 'system-design',
-        title: 'Module 5: System Design Foundations',
+        title: 'System Design Foundations',
         icon: <BookOpen className="w-6 h-6 text-teal-500" />,
         tasks: [
           {
@@ -867,7 +867,7 @@ Instruct the agent to act as a system architect. It is a read-only skill that sc
       {
         id: 'n1',
         slug: 'foundations',
-        title: 'Module 1: The Foundations',
+        title: 'The Foundations',
         icon: <Network className="w-6 h-6 text-slate-500" />,
         tasks: [
           { 

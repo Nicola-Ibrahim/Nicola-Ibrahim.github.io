@@ -13,13 +13,14 @@ const config: Config = {
         primary: "#009688", // FastAPI Teal
         secondary: "#00bcd4", // Cyan 500 (Harmonized)
         accent: "#00ccb8", // FastAPI Light Teal/Cyan
-        dark: "#1e2127", // FastAPI Slate (Material for MkDocs Slate)
-        "dark-lighter": "#1a1c22", // Depth Slate
+        dark: "#23272f", // Lighter FastAPI Slate
+        "dark-lighter": "#2d333b", // Shifted Depth Slate
         light: "#f9fafb", // Gray 50
       },
       fontFamily: {
-        sans: ["var(--font-outfit)", "sans-serif"],
-        heading: ["var(--font-space-grotesk)", "sans-serif"],
+        sans: ["var(--font-inter)", "sans-serif"],
+        heading: ["var(--font-inter)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

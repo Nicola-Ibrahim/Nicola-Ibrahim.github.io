@@ -3,7 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { Roadmap } from '@/content/roadmaps';
-import { Layout, ChevronRight, Hash, Sparkles, Search } from 'lucide-react';
+import { Layout, ChevronRight, Hash, Sparkles, ArrowLeft } from 'lucide-react';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 interface RoadmapSidebarProps {
   roadmaps: Roadmap[];
@@ -23,36 +24,32 @@ export function RoadmapSidebar({
   const currentRoadmap = roadmaps.find(r => r.id === activeTab);
 
   return (
-    <aside className="w-[260px] hidden lg:block sticky top-24 self-start h-[calc(100vh-120px)] overflow-y-auto pr-6 custom-scrollbar">
-      {/* Academy Branding */}
-      <div className="mb-10 px-3">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-white font-black text-sm">
-            NA
+    <aside className="w-[260px] hidden lg:block sticky top-10 self-start h-[calc(100vh-80px)] overflow-y-auto pr-6 custom-scrollbar">
+      {/* Sidebar Branding & Navigation */}
+      <div className="mb-12 px-3">
+        <Link 
+          href="/" 
+          className="group flex items-center gap-3 text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors mb-8"
+        >
+          <div className="p-2 bg-slate-100 dark:bg-white/5 rounded-lg group-hover:bg-teal-500/10 transition-colors">
+            <ArrowLeft className="w-4 h-4" />
           </div>
-          <h1 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
-            Nicola <span className="text-teal-600">Academy</span>
-          </h1>
-        </div>
+          <span className="text-[10px] font-black uppercase tracking-[0.2em]">Back to Home</span>
+        </Link>
 
-        {/* Visual Search Bar */}
-        <div className="relative group/search">
-          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-            <Search className="w-3.5 h-3.5 text-slate-400 group-focus-within/search:text-teal-500 transition-colors" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white shadow-lg shadow-teal-500/20">
+              <Layout className="w-5 h-5" />
+            </div>
+            <h1 className="text-base font-bold text-slate-800 dark:text-slate-300 uppercase tracking-tighter">
+              Road<span className="text-teal-600 dark:text-teal-400">map</span>
+            </h1>
           </div>
-          <input 
-            type="text" 
-            placeholder="Search documentation..." 
-            className="w-full bg-slate-100 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-xs font-medium text-slate-600 dark:text-slate-300 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-teal-500/50 focus:border-teal-500/50 transition-all shadow-inner"
-            disabled
-          />
-          <div className="absolute inset-y-0 right-3 flex items-center">
-            <span className="text-[9px] font-bold text-slate-400 bg-slate-200 dark:bg-white/10 px-1.5 py-0.5 rounded uppercase tracking-tighter">
-              ⌘ K
-            </span>
-          </div>
+          <ThemeToggle />
         </div>
       </div>
+
 
       {/* Roadmap Switcher */}
       <div className="space-y-1 mb-10">
@@ -67,51 +64,50 @@ export function RoadmapSidebar({
           <React.Fragment key={tab.id}>
             <Link
               href={`/roadmap/${tab.id}`}
-              className={`w-full flex items-center justify-between group px-4 py-3 rounded-2xl transition-all duration-300 border ${
+              className={`w-full flex items-center justify-between group px-3 py-2.5 rounded-lg transition-all duration-200 border ${
                 activeTab === tab.id
-                  ? 'bg-slate-100/50 dark:bg-white/[0.03] border-slate-200 dark:border-white/10 shadow-sm'
-                  : 'bg-transparent border-transparent text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.03] hover:border-slate-200 dark:hover:border-white/10'
+                  ? 'bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10 shadow-sm'
+                  : 'bg-transparent border-transparent text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:border-slate-100 dark:hover:border-white/5'
               }`}
             >
               <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-xl transition-colors ${
+                <div className={`p-2 rounded-lg transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-teal-600 text-white'
+                    ? 'bg-teal-600 text-white shadow-md shadow-teal-500/20'
                     : 'bg-slate-100 dark:bg-white/5 group-hover:bg-slate-200 dark:group-hover:bg-white/10'
                 }`}>
-                  {tab.icon}
+                  <div className="w-4 h-4 flex items-center justify-center">
+                    {tab.icon}
+                  </div>
                 </div>
                 <div className="text-left">
-                  <p className={`text-sm font-bold ${
-                    activeTab === tab.id ? 'text-teal-600 dark:text-slate-100' : ''
+                  <p className={`text-[12px] font-semibold uppercase tracking-wider ${
+                    activeTab === tab.id ? 'text-teal-600 dark:text-slate-300' : 'text-slate-600 dark:text-slate-400'
                   }`}>
-                    {tab.title.split(' ')[0]}
-                  </p>
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">
-                    {tab.categories.length} Modules
+                    {tab.title.replace('Syllabus', '').replace('Technical', '').trim()}
                   </p>
                 </div>
               </div>
               {activeTab === tab.id && (
-                <div className="w-1.5 h-1.5 rounded-full bg-teal-600 dark:bg-teal-400" />
+                <ChevronRight className="w-3 h-3 text-teal-600 dark:text-teal-400" />
               )}
             </Link>
 
             {/* Render Category List if active */}
             {activeTab === tab.id && (
-              <div className="mt-2 mb-4 space-y-1 ml-4 border-l border-slate-200 dark:border-white/5">
+              <div className="mt-1 mb-4 space-y-0.5 ml-[19px] border-l border-slate-200 dark:border-white/10">
                 {tab.categories.map((cat) => (
                   <Link
                     key={cat.id}
                     href={`/roadmap/${tab.id}/${cat.slug}`}
-                    className={`block py-2 pl-6 pr-4 text-xs font-medium transition-all relative ${
+                    className={`block py-2 pl-6 pr-4 text-[11px] font-medium transition-all relative ${
                       activeCategory === cat.slug
-                        ? 'text-teal-600 dark:text-teal-400 font-black'
-                        : 'text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
+                        ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5'
+                        : 'text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
                     }`}
                   >
                     {activeCategory === cat.slug && (
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-[2px] bg-teal-600 dark:bg-teal-400" />
+                      <div className="absolute left-[-1px] top-0 bottom-0 w-[2px] bg-teal-600 dark:bg-teal-400" />
                     )}
                     <span className="truncate block">
                       {cat.title.split(':')[1]?.trim() || cat.title}

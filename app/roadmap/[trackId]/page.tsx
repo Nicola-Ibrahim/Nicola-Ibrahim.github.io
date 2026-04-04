@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { trackIds, roadmapsData } from '@/content/roadmaps';
-import { TrackDashboardView } from '../_components/TrackDashboardView';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export async function generateStaticParams() {
   return trackIds.map((trackId) => ({
@@ -28,5 +27,10 @@ export default async function TrackDashboardPage({ params }: { params: { trackId
     notFound();
   }
 
-  return <TrackDashboardView trackId={trackId} currentRoadmap={currentRoadmap} />;
+  const firstCategory = currentRoadmap.categories[0];
+  if (firstCategory) {
+    redirect(`/roadmap/${trackId}/${firstCategory.slug}`);
+  }
+
+  return notFound();
 }
