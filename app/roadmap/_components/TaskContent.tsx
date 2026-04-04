@@ -21,17 +21,12 @@ export const TaskContent = ({
       id={task.id}
       className="relative pb-24 mb-24 border-b border-slate-100 dark:border-white/5 last:border-0 last:pb-0 last:mb-0 group/task scroll-mt-24"
     >
-      {/* Task Header */}
-      <div className="flex flex-col gap-4 mb-8">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-teal-600 dark:text-teal-400 border border-slate-200 dark:border-white/10 shadow-sm transition-all group-hover/task:border-teal-500/30 group-hover/task:shadow-teal-500/2">
-             <Code2 className="w-5 h-5" />
-          </div>
-          <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 uppercase tracking-tight group-hover/task:text-teal-600 dark:group-hover/task:text-teal-400 transition-colors">
-            {task.title}
-          </h3>
-        </div>
-        <p className="text-lg font-bold text-slate-900 dark:text-slate-200 leading-relaxed max-w-3xl border-l-4 border-teal-500/20 pl-6 py-1">
+      {/* Task Header (Simplified Docs Style) */}
+      <div className="flex flex-col gap-4 mb-10">
+        <h3 className="text-3xl font-black text-slate-800 dark:text-slate-100 uppercase tracking-tight group-hover/task:text-teal-600 dark:group-hover/task:text-teal-400 transition-colors">
+          {task.title}
+        </h3>
+        <p className="text-xl font-bold text-slate-900 dark:text-slate-200 leading-relaxed max-w-4xl">
           {task.shortDesc}
         </p>
       </div>

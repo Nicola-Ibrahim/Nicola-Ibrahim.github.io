@@ -5,23 +5,25 @@ import { RoadmapCategory } from '@/content/roadmaps';
 import { List, ChevronRight, Sparkles } from 'lucide-react';
 
 interface TableOfContentsProps {
-  categories: RoadmapCategory[];
-  activeCategory?: string;
-  onCategoryClick: (id: string) => void;
+  categories?: RoadmapCategory[];
+  tasks?: { id: string, title: string }[];
+  activeId?: string;
+  onItemClick?: (id: string) => void;
 }
 
 export function TableOfContents({ 
   categories, 
-  activeCategory: passedActiveCategory,
-  onCategoryClick 
+  tasks,
+  activeId: passedActiveId,
+  onItemClick 
 }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
-    if (passedActiveCategory) {
-      setActiveId(passedActiveCategory);
+    if (passedActiveId) {
+      setActiveId(passedActiveId);
     }
-  }, [passedActiveCategory]);
+  }, [passedActiveId]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,13 +37,16 @@ export function TableOfContents({
       { rootMargin: '-10% 0% -80% 0%' }
     );
 
-    categories.forEach((category) => {
-      const element = document.getElementById(category.id);
+    const itemsToWatch = tasks || categories?.map(c => ({ id: c.id })) || [];
+    itemsToWatch.forEach((item) => {
+      const element = document.getElementById(item.id);
       if (element) observer.observe(element);
     });
 
     return () => observer.disconnect();
-  }, [categories]);
+  }, [categories, tasks]);
+
+  const items = tasks || (categories?.map(c => ({ id: c.id, title: c.title })) || []);
 
   return (
     <aside className="w-64 hidden xl:block sticky top-24 self-start h-[calc(100vh-120px)] overflow-y-auto pl-6 border-l border-slate-200 dark:border-white/5 custom-scrollbar">
@@ -53,20 +58,20 @@ export function TableOfContents({
       </div>
 
       <nav className="space-y-1">
-        {categories.map((category) => (
+        {items.map((item) => (
           <button
-            key={category.id}
-            onClick={() => onCategoryClick(category.id)}
+            key={item.id}
+            onClick={() => onItemClick?.(item.id)}
             className={`w-full text-left group flex items-start gap-2 py-2 px-1 transition-all duration-200 border-l-2 ${
-              activeId === category.id
+              activeId === item.id
                 ? 'text-teal-600 dark:text-teal-400 border-teal-600 dark:border-teal-400 bg-teal-500/5'
                 : 'text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 border-transparent'
             }`}
           >
             <span className={`text-[13px] leading-tight font-medium pl-2 ${
-              activeId === category.id ? 'font-black' : ''
+              activeId === item.id ? 'font-black' : ''
             }`}>
-              {category.title.split(':')[1]?.trim() || category.title}
+              {item.title.includes(':') ? item.title.split(':')[1]?.trim() : item.title}
             </span>
           </button>
         ))}
