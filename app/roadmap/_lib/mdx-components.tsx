@@ -1,9 +1,9 @@
 import React from 'react';
 import { Terminal, Copy, Check, ExternalLink } from 'lucide-react';
-import AsyncDecisionFlowchart from '@/app/roadmap/_components/widgets/AsyncDecisionFlowchart';
-import ThreadsVsCoroutines from '@/app/roadmap/_components/widgets/ThreadsVsCoroutines';
-import EventLoopStepper from '@/app/roadmap/_components/widgets/EventLoopStepper';
-import NotificationStrategies from '@/app/roadmap/_components/widgets/NotificationStrategies';
+import AsyncDecisionFlowchart from '@/app/roadmap/_content/backend/async-messaging/AsyncDecisionFlowchart';
+import ThreadsVsCoroutines from '@/app/roadmap/_content/backend/async-messaging/ThreadsVsCoroutines';
+import EventLoopStepper from '@/app/roadmap/_content/backend/async-messaging/EventLoopStepper';
+import NotificationStrategies from '@/app/roadmap/_content/backend/async-messaging/NotificationStrategies';
 
 /**
  * Shared MDX components mapping.

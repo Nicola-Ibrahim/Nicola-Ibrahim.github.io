@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
 
-const CONTENT_PATH = path.join(process.cwd(), 'content/roadmap');
+const CONTENT_PATH = path.join(process.cwd(), 'app/roadmap/_content');
 
 export interface MDXContent {
   source: any;

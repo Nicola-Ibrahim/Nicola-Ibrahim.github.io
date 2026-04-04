@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { skills, projects } from '@/content/data';
 import HeroCanvas from './_components/HeroCanvas';
 import AboutCanvas from './_components/AboutCanvas';
-import TiltWrapper from '@/components/ui/TiltWrapper';
-import TypingAnimation from '@/components/ui/TypingAnimation';
+import TiltWrapper from './_components/TiltWrapper';
+import TypingAnimation from './_components/TypingAnimation';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export default function PortfolioPage() {
