@@ -31,11 +31,11 @@ export default function PortfolioPage() {
   return (
     <>
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-      
+
       {/* Background Elements */}
       <div className="fixed inset-0 z-[-1]">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[120px] animate-float"></div>
-        <div 
+        <div
           className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/20 blur-[120px] animate-float"
           style={{ animationDelay: '-3s' }}
         ></div>
@@ -60,7 +60,7 @@ export default function PortfolioPage() {
               <a href="#contact" className="btn-primary text-sm py-2 px-6">LET'S TALK</a>
             </div>
 
-            <button 
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden text-2xl text-white focus:outline-none"
             >
@@ -123,7 +123,7 @@ export default function PortfolioPage() {
               <p className="text-lg text-gray-400 mb-10 leading-relaxed">
                 My goal is to design architectures that not only solve immediate problems but also provide a foundation for long-term growth and innovation. Whether it's optimizing a high-traffic API or implementing a sophisticated ML model, I thrive on tackling challenges that push the boundaries of what's possible.
               </p>
-              
+
               <div className="grid grid-cols-2 gap-8 pt-8 border-t border-white/10">
                 <div>
                   <p className="text-3xl font-black text-primary mb-1">4+</p>
@@ -135,7 +135,7 @@ export default function PortfolioPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="relative" data-aos="fade-left">
               <div className="aspect-square rounded-3xl overflow-hidden relative group">
                 <AboutCanvas />
@@ -191,8 +191,8 @@ export default function PortfolioPage() {
 
           <div className="flex flex-wrap justify-center gap-3 mb-10" data-aos="fade-up" data-aos-delay="100">
             {['backend', 'frontend', 'data-ai', 'devops-cloud', 'database', 'other-skills'].map(filter => (
-              <button 
-                key={filter} 
+              <button
+                key={filter}
                 onClick={() => setActiveFilter(filter)}
                 className={`skill-tab uppercase ${activeFilter === filter ? 'active' : ''}`}
               >
@@ -205,8 +205,8 @@ export default function PortfolioPage() {
             {filteredSkills.map((skill, idx) => (
               <TiltWrapper key={idx}>
                 <div className="skill-card glass-card flex flex-col items-center justify-center text-center group">
-                  <i 
-                    className={`${skill.icon} text-4xl mb-4 group-hover:scale-110 transition-transform duration-300`} 
+                  <i
+                    className={`${skill.icon} text-4xl mb-4 group-hover:scale-110 transition-transform duration-300`}
                     style={{ color: skill.color }}
                   ></i>
                   <h3 className="text-lg font-semibold">{skill.name}</h3>
@@ -269,51 +269,6 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Roadmap Section CTA */}
-      <section id="roadmap-cta" className="py-24 bg-dark relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-indigo-500/50 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-            <div className="relative bg-dark-lighter border border-white/10 rounded-3xl p-10 md:p-16 overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-              
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div data-aos="fade-right">
-                  <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
-                    Learning & Development
-                  </span>
-                  <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                    Technical <span className="text-primary">Study</span> Roadmaps
-                  </h2>
-                  <p className="text-lg text-gray-400 mb-8 leading-relaxed max-w-xl">
-                    I believe in transparency and continuous learning. Explore my personal interactive study guides for AI Agents, Algorithms, DevOps, and Backend Architecture.
-                  </p>
-                  <div className="flex flex-wrap gap-4">
-                    <Link href="/roadmap" className="btn-primary flex items-center gap-2 group">
-                      Explore Academy <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                    </Link>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4" data-aos="fade-left">
-                  {[
-                    { title: "AI & Agents", icon: "fa-robot", count: "12 Skills" },
-                    { title: "Algorithms", icon: "fa-project-diagram", count: "40+ Topics" },
-                    { title: "DevOps", icon: "fa-terminal", count: "7 Modules" },
-                    { title: "Network", icon: "fa-network-wired", count: "OSI Focus" }
-                  ].map((item, i) => (
-                    <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-                      <i className={`fas ${item.icon} text-primary text-xl mb-4`}></i>
-                      <h4 className="text-white font-bold">{item.title}</h4>
-                      <p className="text-gray-500 text-xs mt-1 uppercase tracking-wider">{item.count}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Education Section */}
       <section id="education" className="py-24 relative overflow-hidden">
@@ -377,19 +332,19 @@ export default function PortfolioPage() {
       </section>
 
       <footer className="py-8 border-t border-white/10 bg-dark-lighter">
-         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <p className="text-gradient text-2xl font-semibold">Nicola Ibrahim</p>
-              <p className="text-gray-500 text-sm">Backend engineer building scalable systems.</p>
-            </div>
-            <div className="flex space-x-6">
-              <a href="https://github.com/Nicola-Ibrahim" className="text-gray-400 hover:text-white transition-colors"><i className="fab fa-github text-xl"></i></a>
-              <a href="https://linkedin.com/in/nicola-ibrahim/" className="text-gray-400 hover:text-white transition-colors"><i className="fab fa-linkedin text-xl"></i></a>
-            </div>
-         </div>
-         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center mt-8 pt-8 border-t border-white/10">
-            <p className="text-gray-500">&copy; {new Date().getFullYear()} Nicola Ibrahim. All rights reserved.</p>
-         </div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-gradient text-2xl font-semibold">Nicola Ibrahim</p>
+            <p className="text-gray-500 text-sm">Backend engineer building scalable systems.</p>
+          </div>
+          <div className="flex space-x-6">
+            <a href="https://github.com/Nicola-Ibrahim" className="text-gray-400 hover:text-white transition-colors"><i className="fab fa-github text-xl"></i></a>
+            <a href="https://linkedin.com/in/nicola-ibrahim/" className="text-gray-400 hover:text-white transition-colors"><i className="fab fa-linkedin text-xl"></i></a>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center mt-8 pt-8 border-t border-white/10">
+          <p className="text-gray-500">&copy; {new Date().getFullYear()} Nicola Ibrahim. All rights reserved.</p>
+        </div>
       </footer>
 
     </>
