@@ -4,8 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { RoadmapData } from '../../_lib/mdx';
 import { getIcon } from '../../_lib/icon-registry';
-import { Layout, ChevronRight, Sparkles, ArrowLeft } from 'lucide-react';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { ChevronRight, Sparkles, ArrowLeft, Menu } from 'lucide-react';
 
 interface RoadmapSidebarProps {
   roadmaps: RoadmapData[];
@@ -21,39 +20,39 @@ export function RoadmapSidebar({
   activeCategory,
 }: RoadmapSidebarProps) {
   return (
-    <aside className="w-[260px] hidden lg:block sticky top-10 self-start h-[calc(100vh-80px)] overflow-y-auto pr-6 custom-scrollbar">
-      {/* Sidebar Branding & Navigation */}
-      <div className="mb-12 px-3">
+    <aside className="w-[280px] hidden lg:block sticky top-28 self-start h-[calc(100vh-120px)] overflow-y-auto custom-scrollbar">
+      {/* Sidebar Navigation Context */}
+      <div className="mb-10 px-4">
         <Link 
           href="/" 
           className="group flex items-center gap-3 text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors mb-8"
         >
-          <div className="p-2 bg-slate-100 dark:bg-white/5 rounded-lg group-hover:bg-teal-500/10 transition-colors">
+          <div className="p-2 bg-slate-100 dark:bg-white/5 rounded-lg group-hover:bg-teal-500/10 transition-colors border border-transparent group-hover:border-teal-500/20">
             <ArrowLeft className="w-4 h-4" />
           </div>
-          <span className="text-[10px] font-black uppercase tracking-[0.2em]">Back to Home</span>
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60 group-hover:opacity-100 transition-opacity">Back to Home</span>
         </Link>
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white shadow-lg shadow-teal-500/20">
-              <Layout className="w-5 h-5" />
-            </div>
-            <h1 className="text-base font-bold text-slate-800 dark:text-slate-300 uppercase tracking-tighter">
-              Road<span className="text-teal-600 dark:text-teal-400">map</span>
-            </h1>
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-600">
+            <Menu className="w-4 h-4" />
           </div>
-          <ThemeToggle />
+          <h2 className="text-[12px] font-black text-slate-900 dark:text-slate-200 uppercase tracking-widest">
+            Module <span className="text-teal-600 dark:text-teal-400">Library</span>
+          </h2>
         </div>
+        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest pl-11">
+          {roadmaps.length} Tracks Available
+        </p>
       </div>
 
 
       {/* Roadmap Switcher */}
-      <div className="space-y-1 mb-10">
-        <div className="flex items-center gap-2 mb-4 px-3">
+      <div className="space-y-1 px-3">
+        <div className="flex items-center gap-2 mb-6 px-3">
           <Sparkles className="w-4 h-4 text-teal-500" />
           <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
-            Select Track
+            Select Engineering Track
           </h4>
         </div>
         
@@ -61,16 +60,16 @@ export function RoadmapSidebar({
           <React.Fragment key={tab.id}>
             <Link
               href={`/roadmap/${tab.id}`}
-              className={`w-full flex items-center justify-between group px-3 py-2.5 rounded-lg transition-all duration-200 border ${
+              className={`w-full flex items-center justify-between group px-3 py-3 rounded-xl transition-all duration-300 border ${
                 activeTab === tab.id
-                  ? 'bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10 shadow-sm'
-                  : 'bg-transparent border-transparent text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:border-slate-100 dark:hover:border-white/5'
+                  ? 'bg-slate-50/80 dark:bg-white/5 border-slate-100 dark:border-white/10 shadow-sm'
+                  : 'bg-transparent border-transparent text-slate-500 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:border-slate-100 dark:hover:border-white/5'
               }`}
             >
               <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-lg transition-colors ${
+                <div className={`p-2 rounded-lg transition-all duration-300 ${
                   activeTab === tab.id
-                    ? 'bg-teal-600 text-white shadow-md shadow-teal-500/20'
+                    ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/30 rotate-3'
                     : 'bg-slate-100 dark:bg-white/5 group-hover:bg-slate-200 dark:group-hover:bg-white/10'
                 }`}>
                   <div className="w-4 h-4 flex items-center justify-center">
@@ -78,8 +77,8 @@ export function RoadmapSidebar({
                   </div>
                 </div>
                 <div className="text-left">
-                  <p className={`text-[12px] font-semibold uppercase tracking-wider ${
-                    activeTab === tab.id ? 'text-teal-600 dark:text-slate-300' : 'text-slate-600 dark:text-slate-400'
+                  <p className={`text-[11px] font-black uppercase tracking-widest ${
+                    activeTab === tab.id ? 'text-teal-700 dark:text-slate-200' : 'text-slate-500 dark:text-slate-600'
                   }`}>
                     {tab.title.replace('Syllabus', '').replace('Technical', '').replace('Engineering', '').replace('Architecture', '').trim()}
                   </p>
@@ -92,19 +91,19 @@ export function RoadmapSidebar({
 
             {/* Render Category List if active */}
             {activeTab === tab.id && (
-              <div className="mt-1 mb-4 space-y-0.5 ml-[19px] border-l border-slate-200 dark:border-white/10">
+              <div className="mt-1 mb-6 space-y-0.5 ml-[23px] border-l border-slate-200 dark:border-white/10 overflow-hidden">
                 {tab.categories.map((cat) => (
                   <Link
                     key={cat.id}
                     href={`/roadmap/${tab.id}/${cat.slug}`}
-                    className={`block py-2 pl-6 pr-4 text-[11px] font-medium transition-all relative ${
+                    className={`block py-2.5 pl-6 pr-4 text-[11px] font-black transition-all relative uppercase tracking-tighter ${
                       activeCategory === cat.slug
-                        ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5'
-                        : 'text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
+                        ? 'text-teal-600 dark:text-teal-400 font-black bg-teal-500/5'
+                        : 'text-slate-400 dark:text-slate-600 hover:text-slate-900 dark:hover:text-slate-300'
                     }`}
                   >
                     {activeCategory === cat.slug && (
-                      <div className="absolute left-[-1px] top-0 bottom-0 w-[2px] bg-teal-600 dark:bg-teal-400" />
+                      <div className="absolute left-[-1px] top-0 bottom-0 w-[2px] bg-teal-600 dark:bg-teal-400 animate-in fade-in slide-in-from-top-1 duration-300" />
                     )}
                     <span className="truncate block">
                       {cat.title.split(':')[1]?.trim() || cat.title}
@@ -116,7 +115,6 @@ export function RoadmapSidebar({
           </React.Fragment>
         ))}
       </div>
-
     </aside>
   );
 }

@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import Link from 'next/link';
-import { Terminal, ArrowLeft, Search } from 'lucide-react';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { RoadmapHeader } from './_components/layout/RoadmapHeader';
+import { getFullRoadmapsData } from './_lib/mdx';
 
 export const metadata: Metadata = {
   title: "Technical Roadmaps | Nicola Ibrahim",
   description: "Comprehensive, interactive technical roadmaps for Mastering AI Agents, Backend Architecture, DevOps, and Algorithms.",
 };
 
-export default function RoadmapLayout({
+export default async function RoadmapLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const roadmapsData = await getFullRoadmapsData();
+  const roadmapsArray = Object.values(roadmapsData);
+
   return (
     <div className="min-h-screen bg-white dark:bg-dark text-slate-900 dark:text-slate-200 font-sans selection:bg-teal-500/30 pb-20 transition-colors duration-500">
-      
+      <RoadmapHeader roadmaps={roadmapsArray} />
 
       {/* Main Content Container */}
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-10">
