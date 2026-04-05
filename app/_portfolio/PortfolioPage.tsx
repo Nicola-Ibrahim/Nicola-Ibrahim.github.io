@@ -3,12 +3,47 @@
 import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
 import Link from 'next/link';
-import { skills, projects } from '@/content/data';
-import HeroCanvas from './_components/HeroCanvas';
-import AboutCanvas from './_components/AboutCanvas';
-import TiltWrapper from './_components/TiltWrapper';
-import TypingAnimation from './_components/TypingAnimation';
+import { motion } from 'framer-motion';
+import { skills, projects } from './_content/data';
+import BlackholeCanvas from './_components/BlackholeCanvas';
+import ParticleSphereCanvas from './_components/ParticleSphereCanvas';
+import TypingText from './_components/TypingText';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+
+// Animation Variants
+const FADE_UP = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { type: 'spring', stiffness: 100, damping: 20 }
+} as const;
+
+const FADE_RIGHT = {
+  initial: { opacity: 0, x: -50 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true },
+  transition: { type: 'spring', stiffness: 100, damping: 20 }
+} as const;
+
+const FADE_LEFT = {
+  initial: { opacity: 0, x: 50 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true },
+  transition: { type: 'spring', stiffness: 100, damping: 20 }
+} as const;
+
+const ZOOM_IN = {
+  initial: { opacity: 0, scale: 0.9 },
+  whileInView: { opacity: 1, scale: 1 },
+  viewport: { once: true },
+  transition: { type: 'spring', stiffness: 100, damping: 20 }
+} as const;
+
+const STAGGER_CONTAINER = {
+  initial: {},
+  whileInView: { transition: { staggerChildren: 0.1 } },
+  viewport: { once: true }
+} as const;
 
 export default function PortfolioPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -83,23 +118,23 @@ export default function PortfolioPage() {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <HeroCanvas />
+        <BlackholeCanvas />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
-          <div data-aos="fade-up" data-aos-duration="1000">
+          <motion.div {...FADE_UP} transition={{ ...FADE_UP.transition, duration: 1 }}>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-tight">
               Hi, I'm <br />
               <span className="text-gradient">Nicola Ibrahim</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 font-light">
-              A <TypingAnimation text="Backend & AI Engineer" /> crafting robust systems and intelligent solutions.
+              A <TypingText text="Backend & AI Engineer" /> crafting robust systems and intelligent solutions.
             </p>
             <div className="flex items-center justify-center">
               <a href="#projects" className="btn-primary group">
                 View Work <i className="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
@@ -113,7 +148,7 @@ export default function PortfolioPage() {
       <section id="about" className="py-24 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div data-aos="fade-right">
+            <motion.div {...FADE_RIGHT}>
               <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
                 About Me
               </span>
@@ -137,14 +172,14 @@ export default function PortfolioPage() {
                   <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Computer Eng.</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="relative" data-aos="fade-left">
+            <motion.div className="relative" {...FADE_LEFT}>
               <div className="aspect-square rounded-3xl overflow-hidden relative group">
-                <AboutCanvas />
+                <ParticleSphereCanvas />
               </div>
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/5 rounded-full blur-2xl animate-float"></div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -152,7 +187,7 @@ export default function PortfolioPage() {
       {/* Services Section */}
       <section id="services" className="py-24 bg-grid-dark relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
-          <div data-aos="fade-up" className="mb-16">
+          <motion.div {...FADE_UP} className="mb-16">
             <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
               What I Do
             </span>
@@ -162,37 +197,43 @@ export default function PortfolioPage() {
             <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
               From initial concept to production-ready systems — I build fast, beautiful, and scalable digital products tailored to complex requirements.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            variants={STAGGER_CONTAINER}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
+          >
             {[
               { title: "Backend Engineering", icon: "fa-server", color: "primary", text: "Designing high-performance, scalable server architectures and robust REST APIs." },
               { title: "AI & Machine Learning", icon: "fa-brain", color: "secondary", text: "Integrating intelligent features and training custom models to solve complex data problems." },
               { title: "Software Architecture", icon: "fa-cubes", color: "accent", text: "Applying Domain-Driven Design (DDD) to create modular, maintainable systems." }
             ].map((service, idx) => (
-              <TiltWrapper key={idx} className="h-full">
-                <div className="glass-card flex flex-col items-center p-10 text-center group h-full" data-aos="fade-up" data-aos-delay={100 * (idx + 1)}>
+              <motion.div key={idx} className="h-full" variants={FADE_UP}>
+                <div className="glass-card flex flex-col items-center p-10 text-center group h-full">
                   <div className={`w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-${service.color}/50 transition-colors`}>
                     <i className={`fas ${service.icon} text-3xl text-${service.color}`}></i>
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
                   <p className="text-gray-400 leading-relaxed">{service.text}</p>
                 </div>
-              </TiltWrapper>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Tools Section */}
       <section id="tools" className="py-24 bg-grid-dark relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16" data-aos="fade-up">
+          <motion.div className="text-center mb-16" {...FADE_UP}>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">Technical Toolbox</h2>
             <p className="text-gray-400 max-w-xl mx-auto">The technologies I use to bring ideas to life.</p>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-wrap justify-center gap-3 mb-10" data-aos="fade-up" data-aos-delay="100">
+          <motion.div className="flex flex-wrap justify-center gap-3 mb-10" {...FADE_UP} transition={{ delay: 0.1 }}>
             {['backend', 'frontend', 'data-ai', 'devops-cloud', 'database', 'other-skills'].map(filter => (
               <button
                 key={filter}
@@ -202,11 +243,18 @@ export default function PortfolioPage() {
                 {filter.replace('-', ' & ')}
               </button>
             ))}
-          </div>
+          </motion.div>
 
-          <div id="skills-grid" className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" data-aos="fade-up" data-aos-delay="200">
+          <motion.div 
+            id="skills-grid" 
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+            variants={STAGGER_CONTAINER}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
+          >
             {filteredSkills.map((skill, idx) => (
-              <TiltWrapper key={idx}>
+              <motion.div key={idx} variants={FADE_UP}>
                 <div className="skill-card glass-card flex flex-col items-center justify-center text-center group">
                   <i
                     className={`${skill.icon} text-4xl mb-4 transition-transform duration-300`}
@@ -214,23 +262,23 @@ export default function PortfolioPage() {
                   ></i>
                   <h3 className="text-lg font-semibold">{skill.name}</h3>
                 </div>
-              </TiltWrapper>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Projects Section */}
       <section id="projects" className="py-24 bg-dark-lighter relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col items-center text-center mb-16" data-aos="fade-up">
+          <motion.div className="flex flex-col items-center text-center mb-16" {...FADE_UP}>
             <h2 className="text-3xl md:text-5xl font-bold mb-4">Featured Projects</h2>
             <p className="text-gray-400 max-w-xl">A selection of Projects that reflect how I build and think.</p>
-          </div>
+          </motion.div>
 
           <div className="space-y-32">
             {projects.map((project, idx) => (
-              <div key={idx} className="relative group" data-aos="fade-up">
+              <motion.div key={idx} className="relative group" {...FADE_UP}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                   <div className={`order-2 ${idx % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} relative`}>
                     <div className={`absolute -inset-4 bg-${project.highlightColor}/5 blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-700`}></div>
@@ -266,7 +314,7 @@ export default function PortfolioPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -277,7 +325,7 @@ export default function PortfolioPage() {
       <section id="education" className="py-24 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div data-aos="fade-right">
+            <motion.div {...FADE_RIGHT}>
               <h2 className="text-3xl font-bold mb-8 flex items-center">
                 <i className="fas fa-graduation-cap text-primary mr-4"></i> Education
               </h2>
@@ -292,13 +340,13 @@ export default function PortfolioPage() {
                   </p>
                 </div>
               </div>
-            </div>
-            <div data-aos="fade-left">
+            </motion.div>
+            <motion.div {...FADE_LEFT}>
               <h2 className="text-3xl font-bold mb-8 flex items-center">
                 <i className="fas fa-quote-left text-secondary mr-4"></i> Testimonials
               </h2>
-              <TiltWrapper>
-                <div className="glass-card relative">
+              <div>
+                <motion.div className="glass-card relative" {...ZOOM_IN}>
                   <i className="fas fa-quote-right absolute top-6 right-6 text-4xl text-white/5"></i>
                   <p className="text-lg text-gray-300 italic mb-6 leading-relaxed">
                     "Nicola is a brilliant engineer who quickly grasped our complex requirements and delivered a scalable solution."
@@ -310,9 +358,9 @@ export default function PortfolioPage() {
                       <p className="text-sm text-gray-500">CEO at Choyze Company</p>
                     </div>
                   </div>
-                </div>
-              </TiltWrapper>
-            </div>
+                </motion.div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -320,7 +368,7 @@ export default function PortfolioPage() {
       {/* Contact Section */}
       <section id="contact" className="py-24 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center" data-aos="zoom-in">
+        <motion.div className="max-w-4xl mx-auto px-6 lg:px-8 text-center" {...ZOOM_IN}>
           <h2 className="text-4xl md:text-6xl font-bold mb-6">Ready to Launch?</h2>
           <p className="text-xl text-gray-400 mb-10">Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -331,7 +379,7 @@ export default function PortfolioPage() {
               <i className="fab fa-linkedin mr-2"></i> LinkedIn
             </a>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <footer className="py-8 border-t border-white/10 bg-dark-lighter">

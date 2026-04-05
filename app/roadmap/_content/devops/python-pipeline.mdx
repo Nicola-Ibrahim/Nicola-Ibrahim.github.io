@@ -1,0 +1,57 @@
+---
+title: "Python CI/CD Pipelines"
+icon: "code"
+iconColor: "text-green-500"
+topics:
+  - id: "setup-python-action"
+    title: "1. Marketplace Actions: setup-python"
+    shortDesc: "The fastest way to install Python environments."
+  - id: "linters-formatters"
+    title: "2. Running Linters & Formatters"
+    shortDesc: "Enforcing code quality with Ruff and Black."
+  - id: "build-push-docker"
+    title: "3. Building & Pushing Docker Images"
+    shortDesc: "Packaging your Python app into a portable artifact."
+---
+
+<Topic 
+  id="setup-python-action" 
+  title="1. Marketplace Actions: setup-python" 
+  shortDesc="The fastest way to install Python environments."
+>
+Setting up programming languages manually using bash scripts (`apt-get install python3`) is slow and prone to breaking when OS mirrors go down.
+
+**The Marketplace Advantage**
+
+- **`actions/setup-python`:** This official action instantly provisions exact Python versions (e.g., `3.11.2`) using pre-compiled binaries cached by GitHub.
+- **Matrix Testing:** You can easily pass a list of versions to test your code against multiple Python environments simultaneously.
+- **Dependency Caching:** It has built-in support for `pip`, `pipenv`, and `poetry`. With one flag, it automatically caches your downloaded packages to drastically speed up future pipeline runs.
+</Topic>
+
+<Topic 
+  id="linters-formatters" 
+  title="2. Running Linters & Formatters" 
+  shortDesc="Enforcing code quality with Ruff and Black."
+>
+Running unit tests is computationally expensive. You don't want to waste 5 minutes running tests just to find out a developer forgot a trailing comma or left an unused import.
+
+**The Shift-Left Philosophy**
+
+- **Fail Fast:** Place code formatting (Black) and linting (Ruff/Flake8) as the very first steps in your CI pipeline.
+- **Enforcing Standards:** If `black --check .` detects poorly formatted code, the pipeline crashes instantly. This removes subjective arguments in Code Reviews—the CI pipeline becomes the bad guy.
+- **Speed:** Tools like Ruff are written in Rust and can lint thousands of lines of Python in milliseconds.
+</Topic>
+
+<Topic 
+  id="build-push-docker" 
+  title="3. Building & Pushing Docker Images" 
+  shortDesc="Packaging your Python app into a portable artifact."
+>
+Once the code is tested and linted, it needs to be packaged into an immutable artifact that can be deployed anywhere.
+
+**The Build and Push Workflow**
+
+- **Compilation:** The pipeline executes `docker build` to package your Python code, system dependencies, and runtime into a single container.
+- **Dynamic Tagging:** Never use the `latest` tag in CI. Instead, use the `github.sha` (the unique Git commit hash) as the image tag. If commit `a1b2c3d` is deployed, you know exactly what code is running in production.
+- **Registry:** The `docker/build-push-action` securely logs in and pushes the resulting image to the GitHub Container Registry (GHCR) or Docker Hub, making it ready for deployment.
+</Topic>

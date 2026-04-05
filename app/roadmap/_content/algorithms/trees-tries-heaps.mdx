@@ -1,0 +1,96 @@
+---
+title: "Trees, Tries & Heaps"
+icon: "tree"
+iconColor: "text-emerald-600"
+topics:
+  - id: "binary-trees-bst"
+    title: "1. Binary Trees & BSTs"
+    shortDesc: "Unlocking the power of Recursion and Depth-First Search (DFS)."
+    links:
+      - label: "Invert Binary Tree"
+        url: "https://leetcode.com/problems/invert-binary-tree/"
+      - label: "Maximum Depth"
+        url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+      - label: "Same Tree"
+        url: "https://leetcode.com/problems/same-tree/"
+      - label: "Lowest Common Ancestor"
+        url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
+      - label: "Binary Tree Level Order Traversal (BFS)"
+        url: "https://leetcode.com/problems/binary-tree-level-order-traversal/"
+  - id: "heaps-priority-queues"
+    title: "2. Heaps & Priority Queues"
+    shortDesc: "Maintaining running minimums and maximums in O(1) time."
+    links:
+      - label: "Kth Largest Element in a Stream"
+        url: "https://leetcode.com/problems/kth-largest-element-in-a-stream/"
+      - label: "Last Stone Weight"
+        url: "https://leetcode.com/problems/last-stone-weight/"
+      - label: "Task Scheduler"
+        url: "https://leetcode.com/problems/task-scheduler/"
+      - label: "Find Median from Data Stream"
+        url: "https://leetcode.com/problems/find-median-from-data-stream/"
+  - id: "tries"
+    title: "3. Tries (Prefix Trees)"
+    shortDesc: "Tree-like structures for hyper-efficient string matching."
+    links:
+      - label: "Implement Trie (Prefix Tree)"
+        url: "https://leetcode.com/problems/implement-trie-prefix-tree/"
+      - label: "Design Add and Search Words"
+        url: "https://leetcode.com/problems/design-add-and-search-words-data-structure/"
+      - label: "Word Search II"
+        url: "https://leetcode.com/problems/word-search-ii/"
+---
+
+<Topic 
+  id="binary-trees-bst" 
+  title="1. Binary Trees & BSTs" 
+  shortDesc="Unlocking the power of Recursion and Depth-First Search (DFS)."
+  links={[
+    { label: "Invert Binary Tree", url: "https://leetcode.com/problems/invert-binary-tree/" },
+    { label: "Maximum Depth", url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/" },
+    { label: "Same Tree", url: "https://leetcode.com/problems/same-tree/" },
+    { label: "Lowest Common Ancestor", url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" },
+    { label: "Binary Tree Level Order Traversal (BFS)", url: "https://leetcode.com/problems/binary-tree-level-order-traversal/" }
+  ]}
+>
+Trees are inherently recursive data structures. Binary Search Trees (BST) add the property that left children are smaller, right are larger.
+
+- **DFS Traversals:** Master Pre-order, In-order, and Post-order recursive visits.
+- **The Call Stack:** Understand how data flows UP the recursive stack (return values) and DOWN (parameters).
+- **BFS Level Order:** Using a Queue to process a tree layer by layer.
+</Topic>
+
+<Topic 
+  id="heaps-priority-queues" 
+  title="2. Heaps & Priority Queues" 
+  shortDesc="Maintaining running minimums and maximums in O(1) time."
+  links={[
+    { label: "Kth Largest Element in a Stream", url: "https://leetcode.com/problems/kth-largest-element-in-a-stream/" },
+    { label: "Last Stone Weight", url: "https://leetcode.com/problems/last-stone-weight/" },
+    { label: "Task Scheduler", url: "https://leetcode.com/problems/task-scheduler/" },
+    { label: "Find Median from Data Stream", url: "https://leetcode.com/problems/find-median-from-data-stream/" }
+  ]}
+>
+Heaps are complete binary trees that satisfy the heap property, used to quickly fetch the largest or smallest element.
+
+- **O(1) Min/Max Access:** Instantly retrieve the highest priority element.
+- **Top K Problems:** The most efficient way to find the Kth largest element in a stream.
+- **Running Medians:** Using a Max-Heap and Min-Heap together to track medians dynamically.
+</Topic>
+
+<Topic 
+  id="tries" 
+  title="3. Tries (Prefix Trees)" 
+  shortDesc="Tree-like structures for hyper-efficient string matching."
+  links={[
+    { label: "Implement Trie (Prefix Tree)", url: "https://leetcode.com/problems/implement-trie-prefix-tree/" },
+    { label: "Design Add and Search Words", url: "https://leetcode.com/problems/design-add-and-search-words-data-structure/" },
+    { label: "Word Search II", url: "https://leetcode.com/problems/word-search-ii/" }
+  ]}
+>
+Tries store characters in nodes, making them incredibly fast for word validation and prefix searches.
+
+- **O(L) Time Complexity:** Searches take time proportional to the length of the word (L), not the number of words.
+- **Autocomplete Systems:** The foundational data structure behind search bar suggestions.
+- **Efficient Storage:** Shares common prefixes to save memory compared to Hash Sets.
+</Topic>
