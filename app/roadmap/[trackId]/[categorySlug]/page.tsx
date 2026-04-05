@@ -90,7 +90,7 @@ export default async function ModulePage({ params }: { params: { trackId: string
               <div className="p-3 bg-slate-50 dark:bg-white/5 rounded-2xl text-teal-600 dark:text-teal-400">
                 {getIcon(categoryMeta.icon)}
               </div>
-              <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-300 uppercase tracking-tight leading-tight">
+              <h1 className="text-2xl md:text-3xl font-semibold text-slate-800 dark:text-slate-100 tracking-wide leading-tight">
                 {categoryMeta.title}
               </h1>
             </div>

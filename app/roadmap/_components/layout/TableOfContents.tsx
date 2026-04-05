@@ -51,7 +51,7 @@ export function TableOfContents({
     <aside className="w-64 hidden xl:block sticky top-10 self-start h-[calc(100vh-80px)] overflow-y-auto pl-6 border-l border-slate-200 dark:border-white/5 custom-scrollbar">
       <div className="flex items-center gap-2 mb-6 px-1">
         <List className="w-4 h-4 text-teal-500" />
-        <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
           On This Page
         </h4>
       </div>
@@ -75,7 +75,7 @@ export function TableOfContents({
             }`}
           >
             <span className={`text-[13px] leading-tight font-medium pl-2 ${
-              activeId === item.id ? 'font-black' : ''
+              activeId === item.id ? 'text-slate-900 dark:text-slate-200 font-bold' : ''
             }`}>
               {item.title.includes(':') ? item.title.split(':')[1]?.trim() : item.title}
             </span>
@@ -85,10 +85,10 @@ export function TableOfContents({
 
       {/* Quick Actions / Tips */}
       <div className="mt-12 p-6 rounded-3xl bg-teal-500/[0.03] dark:bg-white/[0.02] border border-teal-500/10 dark:border-white/5 shadow-inner">
-        <p className="text-[11px] font-black text-teal-600 dark:text-teal-400 mb-2 uppercase tracking-widest flex items-center gap-2">
+        <p className="text-[11px] font-bold text-teal-600 dark:text-teal-400 mb-2 uppercase tracking-widest flex items-center gap-2">
           <Sparkles className="w-3 h-3" /> Pro Tip
         </p>
-        <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed font-bold">
+        <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed font-semibold">
           Use the <span className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-white/10 dark:text-white font-mono text-[10px]">⌘ K</span> shortcut to search all modules.
         </p>
       </div>

@@ -40,17 +40,17 @@ export const ModuleContent = ({
     >
       {/* Content Header */}
       <div className="flex flex-col gap-2 mb-6">
-        <h3 className="text-xl font-bold text-slate-800 dark:text-slate-300 uppercase tracking-tight group-hover/content:text-teal-600 dark:group-hover/content:text-teal-400 transition-colors">
+        <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200 tracking-normal group-hover/content:text-teal-600 dark:group-hover/content:text-teal-400 transition-colors">
           {content.title}
         </h3>
-        <p className="text-base font-medium text-slate-600 dark:text-slate-400 leading-relaxed max-w-4xl">
+        <p className="text-[15px] font-medium text-slate-600 dark:text-slate-400 leading-relaxed max-w-5xl">
           {content.shortDesc}
         </p>
       </div>
 
       {/* Main Content Body (MDX Rendering) */}
-      <div className="flex flex-col gap-6 max-w-4xl">
-        <div className="prose prose-lg dark:prose-invert prose-headings:uppercase prose-headings:tracking-widest prose-headings:font-black prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed prose-a:text-teal-600 dark:prose-a:text-teal-400 prose-a:no-underline hover:prose-a:underline prose-code:text-teal-600 dark:prose-code:text-teal-400 prose-code:bg-teal-500/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none border-b border-slate-200 dark:border-white/5 pb-10 mb-10">
+      <div className="flex flex-col gap-6 max-w-5xl">
+        <div className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-normal prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed prose-a:text-teal-600 dark:prose-a:text-teal-400 prose-a:no-underline hover:prose-a:underline prose-code:text-teal-600 dark:prose-code:text-teal-400 prose-code:bg-teal-500/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none border-b border-slate-200 dark:border-white/5 pb-10 mb-10">
           {mounted ? (
             <MDXRemote {...mdxSource} components={mdxComponents} />
           ) : (

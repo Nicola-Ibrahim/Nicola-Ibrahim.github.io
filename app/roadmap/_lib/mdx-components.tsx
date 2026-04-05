@@ -14,12 +14,12 @@ import { Topic } from '@/app/roadmap/_components/layout/Topic';
 export const mdxComponents = {
   // Layout components
   Topic,
-  h1: (props: any) => <h1 className="text-3xl font-black uppercase tracking-tight mb-6" {...props} />,
-  h2: (props: any) => <h2 className="text-2xl font-black uppercase tracking-widest mb-4 mt-8" {...props} />,
-  h3: (props: any) => <h3 className="text-xl font-bold uppercase tracking-wider mb-3 mt-6" {...props} />,
-  p: (props: any) => <p className="text-lg leading-relaxed mb-4 text-slate-700 dark:text-slate-400" {...props} />,
+  h1: (props: any) => <h1 className="text-3xl font-bold uppercase tracking-tight mb-6" {...props} />,
+  h2: (props: any) => <h2 className="text-2xl font-bold uppercase tracking-widest mb-4 mt-8" {...props} />,
+  h3: (props: any) => <h3 className="text-xl font-semibold tracking-wider mb-3 mt-6 text-slate-800 dark:text-slate-200" {...props} />,
+  p: (props: any) => <p className="text-base leading-relaxed mb-4 text-slate-700 dark:text-slate-400" {...props} />,
   ul: (props: any) => <ul className="list-disc pl-6 mb-6 space-y-2" {...props} />,
-  li: (props: any) => <li className="text-lg text-slate-700 dark:text-slate-400" {...props} />,
+  li: (props: any) => <li className="text-base text-slate-700 dark:text-slate-400" {...props} />,
   strong: (props: any) => <strong className="font-bold text-slate-900 dark:text-slate-200" {...props} />,
   
   // Custom Roadmap Widgets
