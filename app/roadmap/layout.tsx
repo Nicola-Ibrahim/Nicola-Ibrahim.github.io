@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { RoadmapHeader } from './_components/layout/RoadmapHeader';
+import { Header } from './_components/layout/Header';
 import { getFullRoadmapsData } from './_lib/mdx';
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default async function RoadmapLayout({
 
   return (
     <div className="min-h-screen bg-white dark:bg-dark text-slate-900 dark:text-slate-200 font-sans selection:bg-teal-500/30 pb-20 transition-colors duration-500">
-      <RoadmapHeader roadmaps={roadmapsArray} />
+      <Header roadmaps={roadmapsArray} />
 
       {/* Main Content Container */}
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-10">

@@ -3,11 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
 import Link from 'next/link';
-import { skills, projects } from '@/content/data';
-import HeroCanvas from './_components/HeroCanvas';
-import AboutCanvas from './_components/AboutCanvas';
-import TiltWrapper from './_components/TiltWrapper';
-import TypingAnimation from './_components/TypingAnimation';
+import { skills, projects } from './_content/data';
+import BlackholeCanvas from './_components/BlackholeCanvas';
+import ParticleSphereCanvas from './_components/ParticleSphereCanvas';
+import TypingText from './_components/TypingText';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export default function PortfolioPage() {
@@ -83,7 +82,7 @@ export default function PortfolioPage() {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <HeroCanvas />
+        <BlackholeCanvas />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
           <div data-aos="fade-up" data-aos-duration="1000">
@@ -92,7 +91,7 @@ export default function PortfolioPage() {
               <span className="text-gradient">Nicola Ibrahim</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 font-light">
-              A <TypingAnimation text="Backend & AI Engineer" /> crafting robust systems and intelligent solutions.
+              A <TypingText text="Backend & AI Engineer" /> crafting robust systems and intelligent solutions.
             </p>
             <div className="flex items-center justify-center">
               <a href="#projects" className="btn-primary group">
@@ -141,7 +140,7 @@ export default function PortfolioPage() {
 
             <div className="relative" data-aos="fade-left">
               <div className="aspect-square rounded-3xl overflow-hidden relative group">
-                <AboutCanvas />
+                <ParticleSphereCanvas />
               </div>
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/5 rounded-full blur-2xl animate-float"></div>
             </div>
@@ -170,7 +169,7 @@ export default function PortfolioPage() {
               { title: "AI & Machine Learning", icon: "fa-brain", color: "secondary", text: "Integrating intelligent features and training custom models to solve complex data problems." },
               { title: "Software Architecture", icon: "fa-cubes", color: "accent", text: "Applying Domain-Driven Design (DDD) to create modular, maintainable systems." }
             ].map((service, idx) => (
-              <TiltWrapper key={idx} className="h-full">
+              <div key={idx} className="h-full">
                 <div className="glass-card flex flex-col items-center p-10 text-center group h-full" data-aos="fade-up" data-aos-delay={100 * (idx + 1)}>
                   <div className={`w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-${service.color}/50 transition-colors`}>
                     <i className={`fas ${service.icon} text-3xl text-${service.color}`}></i>
@@ -178,7 +177,7 @@ export default function PortfolioPage() {
                   <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
                   <p className="text-gray-400 leading-relaxed">{service.text}</p>
                 </div>
-              </TiltWrapper>
+              </div>
             ))}
           </div>
         </div>
@@ -206,7 +205,7 @@ export default function PortfolioPage() {
 
           <div id="skills-grid" className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" data-aos="fade-up" data-aos-delay="200">
             {filteredSkills.map((skill, idx) => (
-              <TiltWrapper key={idx}>
+              <div key={idx}>
                 <div className="skill-card glass-card flex flex-col items-center justify-center text-center group">
                   <i
                     className={`${skill.icon} text-4xl mb-4 transition-transform duration-300`}
@@ -214,7 +213,7 @@ export default function PortfolioPage() {
                   ></i>
                   <h3 className="text-lg font-semibold">{skill.name}</h3>
                 </div>
-              </TiltWrapper>
+              </div>
             ))}
           </div>
         </div>
@@ -297,7 +296,7 @@ export default function PortfolioPage() {
               <h2 className="text-3xl font-bold mb-8 flex items-center">
                 <i className="fas fa-quote-left text-secondary mr-4"></i> Testimonials
               </h2>
-              <TiltWrapper>
+              <div>
                 <div className="glass-card relative">
                   <i className="fas fa-quote-right absolute top-6 right-6 text-4xl text-white/5"></i>
                   <p className="text-lg text-gray-300 italic mb-6 leading-relaxed">
@@ -311,7 +310,7 @@ export default function PortfolioPage() {
                     </div>
                   </div>
                 </div>
-              </TiltWrapper>
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const AboutCanvas: React.FC = () => {
+const ParticleSphereCanvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -147,4 +147,4 @@ const AboutCanvas: React.FC = () => {
   );
 };
 
-export default AboutCanvas;
+export default ParticleSphereCanvas;

@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 
-interface TypingAnimationProps {
+interface TypingTextProps {
   text: string;
   typingSpeed?: number;
   startDelay?: number;
 }
 
-export default function TypingAnimation({ text, typingSpeed = 50, startDelay = 500 }: TypingAnimationProps) {
+export default function TypingText({ text, typingSpeed = 50, startDelay = 500 }: TypingTextProps) {
   const [displayedText, setDisplayedText] = useState('');
   const [complete, setComplete] = useState(false);
 
@@ -35,9 +35,9 @@ export default function TypingAnimation({ text, typingSpeed = 50, startDelay = 5
   }, [text, typingSpeed, startDelay]);
 
   return (
-    <span className={`typing-animation text-primary ${complete ? 'cursor-blink' : ''}`}>
+    <span className={`typing-text text-primary ${complete ? 'cursor-blink' : ''}`}>
       {displayedText}
-      <span className="typing-cursor border-r-2 border-primary ml-1 animate-pulse"></span>
+      <span className="typing-cursor border-r-2 border-primary ml-1 animate-pulse" />
       <style jsx>{`
         @keyframes blink {
           0%, 100% { opacity: 1; }

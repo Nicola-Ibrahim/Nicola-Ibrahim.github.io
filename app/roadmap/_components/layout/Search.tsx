@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, ChevronRight, Hash, Folder, Layout, Command } from 'lucide-react';
+import { Search as SearchIcon, X, ChevronRight, Hash, Folder, Layout, Command } from 'lucide-react';
 import Link from 'next/link';
 import { RoadmapData } from '../../_lib/mdx';
 
@@ -14,11 +14,11 @@ interface SearchResult {
   trackId: string;
 }
 
-interface RoadmapSearchProps {
+interface SearchProps {
   roadmaps: RoadmapData[];
 }
 
-export function RoadmapSearch({ roadmaps }: RoadmapSearchProps) {
+export function Search({ roadmaps }: SearchProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -120,7 +120,7 @@ export function RoadmapSearch({ roadmaps }: RoadmapSearchProps) {
       >
         <div className="relative cursor-text">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <Search className="h-4 w-4 text-slate-400 group-hover/trigger:text-teal-600 transition-colors" />
+            <SearchIcon className="h-4 w-4 text-slate-400 group-hover/trigger:text-teal-600 transition-colors" />
           </div>
           <div className="w-full pl-12 pr-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl text-sm font-medium text-slate-400 dark:text-slate-500 transition-all group-hover/trigger:border-teal-500/50 flex items-center justify-between">
             <span>Search topics, categories...</span>
@@ -147,7 +147,7 @@ export function RoadmapSearch({ roadmaps }: RoadmapSearchProps) {
           >
             {/* Search Input */}
             <div className="flex items-center px-6 py-5 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-black/20">
-              <Search className="h-5 w-5 text-teal-600 dark:text-teal-400 mr-4" />
+              <SearchIcon className="h-5 w-5 text-teal-600 dark:text-teal-400 mr-4" />
               <input
                 ref={inputRef}
                 type="text"
@@ -212,7 +212,7 @@ export function RoadmapSearch({ roadmaps }: RoadmapSearchProps) {
               ) : query.trim() ? (
                 <div className="py-20 text-center">
                   <div className="inline-flex p-4 rounded-full bg-slate-50 dark:bg-white/5 mb-4">
-                    <Search className="w-8 h-8 text-slate-300" />
+                    <SearchIcon className="w-8 h-8 text-slate-300" />
                   </div>
                   <h3 className="text-base font-black text-slate-900 dark:text-slate-200 uppercase tracking-tight">No results found</h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">Try searching for concepts like "Async", "Docker", or "Auth"</p>

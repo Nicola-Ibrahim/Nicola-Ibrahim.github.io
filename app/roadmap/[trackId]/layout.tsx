@@ -1,6 +1,6 @@
 import React from 'react';
 import { getFullRoadmapsData } from '../_lib/mdx';
-import { RoadmapSidebar } from '../_components/layout/RoadmapSidebar';
+import { Sidebar } from '../_components/layout/Sidebar';
 
 export default async function TrackLayout({
   children,
@@ -17,7 +17,7 @@ export default async function TrackLayout({
   return (
     <div className="flex gap-8 xl:gap-12">
       {/* 1. LEFT SIDEBAR (Track Selector) */}
-      <RoadmapSidebar 
+      <Sidebar 
         roadmaps={roadmaps as any}
       />
 

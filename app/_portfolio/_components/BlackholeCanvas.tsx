@@ -1,15 +1,16 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import * as THREE_LIB from 'three';
 
-const HeroCanvas: React.FC = () => {
+const BlackholeCanvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
+    const THREE = THREE_LIB;
     
     // Scene setup
     const scene = new THREE.Scene();
@@ -195,7 +196,7 @@ const HeroCanvas: React.FC = () => {
       }
       // Dispose materials/geometries
       singularity.geometry.dispose();
-      (singularity.material as THREE.Material).dispose();
+      (singularity.material as THREE_LIB.Material).dispose();
       diskGeometry.dispose();
       diskMaterial.dispose();
       einsteinRingGeometry.dispose();
@@ -215,4 +216,4 @@ const HeroCanvas: React.FC = () => {
   );
 };
 
-export default HeroCanvas;
+export default BlackholeCanvas;

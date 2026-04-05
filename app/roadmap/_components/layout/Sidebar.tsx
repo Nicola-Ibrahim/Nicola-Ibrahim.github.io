@@ -7,19 +7,20 @@ import { getIcon } from '../../_lib/icon-registry';
 import { ChevronRight, Sparkles, ArrowLeft, Menu } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
-interface RoadmapSidebarProps {
+interface SidebarProps {
   roadmaps: RoadmapData[];
 }
 
-export function RoadmapSidebar({ 
+export function Sidebar({ 
   roadmaps, 
-}: RoadmapSidebarProps) {
+}: SidebarProps) {
   const pathname = usePathname();
   
   // Detect active track and category from the URL
   const segments = pathname.split('/').filter(Boolean);
   const activeTab = segments[1]; // /roadmap/[trackId]
   const activeCategory = segments[2]; // /roadmap/[trackId]/[categorySlug]
+  
   return (
     <aside className="w-[280px] hidden lg:block sticky top-28 self-start h-[calc(100vh-120px)] overflow-y-auto custom-scrollbar">
       {/* Sidebar Navigation Context */}
