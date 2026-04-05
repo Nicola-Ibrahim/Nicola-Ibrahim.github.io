@@ -1,65 +1,70 @@
 export const skills = [
-  { name: "Python", icon: "devicon-python-plain colored", color: "#3776ab", category: "backend" },
-  { name: "JavaScript", icon: "devicon-javascript-plain colored", color: "#f7df1e", category: "frontend" },
-  { name: "HTML", icon: "devicon-html5-plain colored", color: "#e34f26", category: "frontend" },
-  { name: "CSS", icon: "devicon-css3-plain colored", color: "#1572b6", category: "frontend" },
-  { name: "Django", icon: "devicon-django-plain colored", color: "#092e20", category: "backend" },
-  { name: "FastAPI", icon: "devicon-fastapi-plain colored", color: "#05998b", category: "backend" },
-  { name: "RESTful APIs", icon: "fas fa-code", color: "#4ade80", category: "backend" },
-  { name: "AlpineJS", icon: "devicon-alpinejs-plain colored", color: "#8bc0d0", category: "frontend" },
-  { name: "Tailwind CSS", icon: "devicon-tailwindcss-plain colored", color: "#06b6d4", category: "frontend" },
-  { name: "Next.js", icon: "devicon-nextjs-plain colored", color: "#ffffff", category: "frontend" },
-  { name: "PyTorch", icon: "devicon-pytorch-plain colored", color: "#ee4c2c", category: "data-ai" },
-  { name: "Pandas", icon: "devicon-pandas-plain colored", color: "#150458", category: "data-ai" },
-  { name: "NumPy", icon: "devicon-numpy-plain colored", color: "#013243", category: "data-ai" },
-  { name: "Plotly", icon: "devicon-plotly-plain colored", color: "#3f4f75", category: "data-ai" },
+  // DevOps & Cloud
   { name: "AWS", icon: "devicon-amazonwebservices-plain colored", color: "#ff9900", category: "devops-cloud" },
   { name: "Azure", icon: "devicon-azure-plain colored", color: "#0078d4", category: "devops-cloud" },
   { name: "Docker & Compose", icon: "devicon-docker-plain colored", color: "#2496ed", category: "devops-cloud" },
-  { name: "Git", icon: "devicon-git-plain colored", color: "#f05032", category: "devops-cloud" },
   { name: "CI/CD", icon: "fas fa-arrows-rotate", color: "#2dd4bf", category: "devops-cloud" },
-  { name: "GitHub", icon: "devicon-github-original colored", color: "#ffffff", category: "devops-cloud" },
-  { name: "GitLab", icon: "devicon-gitlab-plain colored", color: "#e24329", category: "devops-cloud" },
+  { name: "GitHub Actions", icon: "devicon-github-original colored", color: "#ffffff", category: "devops-cloud" },
+  { name: "GitLab CI", icon: "devicon-gitlab-plain colored", color: "#e24329", category: "devops-cloud" },
+  { name: "Git", icon: "devicon-git-plain colored", color: "#f05032", category: "devops-cloud" },
+
+  // Backend
+  { name: "Python", icon: "devicon-python-plain colored", color: "#3776ab", category: "backend" },
+  { name: "Django", icon: "devicon-django-plain colored", color: "#092e20", category: "backend" },
+  { name: "FastAPI", icon: "devicon-fastapi-plain colored", color: "#05998b", category: "backend" },
+  { name: "RESTful APIs", icon: "fas fa-code", color: "#4ade80", category: "backend" },
+  { name: "Distributed Systems", icon: "fas fa-network-wired", color: "#009688", category: "backend" },
+
+  // Database
   { name: "PostgreSQL", icon: "devicon-postgresql-plain colored", color: "#336791", category: "database" },
   { name: "SQL", icon: "devicon-mysql-plain colored", color: "#f29111", category: "database" },
   { name: "Redis", icon: "devicon-redis-plain colored", color: "#dc382d", category: "database" },
   { name: "ORM", icon: "fas fa-cubes", color: "#009688", category: "database" },
-  { name: "Agile", icon: "fas fa-people-group", color: "#4ade80", category: "other-skills" },
-  { name: "Scrum & Kanban", icon: "fas fa-clipboard-check", color: "#5eead4", category: "other-skills" },
-  { name: "Jira", icon: "devicon-jira-plain colored", color: "#0052cc", category: "other-skills" },
+
+  // Data & Research (AI kept low-key)
+  { name: "PyTorch", icon: "devicon-pytorch-plain colored", color: "#ee4c2c", category: "data-ai" },
+  { name: "Pandas", icon: "devicon-pandas-plain colored", color: "#150458", category: "data-ai" },
+  { name: "NumPy", icon: "devicon-numpy-plain colored", color: "#013243", category: "data-ai" },
+
+  // Frontend (Supporting)
+  { name: "Next.js", icon: "devicon-nextjs-plain colored", color: "#ffffff", category: "frontend" },
+  { name: "Tailwind CSS", icon: "devicon-tailwindcss-plain colored", color: "#06b6d4", category: "frontend" },
+  { name: "TypeScript", icon: "devicon-typescript-plain colored", color: "#3178c6", category: "frontend" },
+
+  // Architecture & Process
   { name: "Architecture", icon: "fas fa-layer-group", color: "#009688", category: "other-skills" },
-  { name: "Design Patterns", icon: "fas fa-diagram-project", color: "#00bcd4", category: "other-skills" },
+  { name: "DDD", icon: "fas fa-diagram-project", color: "#4ade80", category: "other-skills" },
+  { name: "Observability", icon: "fas fa-chart-line", color: "#5eead4", category: "other-skills" },
   { name: "PyTest", icon: "fas fa-vial", color: "#00ccb8", category: "other-skills" },
-  { name: "Academic Research", icon: "fas fa-book-open", color: "#00acc1", category: "other-skills" },
-  { name: "Writing Skills", icon: "fas fa-pen-nib", color: "#4dd0e1", category: "other-skills" },
+  { name: "Agile", icon: "fas fa-people-group", color: "#00acc1", category: "other-skills" },
 ];
 
 export const projects = [
   {
     title: "Tracing Objectives Backwards",
-    category: "AI / Research / Optimization",
-    description: "A high-end data-driven inverse exploration system for multi-objective problems. This research focuses on learning complex Y to X mappings to propose feasible designs that achieve target outcomes.",
-    tags: ["Python", "PyTorch", "Neural Networks"],
+    category: "System Optimization / Research",
+    description: "An inverse exploration system for high-dimensional design problems. The backend engine maps complex target outcomes back to feasible input parameters using advanced search algorithms and data-driven models.",
+    tags: ["Distributed Search", "Python", "System Optimization"],
     image: "/images/projects/trace_engine.png",
     demoUrl: "https://tracing-objectives-backwards.vercel.app/",
     githubUrl: "https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards",
     highlightColor: "primary"
   },
   {
-    title: "Bot Chatting System",
-    category: "Backend / DDD / AI Integration",
-    description: "A modular, enterprise-grade chat system built with FastAPI and Domain-Driven Design principles. Features secure authentication, real-time conversation management, and seamless LLM integration.",
-    tags: ["FastAPI", "PostgreSQL", "Docker"],
+    title: "Enterprise Bot System",
+    category: "Backend / Infrastructure / DDD",
+    description: "A modular messaging infrastructure built with FastAPI following Domain-Driven Design principles. The system implements a robust service layer and a containerized deployment strategy for scalable bot management.",
+    tags: ["FastAPI", "PostgreSQL", "Docker Architecture"],
     image: null,
-    icon: "fas fa-comments",
+    icon: "fas fa-server",
     githubUrl: "https://github.com/Nicola-Ibrahim/Bot-Chatting",
     highlightColor: "secondary"
   },
   {
-    title: "User Authenticator",
-    category: "Security / REST API / Identity",
-    description: "A secure RESTful API for identity management using Django REST Framework and JWT. Designed with a focus on ease of integration, token management, and robust security protocols.",
-    tags: ["Django", "DRF", "JWT Auth"],
+    title: "IAM Identity Service",
+    category: "Security / Identity Management",
+    description: "A secure identity and access management service using Django REST Framework and JWT. Focused on session persistence, token lifecycle management, and implementing standard security protocols for internal services.",
+    tags: ["Django", "IAM", "Security Standards"],
     image: null,
     icon: "fas fa-shield-alt",
     githubUrl: "https://github.com/Nicola-Ibrahim/User-Authenticator",

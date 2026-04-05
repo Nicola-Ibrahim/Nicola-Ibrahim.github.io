@@ -47,7 +47,7 @@ const STAGGER_CONTAINER = {
 
 export default function PortfolioPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState('backend');
+  const [activeFilter, setActiveFilter] = useState('devops-cloud');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,8 +92,7 @@ export default function PortfolioPage() {
               <a href="#tools" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">TOOLS</a>
               <a href="#projects" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">PROJECTS</a>
               <a href="#education" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">EDUCATION</a>
-              <Link href="/roadmap" className="nav-link text-sm font-bold tracking-wide border-l-2 border-white/10 pl-8 ml-2 text-teal-400">ROADMAP</Link>
-              <div className="flex items-center gap-4 border-l border-white/10 pl-8">
+              <div className="flex items-center gap-4 border-l-2 border-white/10 pl-8 ml-2">
                 <a href="#contact" className="btn-primary text-sm py-2.5 px-6">LET'S TALK</a>
               </div>
             </div>
@@ -111,7 +110,6 @@ export default function PortfolioPage() {
           {['home', 'about', 'services', 'tools', 'projects', 'education'].map((item) => (
             <a key={item} href={`#${item}`} onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary transition-colors capitalize">{item}</a>
           ))}
-          <Link href="/roadmap" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-teal-400">Roadmap</Link>
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-primary">Let's Talk</a>
         </div>
       </nav>
@@ -127,7 +125,8 @@ export default function PortfolioPage() {
               <span className="text-gradient">Nicola Ibrahim</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 font-light">
-              A <TypingText text="Backend & AI Engineer" /> crafting robust systems and intelligent solutions.
+              <TypingText text="Backend & DevOps Engineer" /> <br />
+              Developing distributed systems and automated infrastructure.
             </p>
             <div className="flex items-center justify-center">
               <a href="#projects" className="btn-primary group">
@@ -153,13 +152,13 @@ export default function PortfolioPage() {
                 About Me
               </span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-8 leading-[1.1]">
-                Crafting <span className="text-primary">Backend & AI</span> Excellence
+                Systems & <span className="text-primary">Infrastructure</span> Engineering
               </h2>
               <p className="text-lg text-gray-400 mb-6 leading-relaxed">
-                I am a passionate Backend & AI Engineer with a focus on building robust, scalable systems and intelligent solutions. I bridge the gap between complex architectural requirements and elegant, performant code.
+                I am a Backend Engineer focused on building maintainable server-side applications and managing cloud infrastructure. I spend my time optimizing database performance and automating the software delivery lifecycle.
               </p>
               <p className="text-lg text-gray-400 mb-10 leading-relaxed">
-                My goal is to design architectures that not only solve immediate problems but also provide a foundation for long-term growth and innovation. Whether it's optimizing a high-traffic API or implementing a sophisticated ML model, I thrive on tackling challenges that push the boundaries of what's possible.
+                I apply architectural patterns to solve technical constraints. I prioritize observability and system stability over speculative features.
               </p>
 
               <div className="grid grid-cols-2 gap-8 pt-8 border-t border-white/10">
@@ -195,7 +194,7 @@ export default function PortfolioPage() {
               Specialized Services & Solutions
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              From initial concept to production-ready systems — I build fast, beautiful, and scalable digital products tailored to complex requirements.
+              I develop stable, performant backend services and automate cloud environments to ensure reliable software delivery.
             </p>
           </motion.div>
 
@@ -207,9 +206,9 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
           >
             {[
-              { title: "Backend Engineering", icon: "fa-server", color: "primary", text: "Designing high-performance, scalable server architectures and robust REST APIs." },
-              { title: "AI & Machine Learning", icon: "fa-brain", color: "secondary", text: "Integrating intelligent features and training custom models to solve complex data problems." },
-              { title: "Software Architecture", icon: "fa-cubes", color: "accent", text: "Applying Domain-Driven Design (DDD) to create modular, maintainable systems." }
+              { title: "Backend Systems", icon: "fa-server", color: "primary", text: "Designing high-performance, concurrent server architectures and managing complex data flow." },
+              { title: "Cloud & Automation", icon: "fa-cloud-arrow-up", color: "secondary", text: "Implementing infrastructure as code, containerization, and automated CI/CD pipelines." },
+              { title: "Architecture & Reliability", icon: "fa-shield-halved", color: "accent", text: "Applying modular design patterns and implementing monitoring for system observability." }
             ].map((service, idx) => (
               <motion.div key={idx} className="h-full" variants={FADE_UP}>
                 <div className="glass-card flex flex-col items-center p-10 text-center group h-full">
@@ -234,7 +233,7 @@ export default function PortfolioPage() {
           </motion.div>
 
           <motion.div className="flex flex-wrap justify-center gap-3 mb-10" {...FADE_UP} transition={{ delay: 0.1 }}>
-            {['backend', 'frontend', 'data-ai', 'devops-cloud', 'database', 'other-skills'].map(filter => (
+            {['devops-cloud', 'backend', 'database', 'data-ai', 'frontend', 'other-skills'].map(filter => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
@@ -247,14 +246,15 @@ export default function PortfolioPage() {
 
           <motion.div 
             id="skills-grid" 
+            key={activeFilter}
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
             variants={STAGGER_CONTAINER}
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
           >
-            {filteredSkills.map((skill, idx) => (
-              <motion.div key={idx} variants={FADE_UP}>
+            {filteredSkills.map((skill) => (
+              <motion.div key={skill.name} variants={FADE_UP}>
                 <div className="skill-card glass-card flex flex-col items-center justify-center text-center group">
                   <i
                     className={`${skill.icon} text-4xl mb-4 transition-transform duration-300`}
