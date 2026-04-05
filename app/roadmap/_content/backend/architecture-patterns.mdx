@@ -1,0 +1,69 @@
+---
+title: "Architecture Patterns"
+icon: "layout"
+iconColor: "text-indigo-600"
+topics:
+  - id: "modular-monolith"
+    title: "1. Modular Monolith"
+    shortDesc: "A single deployable unit divided into strict, isolated business modules."
+  - id: "microservices"
+    title: "2. Microservices"
+    shortDesc: "A distributed architecture where each service is an independent application."
+  - id: "serverless-architecture"
+    title: "3. Serverless Architecture"
+    shortDesc: "Ephemeral, event-driven compute where you pay only for execution time."
+---
+
+<Topic 
+  id="modular-monolith" 
+  title="1. Modular Monolith" 
+  shortDesc="A single deployable unit divided into strict, isolated business modules."
+>
+A software architecture that keeps all code in a single deployable application but enforces strict internal boundaries.
+
+**The Concept**
+
+- **Single Deployment:** Everything runs in one process. You deploy one artifact. It is significantly easier to build, test, and release.
+- **Strict Boundaries:** Code is organized by business domain (e.g., Billing, Users). Modules cannot directly access each other's databases; they must communicate through strictly defined internal APIs or interfaces.
+
+**Why it's popular**
+
+- **Simplicity:** Easier to debug and test than microservices. There is no network latency between modules because communication is strictly in-memory.
+- **Future-Proofing:** Because the boundaries are already strict, it is incredibly easy to break a module out into a separate microservice later if it requires independent scaling.
+</Topic>
+
+<Topic 
+  id="microservices" 
+  title="2. Microservices" 
+  shortDesc="A distributed architecture where each service is an independent application."
+>
+A distributed architecture where an application is composed of many small, independent, and loosely coupled services.
+
+**The Concept**
+
+- **Independent Deployments:** The Billing team can deploy their service 10 times a day without coordinating with the Users team.
+- **Decentralized Data:** Every microservice MUST own its own database. Services communicate over the network (HTTP, gRPC, or Pub/Sub).
+
+**The Trade-offs**
+
+- **Pros:** Fault isolation (if the email service dies, checkout still works). Tech stack flexibility (use Python for AI, Go for heavy processing).
+- **Cons:** Dramatically increases operational complexity. Network calls can fail, requiring you to implement retries, circuit breakers, and distributed tracing.
+</Topic>
+
+<Topic 
+  id="serverless-architecture" 
+  title="3. Serverless Architecture" 
+  shortDesc="Ephemeral, event-driven compute where you pay only for execution time."
+>
+An execution model where the cloud provider dynamically manages the allocation and provisioning of servers (e.g., AWS Lambda, Google Cloud Functions).
+
+**The Concept**
+
+- **Event-Driven:** Code executes only in response to triggers (like an HTTP request, a file uploaded to S3, or a scheduled cron job).
+- **Scale to Zero:** If nobody is using your app, no code runs, and you pay $0. It scales up instantly to thousands of concurrent executions if traffic spikes.
+
+**The Trade-offs**
+
+- **Cold Starts:** If a function hasn't been run recently, the cloud provider needs to spin up a container from scratch, causing a noticeable delay (latency) on the first request.
+- **Use Cases:** Perfect for background processing, unpredictable traffic workloads, and rapid prototyping without infrastructure overhead.
+</Topic>

@@ -1,0 +1,66 @@
+---
+title: "DevOps Workflow"
+icon: "terminal"
+iconColor: "text-blue-600"
+topics:
+  - id: "database-migrator"
+    title: "Database Migrator"
+    shortDesc: "Safely execute, verify, and rollback database migrations with AI assistance."
+    prompt: |
+      Create a Database Migrator skill. Set up the directory .agent/skills/database-migrator/ with standard subfolders.
+      In SKILL.md, add name: database-migrator and description: Use this whenever the code change involves database schemas, migrations, or seed data.
+      Instruct the agent to always run 'dry-runs' first and to generate a 'Rollback Plan' before suggesting any schema changes. It must follow the repository's migration framework (e.g., Prisma, Alembic, Sequelize). Create a resource in resources/migration-checklist.md for the agent to follow.
+  - id: "deployment-manager"
+    title: "Deployment Manager"
+    shortDesc: "Orchestrate complex cloud deployments with health checks and safety gates."
+    prompt: |
+      Create a Deployment Manager skill. Set up the directory .agent/skills/deployment-manager/ with standard subfolders.
+      In SKILL.md, add name: deployment-manager and description: Trigger this before deploying to staging or production. It will verify all environment variables and run a health-check script.
+      Instruct the agent to look for 'Deployment Blockers' (e.g., failed tests, missing secrets). It must generate a 'Release Note' automatically from the commit history. Create a script in scripts/health_check.sh that pings your staging URL and checks for a 200 OK.
+  - id: "git-manager"
+    title: "Git Manager"
+    shortDesc: "Automate Conventional Commits and rich PR summaries."
+    prompt: |
+      Create a Git Manager skill. Set up the directory .agent/skills/git-manager/ with standard subfolders.
+      In SKILL.md, add name: git-manager and description: Trigger this when I ask to write a commit message, document a git diff, or write a Pull Request summary.
+      Instruct the agent to use Conventional Commits (feat:, fix:, chore:, etc.). Create a script in scripts/get_diff.sh that safely runs git diff. In examples/pr_template.md, provide the exact Markdown template the agent should fill out when summarizing code changes (including What Changed and How to Test sections).
+---
+
+<Topic 
+  id="database-migrator" 
+  title="Database Migrator" 
+  shortDesc="Safely execute, verify, and rollback database migrations with AI assistance."
+  prompt="Create a Database Migrator skill. Set up the directory .agent/skills/database-migrator/ with standard subfolders.\nIn SKILL.md, add name: database-migrator and description: Use this whenever the code change involves database schemas, migrations, or seed data.\nInstruct the agent to always run 'dry-runs' first and to generate a 'Rollback Plan' before suggesting any schema changes. It must follow the repository's migration framework (e.g., Prisma, Alembic, Sequelize). Create a resource in resources/migration-checklist.md for the agent to follow."
+>
+Ensures your database stays healthy and synchronized by automating the lifecycle of migrations.
+
+- **Safety First:** Mandates dry-runs and rollback plans for every schema change.
+- **Framework Aware:** Adheres directly to your tech stack (Prisma, Alembic, etc.).
+- **Consistent Schemas:** Automatically verifies that migrations match the desired application state.
+</Topic>
+
+<Topic 
+  id="deployment-manager" 
+  title="Deployment Manager" 
+  shortDesc="Orchestrate complex cloud deployments with health checks and safety gates."
+  prompt="Create a Deployment Manager skill. Set up the directory .agent/skills/deployment-manager/ with standard subfolders.\nIn SKILL.md, add name: deployment-manager and description: Trigger this before deploying to staging or production. It will verify all environment variables and run a health-check script.\nInstruct the agent to look for 'Deployment Blockers' (e.g., failed tests, missing secrets). It must generate a 'Release Note' automatically from the commit history. Create a script in scripts/health_check.sh that pings your staging URL and checks for a 200 OK."
+>
+Reduces deployment anxiety by providing AI-driven gates for production readiness.
+
+- **Vulnerability Checks:** Verifies secrets and environment variables before push.
+- **Automated Health Checks:** Confirms the service is actually "up" via scripts.
+- **Instant Release Notes:** Generates human-readable progress reports from git logs.
+</Topic>
+
+<Topic 
+  id="git-manager" 
+  title="Git Manager" 
+  shortDesc="Automate Conventional Commits and rich PR summaries."
+  prompt="Create a Git Manager skill. Set up the directory .agent/skills/git-manager/ with standard subfolders.\nIn SKILL.md, add name: git-manager and description: Trigger this when I ask to write a commit message, document a git diff, or write a Pull Request summary.\nInstruct the agent to use Conventional Commits (feat:, fix:, chore:, etc.). Create a script in scripts/get_diff.sh that safely runs git diff. In examples/pr_template.md, provide the exact Markdown template the agent should fill out when summarizing code changes (including What Changed and How to Test sections)."
+>
+Teaches the AI to read git diffs safely and generate highly consistent workflow messaging.
+
+- **Conventional Commits:** Enforces strict `feat:`, `fix:`, `chore:` formatting.
+- **Safe Diffing:** Uses scripts to safely extract codebase changes without altering git history.
+- **Rich Summaries:** Auto-fills "What Changed" and "How to Test" PR markdown templates.
+</Topic>

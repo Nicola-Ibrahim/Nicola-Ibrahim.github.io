@@ -1,0 +1,93 @@
+---
+title: "Advanced Graphs & Backtracking"
+icon: "share-2"
+iconColor: "text-purple-500"
+topics:
+  - id: "backtracking"
+    title: "1. Backtracking"
+    shortDesc: "Exploring all possibilities and abandoning dead ends."
+    links:
+      - label: "Subsets"
+        url: "https://leetcode.com/problems/subsets/"
+      - label: "Combination Sum"
+        url: "https://leetcode.com/problems/combination-sum/"
+      - label: "Permutations"
+        url: "https://leetcode.com/problems/permutations/"
+      - label: "Word Search"
+        url: "https://leetcode.com/problems/word-search/"
+  - id: "graphs-union-find"
+    title: "2. Graphs & Union Find"
+    shortDesc: "Navigating nodes, edges, islands, and shortest paths."
+    links:
+      - label: "Number of Islands"
+        url: "https://leetcode.com/problems/number-of-islands/"
+      - label: "Clone Graph"
+        url: "https://leetcode.com/problems/clone-graph/"
+      - label: "Course Schedule (Topological Sort)"
+        url: "https://leetcode.com/problems/course-schedule/"
+      - label: "Redundant Connection (Union Find)"
+        url: "https://leetcode.com/problems/redundant-connection/"
+  - id: "advanced-graphs"
+    title: "3. Advanced Graphs (Shortest Path)"
+    shortDesc: "Dijkstra's, Bellman-Ford, and Minimum Spanning Trees."
+    links:
+      - label: "Network Delay Time (Dijkstra)"
+        url: "https://leetcode.com/problems/network-delay-time/"
+      - label: "Cheapest Flights Within K Stops"
+        url: "https://leetcode.com/problems/cheapest-flights-within-k-stops/"
+      - label: "Min Cost to Connect All Points (MST)"
+        url: "https://leetcode.com/problems/min-cost-to-connect-all-points/"
+---
+
+<Topic 
+  id="backtracking" 
+  title="1. Backtracking" 
+  shortDesc="Exploring all possibilities and abandoning dead ends."
+  links={[
+    { label: "Subsets", url: "https://leetcode.com/problems/subsets/" },
+    { label: "Combination Sum", url: "https://leetcode.com/problems/combination-sum/" },
+    { label: "Permutations", url: "https://leetcode.com/problems/permutations/" },
+    { label: "Word Search", url: "https://leetcode.com/problems/word-search/" }
+  ]}
+>
+Backtracking explores all possibilities by aggressively pruning dead ends via recursion.
+
+- **The Core Pattern:** Make a choice, recurse, then *undo* the choice (backtrack) to explore the next path.
+- **Combinatorics:** Essential for generating all combinations, permutations, or subsets.
+- **Pruning:** Adding conditions to stop recursing early when a path is guaranteed to fail.
+</Topic>
+
+<Topic 
+  id="graphs-union-find" 
+  title="2. Graphs & Union Find" 
+  shortDesc="Navigating nodes, edges, islands, and shortest paths."
+  links={[
+    { label: "Number of Islands", url: "https://leetcode.com/problems/number-of-islands/" },
+    { label: "Clone Graph", url: "https://leetcode.com/problems/clone-graph/" },
+    { label: "Course Schedule (Topological Sort)", url: "https://leetcode.com/problems/course-schedule/" },
+    { label: "Redundant Connection (Union Find)", url: "https://leetcode.com/problems/redundant-connection/" }
+  ]}
+>
+Graphs represent relationships between entities using nodes and edges.
+
+- **Breadth-First Search (BFS):** Uses a Queue. Ideal for finding the shortest path in unweighted graphs.
+- **Depth-First Search (DFS):** Uses a Stack or recursion. Ideal for exhaustive searches and island counting.
+- **Union Find (Disjoint Set):** An advanced structure perfect for grouping connected components or detecting cycles.
+</Topic>
+
+<Topic 
+  id="advanced-graphs" 
+  title="3. Advanced Graphs (Shortest Path)" 
+  shortDesc="Dijkstra's, Bellman-Ford, and Minimum Spanning Trees."
+  links={[
+    { label: "Network Delay Time (Dijkstra)", url: "https://leetcode.com/problems/network-delay-time/" },
+    { label: "Cheapest Flights Within K Stops", url: "https://leetcode.com/problems/cheapest-flights-within-k-stops/" },
+    { label: "Min Cost to Connect All Points (MST)", url: "https://leetcode.com/problems/min-cost-to-connect-all-points/" }
+  ]}
+>
+Advanced graphs deal with weighted edges where simple BFS/DFS isn't enough to find the cheapest route.
+
+- **Dijkstra's Algorithm:** Uses a Min-Heap to find the shortest path in graphs with positive weights.
+- **Bellman-Ford:** Capable of finding shortest paths even with negative edge weights.
+- **Minimum Spanning Trees:** Kruskal's or Prim's algorithms connect all nodes with minimal total cost.
+</Topic>

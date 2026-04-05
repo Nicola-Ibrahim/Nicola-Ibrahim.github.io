@@ -1,0 +1,46 @@
+---
+title: "Docs & Knowledge"
+icon: "book-open"
+iconColor: "text-purple-600"
+topics:
+  - id: "architecture-mapper"
+    title: "Architecture Mapper"
+    shortDesc: "Generate high-level architectural overviews and dependency maps from code."
+    prompt: |
+      Create an Architecture Mapper skill. Set up the directory .agent/skills/architecture-mapper/ with standard subfolders.
+      In SKILL.md, add name: architecture-mapper and description: Trigger this when I ask to 'Explain how the system fits together' or 'Map out the project structure'.
+      Instruct the agent to look for key files (index.ts, main.py, etc.) and generate a high-level Markdown list of component responsibilities. It must identify external dependencies and show how they are imported. Create a template in resources/arch_diagram.mermaid for the agent to follow when generating Mermaid flowcharts.
+  - id: "docs-generator"
+    title: "Docs Generator"
+    shortDesc: "Automatically keep your READMEs and OpenAPI specs up to date."
+    prompt: |
+      Create a Docs Generator skill. Set up the directory .agent/skills/docs-generator/ with standard subfolders.
+      In SKILL.md, add name: docs-generator and description: Trigger this when I ask you to update the README, generate API documentation, or write inline comments.
+      Instruct the agent to read the source code and generate clear, markdown-formatted documentation. For APIs, it should format outputs to match [Insert Standard, e.g., OpenAPI/Swagger]. Create an example in examples/api_endpoint_doc.md showing how a standard route should be documented.
+---
+
+<Topic 
+  id="architecture-mapper" 
+  title="Architecture Mapper" 
+  shortDesc="Generate high-level architectural overviews and dependency maps from code."
+  prompt="Create an Architecture Mapper skill. Set up the directory .agent/skills/architecture-mapper/ with standard subfolders.\nIn SKILL.md, add name: architecture-mapper and description: Trigger this when I ask to 'Explain how the system fits together' or 'Map out the project structure'.\nInstruct the agent to look for key files (index.ts, main.py, etc.) and generate a high-level Markdown list of component responsibilities. It must identify external dependencies and show how they are imported. Create a template in resources/arch_diagram.mermaid for the agent to follow when generating Mermaid flowcharts."
+>
+Keeps the "big picture" of your software clear by automatically mapping dependencies and component roles.
+
+- **Dependency Mapping:** Visualizes how different modules interact using Mermaid diagrams.
+- **Component Auditing:** Generates a high-level inventory of responsibilities for each directory.
+- **Onboarding Speed:** Dramatically reduces the time needed for new developers to understand the project structure.
+</Topic>
+
+<Topic 
+  id="docs-generator" 
+  title="Docs Generator" 
+  shortDesc="Automatically keep your READMEs and OpenAPI specs up to date."
+  prompt="Create a Docs Generator skill. Set up the directory .agent/skills/docs-generator/ with standard subfolders.\nIn SKILL.md, add name: docs-generator and description: Trigger this when I ask you to update the README, generate API documentation, or write inline comments.\nInstruct the agent to read the source code and generate clear, markdown-formatted documentation. For APIs, it should format outputs to match [Insert Standard, e.g., OpenAPI/Swagger]. Create an example in examples/api_endpoint_doc.md showing how a standard route should be documented."
+>
+Teaches the AI to read source code routes and output structured markdown documentation.
+
+- **Auto-Updating:** Keeps READMEs and inline comments perfectly in sync with codebase changes.
+- **API Formatting:** Formats outputs strictly to standards like OpenAPI or Swagger.
+- **Clear Layouts:** Follows an example route documentation template to ensure consistency.
+</Topic>

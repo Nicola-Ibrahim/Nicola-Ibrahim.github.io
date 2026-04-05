@@ -1,0 +1,69 @@
+---
+title: "Dynamic Programming & Greedy"
+icon: "zap"
+iconColor: "text-yellow-600"
+topics:
+  - id: "dynamic-programming"
+    title: "1. Dynamic Programming (1D & 2D)"
+    shortDesc: "Trading space for time by caching overlapping subproblems."
+    links:
+      - label: "Climbing Stairs"
+        url: "https://leetcode.com/problems/climbing-stairs/"
+      - label: "Coin Change"
+        url: "https://leetcode.com/problems/coin-change/"
+      - label: "House Robber"
+        url: "https://leetcode.com/problems/house-robber/"
+      - label: "Longest Increasing Subsequence"
+        url: "https://leetcode.com/problems/longest-increasing-subsequence/"
+      - label: "Unique Paths (2D)"
+        url: "https://leetcode.com/problems/unique-paths/"
+  - id: "greedy-algorithms"
+    title: "2. Greedy Algorithms & Intervals"
+    shortDesc: "Making locally optimal choices to find a global optimum."
+    links:
+      - label: "Maximum Subarray"
+        url: "https://leetcode.com/problems/maximum-subarray/"
+      - label: "Jump Game"
+        url: "https://leetcode.com/problems/jump-game/"
+      - label: "Merge Intervals"
+        url: "https://leetcode.com/problems/merge-intervals/"
+      - label: "Non-overlapping Intervals"
+        url: "https://leetcode.com/problems/non-overlapping-intervals/"
+---
+
+<Topic 
+  id="dynamic-programming" 
+  title="1. Dynamic Programming (1D & 2D)" 
+  shortDesc="Trading space for time by caching overlapping subproblems."
+  links={[
+    { label: "Climbing Stairs", url: "https://leetcode.com/problems/climbing-stairs/" },
+    { label: "Coin Change", url: "https://leetcode.com/problems/coin-change/" },
+    { label: "House Robber", url: "https://leetcode.com/problems/house-robber/" },
+    { label: "Longest Increasing Subsequence", url: "https://leetcode.com/problems/longest-increasing-subsequence/" },
+    { label: "Unique Paths (2D)", url: "https://leetcode.com/problems/unique-paths/" }
+  ]}
+>
+Dynamic Programming solves complex problems by caching the results of overlapping subproblems.
+
+- **Memoization (Top-Down):** Start with a recursive tree and cache the results to prevent duplicate work.
+- **Tabulation (Bottom-Up):** Build the solution iteratively using an array or matrix.
+- **Identifying DP:** Look for questions asking for the "maximum/minimum" or "number of ways" involving overlapping decisions.
+</Topic>
+
+<Topic 
+  id="greedy-algorithms" 
+  title="2. Greedy Algorithms & Intervals" 
+  shortDesc="Making locally optimal choices to find a global optimum."
+  links={[
+    { label: "Maximum Subarray", url: "https://leetcode.com/problems/maximum-subarray/" },
+    { label: "Jump Game", url: "https://leetcode.com/problems/jump-game/" },
+    { label: "Merge Intervals", url: "https://leetcode.com/problems/merge-intervals/" },
+    { label: "Non-overlapping Intervals", url: "https://leetcode.com/problems/non-overlapping-intervals/" }
+  ]}
+>
+Greedy algorithms pick the best immediate option without looking ahead, hoping it leads to a global optimum.
+
+- **Local Optimums:** Making the most profitable choice at the current step.
+- **Interval Scheduling:** Heavily used for sorting intervals by start or end times to find overlaps.
+- **The Challenge:** Proving mathematically that the greedy choice will not trap you in a sub-optimal solution.
+</Topic>
