@@ -47,7 +47,7 @@ const STAGGER_CONTAINER = {
 
 export default function PortfolioPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState('backend');
+  const [activeFilter, setActiveFilter] = useState('devops-cloud');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,8 +92,7 @@ export default function PortfolioPage() {
               <a href="#tools" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">TOOLS</a>
               <a href="#projects" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">PROJECTS</a>
               <a href="#education" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">EDUCATION</a>
-              <Link href="/roadmap" className="nav-link text-sm font-bold tracking-wide border-l-2 border-white/10 pl-8 ml-2 text-teal-400">ROADMAP</Link>
-              <div className="flex items-center gap-4 border-l border-white/10 pl-8">
+              <div className="flex items-center gap-4 border-l-2 border-white/10 pl-8 ml-2">
                 <a href="#contact" className="btn-primary text-sm py-2.5 px-6">LET'S TALK</a>
               </div>
             </div>
@@ -111,7 +110,6 @@ export default function PortfolioPage() {
           {['home', 'about', 'services', 'tools', 'projects', 'education'].map((item) => (
             <a key={item} href={`#${item}`} onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary transition-colors capitalize">{item}</a>
           ))}
-          <Link href="/roadmap" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-teal-400">Roadmap</Link>
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-primary">Let's Talk</a>
         </div>
       </nav>
@@ -235,7 +233,7 @@ export default function PortfolioPage() {
           </motion.div>
 
           <motion.div className="flex flex-wrap justify-center gap-3 mb-10" {...FADE_UP} transition={{ delay: 0.1 }}>
-            {['backend', 'frontend', 'data-ai', 'devops-cloud', 'database', 'other-skills'].map(filter => (
+            {['devops-cloud', 'backend', 'database', 'data-ai', 'frontend', 'other-skills'].map(filter => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
@@ -248,14 +246,15 @@ export default function PortfolioPage() {
 
           <motion.div 
             id="skills-grid" 
+            key={activeFilter}
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
             variants={STAGGER_CONTAINER}
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
           >
-            {filteredSkills.map((skill, idx) => (
-              <motion.div key={idx} variants={FADE_UP}>
+            {filteredSkills.map((skill) => (
+              <motion.div key={skill.name} variants={FADE_UP}>
                 <div className="skill-card glass-card flex flex-col items-center justify-center text-center group">
                   <i
                     className={`${skill.icon} text-4xl mb-4 transition-transform duration-300`}
