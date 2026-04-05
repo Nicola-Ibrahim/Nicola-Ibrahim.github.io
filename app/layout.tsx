@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   description: "Personal portfolio of Nicola Ibrahim, showcasing high-performance backend, AI projects, and interactive technical roadmaps.",
 };
 
-import AOSInit from '@/components/ui/AOSInit';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
 
 export default function RootLayout({
@@ -34,7 +33,6 @@ export default function RootLayout({
       </head>
       <body className="bg-dark text-light font-sans antialiased overflow-x-hidden">
         <ThemeProvider>
-          <AOSInit />
           {children}
         </ThemeProvider>
       </body>
