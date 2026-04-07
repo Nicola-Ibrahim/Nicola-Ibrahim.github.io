@@ -1,8 +1,8 @@
 ---
 title: "IAM Identity Service"
 category: "Security / Identity Management"
-description: "Centralized Identity and Access Management with Django REST Framework and JWT."
-tags: ["Django", "JWT", "Security Standards", "Identity Management"]
+description: "A centralized Identity and Access Management service built with Django and JWT. Focused on stateless token lifecycle management, secure session termination, and establishing standard security protocols."
+tags: ["Django", "JWT", "Python"]
 date: "2024-04-18"
 ---
 
@@ -29,7 +29,6 @@ Upon successful login, the service issues stateless **JSON Web Tokens (JWTs)**. 
 
 <Badge color="green">Django REST Framework</Badge>
 <Badge color="purple">JWT Authentication</Badge>
-<Badge color="slate">Stateless Architecture</Badge>
 
 - **Django REST Framework (DRF)**: Chosen for its rapid development ecosystem and built-in security features, which are critical for any identity-focused application.
 - **Stateless Verification via JWT**: To minimize database load and avoid a central bottle-neck, I implemented **stateless verification**. This allows internal services to trust tokens based purely on cryptographic signatures.

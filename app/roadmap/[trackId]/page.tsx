@@ -14,9 +14,23 @@ export async function generateMetadata({ params }: { params: { trackId: string }
   const roadmap = getTrackMeta(trackId);
   if (!roadmap) return { title: 'Track Not Found' };
   
+  const title = `${roadmap.title.split(' ')[0]} Track | Nicola Ibrahim Academy`;
+  const description = roadmap.description;
+
   return {
-    title: `${roadmap.title.split(' ')[0]} Track | Nicola Ibrahim Academy`,
-    description: roadmap.description,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://nicolaibrahim.github.io/roadmap/${trackId}`,
+      siteName: 'Nicola Ibrahim Academy',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
