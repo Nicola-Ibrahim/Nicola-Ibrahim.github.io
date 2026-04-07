@@ -92,6 +92,7 @@ export default function PortfolioPage() {
               <a href="#tools" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">TOOLS</a>
               <a href="#projects" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">PROJECTS</a>
               <a href="#education" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">EDUCATION</a>
+              <Link href="/roadmap" className="nav-link text-sm font-bold tracking-wide border-l-2 border-white/10 pl-8 ml-2 text-primary hover:text-secondary transition-colors">ROADMAP</Link>
               <div className="flex items-center gap-4 border-l-2 border-white/10 pl-8 ml-2">
                 <a href="#contact" className="btn-primary text-sm py-2.5 px-6">LET'S TALK</a>
               </div>
@@ -110,6 +111,7 @@ export default function PortfolioPage() {
           {['home', 'about', 'services', 'tools', 'projects', 'education'].map((item) => (
             <a key={item} href={`#${item}`} onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary transition-colors capitalize">{item}</a>
           ))}
+          <Link href="/roadmap" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-primary hover:text-secondary transition-colors">Roadmap</Link>
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-primary">Let's Talk</a>
         </div>
       </nav>
