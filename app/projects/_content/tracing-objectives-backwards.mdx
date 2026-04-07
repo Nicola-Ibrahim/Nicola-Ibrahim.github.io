@@ -1,0 +1,47 @@
+---
+title: "Tracing Objectives Backwards"
+category: "Data-Driven Modeling / Engineering"
+description: "Solving the inverse engineering problem through geometric search and mathematical modeling."
+tags: ["Python", "NumPy", "SciPy", "Inverse Engineering"]
+date: "2024-03-24"
+---
+
+## The Problem / Context
+
+In traditional engineering, the standard approach follows a **forward modeling** paradigm: engineers define input parameters (materials, dimensions, forces) and simulate the resulting output. While effective, this becomes highly inefficient when a specific target performance is required but the necessary inputs are unknown.
+
+The objective of this M.Sc. thesis project was to flip this script. I focused on solving the **inverse problem**—building an engine where a user defines a specific target outcome first, and the system calculates the exact or closest feasible input parameters required to achieve it. This is critical in fields like structural optimization and material science, where performance targets are non-negotiable.
+
+## System Approach & Architecture
+
+The backend is built entirely in **Python**, designed as a lightweight but mathematically dense engine. Unlike typical search applications, this system does not rely on traditional database indexing or text-based retrieval. Instead, it treats the problem space as a high-dimensional geometric field.
+
+<ArchitectureDiagram 
+  alt="Trace Engine Core Architecture" 
+  caption="The engine maps high-dimensional input objectives into a feasible parameter space using a geometric search layer."
+>
+  <TraceEngineDiagram />
+</ArchitectureDiagram>
+
+The architecture follows a pipeline where target objectives are first normalized, then processed through a geometric search algorithm that dynamically calculates the feasible parameter space. This allows the system to explore potential designs that haven't been pre-computed or stored in a static database.
+
+## Technical Decisions & Trade-offs
+
+<Badge color="blue">Python</Badge>
+<Badge color="teal">NumPy</Badge>
+<Badge color="green">SciPy</Badge>
+
+- **Mathematical Modeling vs. Conventional DBs**: I opted for custom geometric search over conventional database search paradigms. While a database could store historical results, it cannot generalize to unexplored regions of the parameter space. Custom mathematical modeling allows for true exploration.
+- **Scientific Computing Ecosystem**: Python was chosen specifically for its robust scientific computing libraries. **NumPy** and **SciPy** provided the foundational linear algebra and optimization routines necessary for high-dimensional geometric calculations.
+
+## Challenges Overcome
+
+The core technical hurdle was the **inherent ambiguity of inverse mapping**. In many engineering scenarios, multiple different input combinations can produce the same output, or a specific output might be mathematically unreachable.
+
+To solve this, I refined the **geometric search constraints** to focus on convergence. Instead of a naive search, the system uses a progressive tightening of constraints to identify the "closest feasible" approximation when an exact match is impossible. This ensures the system remains useful even in "ambiguous" mathematical spaces where 1-to-1 mappings don't exist.
+
+## Outcomes
+
+- **Functional Proof-of-Concept**: Successfully built a data-driven backend engine that proves the viability of using geometric search models for inverse exploration.
+- **Performance**: Demonstrated that mathematical modeling could replace static indexing for specific engineering use cases, offering a more flexible and exploratory design tool.
+- **Academic Contribution**: Validated the approach of using geometric search to navigate complex input-output relationships without the overhead of massive pre-computed datasets.

@@ -92,6 +92,7 @@ export default function PortfolioPage() {
               <a href="#tools" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">TOOLS</a>
               <a href="#projects" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">PROJECTS</a>
               <a href="#education" className="nav-link text-sm font-bold tracking-wide text-slate-400 hover:text-primary transition-colors">EDUCATION</a>
+              <Link href="/roadmap" className="nav-link text-sm font-bold tracking-wide border-l-2 border-white/10 pl-8 ml-2 text-primary hover:text-secondary transition-colors">ROADMAP</Link>
               <div className="flex items-center gap-4 border-l-2 border-white/10 pl-8 ml-2">
                 <a href="#contact" className="btn-primary text-sm py-2.5 px-6">LET'S TALK</a>
               </div>
@@ -110,6 +111,7 @@ export default function PortfolioPage() {
           {['home', 'about', 'services', 'tools', 'projects', 'education'].map((item) => (
             <a key={item} href={`#${item}`} onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium hover:text-primary transition-colors capitalize">{item}</a>
           ))}
+          <Link href="/roadmap" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-primary hover:text-secondary transition-colors">Roadmap</Link>
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-primary">Let's Talk</a>
         </div>
       </nav>
@@ -198,7 +200,7 @@ export default function PortfolioPage() {
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
             variants={STAGGER_CONTAINER}
             initial="initial"
@@ -207,7 +209,7 @@ export default function PortfolioPage() {
           >
             {[
               { title: "Backend Systems", icon: "fa-server", color: "primary", text: "Designing high-performance, concurrent server architectures and managing complex data flow." },
-              { title: "Cloud & Automation", icon: "fa-cloud-arrow-up", color: "secondary", text: "Implementing infrastructure as code, containerization, and automated CI/CD pipelines." },
+              { title: "Cloud & Automation", icon: "fa-cloud-arrow-up", color: "secondary", text: "Managing cloud environments, implementing containerization, and building robust CI/CD pipelines to accelerate and secure the deployment lifecycle." },
               { title: "Architecture & Reliability", icon: "fa-shield-halved", color: "accent", text: "Applying modular design patterns and implementing monitoring for system observability." }
             ].map((service, idx) => (
               <motion.div key={idx} className="h-full" variants={FADE_UP}>
@@ -244,8 +246,8 @@ export default function PortfolioPage() {
             ))}
           </motion.div>
 
-          <motion.div 
-            id="skills-grid" 
+          <motion.div
+            id="skills-grid"
             key={activeFilter}
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
             variants={STAGGER_CONTAINER}
@@ -281,15 +283,26 @@ export default function PortfolioPage() {
               <motion.div key={idx} className="relative group" {...FADE_UP}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                   <div className={`order-2 ${idx % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} relative`}>
-                    <div className={`absolute -inset-4 bg-${project.highlightColor}/5 blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-700`}></div>
-                    <div className="browser-frame transform transition-transform duration-700 group-hover:scale-[1.02] aspect-video flex flex-col">
-                      <div className="relative flex-1 overflow-hidden flex items-center justify-center bg-white/5">
+                    <div className="browser-frame transform transition-transform duration-700 aspect-video flex flex-col">
+                      <div className="relative flex-1 overflow-hidden flex items-center justify-center bg-white/5 group/demo">
                         {project.image ? (
                           <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                         ) : (
                           <i className={`${project.icon} text-7xl md:text-9xl text-white/20 group-hover:text-${project.highlightColor} transition-colors duration-500`}></i>
                         )}
-                        <div className="light-sweep"></div>
+                        {project.demoUrl && (
+                          <a 
+                            href={project.demoUrl} 
+                            target="_blank" 
+                            className="absolute top-4 right-4 z-20 h-10 px-3 rounded-full bg-dark/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 shadow-xl group/btn overflow-hidden"
+                            title="Visit Live Demo"
+                          >
+                            <span className="max-w-0 overflow-hidden group-hover/btn:max-w-[100px] group-hover/btn:mr-2 transition-all duration-300 whitespace-nowrap text-[10px] font-black uppercase tracking-widest leading-none">
+                              Live Demo
+                            </span>
+                            <i className="fas fa-external-link-alt text-xs"></i>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -303,12 +316,12 @@ export default function PortfolioPage() {
                       ))}
                     </div>
                     <div className="flex flex-wrap gap-3">
-                      {project.demoUrl && (
-                        <a href={project.demoUrl} target="_blank" className="btn-outline inline-flex items-center">
-                          Live Demo <i className="fas fa-external-link-alt ml-3 text-sm"></i>
-                        </a>
+                      {project.caseStudyUrl && (
+                        <Link href={project.caseStudyUrl} className="btn-primary inline-flex items-center">
+                          Read Case Study <i className="fas fa-arrow-right ml-3 text-sm"></i>
+                        </Link>
                       )}
-                      <a href={project.githubUrl} target="_blank" className="btn-primary inline-flex items-center">
+                      <a href={project.githubUrl} target="_blank" className={`inline-flex items-center ${project.caseStudyUrl ? 'btn-outline border-white/20 hover:border-white' : 'btn-primary'}`}>
                         GitHub Code <i className="fab fa-github ml-3 text-sm"></i>
                       </a>
                     </div>
@@ -372,8 +385,8 @@ export default function PortfolioPage() {
           <h2 className="text-4xl md:text-6xl font-bold mb-6">Ready to Launch?</h2>
           <p className="text-xl text-gray-400 mb-10">Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a href="mailto:nicolaibrahim969@gmail.com" className="btn-primary text-lg px-10 py-4">
-              <i className="fas fa-envelope mr-2"></i> Say Hello
+            <a href="mailto:nicolaibrahim969@gmail.com" className="btn-primary group text-lg px-10 py-4 inline-flex items-center gap-2">
+              SAY HELLO <i className="fas fa-paper-plane text-sm group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
             </a>
             <a href="https://linkedin.com/in/nicola-ibrahim/" target="_blank" className="btn-outline text-lg px-10 py-4">
               <i className="fab fa-linkedin mr-2"></i> LinkedIn
