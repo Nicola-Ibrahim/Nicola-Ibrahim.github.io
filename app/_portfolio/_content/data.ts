@@ -6,34 +6,35 @@ export const skills = [
   { name: "CI/CD", icon: "fas fa-arrows-rotate", color: "#2dd4bf", category: "devops-cloud" },
   { name: "GitHub Actions", icon: "devicon-github-original colored", color: "#ffffff", category: "devops-cloud" },
   { name: "GitLab CI", icon: "devicon-gitlab-plain colored", color: "#e24329", category: "devops-cloud" },
-  { name: "Git", icon: "devicon-git-plain colored", color: "#f05032", category: "devops-cloud" },
 
   // Backend
   { name: "Python", icon: "devicon-python-plain colored", color: "#3776ab", category: "backend" },
-  { name: "Django", icon: "devicon-django-plain colored", color: "#092e20", category: "backend" },
   { name: "FastAPI", icon: "devicon-fastapi-plain colored", color: "#05998b", category: "backend" },
+  { name: "Django", icon: "devicon-django-plain", color: "#2ba977", category: "backend" },
   { name: "RESTful APIs", icon: "fas fa-code", color: "#4ade80", category: "backend" },
-  { name: "Distributed Systems", icon: "fas fa-network-wired", color: "#009688", category: "backend" },
 
   // Database
   { name: "PostgreSQL", icon: "devicon-postgresql-plain colored", color: "#336791", category: "database" },
-  { name: "SQL", icon: "devicon-mysql-plain colored", color: "#f29111", category: "database" },
+  { name: "Relational Databases (SQL)", icon: "fas fa-database", color: "#4479A1", category: "database" },
+  { name: "ORMs (SQLAlchemy, etc.)", icon: "fas fa-cubes", color: "#009688", category: "database" },
   { name: "Redis", icon: "devicon-redis-plain colored", color: "#dc382d", category: "database" },
-  { name: "ORM", icon: "fas fa-cubes", color: "#009688", category: "database" },
 
-  // Data & Research (AI kept low-key)
+  // Data & AI
+  { name: "Data-Driven Modeling", icon: "fas fa-microchip", color: "#5eead4", category: "data-ai" },
+  { name: "Pandas", icon: "devicon-pandas-plain", color: "#64b5f6", category: "data-ai" },
+  { name: "NumPy", icon: "devicon-numpy-plain", color: "#4dabcf", category: "data-ai" },
   { name: "PyTorch", icon: "devicon-pytorch-plain colored", color: "#ee4c2c", category: "data-ai" },
-  { name: "Pandas", icon: "devicon-pandas-plain colored", color: "#150458", category: "data-ai" },
-  { name: "NumPy", icon: "devicon-numpy-plain colored", color: "#013243", category: "data-ai" },
 
   // Frontend (Supporting)
   { name: "Next.js", icon: "devicon-nextjs-plain colored", color: "#ffffff", category: "frontend" },
   { name: "Tailwind CSS", icon: "devicon-tailwindcss-plain colored", color: "#06b6d4", category: "frontend" },
   { name: "TypeScript", icon: "devicon-typescript-plain colored", color: "#3178c6", category: "frontend" },
 
-  // Architecture & Process
-  { name: "Architecture", icon: "fas fa-layer-group", color: "#009688", category: "other-skills" },
-  { name: "DDD", icon: "fas fa-diagram-project", color: "#4ade80", category: "other-skills" },
+  // Other & Skills
+  { name: "Domain-Driven Design (DDD)", icon: "fas fa-diagram-project", color: "#4ade80", category: "other-skills" },
+  { name: "System Architecture / Microservices", icon: "fas fa-layer-group", color: "#009688", category: "other-skills" },
+  { name: "System Optimization", icon: "fas fa-gauge-high", color: "#2dd4bf", category: "other-skills" },
+  { name: "Git & Version Control", icon: "devicon-git-plain colored", color: "#f05032", category: "other-skills" },
   { name: "Observability", icon: "fas fa-chart-line", color: "#5eead4", category: "other-skills" },
   { name: "PyTest", icon: "fas fa-vial", color: "#00ccb8", category: "other-skills" },
   { name: "Agile", icon: "fas fa-people-group", color: "#00acc1", category: "other-skills" },
