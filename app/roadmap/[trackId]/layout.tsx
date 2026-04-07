@@ -17,7 +17,7 @@ export default async function TrackLayout({
   return (
     <div className="flex gap-8 xl:gap-12">
       {/* 1. LEFT SIDEBAR (Track Selector) */}
-      <Sidebar 
+      <Sidebar
         roadmaps={roadmaps as any}
       />
 
