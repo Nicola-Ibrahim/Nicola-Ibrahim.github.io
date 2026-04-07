@@ -46,8 +46,8 @@ export const projects = [
   {
     title: "Tracing Objectives Backwards",
     category: "System Optimization / Research",
-    description: "An inverse exploration system for high-dimensional design problems. The backend engine maps complex target outcomes back to feasible input parameters using advanced search algorithms and data-driven models.",
-    tags: ["Distributed Search", "Python", "System Optimization"],
+    description: "Solving the inverse engineering problem through geometric search and mathematical modeling. The engine maps target outcomes back to feasible parameters using a high-dimensional search layer, containerized and deployed with modern CI/CD.",
+    tags: ["Python", "FastAPI", "DDD", "Docker", "CI/CD"],
     image: "/images/projects/trace_engine.png",
     demoUrl: "https://tracing-objectives-backwards.vercel.app/",
     githubUrl: "https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards",
@@ -57,8 +57,8 @@ export const projects = [
   {
     title: "Bot System",
     category: "Backend / Infrastructure / DDD",
-    description: "A multi-LLM orchestration bot built with FastAPI following Domain-Driven Design principles. The system acts as a unified backend to concurrently route and aggregate responses from various AI models, utilizing a robust service layer and containerized architecture.",
-    tags: ["FastAPI", "PostgreSQL", "Docker Architecture"],
+    description: "A unified multi-LLM orchestration backend built with FastAPI and Domain-Driven Design. It concurrently routes and aggregates responses from various AI providers through a modular service architecture.",
+    tags: ["FastAPI", "DDD", "Docker", "PostgreSQL"],
     image: null,
     icon: "fas fa-server",
     githubUrl: "https://github.com/Nicola-Ibrahim/Bot-Chatting",
@@ -68,8 +68,8 @@ export const projects = [
   {
     title: "IAM Identity Service",
     category: "Security / Identity Management",
-    description: "A secure identity and access management service using Django REST Framework and JWT. Focused on backend session persistence, token lifecycle management, and designing standard security protocols for internal services.",
-    tags: ["Django", "IAM", "Security Standards"],
+    description: "A centralized Identity and Access Management service built with Django and JWT. Focused on stateless token lifecycle management, secure session termination, and establishing standard security protocols.",
+    tags: ["Django", "JWT", "Python"],
     image: null,
     icon: "fas fa-shield-alt",
     githubUrl: "https://github.com/Nicola-Ibrahim/User-Authenticator",

@@ -37,9 +37,26 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const project = await getProjectContent(slug);
   if (!project) return { title: 'Project Not Found' };
 
+  const title = `${project.frontmatter.title} | Engineering Case Study`;
+  const description = project.frontmatter.description;
+
   return {
-    title: `${project.frontmatter.title} | Engineering Case Study`,
-    description: project.frontmatter.description,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url: `https://nicolaibrahim.github.io/projects/${slug}`,
+      publishedTime: project.frontmatter.date,
+      authors: ['Nicola Ibrahim'],
+      tags: project.frontmatter.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
