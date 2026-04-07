@@ -1,0 +1,52 @@
+---
+title: "IAM Identity Service"
+category: "Security / Identity Management"
+description: "Centralized Identity and Access Management with Django REST Framework and JWT."
+tags: ["Django", "JWT", "Security Standards", "Identity Management"]
+date: "2024-04-18"
+---
+
+## The Problem / Context
+
+In a microservices-based architecture, implementing authentication independently inside every individual service leads to an explosion of redundant code, inconsistent security standards, and difficult-to-manage user sessions. 
+
+The objective of this project was to extract and centralize the user authentication process into a dedicated **Identity and Access Management (IAM) service**. This provides a single source of truth for the entire internal ecosystem.
+
+## System Approach & Architecture
+
+The IAM service is built with **Django REST Framework (DRF)** and acts as a central **gatekeeper**. It is responsible for user registration, authentication, and session management.
+
+<ArchitectureDiagram 
+  alt="IAM Identity Service Architecture" 
+  caption="The IAM service acts as a centralized gatekeeper for session management and stateless token verification."
+>
+  <IAMServiceDiagram />
+</ArchitectureDiagram>
+
+Upon successful login, the service issues stateless **JSON Web Tokens (JWTs)**. These tokens contain the user's claims and can be verified by any internal microservice without needing to re-query the central IAM database.
+
+## Technical Decisions & Trade-offs
+
+<Badge color="green">Django REST Framework</Badge>
+<Badge color="purple">JWT Authentication</Badge>
+<Badge color="slate">Stateless Architecture</Badge>
+
+- **Django REST Framework (DRF)**: Chosen for its rapid development ecosystem and built-in security features, which are critical for any identity-focused application.
+- **Stateless Verification via JWT**: To minimize database load and avoid a central bottle-neck, I implemented **stateless verification**. This allows internal services to trust tokens based purely on cryptographic signatures.
+
+## Challenges Overcome
+
+A major challenge in stateless JWT architectures is **secure session termination**. Since JWTs are stored on the client and are stateless by design, they cannot be easily revoked before they expire.
+
+To overcome this, I designed a **comprehensive token lifecycle management system**:
+1.  **Short-lived Access Tokens**: Minimizes the window of opportunity for stolen tokens.
+2.  **Rotation with Refresh Tokens**: Allows for long-lived sessions while maintaining security.
+3.  **Token Blocklist Mechanism**: I built a dedicated blocklist in the service's layer to explicitly track and revoke tokens upon logout, ensuring session termination is robust and immediate.
+
+## Outcomes
+
+- **Security Standardization**: Enforced standard security protocols (stateless identity, centralized auth) throughout the simulated ecosystem.
+- **Microservice Autonomy**: Demonstrated how localized verification drastically reduces inter-service communication overhead.
+- **Framework Mastery**: Showcased the power of Django for building highly secure, backend-focused identity nodes.
+
+*(Note: This project is a conceptual and enrichment-focused system, not intended for live infrastructure deployment.)*

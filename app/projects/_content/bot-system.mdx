@@ -1,0 +1,51 @@
+---
+title: "Bot System"
+category: "Backend / Infrastructure / DDD"
+description: "Unified multi-LLM orchestration architecture following Domain-Driven Design."
+tags: ["FastAPI", "DDD", "Docker", "PostgreSQL"]
+date: "2024-05-12"
+---
+
+## The Problem / Context
+
+The current landscape of Large Language Models (LLMs) is fragmented, with each provider (OpenAI, Anthropic, Google) having unique API schemas, response formats, and varying latencies. For enterprises, managing these integrations inside a growing codebase often leads to "spaghetti" logic, inconsistent error handling, and high-maintenance overhead.
+
+The objective was to design a **unified backend** capable of concurrently routing and aggregating requests to multiple LLMs while maintaining a strictly scalable and maintainable codebase.
+
+## System Approach & Architecture
+
+The solution was a **containerized FastAPI application** built with a modular, asynchronous architecture. By using FastAPI's native async support, the system can handle concurrent external API calls without blocking the main event loop.
+
+<ArchitectureDiagram 
+  alt="Multi-LLM Orchestration" 
+  caption="High-level view of the unified FastAPI hub routing to various AI adapters."
+>
+  <BotSystemDiagram />
+</ArchitectureDiagram>
+
+A unified **service layer** acts as a central hub, routing requests to specific provider adapters and saving conversation states in a **PostgreSQL** database. This ensures that the application remains agnostic to any single AI provider.
+
+## Technical Decisions & Trade-offs
+
+<Badge color="teal">FastAPI</Badge>
+<Badge color="blue">Domain-Driven Design (DDD)</Badge>
+<Badge color="indigo">Docker Architecture</Badge>
+<Badge color="slate">PostgreSQL</Badge>
+
+- **Asynchronous I/O via FastAPI**: Since the system relies on external AI API calls (which are I/O bound), **FastAPI** was chosen for its high-performance asynchronous capabilities.
+- **Domain-Driven Design (DDD)**: I implemented DDD to strictly decouple core business logic from the infrastructure and API layers. This allows the system to scale without core logic becoming entangled with specific API schemas.
+- **Containerization**: Using **Docker** ensures a consistent deployment and testing environment, which is crucial for any distributed backend system.
+
+## Challenges Overcome
+
+The main technical challenge was **output standardization**. Each LLM returns data in a fundamentally different JSON schema, making it difficult to maintain a consistent database record.
+
+This was solved by implementing **adapter classes** in the service layer. These adapters are responsible for normalizing the heterogeneous provider data into a single, predictable **domain entity** before any storage or business logic processing occurs. This normalization occurs at the edges of the system, keeping the core "clean."
+
+## Outcomes
+
+- **Orchestration Blueprint**: Delivered a highly modular architecture that provides a production-ready blueprint for multi-LLM orchestration. 
+- **Scalability**: Proved that a DDD approach significantly reduces the friction of adding new AI providers to the system.
+- **Foundation**: Established a solid foundational architecture focused on clean code and separation of concerns.
+
+*(Note: This project serves as a foundational architectural prototype and was not intended for live production or CI/CD deployment.)*
