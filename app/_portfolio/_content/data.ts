@@ -49,7 +49,7 @@ export const projects = [
     description: "Solving the inverse engineering problem through geometric search and mathematical modeling. The engine maps target outcomes back to feasible parameters using a high-dimensional search layer, containerized and deployed with modern CI/CD.",
     tags: ["Python", "FastAPI", "DDD", "Docker", "CI/CD"],
     image: "/images/projects/trace_engine.png",
-    demoUrl: "https://tracing-objectives-backwards.vercel.app/",
+    demoUrl: "https://tracing-objectives-backwards-frontend.onrender.com/",
     githubUrl: "https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards",
     caseStudyUrl: "/projects/tracing-objectives-backwards",
     highlightColor: "primary"
