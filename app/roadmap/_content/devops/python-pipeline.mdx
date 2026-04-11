@@ -2,11 +2,11 @@
 title: Python CI/CD Pipelines
 icon: code
 ---
-## 1. Marketplace Actions: setup-python
+## Marketplace Actions: setup-python
 
 Setting up programming languages manually using bash scripts (`apt-get install python3`) is slow and prone to breaking when OS mirrors go down.
 
-## 🐍 The setup-python Action
+## The setup-python Action
 This official action instantly provisions exact Python versions using pre-compiled binaries cached by GitHub.
 
 - **Matrix Testing:** easily test your code against multiple Python environments (3.9, 3.10, 3.11) simultaneously.
@@ -30,11 +30,11 @@ This official action instantly provisions exact Python versions using pre-compil
 
 
 
-## 2. Running Linters & Formatters
+## Running Linters & Formatters
 
 Running unit tests is computationally expensive. You don't want to waste 5 minutes running tests just to find a syntax error or an unused import.
 
-## 🧹 Code Quality Tools
+## Code Quality Tools
 
 
 | Tool | Type | Purpose |
@@ -57,11 +57,11 @@ Running unit tests is computationally expensive. You don't want to waste 5 minut
 
 
 
-## 3. Building & Pushing Docker Images
+## Building & Pushing Docker Images
 
 Once the code is tested and linted, it needs to be packaged into an immutable artifact that can be deployed anywhere.
 
-## 🐳 The Docker Workflow
+## The Docker Workflow
 
 - **Immutable Artifacts:** By packaging your code, dependencies, and OS into a container, you ensure that "it works on my machine" also means "it works in production."
 - **Dynamic Tagging:** Never use the `latest` tag in CI. Instead, use the `github.sha` (the commit hash) as the image tag. This allows for instant rollbacks and clear audit trails.

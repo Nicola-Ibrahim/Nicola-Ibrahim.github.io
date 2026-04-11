@@ -5,7 +5,7 @@ icon: git-fork
 
 
 
-## 1. Layer 4 vs Layer 7 Load Balancing
+## Layer 4 vs Layer 7 Load Balancing
 
 Load balancers act as the "traffic cops" of your infrastructure, sitting in front of your servers and routing client requests to ensure no single server is overwhelmed.
 
@@ -18,7 +18,7 @@ Load balancers act as the "traffic cops" of your infrastructure, sitting in fron
 | **Best For** | High-throughput, bulk traffic | Microservices, Path-based routing |
 
 
-## 🧩 Intelligent Routing (L7)
+### Intelligent Routing (L7)
 
 With a Layer 7 Load Balancer, you can route traffic based on the content of the request:
 - `example.com/api` -> Routes to the **Backend Service**.
@@ -35,7 +35,7 @@ With a Layer 7 Load Balancer, you can route traffic based on the content of the 
 
 
 
-## 2. Load Balancing Algorithms
+## Load Balancing Algorithms
 
 The algorithm determines which server receives the next incoming request. Choosing the right one depends on your server capacity and traffic patterns.
 
@@ -48,7 +48,7 @@ The algorithm determines which server receives the next incoming request. Choosi
 | **Weighted** | Manual priority assignment | Mixed old/new hardware |
 
 
-## 🚀 Advanced Distribution
+### Advanced Distribution
 
 - **Least Response Time:** Routes to the server that is currently responding the fastest.
 - **Random with Two Choices:** Picks two random servers and sends the request to the better of the two (avoids the "herd effect").
@@ -63,16 +63,16 @@ The algorithm determines which server receives the next incoming request. Choosi
 
 
 
-## 3. Health Checks & Session Persistence
+## Health Checks & Session Persistence
 
 A load balancer is only useful if it knows which servers are actually working.
 
-## 🏥 Health Checks
+## Health Checks
 
 - **Passive:** The LB notices when a server fails to respond to a real user request.
 - **Active:** The LB "pings" a specific endpoint (e.g., `/health`) every few seconds. If the server returns a `500` or fails to respond, it is pulled from the rotation.
 
-## 🍪 Session Persistence (Sticky Sessions)
+## Session Persistence (Sticky Sessions)
 
 If an application is not truly stateless, a user might need to talk to the **same server** for the duration of their session.
 - **Cookie-based:** The load balancer inserts a cookie to track which server the user was assigned to.

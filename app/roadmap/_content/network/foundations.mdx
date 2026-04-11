@@ -2,11 +2,11 @@
 title: Networking Foundations
 icon: layout
 ---
-## 1. The OSI Model in Practice
+## The OSI Model in Practice
 
 The Open Systems Interconnection (OSI) model describes seven layers that computer systems use to communicate over a network. Understanding these layers is vital for full-stack debugging and system design.
 
-## 🧱 The 7 Layers
+### The 7 Layers
 
 
 | Layer | Name | Unit | Protocol Example |
@@ -20,7 +20,8 @@ The Open Systems Interconnection (OSI) model describes seven layers that compute
 | **1** | Physical | Bits | Fiber, Copper |
 
 
-## 🚀 Key Concepts
+### Key Concepts
+
 
 - **Encapsulation:** As data moves down the stack (from Layer 7 to Layer 1), each layer adds its own **Header** (and sometimes a Trailer). This process is reversed (De-encapsulation) at the destination.
 - **Abstraction:** Each layer only cares about the layer directly above and below it. HTTP doesn't need to know if it's traveling over Wi-Fi or a Fiber optic cable.

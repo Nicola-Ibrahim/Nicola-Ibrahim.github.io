@@ -60,7 +60,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
       </head>
-      <body className="bg-dark text-light font-sans antialiased overflow-x-hidden">
+      <body className="bg-dark text-light font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
           {children}
         </ThemeProvider>

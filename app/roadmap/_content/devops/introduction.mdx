@@ -2,11 +2,11 @@
 title: CI/CD & Automation Introduction
 icon: play-circle
 ---
-## 1. What is CI/CD?
+## What is CI/CD?
 
 Before CI/CD, teams would code in isolation for weeks, leading to "Merge Hell" when combining their work. Deployments were manual, stressful, and heavily prone to human error.
 
-## 🔄 The CI/CD Pipeline
+## The CI/CD Pipeline
 
 
 | Concept | Action | Goal |
@@ -16,7 +16,7 @@ Before CI/CD, teams would code in isolation for weeks, leading to "Merge Hell" w
 | **Continuous Deployment (CD)** | Automatic Production | Deploy to users with zero friction. |
 
 
-## 🚀 The Impact
+## The Impact
 - **Gatekeeping:** Automated servers act as a shield, preventing broken code from entering the `main` branch.
 - **Velocity:** You stop deploying massive, risky updates once a month and start deploying tiny, safe, easily revertible changes ten times a day.
 
@@ -30,11 +30,11 @@ Before CI/CD, teams would code in isolation for weeks, leading to "Merge Hell" w
 
 
 
-## 2. Introduction to GitHub Actions
+## Introduction to GitHub Actions
 
 Historically, your code lived in Git, but your automation lived on a completely separate server. This caused a disconnect between the code and the pipeline that deployed it.
 
-## 🛠️ The GitHub Workflow
+## The GitHub Workflow
 GitHub Actions brings the CI/CD pipeline directly into your repository. Your pipeline is just another file (`.github/workflows/main.yml`) that lives alongside your application code.
 
 - **Infrastructure as Code:** Because the pipeline is defined in YAML and version-controlled, you can review changes to your deployment process exactly like you review a code Pull Request.
@@ -50,7 +50,7 @@ GitHub Actions brings the CI/CD pipeline directly into your repository. Your pip
 
 
 
-## 3. How GitHub Actions compares to others
+## How GitHub Actions compares to others
 
 Understanding the broader ecosystem helps you architect the right solution for your company size.
 
@@ -62,7 +62,7 @@ Understanding the broader ecosystem helps you architect the right solution for y
 | **GitHub Actions** | Marketplace-Driven | Startups and Open Source projects. |
 
 
-## 🌟 The Marketplace Advantage
+## The Marketplace Advantage
 Instead of writing complex bash scripts to install Node.js or configure AWS, you can just use `actions/setup-node` built by the community. It turns complex scripting into simple **plug-and-play blocks**.
 
 

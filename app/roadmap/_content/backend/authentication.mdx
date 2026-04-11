@@ -5,16 +5,16 @@ icon: shield
 
 
 
-## 1. JWT Authentication
+## JWT Authentication
 
 JSON Web Tokens (JWT) provide stateless, cryptographically secure user sessions for modern APIs. Instead of storing session IDs in a database, the server issues a signed token containing user claims.
 
-## 🧠 Why is it Stateless?
+### Why is it Stateless?
 
 - **No Database Lookups:** The token contains the user's identity (Payload) and is mathematically signed (Signature). The server only needs its secret key to verify the token hasn't been tampered with.
 - **Microservice Friendly:** Any backend service with the secret (or public key) can verify the user independently. You don't need a central Redis instance just to check if a user is logged in.
 
-## 🏗️ JWT Anatomy
+### JWT Anatomy
 A JWT is composed of three parts separated by dots (`.`): `Header.Payload.Signature`.
 
 ```json
@@ -27,7 +27,7 @@ A JWT is composed of three parts separated by dots (`.`): `Header.Payload.Signat
 }
 ```
 
-### What to Save in the Payload (Claims)
+#### What to Save in the Payload (Claims)
 - **Standard Identifiers:** Usually, you store the user ID (`sub`), issue time (`iat`), and expiration time (`exp`).
 - **Roles & Permissions:** Storing `role: "admin"` allows the backend to authorize actions instantly.
 
@@ -36,7 +36,7 @@ A JWT is composed of three parts separated by dots (`.`): `Header.Payload.Signat
 > The payload is merely **Base64 encoded, not encrypted**. Anyone who intercepts it can read the contents. **NEVER** store sensitive data like passwords, SSNs, or PII inside a JWT.
 
 
-## 🔒 Secure Storage
+### Secure Storage
 Where you store the token on the client determines your vulnerability to different attacks.
 
 
@@ -51,7 +51,7 @@ Where you store the token on the client determines your vulnerability to differe
 > Use short-lived **Access Tokens** (15m) for requests and long-lived **Refresh Tokens** (7d) stored in HttpOnly cookies to maintain security without forcing users to log in constantly.
 
 
-## 🚫 The Revocation Problem
+### The Revocation Problem
 Because JWTs are purely stateless, you cannot easily "invalidate" them before they expire. 
 
 - **The Problem:** If a user logs out, the physical token remains technically valid until `exp`.
@@ -62,7 +62,8 @@ Because JWTs are purely stateless, you cannot easily "invalidate" them before th
 
 
 
-## 2. API Versioning Strategies
+
+## API Versioning Strategies
 
 Choosing the right API versioning strategy is critical for avoiding breaking changes and maintaining backward compatibility.
 

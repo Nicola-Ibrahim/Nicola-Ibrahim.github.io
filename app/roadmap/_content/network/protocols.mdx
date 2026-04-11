@@ -2,7 +2,7 @@
 title: Network Protocols
 icon: file-text
 ---
-## 1. IP Addressing (v4 vs v6)
+## IP Addressing (v4 vs v6)
 
 The Internet Protocol (IP) provides the fundamental logical addressing system used to route data across the internet. Every device on a network requires an IP address to send and receive packets.
 
@@ -15,7 +15,7 @@ The Internet Protocol (IP) provides the fundamental logical addressing system us
 | **Security** | Extension headers | Built-in IPsec |
 
 
-## 🌐 Modern Routing
+### Modern Routing
 
 - **CIDR Notation:** Understand `/24` or `/16` subnet masks to determine network vs. host portions.
 - **NAT (Network Address Translation):** How multiple devices in your home share a single public IPv4 address.
@@ -31,7 +31,7 @@ The Internet Protocol (IP) provides the fundamental logical addressing system us
 
 
 
-## 2. Transport Layer (TCP vs UDP)
+## Transport Layer (TCP vs UDP)
 
 The Transport Layer (Layer 4) is responsible for end-to-end communication. The choice between TCP and UDP defines whether your application prioritizes **Reliability** or **Performance**.
 
@@ -42,7 +42,7 @@ The Transport Layer (Layer 4) is responsible for end-to-end communication. The c
 | **UDP** | Connectionless | Fast, No Overhead | Gaming, Streaming, DNS |
 
 
-## 🏗️ TCP Mechanics
+### TCP Mechanics
 
 - **Three-Way Handshake:** Every TCP connection starts with `SYN` -> `SYN-ACK` -> `ACK`.
 - **Flow Control:** Prevents a fast sender from overwhelming a slow receiver using a "window" size.
@@ -58,11 +58,11 @@ The Transport Layer (Layer 4) is responsible for end-to-end communication. The c
 
 
 
-## 3. Application Layer (HTTP/1 to HTTP/3)
+## Application Layer (HTTP/1 to HTTP/3)
 
 The Hypertext Transfer Protocol (HTTP) has evolved significantly to handle the complex, resource-heavy nature of the modern web.
 
-## 🚀 The HTTP Stack
+## The HTTP Stack
 
 
 | Version | Transport | Key Feature |
@@ -72,7 +72,7 @@ The Hypertext Transfer Protocol (HTTP) has evolved significantly to handle the c
 | **HTTP/3** | **QUIC (UDP)** | No Head-of-Line blocking, Faster handshakes |
 
 
-## 🔑 Core Concepts
+## Core Concepts
 
 - **Statelessness:** Each request is independent. State is managed via Cookies or Tokens.
 - **Multiplexing:** The ability to send multiple requests over a single connection simultaneously (introduced in HTTP/2).

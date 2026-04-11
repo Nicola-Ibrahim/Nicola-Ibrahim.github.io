@@ -5,25 +5,26 @@ icon: terminal
 
 
 
-## 1. Declarative Cloud Provisioning
+## Declarative Cloud Provisioning
 
 Infrastructure as Code (IaC) is the practice of managing and provisioning your cloud resources through machine-readable definition files, rather than physical hardware configuration or interactive configuration tools.
 
 
 | Method | Approach | Risk |
 | --- | --- | --- |
-| **Manual (Clicking)** | Slow / GUI-based | ⚠️ Human error, "Click Ops" |
-| **Imperative (Scripts)** | "Do Step A, then B" | 📉 Hard to maintain at scale |
-| **Declarative (IaC)** | "I want 3 Servers" | ✅ Reproducible, safe, audited |
+| **Manual (Clicking)** | Slow / GUI-based | Human error, "Click Ops" |
+| **Imperative (Scripts)** | "Do Step A, then B" | Hard to maintain at scale |
+| **Declarative (IaC)** | "I want 3 Servers" | Reproducible, safe, audited |
 
 
-## 🏗️ Core Principles
+### Core Principles
 
 - **Declarative Syntax:** You specify the *end state* you want (e.g., "I want a VPC with 3 subnets"), and the tool (like Terraform) calculates the diff and applies it.
 - **Version Control:** Your entire data center is defined in Git. You can peer-review a firewall change exactly like a code change.
 - **Idempotency:** Running the same IaC code 10 times results in the same infrastructure. It only applies changes if there is a drift from the defined state.
 
-## 🛠️ The IaC Ecosystem
+### The IaC Ecosystem
+
 
 
 | Tool | Philosophy | Best For |

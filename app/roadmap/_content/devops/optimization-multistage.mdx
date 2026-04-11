@@ -2,18 +2,18 @@
 title: Advanced Pipeline Optimization
 icon: zap
 ---
-## 1. Configuring Dependency Caching
+## Configuring Dependency Caching
 
 On every push, a fresh GitHub Runner starts completely empty. If your project has hundreds of dependencies, downloading them every time is a massive waste of time and money.
 
-## ⚡ The Caching Strategy
+### The Caching Strategy
 
 
 | Optimization | Method | Impact |
 | --- | --- | --- |
-| **Package Caching** | `actions/cache` | ⬇️ 90% build time |
-| **Docker Layers** | `build-args` | ⬇️ 70% image build |
-| **Parallel Jobs** | `strategy/matrix` | ⬇️ 50% test duration |
+| **Package Caching** | `actions/cache` | 90% build time |
+| **Docker Layers** | `build-args` | 70% image build |
+| **Parallel Jobs** | `strategy/matrix` | 50% test duration |
 
 
 - **How it works:** GitHub zips your dependency folder (e.g., `node_modules` or `~/.cache/pip`) at the end of a successful run and saves it to an internal server.
@@ -30,11 +30,11 @@ On every push, a fresh GitHub Runner starts completely empty. If your project ha
 
 
 
-## 2. Manual Approvals & Environments
+## Manual Approvals & Environments
 
 While Continuous Deployment (auto-shipping to prod) is the dream, most enterprise companies require strict governance and human oversight before affecting live users.
 
-## ⛩️ GitHub Environments & Gates
+### GitHub Environments & Gates
 
 - **Protection Rules:** You can create an Environment called "Production" and assign specific team members as **Required Reviewers**.
 - **The Pause:** Adding `environment: production` to a job tells GitHub to completely suspend execution until an approval is received.
@@ -43,9 +43,10 @@ While Continuous Deployment (auto-shipping to prod) is the dream, most enterpris
 
 | Feature | Staging | Production |
 | --- | --- | --- |
-| **Auto-Deploy** | ✅ Yes | ❌ No (Manual) |
+| **Auto-Deploy** | Yes | No (Manual) |
 | **Secrets** | Staging DB | Prod DB (Protected) |
 | **Reviewers** | None | Required |
+
 
 
 

@@ -5,20 +5,20 @@ icon: server
 
 
 
-## 1. GitHub-hosted vs. Self-hosted Runners
+## GitHub-hosted vs. Self-hosted Runners
 
 When GitHub Actions runs a job, it needs a physical computer (a **Runner**) to execute your scripts. Choosing the right infrastructure is a balance between maintenance and control.
 
 
 | Feature | GitHub-Hosted | Self-Hosted |
 | --- | --- | --- |
-| **Maintenance** | 🧊 Zero (Managed) | 🛠️ High (You patch it) |
-| **Security** | 🌐 Public Internet | 🏰 Private Network/VPC |
+| **Maintenance** | Zero (Managed) | High (You patch it) |
+| **Security** | Public Internet | Private Network/VPC |
 | **Hardware** | Fixed (VMs) | Custom (GPUs, Bare Metal) |
 | **Cost** | Pay-as-you-go | You pay for the server |
 
 
-## 🏗️ Runner Types
+## Runner Types
 
 - **GitHub-Hosted:** Provisons fresh, ephemeral VMs (Ubuntu, Windows, macOS). When the job finishes, the VM is instantly destroyed. Perfect for 90% of use cases.
 - **Self-Hosted:** You install the GitHub Runner agent on your own servers (AWS EC2, on-prem rack). Essential if you need to access private databases or specialized hardware (like NVIDIA GPUs for AI).
@@ -33,11 +33,11 @@ When GitHub Actions runs a job, it needs a physical computer (a **Runner**) to e
 
 
 
-## 2. Running Jobs inside Docker Containers
+## Running Jobs inside Docker Containers
 
 The classic developer problem: *"The pipeline passes on GitHub, but the code fails in production."* This happens because the host OS (Ubuntu) might have different system libraries than your production server.
 
-## 📦 The Container Directive
+## The Container Directive
 Instead of running commands directly on the host VM, you can instruct GitHub to pull a specific Docker image and run all steps **inside** that container.
 
 - **Absolute Consistency:** If production runs `python:3.10-slim`, your CI pipeline runs inside the exact same image. No surprises.

@@ -2,7 +2,7 @@
 title: Pub/Sub & Async Messaging
 icon: zap
 ---
-## 1. Sync vs Async vs Parallelism
+## Sync vs Async vs Parallelism
 
 Understanding the difference between blocking, concurrent, and parallel execution is crucial for backend performance. When developers say "just make it async", they are usually conflating three entirely different architectural concepts.
 
@@ -14,7 +14,7 @@ Understanding the difference between blocking, concurrent, and parallel executio
 | **Parallelism** | Many waiters, many tables. | CPU (Math, ML) | `Multicore` |
 
 
-## 🏗️ Execution Breakdown
+### Execution Breakdown
 
 - **Synchronous (Sync):** Python executes code exactly one line at a time. If a line takes 10 seconds to query a database, the entire server stops and waits.
 - **Asynchronous (Async):** "Smart Waiting." The server never wastes time waiting for I/O. It moves to the next task while the database finishes.
@@ -28,7 +28,7 @@ Understanding the difference between blocking, concurrent, and parallel executio
 
 
 
-## 2. Deep Dive: Inside the Event Loop
+## Deep Dive: Inside the Event Loop
 
 The magic of asynchronous programming is that the computer never waits. 
 
@@ -46,11 +46,11 @@ When a coroutine hits an `await` statement (like querying a database), it explic
 
 
 
-## 3. The Queue (1-to-1 Task List)
+## The Queue (1-to-1 Task List)
 
 A Queue represents a **Point-to-Point** communication pattern for executing specific background commands.
 
-## 📥 The 1-to-1 Pattern
+### The 1-to-1 Pattern
 - **🧠 The Mindset:** "I need someone to do this specific job exactly once."
 - **🎯 Use Case:** Heavy tasks like image processing, sending a password reset email, or inverse modeling.
 - **🚀 Scaling:** You can add as many workers as you want, but each message is processed exactly once by the first available worker.
@@ -65,11 +65,11 @@ A Queue represents a **Point-to-Point** communication pattern for executing spec
 
 
 
-## 4. Pub/Sub & The Event Bus (1-to-Many)
+## Pub/Sub & The Event Bus (1-to-Many)
 
 Pub/Sub (Publish/Subscribe) is an asynchronous communication paradigm where senders do not target specific receivers.
 
-## 📢 The 1-to-Many Pattern
+### The 1-to-Many Pattern
 - **🧠 The Mindset:** "I am announcing a fact. I don't care who is listening."
 - **🎯 Use Case:** Real-time dashboards, user notifications, logging, or cross-service updates.
 - **🚀 Decoupling:** Producers never need to know about Consumers. You can add a "Newsletter Service" listener later without touching the code of the "Payment Service."
@@ -79,11 +79,11 @@ Pub/Sub (Publish/Subscribe) is an asynchronous communication paradigm where send
 
 
 
-## 5. The Message Broker (Infrastructure)
+## The Message Broker (Infrastructure)
 
 The physical software engine that hosts your Queues and Event Buses.
 
-## 🛠️ Choosing Your Tools
+### Choosing Your Tools
 
 
 | Tool | Type | Strengths |
@@ -104,7 +104,7 @@ The physical software engine that hosts your Queues and Event Buses.
 
 
 
-## 6. Client-Server Notification Strategies
+## Client-Server Notification Strategies
 
 When your background worker finishes a 5-minute task, how do you tell the user's browser? Use the right tool for the job to avoid over-engineering.
 

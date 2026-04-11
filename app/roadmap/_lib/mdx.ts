@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { generateId } from './mdx-components';
 
 const CONTENT_PATH = path.join(process.cwd(), 'app/roadmap/_content');
 
@@ -31,6 +32,7 @@ export interface CategoryMeta {
 export interface TopicMeta {
   id: string;
   title: string;
+  level: number;
 }
 
 export interface CategoryData extends CategoryMeta {
@@ -83,20 +85,29 @@ export function getCategoryMeta(trackId: string, categorySlug: string): Category
  * Dynamically extract ## headers from MDX content to build the Table of Contents.
  */
 function extractHeadings(content: string): TopicMeta[] {
-  const headingRegex = /^##\s+(.*)$/gm;
+  // Capture ##, ###, and #### headers
+  const headingRegex = /^(#{2,4})\s+(.*)$/gm;
   const topics: TopicMeta[] = [];
+  const usedIds = new Map<string, number>();
   let match;
 
   while ((match = headingRegex.exec(content)) !== null) {
-    const title = match[1].trim();
-    const id = title
-      .toLowerCase()
-      .replace(/^\d+\.\s*/, '') // Remove leading numbers like "1. "
-      .replace(/[^\w\s-]/g, '')   // Remove special characters
-      .replace(/\s+/g, '-')       // Replace spaces with dashes
-      .trim();
+    const hashes = match[1];
+    const title = match[2].trim();
+    const level = hashes.length;
 
-    topics.push({ id, title });
+    let id = generateId(title);
+    
+    // Deduplicate IDs
+    const count = usedIds.get(id) || 0;
+    if (count > 0) {
+      usedIds.set(id, count + 1);
+      id = `${id}-${count}`;
+    } else {
+      usedIds.set(id, 1);
+    }
+
+    topics.push({ id, title, level });
   }
 
   return topics;

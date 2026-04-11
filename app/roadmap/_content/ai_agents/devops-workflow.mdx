@@ -2,7 +2,7 @@
 title: DevOps Workflow
 icon: terminal
 ---
-## devops-workflow-overview
+## Workflow Overview
 
 DevOps is where AI agents truly shine. By automating repetitive tasks like migration verification, deployment health checks, and git hygiene, you free up your human engineers for deep architectural work.
 
@@ -23,12 +23,11 @@ DevOps is where AI agents truly shine. By automating repetitive tasks like migra
 
 
 
-
 ## Database Migrator
 
 Ensures your database stays healthy and synchronized by automating the lifecycle of migrations with built-in safety checks.
 
-## 🗄️ Guided Migrations
+### Guided Migrations
 
 - **Safety First:** Mandates dry-runs and rollback plans for every schema change.
 - **Framework Aware:** Adheres directly to your tech stack (Prisma, Alembic, etc.).
@@ -82,7 +81,7 @@ Instruct the agent to look for 'Deployment Blockers' (e.g., failed tests, missin
 
 Teaches the AI to read git diffs safely and generate highly consistent, professional workflow messaging for the entire team.
 
-## 🌲 Version Control Hygiene
+### Version Control Hygiene
 
 - **Conventional Commits:** Enforces strict `feat:`, `fix:`, `chore:` formatting for a clean history.
 - **Safe Diffing:** Uses scripts to safely extract codebase changes without risking side effects.
@@ -100,3 +99,4 @@ In SKILL.md, add name: git-manager and description: Trigger this when I ask to w
 Instruct the agent to use Conventional Commits (feat:, fix:, chore:, etc.). Create a script in scripts/get_diff.sh that safely runs git diff. In examples/pr_template.md, provide the exact Markdown template the agent should fill out when summarizing code changes (including What Changed and How to Test sections).
 
 ```
+

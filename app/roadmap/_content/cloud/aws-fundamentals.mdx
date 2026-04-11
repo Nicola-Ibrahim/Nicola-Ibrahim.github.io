@@ -2,19 +2,19 @@
 title: Cloud Compute Paradigms
 icon: box
 ---
-## 1. Serverful (VPS / Bare Metal)
+## Serverful (VPS / Bare Metal)
 
 Virtual Private Servers (VPS) or Infrastructure as a Service (IaaS) gives you a raw virtual machine (like AWS EC2 or a DigitalOcean Droplet). You are handed a Linux terminal and full root access.
 
 
 | Pros | Cons | Best For |
 | --- | --- | --- |
-| **Full Control** | 🛠️ High Maintenance | Predictable heavy traffic |
-| **Fixed Cost** | 💸 Pay while idle | Legacy monoliths |
-| **Custom Kernel** | 🛡️ Manual Security | Low-level C++ libraries |
+| **Full Control** | High Maintenance | Predictable heavy traffic |
+| **Fixed Cost** | Pay while idle | Legacy monoliths |
+| **Custom Kernel** | Manual Security | Low-level C++ libraries |
 
 
-## 🏗️ The Raw Infrastructure
+### The Raw Infrastructure
 - **Always On:** You pay a fixed monthly rate 24/7, regardless of whether you have 0 users or 10,000 users.
 - **Legacy Systems:** Older monoliths that aren't containerized often require a traditional server environment with specific OS dependencies.
 
@@ -28,11 +28,11 @@ Virtual Private Servers (VPS) or Infrastructure as a Service (IaaS) gives you a 
 
 
 
-## 2. PaaS (The "Sweet Spot")
+## PaaS (The "Sweet Spot")
 
 Platform as a Service (PaaS) represents the "Sweet Spot" for most modern development teams (e.g., Heroku, Render, Vercel, AWS AppRunner).
 
-## 🍬 The Developer Experience
+### The Developer Experience
 - **Connect & Deploy:** Simply connect your GitHub repo. The platform handles the Linux OS, load balancing, SSL certificates, and zero-downtime deployments.
 - **Scaling:** Need more power? Just drag a slider in the UI to add more "Dynos" or instances behind their managed load balancer.
 
@@ -54,22 +54,22 @@ Platform as a Service (PaaS) represents the "Sweet Spot" for most modern develop
 
 
 
-## 3. Serverless (FaaS)
+## Serverless (FaaS)
 
 Serverless (Function as a Service / FaaS) fundamentally changes how compute is billed and executed (e.g., AWS Lambda, Google Cloud Functions).
 
-## ⚡ Event-Driven Scaling
+### Event-Driven Scaling
 - **Pay Per Millisecond:** You are billed exactly for the execution time. If no one visits your site, your bill is literally **$0.00**.
 - **Infinite Scaling:** The cloud provider spins up thousands of parallel instances instantly to handle sudden spikes.
 
-## ⚖️ The Trade-offs
+### The Trade-offs
 
 
 | Feature | Serverless (FaaS) | Serverful (VPS) |
 | --- | --- | --- |
-| **Scale** | 📈 Instant / Automatic | 🕰️ Manual / Slow |
-| **Timeout** | ⏱️ Hard limit (15m) | ♾️ Infinite |
-| **Latency** | ❄️ Cold Starts | ⚡ Always Ready |
+| **Scale** | Instant / Automatic | Manual / Slow |
+| **Timeout** | Hard limit (15m) | Infinite |
+| **Latency** | Cold Starts | Always Ready |
 
 
 

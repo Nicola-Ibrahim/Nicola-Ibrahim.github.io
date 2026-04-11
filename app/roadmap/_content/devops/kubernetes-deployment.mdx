@@ -2,11 +2,11 @@
 title: Kubernetes & Cloud CD
 icon: cloud
 ---
-## 1. OIDC Authentication
+## OIDC Authentication
 
 Historically, to deploy to AWS, you had to generate a permanent AWS IAM Access Key and paste it into GitHub Secrets. If those keys were ever leaked, your entire cloud infrastructure was at risk.
 
-## 🔑 The OIDC Revolution
+### The OIDC Revolution
 
 OpenID Connect (OIDC) allows your GitHub Actions workflows to communicate with Cloud providers without long-lived secrets.
 
@@ -32,16 +32,16 @@ OpenID Connect (OIDC) allows your GitHub Actions workflows to communicate with C
 
 
 
-## 2. Deploying with kubectl & Helm
+## Deploying with kubectl & Helm
 
 Once authenticated, the pipeline must instruct the Kubernetes cluster to start using the newly built Docker image.
 
-## 🏗️ The Deployment Process
+### The Deployment Process
 
 - **Context Switching:** The runner uses the cloud credentials to securely connect to the cluster API (e.g., AWS EKS or GCP GKE).
 - **Manifest Updates:** Using tools like `kubectl` or `Helm`, the pipeline updates the deployment manifest to point to the new image tag (the Git Commit Hash).
 
-## 🚀 Rollout Strategies
+### Rollout Strategies
 
 
 | Strategy | Logic | Zero Downtime? |

@@ -2,7 +2,7 @@
 title: Security & Monitoring
 icon: shield-check
 ---
-## 1. Network Security Layers (Firewalls & WAF)
+## Network Security Layers (Firewalls & WAF)
 
 Network security starts at the perimeter. Depending on which layer of the OSI model you are protecting, you will use different tools.
 
@@ -14,7 +14,7 @@ Network security starts at the perimeter. Depending on which layer of the OSI mo
 | **DDoS Protection** | Layer 3/4/7 | Volumetric | Traffic floods |
 
 
-## 🛡️ Best Practices
+### Best Practices
 
 - **Least Privilege:** By default, block all incoming traffic and only open specific ports (e.g., 443 for HTTPS).
 - **Deep Packet Inspection (DPI):** Modern firewalls look inside the packet data, not just the headers, to find hidden malware.
@@ -30,7 +30,7 @@ Network security starts at the perimeter. Depending on which layer of the OSI mo
 
 
 
-## 2. Detection & Prevention (IDS/IPS)
+## Detection & Prevention (IDS/IPS)
 
 Detection and Prevention systems monitor network traffic for suspicious patterns or known attack signatures.
 
@@ -41,7 +41,7 @@ Detection and Prevention systems monitor network traffic for suspicious patterns
 | **IPS** (Prevention) | **Drop Packet** | Active defender, blocks traffic in real-time. |
 
 
-## 🔍 How they work
+### How they work
 
 - **Signature-Based:** Compares traffic against a database of known attack "fingerprints."
 - **Anomaly-Based:** Uses machine learning to establish a "normal" baseline and alerts when traffic deviates significantly.
@@ -57,17 +57,17 @@ Detection and Prevention systems monitor network traffic for suspicious patterns
 
 
 
-## 3. Network Observability
+## Network Observability
 
 You cannot secure or optimize what you cannot see. Modern networking requires deep observability into every packet and connection.
 
-## 📊 Essential Metrics
+## Essential Metrics
 
 - **Latency (RTT):** The time it takes for a packet to travel to the destination and back.
 - **Packet Loss:** A high percentage of lost packets indicates congestion or hardware failure.
 - **Throughput:** The actual rate of successful data delivery over the network.
 
-## 🛠️ The Toolbelt
+## The Toolbelt
 
 
 | Tool | Use Case | Analogy |

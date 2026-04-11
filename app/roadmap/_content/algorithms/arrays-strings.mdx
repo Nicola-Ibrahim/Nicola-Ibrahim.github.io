@@ -2,7 +2,7 @@
 title: 'Arrays, Strings & Searching'
 icon: layout
 ---
-## 1. Arrays, Strings & Hash Maps
+## Arrays, Strings & Hash Maps
 
 Hash maps trade space for time, giving you **O(1)** average lookups. This is almost always the first optimization step when moving away from a brute-force **O(N²)** solution.
 
@@ -14,7 +14,7 @@ Hash maps trade space for time, giving you **O(1)** average lookups. This is alm
 | **Index Mapping** | Store value -> index (Two Sum) | Time: O(1) Lookup |
 
 
-## 🏗️ Core Patterns
+## Core Patterns
 
 - **Hashing:** Use a dictionary (Python) or Map (JS) to store the presence of elements.
 - **Strings as Arrays:** Most string problems are just array problems where the elements are characters.
@@ -26,7 +26,7 @@ Hash maps trade space for time, giving you **O(1)** average lookups. This is alm
 
 
 
-### 🔗 Recommended Practice
+### Recommended Practice
 
 - [Two Sum](https://leetcode.com/problems/two-sum/)
 - [Valid Anagram](https://leetcode.com/problems/valid-anagram/)
@@ -39,11 +39,11 @@ Hash maps trade space for time, giving you **O(1)** average lookups. This is alm
 
 
 
-## 2. Binary Search
+## Binary Search
 
 Binary search isn't just for finding elements in a sorted array; it's a powerful divide-and-conquer strategy that slashes search space in half at every step.
 
-## 🛠️ The Mechanics
+### The Mechanics
 
 ```python
 while left <= right:
@@ -66,10 +66,10 @@ while left <= right:
 
 
 
-### 🔗 Recommended Practice
+### Recommended Practice
 
 - [Binary Search](https://leetcode.com/problems/binary-search/)
-- [Search a 2D Matrix](https://leetcode.com/problems/search a-2d-matrix/)
+- [Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
 - [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
 - [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
 
@@ -78,11 +78,12 @@ while left <= right:
 
 
 
-## 3. Two Pointers & Sliding Window
+## Two Pointers & Sliding Window
 
 Two Pointers involve traversing an array from different directions. Sliding Window is a special subset used to find contiguous subarrays or substrings.
 
-## 🪟 Techniques Breakdown
+### Techniques Breakdown
+
 
 - **Opposite Ends:** Move `left` and `right` pointers inward to find pairs or validate palindromes.
 - **Fast & Slow:** Useful for cycle detection in linked lists (not strictly array-based but a core pointer concept).
@@ -102,7 +103,7 @@ Two Pointers involve traversing an array from different directions. Sliding Wind
 
 
 
-### 🔗 Recommended Practice
+### Recommended Practice
 
 - [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
 - [3Sum](https://leetcode.com/problems/3sum/)

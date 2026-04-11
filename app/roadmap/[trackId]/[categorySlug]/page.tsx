@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { TableOfContents } from '../../_components/layout/TableOfContents';
-import { ModuleContent } from '../../_components/layout/ModuleContent';
-import { getTrackMeta, getCategoryMeta, getFullRoadmapsData, getAllCategoryContent, getUnifiedChapterContent } from '../../_lib/mdx';
+import { getTrackMeta, getCategoryMeta, getFullRoadmapsData, getUnifiedChapterContent } from '../../_lib/mdx';
 import { getIcon } from '../../_lib/icon-registry';
 import { notFound } from 'next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
+import rehypePrettyCode from 'rehype-pretty-code';
 import { mdxComponents } from '../../_lib/mdx-components';
 
 export async function generateStaticParams() {
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: { trackId: string; 
   const { trackId, categorySlug } = await params;
   const track = getTrackMeta(trackId);
   if (!track) return { title: 'Track Not Found' };
-  
+
   const category = getCategoryMeta(trackId, categorySlug);
   if (!category) return { title: 'Module Not Found' };
 
@@ -56,7 +56,7 @@ export default async function ModulePage({ params }: { params: { trackId: string
   const allRoadmaps = await getFullRoadmapsData();
   const roadmap = allRoadmaps[trackId];
   const category = roadmap?.categories.find(c => c.slug === categorySlug);
-  
+
   if (!category) {
     notFound();
   }
@@ -104,12 +104,21 @@ export default async function ModulePage({ params }: { params: { trackId: string
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm],
+                rehypePlugins: [
+                  [
+                    rehypePrettyCode,
+                    {
+                      theme: 'github-dark',
+                      keepBackground: false,
+                    },
+                  ],
+                ],
               }
             }}
           />
         </div>
       </div>
-      
+
       <TableOfContents content={category.content} />
     </div>
   );

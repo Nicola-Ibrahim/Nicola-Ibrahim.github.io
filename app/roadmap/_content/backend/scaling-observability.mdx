@@ -2,7 +2,7 @@
 title: Scaling & Observability
 icon: activity
 ---
-## 1. Load Balancers
+## Load Balancers
 
 The traffic cop of your infrastructure, dynamically distributing incoming network traffic across a group of backend servers to ensure high availability and reliability.
 
@@ -14,7 +14,7 @@ The traffic cop of your infrastructure, dynamically distributing incoming networ
 | **Use Case** | Simple traffic splitting | A/B testing, Path-based routing |
 
 
-## ⚖️ Scaling Strategies
+### Scaling Strategies
 
 - **High Availability:** Prevents any single server from becoming a bottleneck. If Server A crashes, the load balancer detects the failure via **Health Checks** and automatically routes traffic to Server B.
 - **Algorithms:** 
@@ -31,13 +31,13 @@ The traffic cop of your infrastructure, dynamically distributing incoming networ
 
 
 
-## 2. Logger Architecture & Observability
+## Logger Architecture & Observability
 
 In a distributed system, simply writing `print("error")` to a terminal is useless. You need centralized observability to figure out what went wrong across dozens of independent services.
 
-## 🔍 The Three Pillars
+## The Three Pillars
 
-### 1. Structured Logging
+### Structured Logging
 Logs must be emitted as **JSON**, not plain text. This allows you to easily search, filter, and alert on specific machine-readable fields.
 ```json
 {
@@ -48,10 +48,10 @@ Logs must be emitted as **JSON**, not plain text. This allows you to easily sear
 }
 ```
 
-### 2. Centralized Aggregation
+### Centralized Aggregation
 All services send their logs to a central system (ELK Stack, Datadog) so you can query everything in one dashboard without SSHing into individual servers.
 
-### 3. Distributed Tracing
+### Distributed Tracing
 A unique **Correlation ID** (or Trace ID) is generated when a request first hits the API Gateway. This ID is passed to every microservice in the chain. If a request fails deep in the system, you can search the ID and trace the exact path the request took.
 
 

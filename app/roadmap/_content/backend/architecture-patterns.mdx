@@ -2,16 +2,16 @@
 title: Architecture Patterns
 icon: layout
 ---
-## 1. Modular Monolith
+## Modular Monolith
 
 A software architecture that keeps all code in a single deployable application but enforces strict internal boundaries. It is the perfect starting point for most startups.
 
-## 🧱 The Concept
+### The Concept
 
 - **Single Deployment:** Everything runs in one process. You deploy one artifact. It is significantly easier to build, test, and release.
 - **Strict Boundaries:** Code is organized by business domain (e.g., Billing, Users). Modules cannot directly access each other's databases; they must communicate through strictly defined internal APIs or interfaces.
 
-## ✨ Why it's popular
+### Why it's popular
 
 - **Simplicity:** Easier to debug and test than microservices. There is no network latency between modules because communication is strictly in-memory.
 - **Future-Proofing:** Because the boundaries are already strict, it is incredibly easy to break a module out into a separate microservice later if it requires independent scaling.
@@ -26,16 +26,16 @@ A software architecture that keeps all code in a single deployable application b
 
 
 
-## 2. Microservices
+## Microservices
 
 A distributed architecture where an application is composed of many small, independent, and loosely coupled services.
 
-## 🌐 The Concept
+### The Concept
 
 - **Independent Deployments:** The Billing team can deploy their service 10 times a day without coordinating with the Users team.
 - **Decentralized Data:** Every microservice **MUST** own its own database. Services communicate over the network (HTTP, gRPC, or Pub/Sub).
 
-## ⚖️ The Trade-offs
+### The Trade-offs
 
 
 | Feature | Monolith | Microservices |
@@ -56,16 +56,16 @@ A distributed architecture where an application is composed of many small, indep
 
 
 
-## 3. Serverless Architecture
+## Serverless Architecture
 
 An execution model where the cloud provider dynamically manages the allocation and provisioning of servers (e.g., AWS Lambda, Google Cloud Functions).
 
-## ⚡ The Concept
+### The Concept
 
 - **Event-Driven:** Code executes only in response to triggers (like an HTTP request, a file uploaded to S3, or a scheduled cron job).
 - **Scale to Zero:** If nobody is using your app, no code runs, and you pay $0. It scales up instantly to thousands of concurrent executions if traffic spikes.
 
-## ❄️ Cold Starts & Use Cases
+### Cold Starts & Use Cases
 
 - **Cold Starts:** If a function hasn't been run recently, the cloud provider needs to spin up a container from scratch, causing a noticeable delay (latency) on the first request.
 - **Best For:** Payment webhooks, daily report generation, image processing, and rapid prototyping without infrastructure overhead.

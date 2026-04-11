@@ -2,7 +2,7 @@
 title: 'Trees, Tries & Heaps'
 icon: tree
 ---
-## 1. Binary Trees & BSTs
+## Binary Trees & BSTs
 
 Trees are inherently recursive data structures. Mastering them requires a deep understanding of recursive stack frames and gravitational data flow.
 
@@ -14,7 +14,7 @@ Trees are inherently recursive data structures. Mastering them requires a deep u
 | **BST Search** | Left < Root < Right | Time: O(log N) average |
 
 
-## 🌲 Traversal Patterns
+### Traversal Patterns
 
 - **DFS Traversals:** Master Pre-order (Root-L-R), In-order (L-Root-R), and Post-order (L-R-Root). For a BST, In-order traversal visits nodes in sorted order.
 - **Level Order (BFS):** Useful for finding the shortest path or processing nodes layer-by-layer.
@@ -26,7 +26,7 @@ Trees are inherently recursive data structures. Mastering them requires a deep u
 
 
 
-### 🔗 Recommended Practice
+### Recommended Practice
 
 - [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
 - [Maximum Depth](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
@@ -39,11 +39,11 @@ Trees are inherently recursive data structures. Mastering them requires a deep u
 
 
 
-## 2. Heaps & Priority Queues
+## Heaps & Priority Queues
 
 Heaps are specialized complete binary trees that satisfy the heap property—parent nodes are always smaller (Min-Heap) or larger (Max-Heap) than their children.
 
-## 🚀 Running Optimizations
+## Running Optimizations
 
 - **O(1) Access:** Instantly retrieve the highest priority element.
 - **Push/Pop Complexity:** Both operations take **O(log N)** to re-balance the heap.
@@ -55,7 +55,7 @@ Heaps are specialized complete binary trees that satisfy the heap property—par
 
 
 
-### 🔗 Recommended Practice
+### Recommended Practice
 
 - [Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
 - [Last Stone Weight](https://leetcode.com/problems/last-stone-weight/)
@@ -67,11 +67,11 @@ Heaps are specialized complete binary trees that satisfy the heap property—par
 
 
 
-## 3. Tries (Prefix Trees)
+## Tries (Prefix Trees)
 
 Tries store characters in nodes, sharing common prefixes to save memory and enable lightning-fast string validation.
 
-## 🔍 Prefix Efficiency
+## Prefix Efficiency
 
 - **O(L) Complexity:** Searches take time proportional to the word length (L), regardless of how many millions of words are in the dictionary.
 - **DFS + Trie:** This combination is the key to solving complex "Word Search" problems where you must explore a grid to form words.
@@ -91,7 +91,7 @@ Tries store characters in nodes, sharing common prefixes to save memory and enab
 
 
 
-### 🔗 Recommended Practice
+### Recommended Practice
 
 - [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
 - [Design Add and Search Words](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
