@@ -1,8 +1,83 @@
 ---
-title: "Network Protocols"
-icon: "file-text"
-iconColor: "text-blue-600"
-topics: []
+title: Network Protocols
+icon: file-text
 ---
+## 1. IP Addressing (v4 vs v6)
 
-Deep diving into the rules that govern communication on the internet.
+The Internet Protocol (IP) provides the fundamental logical addressing system used to route data across the internet. Every device on a network requires an IP address to send and receive packets.
+
+
+| Feature | IPv4 | IPv6 |
+| --- | --- | --- |
+| **Address Size** | 32-bit | 128-bit |
+| **Format** | `192.168.1.1` | `2001:0db8:85a3...` |
+| **Total Addresses** | ~4.3 Billion | 340 Undecillion |
+| **Security** | Extension headers | Built-in IPsec |
+
+
+## 🌐 Modern Routing
+
+- **CIDR Notation:** Understand `/24` or `/16` subnet masks to determine network vs. host portions.
+- **NAT (Network Address Translation):** How multiple devices in your home share a single public IPv4 address.
+- **Anycast:** A routing technique where multiple servers share the same IP, and data is routed to the "closest" one (used by Cloudflare/Google DNS).
+
+
+> [!info] Why IPv6?
+> The world ran out of public IPv4 addresses years ago. IPv6 was designed to provide an almost infinite supply while improving header efficiency and autoconfiguration (SLAAC).
+
+
+
+
+
+
+
+## 2. Transport Layer (TCP vs UDP)
+
+The Transport Layer (Layer 4) is responsible for end-to-end communication. The choice between TCP and UDP defines whether your application prioritizes **Reliability** or **Performance**.
+
+
+| Protocol | Strategy | Pros | Best For |
+| --- | --- | --- | --- |
+| **TCP** | Connection-Oriented | Reliable, Ordered | Web (HTTP), Email, SSH |
+| **UDP** | Connectionless | Fast, No Overhead | Gaming, Streaming, DNS |
+
+
+## 🏗️ TCP Mechanics
+
+- **Three-Way Handshake:** Every TCP connection starts with `SYN` -> `SYN-ACK` -> `ACK`.
+- **Flow Control:** Prevents a fast sender from overwhelming a slow receiver using a "window" size.
+- **Error Recovery:** Detects dropped packets (via sequence numbers) and retransmits them automatically.
+
+
+> [!warning] Head-of-Line Blocking
+> In TCP, if a single packet is lost, the entire stream must wait for it to be retransmitted, even if subsequent packets have already arrived. This is the primary driver for moves toward QUIC/HTTP3.
+
+
+
+
+
+
+
+## 3. Application Layer (HTTP/1 to HTTP/3)
+
+The Hypertext Transfer Protocol (HTTP) has evolved significantly to handle the complex, resource-heavy nature of the modern web.
+
+## 🚀 The HTTP Stack
+
+
+| Version | Transport | Key Feature |
+| --- | --- | --- |
+| **HTTP/1.1** | TCP | Persistent connections (Keep-Alive) |
+| **HTTP/2** | TCP | Binary framing, Multiplexing, Server Push |
+| **HTTP/3** | **QUIC (UDP)** | No Head-of-Line blocking, Faster handshakes |
+
+
+## 🔑 Core Concepts
+
+- **Statelessness:** Each request is independent. State is managed via Cookies or Tokens.
+- **Multiplexing:** The ability to send multiple requests over a single connection simultaneously (introduced in HTTP/2).
+- **HTTPS:** HTTP over TLS. Modern browsers strictly enforce Layer 6 encryption for all data in transit.
+
+
+> [!tip] Latency vs Bandwidth
+> On the modern internet, web performance is usually bottlenecked by **Latency** (round-trip time) rather than **Bandwidth**. This is why HTTP/3 focuses on reducing handshake round-trips.

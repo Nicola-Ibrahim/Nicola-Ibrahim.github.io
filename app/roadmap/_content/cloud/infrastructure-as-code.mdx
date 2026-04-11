@@ -1,21 +1,43 @@
 ---
-title: "Infrastructure as Code"
-icon: "terminal"
-iconColor: "text-indigo-500"
-topics:
-  - id: "declarative-provisioning"
-    title: "1. Declarative Cloud Provisioning"
-    shortDesc: "Replacing manual UI clicks with readable code."
+title: Infrastructure as Code
+icon: terminal
 ---
 
-<Topic 
-  id="declarative-provisioning" 
-  title="1. Declarative Cloud Provisioning" 
-  shortDesc="Replacing manual UI clicks with readable code."
->
-Replacing manual UI clicks with readable, version-controlled code.
 
-- **Declarative Syntax:** You declare *what* you want in HashiCorp Configuration Language (HCL), and Terraform figures out *how* to build it.
-- **Version Control:** Infrastructure can be peer-reviewed and tracked in Git just like application code.
-- **Idempotency:** Running the code multiple times only applies the necessary changes (the diff).
-</Topic>
+
+## 1. Declarative Cloud Provisioning
+
+Infrastructure as Code (IaC) is the practice of managing and provisioning your cloud resources through machine-readable definition files, rather than physical hardware configuration or interactive configuration tools.
+
+
+| Method | Approach | Risk |
+| --- | --- | --- |
+| **Manual (Clicking)** | Slow / GUI-based | ⚠️ Human error, "Click Ops" |
+| **Imperative (Scripts)** | "Do Step A, then B" | 📉 Hard to maintain at scale |
+| **Declarative (IaC)** | "I want 3 Servers" | ✅ Reproducible, safe, audited |
+
+
+## 🏗️ Core Principles
+
+- **Declarative Syntax:** You specify the *end state* you want (e.g., "I want a VPC with 3 subnets"), and the tool (like Terraform) calculates the diff and applies it.
+- **Version Control:** Your entire data center is defined in Git. You can peer-review a firewall change exactly like a code change.
+- **Idempotency:** Running the same IaC code 10 times results in the same infrastructure. It only applies changes if there is a drift from the defined state.
+
+## 🛠️ The IaC Ecosystem
+
+
+| Tool | Philosophy | Best For |
+| --- | --- | --- |
+| **Terraform** | Declarative (HCL) | Cloud-agnostic infrastructure |
+| **Ansible** | Procedural (YAML) | Server configuration & app setup |
+| **Pulumi** | Code-based (TS/Python) | Developers who hate YAML/HCL |
+
+
+
+> [!tip] Don't use Click-Ops
+> In a professional environment, manual changes in the AWS/Azure console are an anti-pattern. If you change a setting manually, it will be overwritten the next time your IaC pipeline runs.
+
+
+
+> [!warning] State Files
+> Terraform uses a **State File** to keep track of what it built. Never lose this file! In a team setting, always use a **Remote Backend** (like AWS S3 with state locking) to prevent multiple people from breaking the infrastructure simultaneously.

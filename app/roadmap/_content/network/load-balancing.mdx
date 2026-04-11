@@ -1,8 +1,83 @@
 ---
-title: "Load Balancing"
-icon: "git-fork"
-iconColor: "text-amber-600"
-topics: []
+title: Load Balancing
+icon: git-fork
 ---
 
-Exploring the strategies for distributing traffic across multiple servers.
+
+
+## 1. Layer 4 vs Layer 7 Load Balancing
+
+Load balancers act as the "traffic cops" of your infrastructure, sitting in front of your servers and routing client requests to ensure no single server is overwhelmed.
+
+
+| Feature | Layer 4 (Transport) | Layer 7 (Application) |
+| --- | --- | --- |
+| **Visibility** | IP & TCP/UDP Ports | Headers, Cookies, URL Paths |
+| **Speed** | Very Fast (No decryption) | Slower (Deep packet inspection) |
+| **Complexity** | Simple routing | Intelligent, content-aware |
+| **Best For** | High-throughput, bulk traffic | Microservices, Path-based routing |
+
+
+## 🧩 Intelligent Routing (L7)
+
+With a Layer 7 Load Balancer, you can route traffic based on the content of the request:
+- `example.com/api` -> Routes to the **Backend Service**.
+- `example.com/images` -> Routes to the **S3/Cloud Storage**.
+- User with `Premium` cookie -> Routes to **High-Performance hardware**.
+
+
+> [!info] Hardware vs Software
+> Historically, Load Balancers were expensive hardware appliances (like F5). Today, most companies use software-defined load balancers like **NGINX**, **HAProxy**, or cloud-native solutions like **AWS ALB**.
+
+
+
+
+
+
+
+## 2. Load Balancing Algorithms
+
+The algorithm determines which server receives the next incoming request. Choosing the right one depends on your server capacity and traffic patterns.
+
+
+| Algorithm | Strategy | Best For |
+| --- | --- | --- |
+| **Round Robin** | Sequential rotation | Identical server specs |
+| **Least Connections** | Sends to the least busy | Long-lived connections (SQL) |
+| **IP Hash** | Hashed IP to specific server | Session persistence |
+| **Weighted** | Manual priority assignment | Mixed old/new hardware |
+
+
+## 🚀 Advanced Distribution
+
+- **Least Response Time:** Routes to the server that is currently responding the fastest.
+- **Random with Two Choices:** Picks two random servers and sends the request to the better of the two (avoids the "herd effect").
+
+
+> [!tip] Weighted Round Robin
+> If you have one server with **32GB RAM** and another with **8GB**, you should use a Weighted algorithm (e.g., 4:1 ratio) so the larger server handles more of the load.
+
+
+
+
+
+
+
+## 3. Health Checks & Session Persistence
+
+A load balancer is only useful if it knows which servers are actually working.
+
+## 🏥 Health Checks
+
+- **Passive:** The LB notices when a server fails to respond to a real user request.
+- **Active:** The LB "pings" a specific endpoint (e.g., `/health`) every few seconds. If the server returns a `500` or fails to respond, it is pulled from the rotation.
+
+## 🍪 Session Persistence (Sticky Sessions)
+
+If an application is not truly stateless, a user might need to talk to the **same server** for the duration of their session.
+- **Cookie-based:** The load balancer inserts a cookie to track which server the user was assigned to.
+- **IP-based:** Simple but can fail if multiple users share a public IP (like in an office).
+
+
+> [!warning] The Stateless Goal
+> While "Sticky Sessions" solve immediate problems, the ultimate goal of a scalable architecture is to be **Stateless**. Store session data in a central database (like Redis) so any server can handle any request.

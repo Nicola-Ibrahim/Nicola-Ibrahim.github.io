@@ -1,58 +1,70 @@
 ---
-title: "CI/CD & Automation Introduction"
-icon: "play-circle"
-iconColor: "text-blue-500"
-topics:
-  - id: "what-is-ci-cd"
-    title: "1. What is CI/CD?"
-    shortDesc: "The core philosophy behind modern software delivery."
-  - id: "intro-github-actions"
-    title: "2. Introduction to GitHub Actions"
-    shortDesc: "Native automation directly inside your code repository."
-  - id: "comparison-ci-tools"
-    title: "3. How GitHub Actions compares to others"
-    shortDesc: "GitHub Actions vs GitLab CI, Jenkins, and CircleCI."
+title: CI/CD & Automation Introduction
+icon: play-circle
 ---
+## 1. What is CI/CD?
 
-<Topic 
-  id="what-is-ci-cd" 
-  title="1. What is CI/CD?" 
-  shortDesc="The core philosophy behind modern software delivery."
->
 Before CI/CD, teams would code in isolation for weeks, leading to "Merge Hell" when combining their work. Deployments were manual, stressful, and heavily prone to human error.
 
-**The Solution: CI/CD**
+## 🔄 The CI/CD Pipeline
 
-- **Continuous Integration (CI):** Every time a developer pushes code, an automated server builds the app and runs unit tests. It acts as a gatekeeper, preventing broken code from entering the main branch.
-- **Continuous Delivery (CD):** Once code passes CI, it is automatically packaged and staged for release. A human just clicks "Approve" to deploy.
-- **Continuous Deployment (CD):** Takes it a step further—every change that passes tests goes straight to live users automatically, with no human intervention.
-- **The Impact:** You stop deploying massive, risky updates once a month and start deploying tiny, safe, easily revertible changes ten times a day.
-</Topic>
 
-<Topic 
-  id="intro-github-actions" 
-  title="2. Introduction to GitHub Actions" 
-  shortDesc="Native automation directly inside your code repository."
->
+| Concept | Action | Goal |
+| --- | --- | --- |
+| **Continuous Integration (CI)** | Build & Test on every push | Catch bugs early in the loop. |
+| **Continuous Delivery (CD)** | Automatic Staging | Always have a "ready" release. |
+| **Continuous Deployment (CD)** | Automatic Production | Deploy to users with zero friction. |
+
+
+## 🚀 The Impact
+- **Gatekeeping:** Automated servers act as a shield, preventing broken code from entering the `main` branch.
+- **Velocity:** You stop deploying massive, risky updates once a month and start deploying tiny, safe, easily revertible changes ten times a day.
+
+
+> [!tip] The Golden Rule of CI
+> A CI pipeline should be **fast** and **deterministic**. If your tests take 2 hours to run, developers will stop pushing small changes, defeating the purpose of integration.
+
+
+
+
+
+
+
+## 2. Introduction to GitHub Actions
+
 Historically, your code lived in Git, but your automation lived on a completely separate server. This caused a disconnect between the code and the pipeline that deployed it.
 
-**The Concept**
+## 🛠️ The GitHub Workflow
+GitHub Actions brings the CI/CD pipeline directly into your repository. Your pipeline is just another file (`.github/workflows/main.yml`) that lives alongside your application code.
 
-- **Native Integration:** GitHub Actions brings the CI/CD pipeline directly into your repository. Your pipeline is just another file (`.github/workflows/main.yml`) that lives alongside your application code.
 - **Infrastructure as Code:** Because the pipeline is defined in YAML and version-controlled, you can review changes to your deployment process exactly like you review a code Pull Request.
 - **Event-Driven Execution:** Workflows don't just trigger on pushes. You can trigger them when an issue is opened, a comment is made, or a release is tagged.
-</Topic>
 
-<Topic 
-  id="comparison-ci-tools" 
-  title="3. How GitHub Actions compares to others" 
-  shortDesc="GitHub Actions vs GitLab CI, Jenkins, and CircleCI."
->
+
+> [!ai] Did you know?
+> GitHub Actions provides free "Runners" (the servers that run your code) for all public repositories, making it the most accessible way to learn DevOps today.
+
+
+
+
+
+
+
+## 3. How GitHub Actions compares to others
+
 Understanding the broader ecosystem helps you architect the right solution for your company size.
 
-**The Comparisons**
 
-- **Jenkins:** The grandfather of CI/CD. It is incredibly powerful but requires a dedicated DevOps engineer just to maintain the Jenkins master/worker servers. GitHub Actions eliminates this overhead since it is fully managed (SaaS).
-- **GitLab CI:** Very similar to GitHub Actions. It popularized the YAML-in-repo approach. However, GitHub Actions currently has a massive edge due to its open-source "Marketplace."
-- **The Marketplace Advantage:** Instead of writing complex bash scripts to install Node.js or configure AWS, you can just use `actions/setup-node` built by the community. It turns complex scripting into simple plug-and-play blocks.
-</Topic>
+| Tool | Model | Best For |
+| --- | --- | --- |
+| **Jenkins** | Self-Hosted | Large enterprises with custom hardware. |
+| **GitLab CI** | Integrated | Teams already using the GitLab ecosystem. |
+| **GitHub Actions** | Marketplace-Driven | Startups and Open Source projects. |
+
+
+## 🌟 The Marketplace Advantage
+Instead of writing complex bash scripts to install Node.js or configure AWS, you can just use `actions/setup-node` built by the community. It turns complex scripting into simple **plug-and-play blocks**.
+
+
+> [!warning] Security Tip
+> When using third-party actions from the Marketplace, always pin them to a specific **Commit Hash** (SHA) instead of a version tag (like `@v3`) to prevent supply-chain attacks if the action is compromised.

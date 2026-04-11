@@ -1,96 +1,98 @@
 ---
-title: "Trees, Tries & Heaps"
-icon: "tree"
-iconColor: "text-emerald-600"
-topics:
-  - id: "binary-trees-bst"
-    title: "1. Binary Trees & BSTs"
-    shortDesc: "Unlocking the power of Recursion and Depth-First Search (DFS)."
-    links:
-      - label: "Invert Binary Tree"
-        url: "https://leetcode.com/problems/invert-binary-tree/"
-      - label: "Maximum Depth"
-        url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/"
-      - label: "Same Tree"
-        url: "https://leetcode.com/problems/same-tree/"
-      - label: "Lowest Common Ancestor"
-        url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
-      - label: "Binary Tree Level Order Traversal (BFS)"
-        url: "https://leetcode.com/problems/binary-tree-level-order-traversal/"
-  - id: "heaps-priority-queues"
-    title: "2. Heaps & Priority Queues"
-    shortDesc: "Maintaining running minimums and maximums in O(1) time."
-    links:
-      - label: "Kth Largest Element in a Stream"
-        url: "https://leetcode.com/problems/kth-largest-element-in-a-stream/"
-      - label: "Last Stone Weight"
-        url: "https://leetcode.com/problems/last-stone-weight/"
-      - label: "Task Scheduler"
-        url: "https://leetcode.com/problems/task-scheduler/"
-      - label: "Find Median from Data Stream"
-        url: "https://leetcode.com/problems/find-median-from-data-stream/"
-  - id: "tries"
-    title: "3. Tries (Prefix Trees)"
-    shortDesc: "Tree-like structures for hyper-efficient string matching."
-    links:
-      - label: "Implement Trie (Prefix Tree)"
-        url: "https://leetcode.com/problems/implement-trie-prefix-tree/"
-      - label: "Design Add and Search Words"
-        url: "https://leetcode.com/problems/design-add-and-search-words-data-structure/"
-      - label: "Word Search II"
-        url: "https://leetcode.com/problems/word-search-ii/"
+title: 'Trees, Tries & Heaps'
+icon: tree
 ---
+## 1. Binary Trees & BSTs
 
-<Topic 
-  id="binary-trees-bst" 
-  title="1. Binary Trees & BSTs" 
-  shortDesc="Unlocking the power of Recursion and Depth-First Search (DFS)."
-  links={[
-    { label: "Invert Binary Tree", url: "https://leetcode.com/problems/invert-binary-tree/" },
-    { label: "Maximum Depth", url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/" },
-    { label: "Same Tree", url: "https://leetcode.com/problems/same-tree/" },
-    { label: "Lowest Common Ancestor", url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" },
-    { label: "Binary Tree Level Order Traversal (BFS)", url: "https://leetcode.com/problems/binary-tree-level-order-traversal/" }
-  ]}
->
-Trees are inherently recursive data structures. Binary Search Trees (BST) add the property that left children are smaller, right are larger.
+Trees are inherently recursive data structures. Mastering them requires a deep understanding of recursive stack frames and gravitational data flow.
 
-- **DFS Traversals:** Master Pre-order, In-order, and Post-order recursive visits.
-- **The Call Stack:** Understand how data flows UP the recursive stack (return values) and DOWN (parameters).
-- **BFS Level Order:** Using a Queue to process a tree layer by layer.
-</Topic>
 
-<Topic 
-  id="heaps-priority-queues" 
-  title="2. Heaps & Priority Queues" 
-  shortDesc="Maintaining running minimums and maximums in O(1) time."
-  links={[
-    { label: "Kth Largest Element in a Stream", url: "https://leetcode.com/problems/kth-largest-element-in-a-stream/" },
-    { label: "Last Stone Weight", url: "https://leetcode.com/problems/last-stone-weight/" },
-    { label: "Task Scheduler", url: "https://leetcode.com/problems/task-scheduler/" },
-    { label: "Find Median from Data Stream", url: "https://leetcode.com/problems/find-median-from-data-stream/" }
-  ]}
->
-Heaps are complete binary trees that satisfy the heap property, used to quickly fetch the largest or smallest element.
+| Concept | Logic | Complexity |
+| --- | --- | --- |
+| **DFS** | Depth-First (Stack/Recursion) | Time: O(N), Space: O(H) |
+| **BFS** | Breadth-First (Queue) | Time: O(N), Space: O(W) |
+| **BST Search** | Left < Root < Right | Time: O(log N) average |
 
-- **O(1) Min/Max Access:** Instantly retrieve the highest priority element.
-- **Top K Problems:** The most efficient way to find the Kth largest element in a stream.
-- **Running Medians:** Using a Max-Heap and Min-Heap together to track medians dynamically.
-</Topic>
 
-<Topic 
-  id="tries" 
-  title="3. Tries (Prefix Trees)" 
-  shortDesc="Tree-like structures for hyper-efficient string matching."
-  links={[
-    { label: "Implement Trie (Prefix Tree)", url: "https://leetcode.com/problems/implement-trie-prefix-tree/" },
-    { label: "Design Add and Search Words", url: "https://leetcode.com/problems/design-add-and-search-words-data-structure/" },
-    { label: "Word Search II", url: "https://leetcode.com/problems/word-search-ii/" }
-  ]}
->
-Tries store characters in nodes, making them incredibly fast for word validation and prefix searches.
+## 🌲 Traversal Patterns
 
-- **O(L) Time Complexity:** Searches take time proportional to the length of the word (L), not the number of words.
-- **Autocomplete Systems:** The foundational data structure behind search bar suggestions.
-- **Efficient Storage:** Shares common prefixes to save memory compared to Hash Sets.
-</Topic>
+- **DFS Traversals:** Master Pre-order (Root-L-R), In-order (L-Root-R), and Post-order (L-R-Root). For a BST, In-order traversal visits nodes in sorted order.
+- **Level Order (BFS):** Useful for finding the shortest path or processing nodes layer-by-layer.
+- **Recursion Flow:** Understand how data flows **DOWN** via parameters and **UP** via return values.
+
+
+> [!tip] Balanced Trees
+> A BST is only **O(log N)** if it is balanced. In the worst case (a single long line), it degenerates into a Linked List with **O(N)** complexity.
+
+
+
+### 🔗 Recommended Practice
+
+- [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
+- [Maximum Depth](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+- [Same Tree](https://leetcode.com/problems/same-tree/)
+- [Lowest Common Ancestor](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+- [Binary Tree Level Order Traversal (BFS)](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+
+
+
+
+
+
+## 2. Heaps & Priority Queues
+
+Heaps are specialized complete binary trees that satisfy the heap property—parent nodes are always smaller (Min-Heap) or larger (Max-Heap) than their children.
+
+## 🚀 Running Optimizations
+
+- **O(1) Access:** Instantly retrieve the highest priority element.
+- **Push/Pop Complexity:** Both operations take **O(log N)** to re-balance the heap.
+- **Two-Heap Pattern:** Use a Max-Heap and Min-Heap together to track the **running median** of a data stream in real-time.
+
+
+> [!warning] Python's heapq
+> Python's built-in `heapq` module is a **Min-Heap**. To simulate a Max-Heap, you must negate all numbers (multiply by -1) before pushing them.
+
+
+
+### 🔗 Recommended Practice
+
+- [Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
+- [Last Stone Weight](https://leetcode.com/problems/last-stone-weight/)
+- [Task Scheduler](https://leetcode.com/problems/task-scheduler/)
+- [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)
+
+
+
+
+
+
+## 3. Tries (Prefix Trees)
+
+Tries store characters in nodes, sharing common prefixes to save memory and enable lightning-fast string validation.
+
+## 🔍 Prefix Efficiency
+
+- **O(L) Complexity:** Searches take time proportional to the word length (L), regardless of how many millions of words are in the dictionary.
+- **DFS + Trie:** This combination is the key to solving complex "Word Search" problems where you must explore a grid to form words.
+- **Autocomplete:** Tries are the foundational structure behind search bar suggestions and spell checkers.
+
+
+| Feature | Hash Set | Trie |
+| --- | --- | --- |
+| **Exact Match** | O(1) | O(L) |
+| **Prefix Match** | O(N) | O(L) |
+| **Space** | Sparse | Dense (Shared) |
+
+
+
+> [!ai] Trie implementation tip
+> Each node in a Trie typically contains a flag `is_end_of_word` and a dictionary/array of children mapping characters to more nodes.
+
+
+
+### 🔗 Recommended Practice
+
+- [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
+- [Design Add and Search Words](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
+- [Word Search II](https://leetcode.com/problems/word-search-ii/)

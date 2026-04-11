@@ -7,6 +7,7 @@ import { getIcon } from '../../_lib/icon-registry';
 import { notFound } from 'next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import { mdxComponents } from '../../_lib/mdx-components';
 
 export async function generateStaticParams() {
@@ -60,58 +61,10 @@ export default async function ModulePage({ params }: { params: { trackId: string
     notFound();
   }
 
-  // Handle unified vs fragmented structure
-  if (category.isUnified) {
-    const unifiedMdx = await getUnifiedChapterContent(trackId, categorySlug);
-    if (!unifiedMdx) {
-      notFound();
-    }
-
-    return (
-      <div className="flex gap-8 xl:gap-12">
-        <div className="flex-1 min-w-0">
-          {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-            <Link href="/" className="flex items-center gap-1.5 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-              <Home className="w-3.5 h-3.5" /> Academy
-            </Link>
-            <ChevronRight className="w-3 h-3 opacity-30" />
-            <Link href="/roadmap" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Documentation</Link>
-            <ChevronRight className="w-3 h-3 opacity-30" />
-            <Link href={`/roadmap/${trackId}`} className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-              {currentRoadmap.title.split(' ')[0]} Track
-            </Link>
-            <ChevronRight className="w-3 h-3 opacity-30" />
-            <span className="text-teal-600 dark:text-teal-400">{categoryMeta.title.split(':')[1]?.trim() || categoryMeta.title}</span>
-          </nav>
-
-          <header className="mb-4">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-slate-50 dark:bg-white/5 rounded-2xl text-teal-600 dark:text-teal-400">
-                {getIcon(categoryMeta.icon)}
-              </div>
-              <h1 className="text-2xl md:text-3xl font-semibold text-slate-800 dark:text-slate-100 tracking-wide leading-tight">
-                {categoryMeta.title}
-              </h1>
-            </div>
-          </header>
-
-          <div className="space-y-6">
-            <MDXRemote source={unifiedMdx.source} components={mdxComponents} />
-          </div>
-        </div>
-
-        <TableOfContents 
-          content={category.content}
-        />
-      </div>
-    );
+  const unifiedMdx = await getUnifiedChapterContent(trackId, categorySlug);
+  if (!unifiedMdx) {
+    notFound();
   }
-
-  // OLD (Fragmented) logic below
-  // Fetch MDX content for all topics in this category
-  const topicIds = category.content.map(item => item.id);
-  const mdxContents = await getAllCategoryContent(trackId, categorySlug, topicIds);
 
   return (
     <div className="flex gap-8 xl:gap-12">
@@ -131,45 +84,33 @@ export default async function ModulePage({ params }: { params: { trackId: string
           <span className="text-teal-600 dark:text-teal-400">{categoryMeta.title.split(':')[1]?.trim() || categoryMeta.title}</span>
         </nav>
 
+        {/* Header */}
         <header className="mb-4">
           <div className="flex items-center gap-4 mb-6">
             <div className="p-3 bg-slate-50 dark:bg-white/5 rounded-2xl text-teal-600 dark:text-teal-400">
               {getIcon(categoryMeta.icon)}
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-300 uppercase tracking-tight leading-tight">
+            <h1 className="text-2xl md:text-3xl font-semibold text-slate-800 dark:text-slate-100 tracking-wide leading-tight">
               {categoryMeta.title}
             </h1>
           </div>
         </header>
 
-        <div className="space-y-6">
-          {category.content.map((item) => {
-            const mdx = mdxContents[item.id];
-            
-            // Merge metadata from MDX frontmatter if available
-            const mergedItem = mdx ? {
-              ...item,
-              title: mdx.frontmatter.title || item.title,
-              shortDesc: mdx.frontmatter.shortDesc || item.shortDesc,
-              prompt: mdx.frontmatter.prompt || item.prompt,
-              links: mdx.frontmatter.links || item.links,
-            } : item;
-
-            return (
-              <div key={item.id} id={item.id} className="scroll-mt-24">
-                <ModuleContent 
-                  content={mergedItem}
-                  mdxSource={mdx?.source}
-                />
-              </div>
-            );
-          })}
+        {/* Content */}
+        <div className="prose dark:prose-invert max-w-none">
+          <MDXRemote 
+            source={unifiedMdx.source} 
+            components={mdxComponents}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+              }
+            }}
+          />
         </div>
       </div>
-
-      <TableOfContents 
-        content={category.content}
-      />
+      
+      <TableOfContents content={category.content} />
     </div>
   );
 }

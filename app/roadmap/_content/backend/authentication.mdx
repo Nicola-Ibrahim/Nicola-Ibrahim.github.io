@@ -1,69 +1,79 @@
 ---
-title: "API Design & Security"
-icon: "shield"
-iconColor: "text-rose-600"
-topics:
-  - id: "jwt-authentication"
-    title: "1. JWT Authentication"
-    shortDesc: "Stateless, cryptographically secure user sessions and secure storage."
-  - id: "api-versioning"
-    title: "2. API Versioning Strategies"
-    shortDesc: "Choose the right API versioning approach based on your team size and architecture scale."
+title: API Design & Security
+icon: shield
 ---
 
-<Topic 
-  id="jwt-authentication" 
-  title="1. JWT Authentication" 
-  shortDesc="Stateless, cryptographically secure user sessions and secure storage."
->
+
+
+## 1. JWT Authentication
+
 JSON Web Tokens (JWT) provide stateless, cryptographically secure user sessions for modern APIs. Instead of storing session IDs in a database, the server issues a signed token containing user claims.
 
-**Why is it Stateless?**
+## 🧠 Why is it Stateless?
 
 - **No Database Lookups:** The token contains the user's identity (Payload) and is mathematically signed (Signature). The server only needs its secret key to verify the token hasn't been tampered with.
 - **Microservice Friendly:** Any backend service with the secret (or public key) can verify the user independently. You don't need a central Redis instance just to check if a user is logged in.
 
-**What to Save in the Payload (Claims):**
+## 🏗️ JWT Anatomy
+A JWT is composed of three parts separated by dots (`.`): `Header.Payload.Signature`.
 
-- **Standard Identifiers:** Usually, you store the user ID (`sub` or subject), issue time (`iat`), and expiration time (`exp`).
-- **Roles & Permissions:** Storing `role: "admin"` allows the backend to authorize actions instantly without doing a database lookup.
-- **⚠️ Security Warning:** The payload is merely Base64 encoded, **not encrypted**. Anyone who intercepts it can read the contents. NEVER store sensitive data like passwords, SSNs, or PII inside a JWT.
+```json
+// Example Decoded Payload
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022,
+  "role": "admin"
+}
+```
 
-**Where to Store JWTs (Security):**
+### What to Save in the Payload (Claims)
+- **Standard Identifiers:** Usually, you store the user ID (`sub`), issue time (`iat`), and expiration time (`exp`).
+- **Roles & Permissions:** Storing `role: "admin"` allows the backend to authorize actions instantly.
 
-- **❌ LocalStorage:** Vulnerable to Cross-Site Scripting (XSS). If an attacker runs malicious JS on your site, they can easily steal the token.
-- **✅ HttpOnly Cookies:** The gold standard. The browser stores the token and sends it automatically, but JavaScript *cannot* access it, neutralizing XSS attacks. (Requires CSRF tokens/SameSite attributes).
 
-**Access vs. Refresh Tokens:**
+> [!danger] Security Warning
+> The payload is merely **Base64 encoded, not encrypted**. Anyone who intercepts it can read the contents. **NEVER** store sensitive data like passwords, SSNs, or PII inside a JWT.
 
-- **Access Tokens:** Short-lived (e.g., 15 minutes). Sent with every API request to minimize the window of opportunity if stolen.
-- **Refresh Tokens:** Long-lived (e.g., 7 days). Stored securely and only sent to a specific `/refresh` endpoint to obtain a new Access Token.
 
-**The Revocation Problem (The Catch):**
+## 🔒 Secure Storage
+Where you store the token on the client determines your vulnerability to different attacks.
 
-- Because JWTs are purely stateless, you cannot easily "invalidate" them before they expire. If a user clicks log out, you delete the cookie on the client, but the physical token remains technically valid until its expiration time.
-- **The Fix:** Rely on short-lived access tokens, or maintain a fast "Deny List" in Redis for logged-out tokens (though this technically makes the system stateful again!).
-</Topic>
 
-<Topic 
-  id="api-versioning" 
-  title="2. API Versioning Strategies" 
-  shortDesc="Choose the right API versioning approach based on your team size and architecture scale."
->
+| Storage Method | Security Risk | Recommendation |
+| --- | --- | --- |
+| **LocalStorage** | High (XSS Vulnerable) | ❌ Avoid for sensitive sessions. |
+| **HttpOnly Cookies** | Low (XSS Protected) | ✅ **Best Practice.** JavaScript cannot read it. |
+
+
+
+> [!tip] Pro Tip: Refresh Tokens
+> Use short-lived **Access Tokens** (15m) for requests and long-lived **Refresh Tokens** (7d) stored in HttpOnly cookies to maintain security without forcing users to log in constantly.
+
+
+## 🚫 The Revocation Problem
+Because JWTs are purely stateless, you cannot easily "invalidate" them before they expire. 
+
+- **The Problem:** If a user logs out, the physical token remains technically valid until `exp`.
+- **The Fix:** Rely on short-lived access tokens, or maintain a fast **Deny List** in Redis for logged-out tokens (though this technically makes the system slightly stateful again).
+
+
+
+
+
+
+## 2. API Versioning Strategies
+
 Choosing the right API versioning strategy is critical for avoiding breaking changes and maintaining backward compatibility.
 
-**1. Global Versioning (URI Path)**
-- **Pattern:** `/api/v1/users`
-- **Scale:** Small/medium app, one team.
-- **Verdict:** Simpler to manage. Bump versions for the entire API on breaking changes.
 
-**2. Resource-Level Versioning**
-- **Pattern:** `/api/users/v2`, `/api/orders/v1`
-- **Scale:** Microservices, multiple teams.
-- **Verdict:** Teams move independently without global coordination.
+| Strategy | Pattern | Best For | Verdict |
+| --- | --- | --- | --- |
+| **Global (URI)** | `/api/v1/users` | Small/Medium apps | Simple to manage and understand. |
+| **Resource-Level** | `/api/users/v2` | Microservices | Teams can move independently. |
+| **Header** | `Accept: v2+json` | Public APIs | Keeps URLs clean and RESTful. |
 
-**3. Header Versioning**
-- **Pattern:** `Accept: application/vnd.myapi.v2+json`
-- **Scale:** Public APIs (e.g., GitHub).
-- **Verdict:** URLs stay RESTful (versions aren't resources). Excellent for public platforms.
-</Topic>
+
+
+> [!info] Industry Insight
+> **GitHub** and **Stripe** are famous for using Header-based versioning or custom Date-based headers to provide a seamless experience for developers while iterating on their platforms.

@@ -1,21 +1,36 @@
 ---
-title: "Networking Foundations"
-icon: "layout"
-iconColor: "text-teal-600"
-topics:
-  - id: "osi-model-practice"
-    title: "1. The OSI Model in Practice"
-    shortDesc: "How data travels from a physical cable to a web browser."
+title: Networking Foundations
+icon: layout
 ---
+## 1. The OSI Model in Practice
 
-<Topic 
-  id="osi-model-practice" 
-  title="1. The OSI Model in Practice" 
-  shortDesc="How data travels from a physical cable to a web browser."
->
-How data travels from a physical copper cable all the way to a web browser.
+The Open Systems Interconnection (OSI) model describes seven layers that computer systems use to communicate over a network. Understanding these layers is vital for full-stack debugging and system design.
 
-- **Layered Abstraction:** Breaks networking into 7 manageable layers (Physical to Application).
-- **Debugging Framework:** Helps isolate problems. Is it a physical issue (Layer 1), routing (Layer 3), or SSL (Layer 6)?
-- **Encapsulation:** Understand how HTTP payloads are wrapped in TCP segments, IP packets, and Ethernet frames.
-</Topic>
+## 🧱 The 7 Layers
+
+
+| Layer | Name | Unit | Protocol Example |
+| --- | --- | --- | --- |
+| **7** | Application | Data | HTTP, DNS, SMTP |
+| **6** | Presentation | Data | SSL/TLS, JPEG |
+| **5** | Session | Data | NetBIOS, RPC |
+| **4** | Transport | Segments | TCP, UDP |
+| **3** | Network | Packets | IP, ICMP |
+| **2** | Data Link | Frames | Ethernet, MAC |
+| **1** | Physical | Bits | Fiber, Copper |
+
+
+## 🚀 Key Concepts
+
+- **Encapsulation:** As data moves down the stack (from Layer 7 to Layer 1), each layer adds its own **Header** (and sometimes a Trailer). This process is reversed (De-encapsulation) at the destination.
+- **Abstraction:** Each layer only cares about the layer directly above and below it. HTTP doesn't need to know if it's traveling over Wi-Fi or a Fiber optic cable.
+- **Debugging Framework:** Professionals use the OSI model to isolate issues. *"Is it a physical connectivity problem (L1), a routing issue (L3), or a TLS handshake failure (L6)?"*
+
+
+> [!tip] Full Stack Perspective
+> Most web developers spend 90% of their time at **Layer 7** (Application), but DevOps and Backend engineers must understand **Layer 4** (TCP/UDP) for load balancing and **Layer 3** (IP) for VPC routing.
+
+
+
+> [!warning] TCP Handshake
+> Remember that TCP (Layer 4) requires a **Three-Way Handshake** (SYN, SYN-ACK, ACK) before any Application data (Layer 7) can be sent. This introduces latency!

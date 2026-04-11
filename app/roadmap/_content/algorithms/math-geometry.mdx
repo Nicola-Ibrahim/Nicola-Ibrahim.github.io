@@ -1,66 +1,80 @@
 ---
-title: "Math & Bit Manipulation"
-icon: "hash"
-iconColor: "text-blue-600"
-topics:
-  - id: "bit-manipulation"
-    title: "1. Bit Manipulation"
-    shortDesc: "Working directly with binary representations for extreme optimization."
-    links:
-      - label: "Single Number"
-        url: "https://leetcode.com/problems/single-number/"
-      - label: "Number of 1 Bits"
-        url: "https://leetcode.com/problems/number-of-1-bits/"
-      - label: "Reverse Bits"
-        url: "https://leetcode.com/problems/reverse-bits/"
-      - label: "Missing Number"
-        url: "https://leetcode.com/problems/missing-number/"
-  - id: "math-matrix-simulation"
-    title: "2. Math & Matrix Simulation"
-    shortDesc: "2D grid simulation, spiral traversals, and basic number theory."
-    links:
-      - label: "Rotate Image"
-        url: "https://leetcode.com/problems/rotate-image/"
-      - label: "Spiral Matrix"
-        url: "https://leetcode.com/problems/spiral-matrix/"
-      - label: "Set Matrix Zeroes"
-        url: "https://leetcode.com/problems/set-matrix-zeroes/"
-      - label: "Happy Number"
-        url: "https://leetcode.com/problems/happy-number/"
+title: Math & Bit Manipulation
+icon: hash
 ---
+## 1. Bit Manipulation
 
-<Topic 
-  id="bit-manipulation" 
-  title="1. Bit Manipulation" 
-  shortDesc="Working directly with binary representations for extreme optimization."
-  links={[
-    { label: "Single Number", url: "https://leetcode.com/problems/single-number/" },
-    { label: "Number of 1 Bits", url: "https://leetcode.com/problems/number-of-1-bits/" },
-    { label: "Reverse Bits", url: "https://leetcode.com/problems/reverse-bits/" },
-    { label: "Missing Number", url: "https://leetcode.com/problems/missing-number/" }
-  ]}
->
-Bitwise operations are executed directly by the CPU ALU, making them incredibly fast and memory efficient.
+Bitwise operations are executed directly by the CPU ALU, making them incredibly fast and memory efficient. They are the "secret weapon" for optimizing low-level operations.
 
-- **XOR Magic:** `x ^ x = 0`. Incredibly powerful for finding unique, non-repeating elements.
-- **Shifting:** `<<` and `>>` physically move bits to multiply or divide by 2 instantly.
-- **Masking:** Using AND (`&`) operators to count the number of 1s or isolate specific bits.
-</Topic>
+## ⚡ Bitwise Operators
 
-<Topic 
-  id="math-matrix-simulation" 
-  title="2. Math & Matrix Simulation" 
-  shortDesc="2D grid simulation, spiral traversals, and basic number theory."
-  links={[
-    { label: "Rotate Image", url: "https://leetcode.com/problems/rotate-image/" },
-    { label: "Spiral Matrix", url: "https://leetcode.com/problems/spiral-matrix/" },
-    { label: "Set Matrix Zeroes", url: "https://leetcode.com/problems/set-matrix-zeroes/" },
-    { label: "Happy Number", url: "https://leetcode.com/problems/happy-number/" }
-  ]}
->
-Matrix problems often test your ability to simulate a specific physical process or navigate coordinates.
 
-- **Grid Simulation:** Rotating 2D arrays in-place or executing spiral traversals.
-- **Boundary Tracking:** Keeping strict track of top, bottom, left, and right bounds during loops.
-- **Number Theory:** Handling modular arithmetic or tricky edge cases with 32-bit integer overflows.
-</Topic>
+| Operator | Name | Logic |
+| --- | --- | --- |
+| `&` | **AND** | `1 & 1 = 1`, else `0` |
+| `|` | **OR** | `0 | 0 = 0`, else `1` |
+| `^` | **XOR** | `1 ^ 0 = 1`, `1 ^ 1 = 0` |
+| `~` | **NOT** | Inverts all bits |
+| `<<` | **Left Shift** | Multiplies by 2 |
+| `>>` | **Right Shift** | Divides by 2 |
+
+
+## 🧙 Bit Magic
+
+- **XOR Single Number:** Since `x ^ x = 0` and `x ^ 0 = x`, XORing all numbers in an array where every element appears twice except one will leave you with the **Single Number**.
+- **Counting Set Bits:** Use `n & (n - 1)` to clear the lowest set bit in **O(k)** time, where k is the number of 1s (Kernighan's Algorithm).
+- **Power of Two:** A number is a power of two if `(n > 0) and (n & (n - 1) == 0)`.
+
+
+> [!tip] Why use bits?
+> Bit manipulation often allows you to solve problems with **O(1) Space** complexity where a Hash Set would have required **O(N)**.
+
+
+
+### 🔗 Recommended Practice
+
+- [Single Number](https://leetcode.com/problems/single-number/)
+- [Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/)
+- [Reverse Bits](https://leetcode.com/problems/reverse-bits/)
+- [Missing Number](https://leetcode.com/problems/missing-number/)
+
+
+
+
+
+
+## 2. Math & Matrix Simulation
+
+Matrix problems often test your ability to simulate a specific physical process or navigate 2D coordinates without getting lost in nested loops.
+
+## 🧭 Navigation Patterns
+
+- **Coordinate Systems:** Most matrices use `(row, col)` indexing starting from `(0, 0)` at the top-left.
+- **Spiral Order:** Requires tracking 4 boundaries: `top`, `bottom`, `left`, and `right`.
+- **In-Place Rotation:** Rotate a matrix 90 degrees by **Transposing** (swap `arr[i][j]` with `arr[j][i]`) and then **Reversing** each row.
+
+
+| Problem Type | Core Technique | Note |
+| --- | --- | --- |
+| **Grid Traversal** | BFS/DFS | O(N*M) Time |
+| **In-Place Modification** | State Marking | Use `0` or flags |
+| **Coordinate Math** | Boundary Tracking | Boundary check is vital |
+
+
+
+> [!warning] Integer Overflow
+> In languages with fixed integer sizes (Java, C++), always be careful with `(a + b)` if they can be large. Use `64-bit integers` or modular arithmetic where applicable.
+
+
+
+> [!info] Is it Math or Simulation?
+> If the problem looks like a grid, it's likely **Simulation**. If it asks about prime numbers, GCD, or large powers, it's **Number Theory**.
+
+
+
+### 🔗 Recommended Practice
+
+- [Rotate Image](https://leetcode.com/problems/rotate-image/)
+- [Spiral Matrix](https://leetcode.com/problems/spiral-matrix/)
+- [Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/)
+- [Happy Number](https://leetcode.com/problems/happy-number/)

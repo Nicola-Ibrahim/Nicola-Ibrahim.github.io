@@ -1,38 +1,40 @@
 ---
-title: "System Design"
-icon: "box"
-iconColor: "text-blue-600"
-topics:
-  - id: "functional-vs-non-functional"
-    title: "1. Functional vs Non-Functional Requirements"
-    shortDesc: "The difference between what a system does (features) and how it performs (architecture)."
+title: System Design
+icon: box
 ---
+## 1. Functional vs Non-Functional Requirements
 
-<Topic 
-  id="functional-vs-non-functional" 
-  title="1. Functional vs Non-Functional Requirements" 
-  shortDesc="The difference between what a system does (features) and how it performs (architecture)."
->
-Understanding the difference between Functional and Non-Functional requirements is the absolute foundation of System Design.
+Understanding the difference between Functional and Non-Functional requirements is the absolute foundation of System Design. It is where every architecture conversation begins.
 
-**1. Functional Requirements (The "What")**
 
-These define what the system *must do*. They are the specific behaviors, features, and business rules that the application needs to execute.
+| Feature | Functional (The "What") | Non-Functional (The "How") |
+| --- | --- | --- |
+| **Focus** | Business rules, user actions | Scalability, reliability, latency |
+| **Example** | "User can checkout" | "Checkout takes < 200ms" |
+| **Missed?** | The app doesn't *work* | The app doesn't *scale* |
+
+
+## ✅ Functional Requirements
+
+These define what the system **must do**. They are the specific behaviors, features, and business rules that the application needs to execute.
 
 - **The Focus:** Features, business logic, user interactions, and APIs.
-- **Examples:** "The user must be able to add an item to the shopping cart." / "The system must generate a PDF invoice after a successful payment."
-- **The Impact:** If you miss a functional requirement, the software simply doesn't do its job.
+- **The Impact:** If you miss a functional requirement, the software simply doesn't do its job (e.g., "The user must receive an email after signup").
 
-**2. Non-Functional Requirements (The "How")**
+## ⚙️ Non-Functional Requirements
 
-These define how the system *must perform*. Also known as "Quality Attributes" (the "ilities": scalability, reliability, availability, latency).
+These define how the system **must perform**. Also known as "Quality Attributes" (the "ilities": scalability, reliability, availability, latency).
 
-- **The Focus:** Performance, security, capacity, latency, and availability.
-- **Examples:** "The shopping cart page must load in under 200ms." / "The payment system must be highly available (99.99% uptime)."
-- **The Impact:** If you miss a non-functional requirement, the software works for 10 users, but crashes and burns when 10,000 users log in.
+- **The Focus:** Performance, security, capacity, and availability.
+- **The Impact:** If you miss a non-functional requirement, the software might work for 10 users, but it will crash when 10,000 users log in.
 
-**The Architectural Difference**
 
-- **Functional** requirements dictate your *code* (e.g., writing a new Python function or SQL query).
-- **Non-Functional** requirements dictate your *architecture* (e.g., adding Redis for caching, a Load Balancer for scale, or Read Replicas for database speed).
-</Topic>
+> [!tip] Architectural Decision Record (ADR)
+> In a professional setting, we document these decisions in **ADRs**.  
+>   - **Functional** requirements dictate your **code** (e.g., Python functions).  
+>   - **Non-Functional** requirements dictate your **infrastructure** (e.g., Load Balancers, Redis, or CDNs).
+
+
+
+> [!warning] The Availability Trap
+> Don't aim for "Five Nines" (99.999% uptime) unless you truly need it. Every extra "9" doubles the complexity and cost of your infrastructure.

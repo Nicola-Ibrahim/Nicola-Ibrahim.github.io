@@ -1,66 +1,70 @@
 ---
-title: "Linear Data Structures"
-icon: "list"
-iconColor: "text-orange-500"
-topics:
-  - id: "linked-lists"
-    title: "1. Linked Lists"
-    shortDesc: "Mastering node manipulation, dummy nodes, and slow/fast pointers."
-    links:
-      - label: "Reverse Linked List"
-        url: "https://leetcode.com/problems/reverse-linked-list/"
-      - label: "Merge Two Sorted Lists"
-        url: "https://leetcode.com/problems/merge-two-sorted-lists/"
-      - label: "Linked List Cycle"
-        url: "https://leetcode.com/problems/linked-list-cycle/"
-      - label: "Remove Nth Node From End"
-        url: "https://leetcode.com/problems/remove-nth-node-from-end-of-list/"
-  - id: "stacks-queues"
-    title: "2. Stacks & Queues"
-    shortDesc: "LIFO and FIFO structures, including the Monotonic Stack pattern."
-    links:
-      - label: "Valid Parentheses"
-        url: "https://leetcode.com/problems/valid-parentheses/"
-      - label: "Min Stack"
-        url: "https://leetcode.com/problems/min-stack/"
-      - label: "Evaluate Reverse Polish Notation"
-        url: "https://leetcode.com/problems/evaluate-reverse-polish-notation/"
-      - label: "Daily Temperatures (Monotonic)"
-        url: "https://leetcode.com/problems/daily-temperatures/"
+title: Linear Data Structures
+icon: list
 ---
+## 1. Linked Lists
 
-<Topic 
-  id="linked-lists" 
-  title="1. Linked Lists" 
-  shortDesc="Mastering node manipulation, dummy nodes, and slow/fast pointers."
-  links={[
-    { label: "Reverse Linked List", url: "https://leetcode.com/problems/reverse-linked-list/" },
-    { label: "Merge Two Sorted Lists", url: "https://leetcode.com/problems/merge-two-sorted-lists/" },
-    { label: "Linked List Cycle", url: "https://leetcode.com/problems/linked-list-cycle/" },
-    { label: "Remove Nth Node From End", url: "https://leetcode.com/problems/remove-nth-node-from-end-of-list/" }
-  ]}
->
-Linked lists test your ability to manage references and memory pointers without losing data.
+Linked lists test your ability to manage references and memory pointers without losing data. Unlike arrays, they don't have contiguous memory, making "indexing" an **O(N)** operation.
 
-- **Dummy Nodes:** An essential trick to cleanly handle edge cases (like modifying the head of the list).
-- **Tortoise and Hare:** Using a fast (2x) and slow (1x) pointer to detect cycles or find the middle element.
+
+| Operation | Complexity | Note |
+| --- | --- | --- |
+| **Prepend** | O(1) | Just update the head pointer. |
+| **Append** | O(N) | Requires traversing to the end. |
+| **Search** | O(N) | No random access. |
+
+
+## 💡 Pro Techniques
+
+- **Dummy Nodes:** An essential trick where you create a "fake" head node. This simplifies edge cases like deleting the first node or merging lists.
+- **Tortoise and Hare:** Using a `fast` (2x) and `slow` (1x) pointer to detect cycles or find the middle element in a single pass.
 - **In-Place Reversal:** Carefully swapping `.next` pointers without allocating new memory.
-</Topic>
 
-<Topic 
-  id="stacks-queues" 
-  title="2. Stacks & Queues" 
-  shortDesc="LIFO and FIFO structures, including the Monotonic Stack pattern."
-  links={[
-    { label: "Valid Parentheses", url: "https://leetcode.com/problems/valid-parentheses/" },
-    { label: "Min Stack", url: "https://leetcode.com/problems/min-stack/" },
-    { label: "Evaluate Reverse Polish Notation", url: "https://leetcode.com/problems/evaluate-reverse-polish-notation/" },
-    { label: "Daily Temperatures (Monotonic)", url: "https://leetcode.com/problems/daily-temperatures/" }
-  ]}
->
-Stacks (Last-In-First-Out) are crucial for parsing, while Queues (First-In-First-Out) manage sequences.
 
-- **Parsing & State:** Stacks are perfect for validating parentheses or evaluating Reverse Polish Notation.
-- **Monotonic Stacks:** Maintain strictly increasing or decreasing elements to find the "next greater element" in O(N) time.
-- **Queues:** Used for BFS and managing sequential processing.
-</Topic>
+> [!tip] Linked List vs Array
+> Use **Linked Lists** when you need frequent insertions and deletions at the ends. Use **Arrays** when you need frequent random access by index.
+
+
+
+### 🔗 Recommended Practice
+
+- [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
+- [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
+- [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
+- [Remove Nth Node From End](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+
+
+
+
+
+
+## 2. Stacks & Queues
+
+Stacks and Queues are restricted access structures that provide deterministic order for processing data.
+
+## 🧱 The Two Models
+
+
+| Structure | Logic | Analogy |
+| --- | --- | --- |
+| **Stack** | **LIFO** (Last In, First Out) | A stack of clean plates. |
+| **Queue** | **FIFO** (First In, First Out) | A line at the grocery store. |
+
+
+## 🚀 Advanced Patterns
+
+- **Monotonic Stacks:** A stack that maintains strictly increasing or decreasing elements. This is the gold standard for solving "Next Greater Element" problems in **O(N)** instead of O(N²).
+- **Queues in BFS:** Queues are the backbone of Breadth-First Search, used to process graph nodes level by level.
+
+
+> [!warning] Stack Overflow
+> When using recursion, the computer uses an internal **Call Stack**. If your recursion is too deep (e.g., infinite loop), you'll trigger a Stack Overflow error.
+
+
+
+### 🔗 Recommended Practice
+
+- [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+- [Min Stack](https://leetcode.com/problems/min-stack/)
+- [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
+- [Daily Temperatures (Monotonic)](https://leetcode.com/problems/daily-temperatures/)

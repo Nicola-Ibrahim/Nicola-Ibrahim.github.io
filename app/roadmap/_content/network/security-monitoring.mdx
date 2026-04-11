@@ -1,8 +1,83 @@
 ---
-title: "Security & Monitoring"
-icon: "shield-check"
-iconColor: "text-emerald-600"
-topics: []
+title: Security & Monitoring
+icon: shield-check
 ---
+## 1. Network Security Layers (Firewalls & WAF)
 
-Protecting your network and monitoring its health in real-time.
+Network security starts at the perimeter. Depending on which layer of the OSI model you are protecting, you will use different tools.
+
+
+| Tool | OSI Layer | Focus | Protects Against |
+| --- | --- | --- | --- |
+| **Firewall (NACL)** | Layer 3/4 | IP & Ports | Unauthorized access, Port scans |
+| **WAF** | Layer 7 | HTTP Content | SQLi, XSS, Log4j |
+| **DDoS Protection** | Layer 3/4/7 | Volumetric | Traffic floods |
+
+
+## 🛡️ Best Practices
+
+- **Least Privilege:** By default, block all incoming traffic and only open specific ports (e.g., 443 for HTTPS).
+- **Deep Packet Inspection (DPI):** Modern firewalls look inside the packet data, not just the headers, to find hidden malware.
+- **Zero Trust:** Never assume that traffic *inside* your network is safe. Every request should be authenticated and encrypted.
+
+
+> [!warning] WAF ≠ Firewall
+> A traditional firewall won't stop a SQL injection attack because SQLi looks like legitimate HTTP traffic on Port 443. You need a **Web Application Firewall (WAF)** to inspect the actual HTTP payload.
+
+
+
+
+
+
+
+## 2. Detection & Prevention (IDS/IPS)
+
+Detection and Prevention systems monitor network traffic for suspicious patterns or known attack signatures.
+
+
+| System | Action | Logic |
+| --- | --- | --- |
+| **IDS** (Detection) | **Alert Only** | Passive observer, sends notifications. |
+| **IPS** (Prevention) | **Drop Packet** | Active defender, blocks traffic in real-time. |
+
+
+## 🔍 How they work
+
+- **Signature-Based:** Compares traffic against a database of known attack "fingerprints."
+- **Anomaly-Based:** Uses machine learning to establish a "normal" baseline and alerts when traffic deviates significantly.
+- **Honeypots:** Decoy servers designed to lure attackers, allowing you to study their methods without risking real data.
+
+
+> [!info] False Positives
+> A poorly configured IPS can block legitimate users if its anomaly detection is too sensitive. Tuning these systems is a constant job for security engineers.
+
+
+
+
+
+
+
+## 3. Network Observability
+
+You cannot secure or optimize what you cannot see. Modern networking requires deep observability into every packet and connection.
+
+## 📊 Essential Metrics
+
+- **Latency (RTT):** The time it takes for a packet to travel to the destination and back.
+- **Packet Loss:** A high percentage of lost packets indicates congestion or hardware failure.
+- **Throughput:** The actual rate of successful data delivery over the network.
+
+## 🛠️ The Toolbelt
+
+
+| Tool | Use Case | Analogy |
+| --- | --- | --- |
+| **Wireshark** | Deep Packet Analysis | A microscope for your network. |
+| **tcpdump** | Command-line sniffing | A quick X-ray of traffic. |
+| **Prometheus** | Time-series monitoring | A dashboard for network health. |
+| **Netflow** | Analyzing traffic flows | A map of where data is going. |
+
+
+
+> [!tip] Traceroute
+> Use `traceroute` (or `mtr`) to see the exact path your data takes across the internet. It's the best way to find out exactly which "hop" is causing latency.

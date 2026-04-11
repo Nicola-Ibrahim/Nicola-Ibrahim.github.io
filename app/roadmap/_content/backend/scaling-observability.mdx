@@ -1,44 +1,59 @@
 ---
-title: "Scaling & Observability"
-icon: "activity"
-iconColor: "text-emerald-600"
-topics:
-  - id: "load-balancers"
-    title: "1. Load Balancers"
-    shortDesc: "The traffic cop that distributes incoming requests across multiple servers."
-  - id: "logger-architecture"
-    title: "2. Logger Architecture & Observability"
-    shortDesc: "Centralized logging, tracing, and metrics for distributed systems."
+title: Scaling & Observability
+icon: activity
 ---
+## 1. Load Balancers
 
-<Topic 
-  id="load-balancers" 
-  title="1. Load Balancers" 
-  shortDesc="The traffic cop that distributes incoming requests across multiple servers."
->
-The traffic cop of your infrastructure, dynamically distributing incoming network traffic across a group of backend servers.
+The traffic cop of your infrastructure, dynamically distributing incoming network traffic across a group of backend servers to ensure high availability and reliability.
 
-**The Concept**
 
-- **High Availability:** Prevents any single server from becoming a bottleneck. If Server A crashes, the load balancer detects the failure via Health Checks and automatically routes traffic to Server B.
-- **Layer 4 vs Layer 7:** Layer 4 (Network) routes based on IP and TCP ports (super fast, low overhead). Layer 7 (Application) routes based on HTTP headers, cookies, or URL paths (smarter, context-aware routing).
+| Feature | Layer 4 (Network) | Layer 7 (Application) |
+| --- | --- | --- |
+| **Logic** | IP & TCP Ports | HTTP Headers, Cookies, URLs |
+| **Speed** | 🚀 Extremely Fast | 🧠 Smart & Context-Aware |
+| **Use Case** | Simple traffic splitting | A/B testing, Path-based routing |
 
-**Common Algorithms**
 
-- **Round Robin:** Distributes requests sequentially (A, B, C, A, B, C).
-- **Least Connections:** Sends the request to the server with the fewest active connections, which is excellent for long-lived tasks or uneven workloads.
-</Topic>
+## ⚖️ Scaling Strategies
 
-<Topic 
-  id="logger-architecture" 
-  title="2. Logger Architecture & Observability" 
-  shortDesc="Centralized logging, tracing, and metrics for distributed systems."
->
-In a distributed system, simply writing `print("error")` to a terminal is useless. You need centralized observability to figure out what went wrong across dozens of servers.
+- **High Availability:** Prevents any single server from becoming a bottleneck. If Server A crashes, the load balancer detects the failure via **Health Checks** and automatically routes traffic to Server B.
+- **Algorithms:** 
+    - **Round Robin:** Distributes requests sequentially (A, B, C...).
+    - **Least Connections:** Sends the request to the server with the fewest active tasks—excellent for uneven workloads.
 
-**The Core Pillars**
 
-- **Structured Logging:** Logs must be emitted as JSON, not plain text. This allows you to easily search, filter, and alert on specific machine-readable fields (e.g., `{"level": "ERROR", "user_id": 123}`).
-- **Centralized Aggregation:** All services send their logs to a central system (like the ELK Stack, Datadog, or CloudWatch) so you can query everything in one dashboard without SSHing into individual servers.
-- **Correlation IDs:** A unique ID generated when a request first hits the API Gateway. This ID is passed to every microservice in the chain. If a request fails deep in the system, you can search the Correlation ID and trace the exact path the request took.
-</Topic>
+> [!tip] Pro Tip: SSL Termination
+> Modern load balancers (like NGINX or AWS ALB) handle **SSL Termination**. They decrypt the HTTPS request and send plain HTTP to your internal servers, saving your backend CPU cycles.
+
+
+
+
+
+
+
+## 2. Logger Architecture & Observability
+
+In a distributed system, simply writing `print("error")` to a terminal is useless. You need centralized observability to figure out what went wrong across dozens of independent services.
+
+## 🔍 The Three Pillars
+
+### 1. Structured Logging
+Logs must be emitted as **JSON**, not plain text. This allows you to easily search, filter, and alert on specific machine-readable fields.
+```json
+{
+  "level": "ERROR", 
+  "user_id": 123, 
+  "trace_id": "abc-789", 
+  "message": "Database timeout"
+}
+```
+
+### 2. Centralized Aggregation
+All services send their logs to a central system (ELK Stack, Datadog) so you can query everything in one dashboard without SSHing into individual servers.
+
+### 3. Distributed Tracing
+A unique **Correlation ID** (or Trace ID) is generated when a request first hits the API Gateway. This ID is passed to every microservice in the chain. If a request fails deep in the system, you can search the ID and trace the exact path the request took.
+
+
+> [!warning] Anti-Pattern: Verbose Logging
+> Never log sensitive data (Passwords, API Keys, CC numbers). Over-logging in production can also lead to high storage costs and performance degradation.
