@@ -68,18 +68,34 @@ export async function generateSearchIndex(): Promise<SearchItem[]> {
     if (fs.existsSync(trackIndexFile)) {
       const raw = fs.readFileSync(trackIndexFile, 'utf8');
       const { data, content } = matter(raw);
+      
+      // Scrape Title and Description for Index
+      const h1Match = content.match(/^#\s+(.*)$/m);
+      const title = h1Match ? h1Match[1].trim() : (data.title || trackId);
+      
+      let description = data.description || '';
+      if (!description) {
+        const lines = content.split('\n');
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (trimmed && !trimmed.startsWith('#') && !trimmed.startsWith('<') && !trimmed.startsWith('import')) {
+            description = trimmed;
+            break;
+          }
+        }
+      }
+
       index.push({
         slug: `/roadmap/${trackId}`,
-        title: `${data.title || trackId} (Overview)`,
-        excerpt: data.description || '',
+        title: `${title} (Overview)`,
+        excerpt: description,
         content: stripMdx(content),
         trackId: trackId
       });
     }
 
     for (const item of trackItems) {
-      // Skip what we've handled or internal component folders
-      if (item === 'index.mdx' || item === '_components') continue;
+      if (item === 'index.mdx' || item === '_components' || item.endsWith('.json')) continue;
 
       const itemPath = path.join(trackDirPath, item);
       const isDir = fs.lstatSync(itemPath).isDirectory();
@@ -93,10 +109,13 @@ export async function generateSearchIndex(): Promise<SearchItem[]> {
           const raw = fs.readFileSync(topicPath, 'utf8');
           const { data, content } = matter(raw);
           
+          const h1Match = content.match(/^#\s+(.*)$/m);
+          const title = h1Match ? h1Match[1].trim() : (data.title || topicId);
           const strippedContent = stripMdx(content);
+
           index.push({
             slug: `/roadmap/${trackId}/${item}#${topicId}`,
-            title: data.title || topicId,
+            title: title,
             excerpt: data.shortDesc || data.description || (strippedContent.slice(0, 140) + (strippedContent.length > 140 ? '...' : '')),
             content: strippedContent,
             trackId: trackId
@@ -108,10 +127,13 @@ export async function generateSearchIndex(): Promise<SearchItem[]> {
         const raw = fs.readFileSync(itemPath, 'utf8');
         const { data, content } = matter(raw);
         
+        const h1Match = content.match(/^#\s+(.*)$/m);
+        const title = h1Match ? h1Match[1].trim() : (data.title || categorySlug);
         const strippedContent = stripMdx(content);
+
         index.push({
           slug: `/roadmap/${trackId}/${categorySlug}`,
-          title: data.title || categorySlug,
+          title: title,
           excerpt: data.shortDesc || data.description || (strippedContent.slice(0, 140) + (strippedContent.length > 140 ? '...' : '')),
           content: strippedContent,
           trackId: trackId

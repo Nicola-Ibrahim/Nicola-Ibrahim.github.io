@@ -10,11 +10,11 @@ interface TableOfContentsProps {
   onItemClick?: (id: string) => void;
 }
 
-export function TableOfContents({ 
-  categories, 
+export function TableOfContents({
+  categories,
   content,
   activeId: passedActiveId,
-  onItemClick 
+  onItemClick
 }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
 
@@ -58,17 +58,17 @@ export function TableOfContents({
       <nav className="relative space-y-0.5">
         {items.map((item: { id: string, title: string, level?: number }, index: number) => {
           const depth = item.level ? item.level - 2 : 0; // H2 is depth 0
-          
+
           return (
             <div key={`${item.id}-${index}`} className="relative">
               {/* Tree Connector Line for nested items */}
               {depth > 0 && (
-                <div 
+                <div
                   className="absolute left-[10px] top-0 bottom-0 w-[1px] bg-slate-200 dark:bg-white/10"
                   style={{ left: `${depth * 12 - 12 + 10}px` }}
                 />
               )}
-              
+
               <button
                 onClick={() => {
                   if (onItemClick) {
@@ -79,17 +79,14 @@ export function TableOfContents({
                   }
                 }}
                 style={{ paddingLeft: `${depth * 16 + 8}px` }}
-                className={`w-full text-left group flex items-start py-2 px-1 transition-all duration-200 relative border-l-2 ${
-                  activeId === item.id
+                className={`w-full text-left group flex items-start py-2 px-1 transition-all duration-200 relative border-l-2 ${activeId === item.id
                     ? 'text-teal-600 dark:text-teal-400 border-teal-600 dark:border-teal-400 bg-teal-500/5'
                     : 'text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 border-transparent'
-                }`}
+                  }`}
               >
-                <span className={`text-[12px] leading-tight transition-all ${
-                  depth === 0 ? 'font-bold text-[13px]' : 'font-medium'
-                } ${
-                  activeId === item.id ? 'text-slate-900 dark:text-slate-200 opacity-100' : 'opacity-80'
-                }`}>
+                <span className={`text-[12px] leading-tight transition-all ${depth === 0 ? 'font-bold text-[13px]' : 'font-medium'
+                  } ${activeId === item.id ? 'text-slate-900 dark:text-slate-200 opacity-100' : 'opacity-80'
+                  }`}>
                   {item.title.includes(':') ? item.title.split(':')[1]?.trim() : item.title}
                 </span>
               </button>

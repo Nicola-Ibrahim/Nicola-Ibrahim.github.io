@@ -3,58 +3,10 @@
 import React from 'react';
 import { Terminal, Copy, Check, Info, Lightbulb, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { extractText, generateId } from './mdx-utils';
 
-// Custom Roadmap Widgets
-import AsyncDecisionFlowchart from '@/app/roadmap/_content/backend/_components/AsyncDecisionFlowchart';
-import ThreadsVsCoroutines from '@/app/roadmap/_content/backend/_components/ThreadsVsCoroutines';
-import EventLoopStepper from '@/app/roadmap/_content/backend/_components/EventLoopStepper';
-import NotificationStrategies from '@/app/roadmap/_content/backend/_components/NotificationStrategies';
 
-/**
- * Utility to extract plain text from React children (recursively).
- */
-export function extractText(children: any): string {
-  if (!children) return '';
-  if (typeof children === 'string') return children;
-  if (typeof children === 'number') return children.toString();
-  if (Array.isArray(children)) return children.map(extractText).join('');
-  if (React.isValidElement(children)) {
-    return extractText((children.props as any).children);
-  }
-  return '';
-}
 
-/**
- * Utility to generate IDs from text for header anchoring.
- */
-export function generateId(text: any): string {
-  const plainText = typeof text === 'string' ? text : extractText(text);
-  return plainText
-    .toLowerCase()
-    .replace(/^\d+\.\s*/, '') // Remove "1. "
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .trim();
-}
-
-/**
- * Utility to strip the [!type] signature from the first child node.
- */
-function cleanCalloutChildren(children: React.ReactNode): React.ReactNode {
-  return React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      const subChildren = React.Children.toArray((child.props as any).children);
-      const newSubChildren = subChildren.map(c => {
-        if (typeof c === 'string') {
-          return c.replace(/^\s*\[!(info|tip|warning)\]\s*/i, '');
-        }
-        return c;
-      });
-      return React.cloneElement(child, child.props as any, newSubChildren);
-    }
-    return child;
-  });
-}
 
 /**
  * AgentPrompt - The premium terminal UI for prompted agent skills.
@@ -148,6 +100,21 @@ export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'war
   const config = configs[type];
   const Icon = config.icon;
 
+  // Strip the [!type] signature from the first child text nodes
+  const cleanChildren = React.Children.map(children, (child) => {
+    if (React.isValidElement(child)) {
+      const subChildren = React.Children.toArray((child.props as any).children);
+      const newSubChildren = subChildren.map(c => {
+        if (typeof c === 'string') {
+          return c.replace(/^\s*\[!(info|tip|warning)\]\s*/i, '');
+        }
+        return c;
+      });
+      return React.cloneElement(child, { ...(child.props as any) }, ...newSubChildren);
+    }
+    return child;
+  });
+
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className={`my-10 p-7 rounded-[1.5rem] border ${config.borderClass} ${config.accentBorder} border-l-2 ${config.bgClass} backdrop-blur-[2px] relative overflow-hidden group/callout transition-all duration-300 hover:shadow-lg dark:hover:shadow-black/10`}>
       <div className="flex items-start gap-4">
@@ -167,7 +134,7 @@ export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'war
             </div>
           )}
           <div suppressHydrationWarning className="text-sm leading-relaxed text-slate-600 dark:text-slate-400 font-medium prose-p:my-0 prose-strong:text-slate-900 dark:prose-strong:text-white">
-            {children}
+            {cleanChildren}
           </div>
         </div>
       </div>
@@ -175,50 +142,3 @@ export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'war
   );
 };
 
-/**
- * mdxComponents - The master registry for MDX element styling.
- * This is the single source of truth for standard HTML tags within documentation.
- */
-export const mdxComponents = {
-  pre: (props: any) => {
-    const className = props.children?.props?.className || props['data-language'] || '';
-    if (className === 'language-prompt' || props['data-language'] === 'prompt') {
-      return React.createElement(AgentPrompt, { children: props.children });
-    }
-    return React.createElement(CodeBlock, { className, children: props.children });
-  },
-
-  blockquote: (props: any) => {
-    const text = extractText(props.children).trim();
-    const match = text.match(/^\[!(info|tip|warning)\]/i);
-    if (match) {
-      const type = match[1].toLowerCase() as 'info' | 'tip' | 'warning';
-      return React.createElement(Callout, { type, children: cleanCalloutChildren(props.children) });
-    }
-    return React.createElement('blockquote', {
-      className: 'border-l-4 border-slate-200 dark:border-white/10 pl-8 italic text-slate-500 dark:text-slate-500 my-10 text-lg font-light',
-      ...props
-    });
-  },
-
-  h1: (props: any) => React.createElement('h1', { className: 'text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-10 tracking-tighter leading-tight', ...props }),
-  h2: (props: any) => React.createElement('h2', { id: generateId(props.children), className: 'text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-16 mb-8 tracking-tight border-l-4 border-teal-500 pl-6 scroll-mt-24', ...props }),
-  h3: (props: any) => React.createElement('h3', { className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-6 tracking-wide', ...props }),
-  p: (props: any) => React.createElement('p', { className: 'text-base leading-relaxed mb-6 text-slate-600 dark:text-slate-400 max-w-5xl', ...props }),
-  ul: (props: any) => React.createElement('ul', { className: 'list-disc pl-8 mb-8 space-y-4 text-slate-600 dark:text-slate-400 text-base', ...props }),
-  li: (props: any) => React.createElement('li', { className: 'leading-relaxed hover:text-slate-900 dark:hover:text-white transition-colors', ...props }),
-  strong: (props: any) => React.createElement('strong', { className: 'font-bold text-slate-900 dark:text-white', ...props }),
-  
-  table: (props: any) => React.createElement('div', { className: 'my-10 overflow-x-auto rounded-3xl border border-slate-200 dark:border-white/10 shadow-lg bg-white/50 dark:bg-black/20 backdrop-blur-sm' }, React.createElement('table', { className: 'w-full text-left border-collapse', ...props })),
-  thead: (props: any) => React.createElement('thead', { className: 'bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-white/10', ...props }),
-  th: (props: any) => React.createElement('th', { className: 'px-8 py-5 text-slate-800 dark:text-slate-300 font-black uppercase tracking-[0.2em] text-[10px]', ...props }),
-  td: (props: any) => React.createElement('td', { className: 'px-8 py-5 text-base text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-white/5 last:border-0', ...props }),
-  tr: (props: any) => React.createElement('tr', { className: 'hover:bg-slate-500/5 transition-colors', ...props }),
-
-  code: (props: any) => React.createElement('code', { className: 'px-1.5 py-0.5 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 font-mono text-[0.85em] font-bold', ...props }),
-
-  AsyncDecisionFlowchart,
-  ThreadsVsCoroutines,
-  EventLoopStepper,
-  NotificationStrategies,
-};

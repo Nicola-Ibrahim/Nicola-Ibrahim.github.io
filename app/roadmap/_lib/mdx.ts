@@ -1,9 +1,58 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { generateId } from './mdx-components';
+import { generateId } from './mdx-utils';
 
 const CONTENT_PATH = path.join(process.cwd(), 'app/roadmap/_content');
+
+/**
+ * Default icon mapping based on slug keywords.
+ * Provides "Zero-Config" icons by matching filename patterns to premium Lucide brands.
+ */
+const DEFAULT_ICON_MAP: Record<string, string> = {
+  // Tracks
+  ai_agents: 'bot',
+  backend: 'server',
+  algorithms: 'code-2',
+  cloud: 'cloud',
+  devops: 'terminal',
+  network: 'layers',
+  
+  // Keywords (Generic matches)
+  core: 'terminal',
+  framework: 'layers',
+  orchestration: 'waypoints',
+  memory: 'database',
+  scaling: 'activity',
+  architecture: 'workflow',
+  messaging: 'send',
+  data: 'database',
+  logic: 'zap',
+  foundations: 'anchor',
+  security: 'shield-check',
+  deployment: 'cloud',
+  ux: 'users',
+  monitoring: 'activity',
+  testing: 'flask-conical',
+  linux: 'terminal',
+  container: 'box',
+  kubernetes: 'layers',
+  automation: 'zap',
+  performance: 'gauge'
+};
+
+function getHeuristicIcon(slug: string): string {
+  // 1. Precise match
+  if (DEFAULT_ICON_MAP[slug]) return DEFAULT_ICON_MAP[slug];
+  
+  // 2. Keyword check (e.g., 'async-messaging' contains 'messaging')
+  const keywords = Object.keys(DEFAULT_ICON_MAP);
+  for (const kw of keywords) {
+    if (slug.includes(kw)) return DEFAULT_ICON_MAP[kw];
+  }
+
+  return 'code-2'; // Ultimate fallback
+}
 
 export interface MDXContent {
   source: string;
@@ -44,48 +93,72 @@ export interface RoadmapData extends TrackMeta {
 }
 
 /**
- * Reads metadata from the frontmatter of an index.mdx file.
+ * Intelligent scraper for pure Markdown files.
+ * Pulls Title from the first H1 and Description from the first non-header paragraph.
  */
-function readIndexMeta(filePath: string) {
+function scrapeMdxContent(filePath: string, slug: string) {
   if (!fs.existsSync(filePath)) return null;
   const fileContent = fs.readFileSync(filePath, 'utf8');
-  const { data } = matter(fileContent);
-  return data;
+  const { data, content } = matter(fileContent);
+
+  // 1. Scrape Title (# Header)
+  let title = data.title;
+  if (!title) {
+    const h1Match = content.match(/^#\s+(.*)$/m);
+    title = h1Match ? h1Match[1].trim() : slug;
+  }
+
+  // 2. Scrape Description (First real paragraph)
+  let description = data.description || '';
+  if (!description) {
+    // Find first paragraph that isn't a header, tag, or empty line
+    const lines = content.split('\n');
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('#') && !trimmed.startsWith('<') && !trimmed.startsWith('import')) {
+        description = trimmed.length > 160 ? trimmed.substring(0, 157) + '...' : trimmed;
+        break;
+      }
+    }
+  }
+
+  return {
+    ...data,
+    title,
+    description,
+    icon: data.icon || getHeuristicIcon(slug),
+    iconColor: data.iconColor || null,
+  };
 }
 
 export function getTrackMeta(trackId: string): TrackMeta | null {
   const indexPath = path.join(CONTENT_PATH, trackId, 'index.mdx');
-  const data = readIndexMeta(indexPath);
-  if (!data) return null;
+  const meta = scrapeMdxContent(indexPath, trackId);
+  if (!meta) return null;
+
   return {
     id: trackId,
-    title: data.title || trackId,
-    icon: data.icon || 'layout',
-    description: data.description || '',
+    title: meta.title,
+    icon: meta.icon,
+    description: meta.description,
   };
 }
 
 export function getCategoryMeta(trackId: string, categorySlug: string): CategoryMeta | null {
   const filePath = path.join(CONTENT_PATH, trackId, `${categorySlug}.mdx`);
-  if (fs.existsSync(filePath)) {
-    const data = readIndexMeta(filePath);
-    if (!data) return null;
-    return {
-      id: categorySlug,
-      slug: categorySlug,
-      title: data.title || categorySlug,
-      icon: data.icon || 'code-2',
-      iconColor: data.iconColor || 'text-teal-600',
-    };
-  }
-  return null;
+  const meta = scrapeMdxContent(filePath, categorySlug);
+  if (!meta) return null;
+
+  return {
+    id: categorySlug,
+    slug: categorySlug,
+    title: meta.title,
+    icon: meta.icon,
+    iconColor: meta.iconColor || 'text-teal-600',
+  };
 }
 
-/**
- * Dynamically extract ## headers from MDX content to build the Table of Contents.
- */
 function extractHeadings(content: string): TopicMeta[] {
-  // Capture ##, ###, and #### headers
   const headingRegex = /^(#{2,4})\s+(.*)$/gm;
   const topics: TopicMeta[] = [];
   const usedIds = new Map<string, number>();
@@ -97,8 +170,6 @@ function extractHeadings(content: string): TopicMeta[] {
     const level = hashes.length;
 
     let id = generateId(title);
-    
-    // Deduplicate IDs
     const count = usedIds.get(id) || 0;
     if (count > 0) {
       usedIds.set(id, count + 1);
@@ -113,13 +184,8 @@ function extractHeadings(content: string): TopicMeta[] {
   return topics;
 }
 
-/**
- * Loads the complete data structure for all roadmaps.
- * Modern dynamic version: scans ## headers to build category contents.
- */
 export async function getFullRoadmapsData(): Promise<Record<string, RoadmapData>> {
   const roadmaps: Record<string, RoadmapData> = {};
-  
   if (!fs.existsSync(CONTENT_PATH)) return roadmaps;
 
   const tracks = fs.readdirSync(CONTENT_PATH).filter(f => 
@@ -132,9 +198,8 @@ export async function getFullRoadmapsData(): Promise<Record<string, RoadmapData>
 
     const categories: CategoryData[] = [];
     const trackDirPath = path.join(CONTENT_PATH, trackId);
-    
-    // Scan for .mdx files (categories)
     const trackItems = fs.readdirSync(trackDirPath);
+
     for (const item of trackItems) {
       if (item === 'index.mdx' || !item.endsWith('.mdx')) continue;
       
@@ -142,7 +207,6 @@ export async function getFullRoadmapsData(): Promise<Record<string, RoadmapData>
       const catMeta = getCategoryMeta(trackId, slug);
       if (!catMeta) continue;
 
-      // Dynamically extract topics from headers
       const filePath = path.join(trackDirPath, item);
       const fileContent = fs.readFileSync(filePath, 'utf8');
       const { content } = matter(fileContent);
@@ -163,9 +227,6 @@ export async function getFullRoadmapsData(): Promise<Record<string, RoadmapData>
   return roadmaps;
 }
 
-/**
- * Loads content for a unified chapter.
- */
 export async function getUnifiedChapterContent(trackId: string, categorySlug: string): Promise<MDXContent | null> {
   try {
     const filePath = path.join(CONTENT_PATH, trackId, `${categorySlug}.mdx`);
@@ -173,10 +234,15 @@ export async function getUnifiedChapterContent(trackId: string, categorySlug: st
 
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContent);
+    const scraped = scrapeMdxContent(filePath, categorySlug);
     
     return {
       source: content,
-      frontmatter: data as MDXContent['frontmatter'],
+      frontmatter: {
+        ...data,
+        title: scraped?.title || categorySlug,
+        description: scraped?.description || '',
+      },
     };
   } catch (error) {
     console.error(`Error loading unified MDX for ${trackId}/${categorySlug}:`, error);
