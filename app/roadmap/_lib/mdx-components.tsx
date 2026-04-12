@@ -9,8 +9,8 @@ import { extractText, generateId } from './mdx-utils';
 
 
 /**
- * AgentPrompt - A high-fidelity "SaaS Dashboard" chassis.
- * Implements a dedicated header with icons, breadcrumbs, and solid action buttons.
+ * AgentPrompt - Exactly matched to the approved user-provided reference.
+ * Features a solid teal header box and clean metadata labels.
  */
 export const AgentPrompt = ({ children }: { children: React.ReactNode }) => {
   const [isCopied, setIsCopied] = React.useState(false);
@@ -23,39 +23,31 @@ export const AgentPrompt = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="not-prose my-12 rounded-[2rem] border border-white/5 bg-[#1A1D24] overflow-hidden shadow-2xl transition-all duration-300 transform group">
-      {/* Dynamic Header Section */}
-      <div className="flex items-center justify-between px-8 py-5 border-b border-white/5 bg-white/2">
+    <div className="not-prose my-10 rounded-[20px] border border-slate-200 dark:border-white/10 bg-white dark:bg-[#16181D] overflow-hidden shadow-sm dark:shadow-xl transition-all duration-300 group">
+      {/* Precision Header Layer */}
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/10">
         <div className="flex items-center gap-4">
-          <div className="bg-teal-500/10 p-2.5 rounded-xl border border-teal-500/20 text-teal-400">
+          <div className="bg-teal-500 text-white p-2 rounded-[10px]">
             <Terminal className="w-4 h-4" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 leading-none mb-1">
-              Agent Skill Prompt
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-teal-500/40" />
-              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Interactive Skill</span>
-            </div>
-          </div>
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 truncate">
+            Agent Skill Prompt
+          </span>
         </div>
         
         <button 
           onClick={handleCopy}
-          className={`group/btn flex items-center gap-2.5 py-2.5 px-5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${
-            isCopied 
-              ? 'bg-teal-500 text-white scale-95 shadow-lg shadow-teal-500/20' 
-              : 'bg-teal-600 hover:bg-teal-500 text-white shadow-xl shadow-teal-900/20 hover:-translate-y-0.5'
+          className={`flex items-center gap-2 px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-[10px] text-[10px] font-bold uppercase tracking-wider transition-all shrink-0 ${
+            isCopied ? 'scale-[0.98] opacity-90' : ''
           }`}
         >
-          {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5 group-hover/btn:rotate-12 transition-transform" />}
+          {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
           {isCopied ? 'Copied' : 'Copy Skill'}
         </button>
       </div>
 
       {/* Code Text Section */}
-      <div className="p-10 font-mono text-[14px] leading-relaxed text-[#D1D5DB] whitespace-pre-wrap selection:bg-teal-500/20 selection:text-white">
+      <div className="p-8 font-mono text-[14px] leading-8 text-slate-700 dark:text-[#c7ccd7] whitespace-pre-wrap selection:bg-teal-500/20 selection:dark:text-white">
         {children}
       </div>
     </div>
@@ -63,8 +55,8 @@ export const AgentPrompt = ({ children }: { children: React.ReactNode }) => {
 };
 
 /**
- * CodeBlock - High-fidelity Chassis for deep-tech documentation.
- * Features a structured header metadata layer and integrated syntax palette.
+ * CodeBlock - High-fidelity single-shell template.
+ * Mirrors the AgentPrompt structure for visual consistency.
  */
 export const CodeBlock = ({ children, className }: { children: any, className?: string }) => {
   const [isCopied, setIsCopied] = React.useState(false);
@@ -78,39 +70,31 @@ export const CodeBlock = ({ children, className }: { children: any, className?: 
   };
 
   return (
-    <div className="not-prose my-12 rounded-[2rem] border border-white/5 bg-[#1A1D24] overflow-hidden shadow-2xl transform transition-all duration-300 group">
+    <div className="not-prose my-10 rounded-[20px] border border-slate-200 dark:border-white/10 bg-white dark:bg-[#16181D] overflow-hidden shadow-sm dark:shadow-xl transition-all duration-300 group">
       {/* Code Header Row */}
-      <div className="flex items-center justify-between px-8 py-5 border-b border-white/5 bg-white/2">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/10">
         <div className="flex items-center gap-4">
-          <div className="bg-slate-500/10 p-2.5 rounded-xl border border-white/5 text-slate-400">
+          <div className="bg-[#475569] dark:bg-slate-700 text-white p-2 rounded-[10px]">
             <Terminal className="w-4 h-4" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 leading-none mb-1">
-              Source Code
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-teal-500/40" />
-              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">{lang} module</span>
-            </div>
-          </div>
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 truncate">
+            {lang} code
+          </span>
         </div>
         
         <button 
           onClick={handleCopy}
-          className={`group/btn flex items-center gap-2.5 py-2.5 px-5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${
-            isCopied 
-              ? 'bg-teal-500 text-white scale-95 shadow-lg shadow-teal-500/20' 
-              : 'bg-teal-600 hover:bg-teal-500 text-white shadow-xl shadow-teal-900/20 hover:-translate-y-0.5'
+          className={`flex items-center gap-2 px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-[10px] text-[10px] font-bold uppercase tracking-wider transition-all shrink-0 ${
+            isCopied ? 'scale-[0.98] opacity-90' : ''
           }`}
         >
-          {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5 group-hover/btn:rotate-12 transition-transform" />}
+          {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
           {isCopied ? 'Copied' : 'Copy Code'}
         </button>
       </div>
 
       {/* Code Viewer Section */}
-      <div className="font-mono text-[14px] leading-relaxed overflow-x-auto custom-scrollbar p-10 selection:bg-teal-500/20 selection:text-white">
+      <div className="font-mono text-[14px] leading-8 overflow-x-auto custom-scrollbar p-8 text-slate-700 dark:text-[#c7ccd7] selection:bg-teal-500/20 selection:dark:text-white">
         <div className="w-full whitespace-pre">
           {children}
         </div>
