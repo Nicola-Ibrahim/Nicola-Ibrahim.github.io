@@ -9,8 +9,8 @@ import { extractText, generateId } from './mdx-utils';
 
 
 /**
- * AgentPrompt - A flat, high-contrast, single-shell container.
- * Features monochromatic amber typography and integrated controls.
+ * AgentPrompt - A high-fidelity "SaaS Dashboard" chassis.
+ * Implements a dedicated header with icons, breadcrumbs, and solid action buttons.
  */
 export const AgentPrompt = ({ children }: { children: React.ReactNode }) => {
   const [isCopied, setIsCopied] = React.useState(false);
@@ -23,20 +23,39 @@ export const AgentPrompt = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="not-prose my-10 relative group border border-slate-200 dark:border-white/10 bg-[#f9fafb] dark:bg-[#121417] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-      <button
-        onClick={handleCopy}
-        className={`absolute top-4 right-4 z-10 p-2 transition-all duration-300 rounded-lg ${
-          isCopied 
-            ? 'bg-amber-500/10 text-amber-500 dark:bg-amber-500/10 dark:text-amber-400' 
-            : 'text-slate-400 hover:bg-slate-50 hover:text-slate-900 dark:text-zinc-600 dark:hover:bg-white/5 dark:hover:text-zinc-400 opacity-0 group-hover:opacity-100'
-        }`}
-        title="Copy Prompt"
-      >
-        {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-      </button>
-      
-      <div className="font-mono text-[13px] leading-[1.8] p-8 pr-14 selection:bg-amber-500/20 text-slate-700 dark:text-[#FBBF24] whitespace-pre-wrap">
+    <div className="not-prose my-12 rounded-[2rem] border border-white/5 bg-[#1A1D24] overflow-hidden shadow-2xl transition-all duration-300 transform group">
+      {/* Dynamic Header Section */}
+      <div className="flex items-center justify-between px-8 py-5 border-b border-white/5 bg-white/2">
+        <div className="flex items-center gap-4">
+          <div className="bg-teal-500/10 p-2.5 rounded-xl border border-teal-500/20 text-teal-400">
+            <Terminal className="w-4 h-4" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 leading-none mb-1">
+              Agent Skill Prompt
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="w-1 h-1 rounded-full bg-teal-500/40" />
+              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Interactive Skill</span>
+            </div>
+          </div>
+        </div>
+        
+        <button 
+          onClick={handleCopy}
+          className={`group/btn flex items-center gap-2.5 py-2.5 px-5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${
+            isCopied 
+              ? 'bg-teal-500 text-white scale-95 shadow-lg shadow-teal-500/20' 
+              : 'bg-teal-600 hover:bg-teal-500 text-white shadow-xl shadow-teal-900/20 hover:-translate-y-0.5'
+          }`}
+        >
+          {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5 group-hover/btn:rotate-12 transition-transform" />}
+          {isCopied ? 'Copied' : 'Copy Skill'}
+        </button>
+      </div>
+
+      {/* Code Text Section */}
+      <div className="p-10 font-mono text-[14px] leading-relaxed text-[#D1D5DB] whitespace-pre-wrap selection:bg-teal-500/20 selection:text-white">
         {children}
       </div>
     </div>
@@ -44,8 +63,8 @@ export const AgentPrompt = ({ children }: { children: React.ReactNode }) => {
 };
 
 /**
- * CodeBlock - A flat, single-shell carrier for source code.
- * Optimized for whitespace preservation and zero-depth integration.
+ * CodeBlock - High-fidelity Chassis for deep-tech documentation.
+ * Features a structured header metadata layer and integrated syntax palette.
  */
 export const CodeBlock = ({ children, className }: { children: any, className?: string }) => {
   const [isCopied, setIsCopied] = React.useState(false);
@@ -59,27 +78,40 @@ export const CodeBlock = ({ children, className }: { children: any, className?: 
   };
 
   return (
-    <div className="not-prose my-10 relative group border border-slate-200 dark:border-white/10 bg-[#f9fafb] dark:bg-[#121417] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-      {/* Integrated Label & Copy Layer */}
-      <div className="absolute top-4 right-4 z-10 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
-        <span className="text-[10px] font-black font-sans uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-600 pr-3 border-r border-slate-100 dark:border-white/5 leading-none">
-          {lang}
-        </span>
-        <button
+    <div className="not-prose my-12 rounded-[2rem] border border-white/5 bg-[#1A1D24] overflow-hidden shadow-2xl transform transition-all duration-300 group">
+      {/* Code Header Row */}
+      <div className="flex items-center justify-between px-8 py-5 border-b border-white/5 bg-white/2">
+        <div className="flex items-center gap-4">
+          <div className="bg-slate-500/10 p-2.5 rounded-xl border border-white/5 text-slate-400">
+            <Terminal className="w-4 h-4" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 leading-none mb-1">
+              Source Code
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="w-1 h-1 rounded-full bg-teal-500/40" />
+              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">{lang} module</span>
+            </div>
+          </div>
+        </div>
+        
+        <button 
           onClick={handleCopy}
-          className={`p-2 rounded-lg transition-all duration-300 ${
+          className={`group/btn flex items-center gap-2.5 py-2.5 px-5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${
             isCopied 
-              ? 'bg-amber-500/10 text-amber-500 dark:bg-amber-500/10 dark:text-amber-400' 
-              : 'text-slate-400 hover:bg-slate-50 hover:text-slate-900 dark:text-zinc-600 dark:hover:bg-white/5 dark:hover:text-zinc-400'
+              ? 'bg-teal-500 text-white scale-95 shadow-lg shadow-teal-500/20' 
+              : 'bg-teal-600 hover:bg-teal-500 text-white shadow-xl shadow-teal-900/20 hover:-translate-y-0.5'
           }`}
-          title="Copy Code"
         >
-          {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+          {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5 group-hover/btn:rotate-12 transition-transform" />}
+          {isCopied ? 'Copied' : 'Copy Code'}
         </button>
       </div>
-      
-      <div className="font-mono text-[13px] leading-relaxed overflow-x-auto custom-scrollbar p-8">
-        <div className="w-full whitespace-pre selection:bg-amber-500/10">
+
+      {/* Code Viewer Section */}
+      <div className="font-mono text-[14px] leading-relaxed overflow-x-auto custom-scrollbar p-10 selection:bg-teal-500/20 selection:text-white">
+        <div className="w-full whitespace-pre">
           {children}
         </div>
       </div>
