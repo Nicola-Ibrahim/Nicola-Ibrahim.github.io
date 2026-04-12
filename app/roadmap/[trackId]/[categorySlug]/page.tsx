@@ -67,7 +67,7 @@ const mdxComponents = {
   th: (props: any) => React.createElement('th', { className: 'px-8 py-5 text-slate-800 dark:text-slate-300 font-black uppercase tracking-[0.2em] text-[10px]', ...props }),
   td: (props: any) => React.createElement('td', { className: 'px-8 py-5 text-base text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-white/5 last:border-0', ...props }),
   tr: (props: any) => React.createElement('tr', { className: 'hover:bg-slate-500/5 transition-colors', ...props }),
-
+  
   code: (props: any) => React.createElement('code', { className: 'px-1.5 py-0.5 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 font-mono text-[0.85em] font-bold', ...props }),
 
   AsyncDecisionFlowchart,
@@ -162,7 +162,10 @@ export default async function ModulePage({ params }: { params: { trackId: string
                   [
                     rehypePrettyCode,
                     {
-                      theme: 'github-dark',
+                      theme: {
+                        light: 'github-light',
+                        dark: 'github-dark',
+                      },
                       keepBackground: false,
                     },
                   ],

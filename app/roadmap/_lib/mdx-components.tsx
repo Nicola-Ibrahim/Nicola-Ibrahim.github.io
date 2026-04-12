@@ -9,7 +9,8 @@ import { extractText, generateId } from './mdx-utils';
 
 
 /**
- * AgentPrompt - The premium terminal UI for prompted agent skills.
+ * AgentPrompt - A flat, high-contrast, single-shell container.
+ * Features monochromatic amber typography and integrated controls.
  */
 export const AgentPrompt = ({ children }: { children: React.ReactNode }) => {
   const [isCopied, setIsCopied] = React.useState(false);
@@ -22,34 +23,20 @@ export const AgentPrompt = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="not-prose my-12 bg-slate-900/80 dark:bg-[#0B0C10] rounded-[2rem] overflow-hidden border border-slate-200/50 dark:border-white/5 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] group/prompt backdrop-blur-xl relative [&_pre]:bg-transparent [&_pre]:p-0 [&_pre]:m-0 [&_pre]:border-none">
-      <div className="flex items-center justify-between px-8 py-6 bg-slate-100/80 dark:bg-black/40 border-b border-slate-200/50 dark:border-white/5">
-        <div className="flex items-center gap-6">
-          <span className="block text-xs font-bold text-slate-800 dark:text-slate-100 uppercase tracking-[0.2em] leading-none">
-            Agent System Prompt
-          </span>
-        </div>
-        <button
-          onClick={handleCopy}
-          className={`relative overflow-hidden group/btn flex items-center gap-2.5 px-6 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 ${isCopied
-              ? 'bg-emerald-500 text-white'
-              : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:scale-105 active:scale-95 shadow-xl'
-            }`}
-        >
-          <AnimatePresence mode="wait">
-            {isCopied ? (
-              <motion.div key="check" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} className="flex items-center gap-2">
-                <Check className="w-4 h-4" /> <span>Copied</span>
-              </motion.div>
-            ) : (
-              <motion.div key="copy" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} className="flex items-center gap-2">
-                <Copy className="w-4 h-4" /> <span>Copy Prompt</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </button>
-      </div>
-      <div className="font-mono text-sm leading-relaxed overflow-x-auto selection:bg-teal-500/30 custom-scrollbar text-slate-300 dark:text-slate-400 whitespace-pre-wrap p-8">
+    <div className="not-prose my-10 relative group border border-slate-200 dark:border-white/10 bg-[#f9fafb] dark:bg-[#121417] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+      <button
+        onClick={handleCopy}
+        className={`absolute top-4 right-4 z-10 p-2 transition-all duration-300 rounded-lg ${
+          isCopied 
+            ? 'bg-amber-500/10 text-amber-500 dark:bg-amber-500/10 dark:text-amber-400' 
+            : 'text-slate-400 hover:bg-slate-50 hover:text-slate-900 dark:text-zinc-600 dark:hover:bg-white/5 dark:hover:text-zinc-400 opacity-0 group-hover:opacity-100'
+        }`}
+        title="Copy Prompt"
+      >
+        {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+      </button>
+      
+      <div className="font-mono text-[13px] leading-[1.8] p-8 pr-14 selection:bg-amber-500/20 text-slate-700 dark:text-[#FBBF24] whitespace-pre-wrap">
         {children}
       </div>
     </div>
@@ -57,7 +44,8 @@ export const AgentPrompt = ({ children }: { children: React.ReactNode }) => {
 };
 
 /**
- * CodeBlock - Premium UI for multi-line code snippets
+ * CodeBlock - A flat, single-shell carrier for source code.
+ * Optimized for whitespace preservation and zero-depth integration.
  */
 export const CodeBlock = ({ children, className }: { children: any, className?: string }) => {
   const [isCopied, setIsCopied] = React.useState(false);
@@ -71,18 +59,29 @@ export const CodeBlock = ({ children, className }: { children: any, className?: 
   };
 
   return (
-    <div className="not-prose my-12 bg-[#0d1117] dark:bg-[#0D1117] rounded-[1.5rem] overflow-hidden border border-white/5 shadow-2xl group/code relative [&_pre]:bg-transparent [&_pre]:p-0 [&_pre]:m-0 [&_pre]:border-none">
-      <div className="flex items-center justify-between px-6 py-3.5 bg-white/5 border-b border-white/5">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">{lang}</span>
+    <div className="not-prose my-10 relative group border border-slate-200 dark:border-white/10 bg-[#f9fafb] dark:bg-[#121417] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+      {/* Integrated Label & Copy Layer */}
+      <div className="absolute top-4 right-4 z-10 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
+        <span className="text-[10px] font-black font-sans uppercase tracking-[0.2em] text-slate-400 dark:text-zinc-600 pr-3 border-r border-slate-100 dark:border-white/5 leading-none">
+          {lang}
+        </span>
         <button
           onClick={handleCopy}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${isCopied ? 'text-emerald-400' : 'text-slate-400 hover:text-white'}`}
+          className={`p-2 rounded-lg transition-all duration-300 ${
+            isCopied 
+              ? 'bg-amber-500/10 text-amber-500 dark:bg-amber-500/10 dark:text-amber-400' 
+              : 'text-slate-400 hover:bg-slate-50 hover:text-slate-900 dark:text-zinc-600 dark:hover:bg-white/5 dark:hover:text-zinc-400'
+          }`}
+          title="Copy Code"
         >
-          {isCopied ? <><Check className="w-3 h-3" /> Copied</> : <><Copy className="w-3 h-3" /> Copy</>}
+          {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
         </button>
       </div>
-      <div className="overflow-x-auto font-mono text-sm leading-relaxed custom-scrollbar text-slate-300 p-6">
-        {children}
+      
+      <div className="font-mono text-[13px] leading-relaxed overflow-x-auto custom-scrollbar p-8">
+        <div className="w-full whitespace-pre selection:bg-amber-500/10">
+          {children}
+        </div>
       </div>
     </div>
   );
