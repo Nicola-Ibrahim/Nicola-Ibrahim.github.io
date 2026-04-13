@@ -42,7 +42,7 @@ const mdxComponents = {
       return React.createElement(Callout, { type, children: props.children });
     }
     return React.createElement('blockquote', {
-      className: 'border-l-4 border-slate-300 dark:border-slate-600 pl-4 italic text-slate-600 dark:text-slate-400 my-5 text-[14px] leading-[1.6]',
+      className: 'border-l-4 border-slate-300 dark:border-slate-600 pl-4 ml-10 italic text-slate-600 dark:text-slate-400 my-5 text-[14px] leading-[1.6]',
       ...props
     });
   },
@@ -52,15 +52,15 @@ const mdxComponents = {
     ...props
   }),
   h2: (props: any) => React.createElement('h2', { id: generateId(props.children), className: 'text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-16 mb-8 tracking-tight border-l-4 border-teal-500 pl-6 scroll-mt-24', ...props }),
-  h3: (props: any) => React.createElement('h3', { id: generateId(props.children), className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-6 tracking-wide scroll-mt-24', ...props }),
-  h4: (props: any) => React.createElement('h4', { id: generateId(props.children), className: 'text-base md:text-lg font-bold text-slate-700 dark:text-slate-300 mt-8 mb-4 tracking-wide scroll-mt-24', ...props }),
-  p: (props: any) => React.createElement('p', { className: 'text-base leading-relaxed mb-6 text-slate-600 dark:text-slate-400 max-w-5xl', ...props }),
-  ul: (props: any) => React.createElement('ul', { className: 'list-disc pl-8 mb-8 space-y-4 text-slate-600 dark:text-slate-400 text-base', ...props }),
+  h3: (props: any) => React.createElement('h3', { id: generateId(props.children), className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-6 tracking-wide scroll-mt-24 pl-10', ...props }),
+  h4: (props: any) => React.createElement('h4', { id: generateId(props.children), className: 'text-base md:text-lg font-bold text-slate-700 dark:text-slate-300 mt-8 mb-4 tracking-wide scroll-mt-24 pl-10', ...props }),
+  p: (props: any) => React.createElement('p', { className: 'text-base leading-relaxed mb-6 text-slate-600 dark:text-slate-400 max-w-5xl pl-10', ...props }),
+  ul: (props: any) => React.createElement('ul', { className: 'list-disc pl-16 mb-8 space-y-4 text-slate-600 dark:text-slate-400 text-base', ...props }),
   li: (props: any) => React.createElement('li', { className: 'leading-relaxed hover:text-slate-900 dark:hover:text-white transition-colors', ...props }),
   strong: (props: any) => React.createElement('strong', { className: 'font-bold text-slate-900 dark:text-white', ...props }),
 
   table: (props: any) => (
-    <div className="my-10 overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-white/[0.02]">
+    <div className="my-10 ml-10 overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-white/[0.02]">
       <table className="w-full text-left border-collapse" {...props} />
     </div>
   ),
