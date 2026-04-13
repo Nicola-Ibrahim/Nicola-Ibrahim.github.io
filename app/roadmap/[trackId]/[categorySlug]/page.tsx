@@ -12,9 +12,8 @@ import rehypePrettyCode from 'rehype-pretty-code';
 
 // Formatting & Logic
 import { generateId, extractText } from '../../_lib/mdx-utils';
-import { 
-  AgentPrompt, 
-  CodeBlock, 
+import {
+  CodeBlock,
   Callout
 } from '../../_lib/mdx-components';
 
@@ -32,9 +31,6 @@ import NotificationStrategies from '@/app/roadmap/_content/backend/_components/N
 const mdxComponents = {
   pre: (props: any) => {
     const className = props.children?.props?.className || props['data-language'] || '';
-    if (className === 'language-prompt' || props['data-language'] === 'prompt') {
-      return React.createElement(AgentPrompt, { children: props.children });
-    }
     return React.createElement(CodeBlock, { className, children: props.children });
   },
 
@@ -46,14 +42,14 @@ const mdxComponents = {
       return React.createElement(Callout, { type, children: props.children });
     }
     return React.createElement('blockquote', {
-      className: 'border-l-4 border-slate-200 dark:border-white/10 pl-8 italic text-slate-500 dark:text-slate-500 my-10 text-lg font-light',
+      className: 'border-l-4 border-slate-300 dark:border-slate-600 pl-4 italic text-slate-600 dark:text-slate-400 my-5 text-[14px] leading-[1.6]',
       ...props
     });
   },
 
-  h1: (props: any) => React.createElement('h1', { 
-    className: 'text-2xl md:text-4xl font-black text-slate-900 dark:text-white mb-12 tracking-tight leading-tight', 
-    ...props 
+  h1: (props: any) => React.createElement('h1', {
+    className: 'text-2xl md:text-4xl font-black text-slate-900 dark:text-white mb-12 tracking-tight leading-tight',
+    ...props
   }),
   h2: (props: any) => React.createElement('h2', { id: generateId(props.children), className: 'text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-16 mb-8 tracking-tight border-l-4 border-teal-500 pl-6 scroll-mt-24', ...props }),
   h3: (props: any) => React.createElement('h3', { className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-6 tracking-wide', ...props }),
@@ -61,14 +57,23 @@ const mdxComponents = {
   ul: (props: any) => React.createElement('ul', { className: 'list-disc pl-8 mb-8 space-y-4 text-slate-600 dark:text-slate-400 text-base', ...props }),
   li: (props: any) => React.createElement('li', { className: 'leading-relaxed hover:text-slate-900 dark:hover:text-white transition-colors', ...props }),
   strong: (props: any) => React.createElement('strong', { className: 'font-bold text-slate-900 dark:text-white', ...props }),
-  
+
   table: (props: any) => React.createElement('div', { className: 'my-10 overflow-x-auto rounded-3xl border border-slate-200 dark:border-white/10 shadow-lg bg-white/50 dark:bg-black/20 backdrop-blur-sm' }, React.createElement('table', { className: 'w-full text-left border-collapse', ...props })),
   thead: (props: any) => React.createElement('thead', { className: 'bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-white/10', ...props }),
   th: (props: any) => React.createElement('th', { className: 'px-8 py-5 text-slate-800 dark:text-slate-300 font-black uppercase tracking-[0.2em] text-[10px]', ...props }),
   td: (props: any) => React.createElement('td', { className: 'px-8 py-5 text-base text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-white/5 last:border-0', ...props }),
   tr: (props: any) => React.createElement('tr', { className: 'hover:bg-slate-500/5 transition-colors', ...props }),
-  
-  code: (props: any) => React.createElement('code', { className: 'px-1.5 py-0.5 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400 font-mono text-[0.85em] font-bold', ...props }),
+
+  code: (props: any) => {
+    const isInline = !props.className;
+    if (!isInline) return <code {...props} />;
+    return (
+      <code 
+        className="px-[0.3em] py-[0.1em] mx-[0.1em] rounded bg-slate-100 dark:bg-white/10 text-teal-600 dark:text-teal-400 font-mono text-[0.85em] font-bold" 
+        {...props} 
+      />
+    );
+  },
 
   AsyncDecisionFlowchart,
   ThreadsVsCoroutines,
@@ -152,8 +157,8 @@ export default async function ModulePage({ params }: { params: { trackId: string
 
         {/* Content */}
         <div className="prose dark:prose-invert max-w-none">
-          <MDXRemote 
-            source={unifiedMdx.source} 
+          <MDXRemote
+            source={unifiedMdx.source}
             components={mdxComponents}
             options={{
               mdxOptions: {
@@ -163,8 +168,8 @@ export default async function ModulePage({ params }: { params: { trackId: string
                     rehypePrettyCode,
                     {
                       theme: {
-                        light: 'github-light',
-                        dark: 'github-dark',
+                        light: 'min-light',
+                        dark: 'min-dark',
                       },
                       keepBackground: false,
                     },
