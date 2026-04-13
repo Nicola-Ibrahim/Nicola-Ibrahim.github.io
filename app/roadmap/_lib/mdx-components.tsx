@@ -25,36 +25,30 @@ export const CodeBlock = ({ children, className }: { children: any, className?: 
   };
 
   return (
-    <div className="not-prose my-8 bg-slate-50 dark:bg-[#1a1c22] rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-inner group/block">
+    <div className="not-prose my-10 group relative rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0B0E14] overflow-hidden">
       {/* Branded Header */}
-      <div className="flex items-center justify-between px-6 py-3 bg-slate-100 dark:bg-black/20 border-b border-slate-200 dark:border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-lg bg-teal-600 flex items-center justify-center text-white shadow-md shadow-teal-500/10">
-            <Terminal className="w-3.5 h-3.5" />
+      <div className="flex items-center justify-between px-4 py-3 bg-slate-100/50 dark:bg-black/40 border-b border-slate-200 dark:border-white/10">
+        <div className="flex items-center gap-4">
+          {/* Tab Element */}
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-[#161B22] border border-slate-200 dark:border-white/10 border-b-0 rounded-t-lg -mb-[13px] z-10 text-[10px] font-black tracking-widest uppercase text-slate-500 dark:text-slate-400">
+            <Terminal className="w-3 h-3 text-teal-500" />
+            {isPrompt ? 'Agent Skill' : lang}
           </div>
-          <span className="text-[10px] font-black tracking-[0.3em] text-slate-800 dark:text-slate-400 uppercase">
-            {isPrompt ? 'Agent Skill Prompt' : `${lang} artifact`}
-          </span>
         </div>
         
         <button 
           onClick={handleCopy}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all bg-teal-600 text-white hover:bg-teal-700 shadow-md shadow-teal-600/10 active:scale-95"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-md text-[9px] font-black uppercase tracking-widest transition-all bg-white dark:bg-black/30 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-teal-500/20 dark:hover:text-white border border-slate-200 dark:border-white/10 active:scale-95 group/copy"
         >
-          {isCopied ? <Check className="w-3 h-3 text-white" /> : <Copy className="w-3 h-3 text-white" />}
+          {isCopied ? <Check className="w-3 h-3 text-teal-500" /> : <Copy className="w-3 h-3 group-hover/copy:text-teal-500 transition-colors" />}
           {isCopied ? 'Copied' : (isPrompt ? 'Copy Skill' : 'Copy Code')}
         </button>
       </div>
-
+ 
       {/* Seamless Content Area */}
       <div 
-        className={`p-6 bg-transparent font-mono text-[14px] leading-relaxed overflow-x-auto selection:bg-teal-500/40 custom-scrollbar 
-          [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0 
-          [&_code]:!bg-transparent [&_code]:!p-0 
-          ${isPrompt 
-            ? "whitespace-pre-wrap text-black dark:text-white [&_*]:!text-inherit" 
-            : "whitespace-pre text-slate-800 dark:text-slate-200"
-          }`}
+        suppressHydrationWarning
+        className={`p-6 bg-transparent font-mono text-[14px] leading-relaxed overflow-x-auto selection:bg-teal-500/40 custom-scrollbar [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0 [&_code]:!bg-transparent [&_code]:!p-0 ${isPrompt ? "whitespace-pre-wrap text-black dark:text-white [&_*]:!text-inherit" : "whitespace-pre"}`}
       >
         {children}
       </div>
@@ -87,7 +81,7 @@ export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'war
   });
 
   return (
-    <div className={`my-5 rounded-[4px] rounded-l-[2px] border-l-4 ${config.borderClass} bg-white dark:bg-[#16181D] shadow-sm ring-1 ring-slate-200 dark:ring-white/5 overflow-hidden`}>
+    <div className={`my-5 rounded-[4px] rounded-l-[2px] border-l-4 ${config.borderClass} bg-white dark:bg-[#16181D] ring-1 ring-slate-200 dark:ring-white/5 overflow-hidden`}>
       <div className={`flex items-center gap-2 px-4 py-2 text-[13px] font-bold ${config.bgClass} ${config.titleColor}`}>
         <Icon className="w-4 h-4" />
         <span>{displayTitle}</span>

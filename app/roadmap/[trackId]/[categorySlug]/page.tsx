@@ -58,11 +58,23 @@ const mdxComponents = {
   li: (props: any) => React.createElement('li', { className: 'leading-relaxed hover:text-slate-900 dark:hover:text-white transition-colors', ...props }),
   strong: (props: any) => React.createElement('strong', { className: 'font-bold text-slate-900 dark:text-white', ...props }),
 
-  table: (props: any) => React.createElement('div', { className: 'my-10 overflow-x-auto rounded-3xl border border-slate-200 dark:border-white/10 shadow-lg bg-white/50 dark:bg-black/20 backdrop-blur-sm' }, React.createElement('table', { className: 'w-full text-left border-collapse', ...props })),
-  thead: (props: any) => React.createElement('thead', { className: 'bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-white/10', ...props }),
-  th: (props: any) => React.createElement('th', { className: 'px-8 py-5 text-slate-800 dark:text-slate-300 font-black uppercase tracking-[0.2em] text-[10px]', ...props }),
-  td: (props: any) => React.createElement('td', { className: 'px-8 py-5 text-base text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-white/5 last:border-0', ...props }),
-  tr: (props: any) => React.createElement('tr', { className: 'hover:bg-slate-500/5 transition-colors', ...props }),
+  table: (props: any) => (
+    <div className="my-10 overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0B0E14]">
+      <table className="w-full text-left border-collapse" {...props} />
+    </div>
+  ),
+  thead: (props: any) => (
+    <thead className="bg-slate-50 dark:bg-white/[0.02] border-b border-slate-200 dark:border-white/10" {...props} />
+  ),
+  tr: (props: any) => (
+    <tr className="border-b border-slate-100 dark:border-white/5 last:border-0 hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors" {...props} />
+  ),
+  th: (props: any) => (
+    <th className="px-6 py-4 text-slate-900 dark:text-slate-100 font-bold uppercase tracking-wider text-[11px]" {...props} />
+  ),
+  td: (props: any) => (
+    <td className="px-6 py-4 text-[14px] leading-relaxed text-slate-600 dark:text-slate-400" {...props} />
+  ),
 
   code: (props: any) => {
     const isInline = !props.className;
@@ -168,8 +180,8 @@ export default async function ModulePage({ params }: { params: { trackId: string
                     rehypePrettyCode,
                     {
                       theme: {
-                        light: 'min-light',
-                        dark: 'min-dark',
+                        light: 'vitesse-light',
+                        dark: 'vitesse-dark',
                       },
                       keepBackground: false,
                     },
