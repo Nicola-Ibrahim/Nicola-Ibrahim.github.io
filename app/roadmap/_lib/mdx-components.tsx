@@ -25,7 +25,7 @@ export const CodeBlock = ({ children, className }: { children: any, className?: 
   };
 
   return (
-    <div className="not-prose my-10 group relative rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-white/[0.02] overflow-hidden">
+    <div className="not-prose my-10 ml-10 group relative rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-white/[0.02] overflow-hidden">
       {/* Branded Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-slate-100/50 dark:bg-white/[0.03] border-b border-slate-200 dark:border-white/10">
         <div className="flex items-center gap-4">
@@ -99,7 +99,7 @@ export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'war
   });
 
   return (
-    <div className={`my-10 rounded-xl border ${config.containerClass} overflow-hidden shadow-px`}>
+    <div className={`my-10 ml-10 rounded-xl border ${config.containerClass} overflow-hidden shadow-px`}>
       <div className={`flex items-center gap-2.5 px-5 py-3 border-b ${config.headerClass} ${config.titleColor}`}>
         <Icon className="w-4 h-4" />
         <span className="text-[11px] font-black uppercase tracking-[0.2em]">{displayTitle}</span>
