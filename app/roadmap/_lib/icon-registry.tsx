@@ -31,7 +31,9 @@ import {
   FileText,
   GitFork,
   Copy,
-  Check
+  Check,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 
 export type IconName = 
@@ -64,9 +66,11 @@ export type IconName =
   | 'hash'
   | 'play-circle'
   | 'file-text'
-  | 'git-fork'
-  | 'copy'
-  | 'check';
+  | 'git-fork' 
+  | 'copy' 
+  | 'check'
+  | 'chevron-down'
+  | 'chevron-up';
 
 const iconMap: Record<IconName, any> = {
   'git-branch': GitBranch,
@@ -101,6 +105,8 @@ const iconMap: Record<IconName, any> = {
   'git-fork': GitFork,
   'copy': Copy,
   'check': Check,
+  'chevron-down': ChevronDown,
+  'chevron-up': ChevronUp,
 };
 
 export function getIcon(name: string, className: string = "w-6 h-6"): ReactNode {

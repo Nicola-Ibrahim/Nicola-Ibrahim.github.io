@@ -217,11 +217,11 @@ html:not(.dark) [data-theme='dark'] {
 
 [data-rehype-pretty-code-figure] code {
   counter-reset: line;
-  @apply table w-full border-collapse min-w-full;
+  @apply flex flex-col min-w-full;
 }
 
 [data-rehype-pretty-code-figure] [data-line] {
-  @apply table-row transition-colors duration-200 leading-[1.6];
+  @apply flex min-w-full transition-colors duration-200 leading-[1.6] relative;
 }
 
 [data-rehype-pretty-code-figure] [data-line]:hover {
@@ -232,32 +232,53 @@ html:not(.dark) [data-theme='dark'] {
 [data-rehype-pretty-code-figure] [data-line]::before {
   counter-increment: line;
   content: counter(line);
-  @apply table-cell sticky left-0 z-10 w-[1%] align-text-top text-right select-none whitespace-nowrap;
+  @apply sticky left-0 z-10 flex-shrink-0 inline-block w-12 text-left select-none;
   @apply text-slate-400 dark:text-slate-500 font-mono text-[11px];
-  /* The layout spacing: text sits at the right, leaving .75rem gap between text and border */
-  padding: 0.1rem 1rem 0 1rem;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  padding-top: 0.1rem;
+}
+
+/* Vertical Divider in the gutter */
+[data-rehype-pretty-code-figure] [data-line]::after {
+  content: '';
+  @apply absolute left-[3rem] top-0 bottom-0 w-px z-10;
 }
 
 html.dark [data-rehype-pretty-code-figure] [data-line]::before {
   background-color: #0d1117;
-  box-shadow: inset -1px 0 0 0 rgba(255, 255, 255, 0.1);
+}
+html.dark [data-rehype-pretty-code-figure] [data-line]::after {
+  @apply bg-white/[0.1];
 }
 
 html:not(.dark) [data-rehype-pretty-code-figure] [data-line]::before {
   background-color: #f9fafb;
-  box-shadow: inset -1px 0 0 0 theme('colors.slate.200');
+}
+html:not(.dark) [data-rehype-pretty-code-figure] [data-line]::after {
+  @apply bg-slate-200;
 }
 
-/* This targets the anonymous cell formed by the code tokens and gives it padding so it isn't flush against the vertical divider */
-[data-rehype-pretty-code-figure] [data-line] > :first-child {
-  /* But we can't target anonymous cell content wrapper effectively unless targeting the first token */
-  /* Wait, targeting the first child token to add margin-left is perfect! */
-  margin-left: 1.25rem;
+/* Padding for the code content to skip the gutter and vertical line */
+[data-rehype-pretty-code-figure] [data-line] > span:first-child,
+[data-rehype-pretty-code-figure] [data-line] > .token:first-child {
+  padding-left: 1.25rem;
 }
 
-/* Additional padding for the line to create right side breathing room */
-[data-rehype-pretty-code-figure] [data-line] > :last-child {
-  margin-right: 1.5rem;
+/* Exclude numbering and flex constraints for Agent Skills */
+[data-is-skill="true"] [data-rehype-pretty-code-figure] code {
+  counter-reset: none;
+  @apply block;
+}
+
+[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line] {
+  @apply block;
+}
+
+[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line]::before,
+[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line]::after {
+  content: none !important;
+  display: none !important;
 }
 
 /* Base token scaling text sizes */

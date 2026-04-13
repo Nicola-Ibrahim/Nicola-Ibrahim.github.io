@@ -1,12 +1,9 @@
 "use client";
 
 import React from 'react';
-import { Terminal, Copy, Check, Info, Lightbulb, AlertTriangle } from 'lucide-react';
+import { Terminal, Copy, Check, Info, Lightbulb, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { extractText, generateId } from './mdx-utils';
-
-
-
 
 /**
  * Single master CodeBlock representing all code and prompt fences.
@@ -14,9 +11,21 @@ import { extractText, generateId } from './mdx-utils';
  */
 export const CodeBlock = ({ children, className }: { children: any, className?: string }) => {
   const [isCopied, setIsCopied] = React.useState(false);
+  const [isExpanded, setIsExpanded] = React.useState(false);
+  const [shouldShowExpand, setShouldShowExpand] = React.useState(false);
+  const contentRef = React.useRef<HTMLDivElement>(null);
+
   const codeText = extractText(children);
   const isPrompt = className?.includes('language-prompt') || className === 'prompt';
   const lang = className?.replace('language-', '') || 'code';
+
+  React.useEffect(() => {
+    if (contentRef.current) {
+      if (contentRef.current.scrollHeight > 400) {
+        setShouldShowExpand(true);
+      }
+    }
+  }, [children]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(codeText);
@@ -25,7 +34,10 @@ export const CodeBlock = ({ children, className }: { children: any, className?: 
   };
 
   return (
-    <div className="not-prose my-10 ml-10 group relative rounded-xl border border-slate-200 dark:border-white/10 bg-[#f9fafb] dark:bg-[#0d1117] overflow-hidden shadow-sm">
+    <div 
+      className="not-prose my-10 ml-0 lg:ml-10 group relative rounded-xl border border-slate-200 dark:border-white/10 bg-[#f9fafb] dark:bg-[#0d1117] overflow-hidden shadow-sm transition-all duration-300"
+      data-is-skill={isPrompt}
+    >
       {/* Branded Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-slate-50 dark:bg-white/[0.03] border-b border-slate-200 dark:border-white/10">
         <div className="flex items-center gap-4">
@@ -47,11 +59,34 @@ export const CodeBlock = ({ children, className }: { children: any, className?: 
 
       {/* Seamless Content Area */}
       <div
+        ref={contentRef}
         suppressHydrationWarning
-        className={`py-6 px-0 bg-transparent font-mono text-[14px] leading-relaxed overflow-x-auto selection:bg-teal-500/30 custom-scrollbar [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0 [&_code]:!bg-transparent [&_code]:!p-0 ${isPrompt ? "whitespace-pre-wrap text-black dark:text-white [&_*]:!text-inherit" : "whitespace-pre"}`}
+        style={{ maxHeight: shouldShowExpand && !isExpanded ? '400px' : 'none' }}
+        className={`relative py-6 px-0 bg-transparent font-mono text-[14px] leading-relaxed overflow-x-auto selection:bg-teal-500/30 custom-scrollbar [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0 [&_code]:!bg-transparent [&_code]:!p-0 ${isPrompt ? "whitespace-pre-wrap text-black dark:text-white [&_*]:!text-inherit px-6" : "whitespace-pre"}`}
       >
         {children}
+
+        {/* Gradient Overlay for collapsed state */}
+        {shouldShowExpand && !isExpanded && (
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#f9fafb] via-[#f9fafb]/80 to-transparent dark:from-[#0d1117] dark:via-[#0d1117]/80 dark:to-transparent z-20 pointer-events-none" />
+        )}
       </div>
+
+      {/* Expand/Collapse Toggle */}
+      {shouldShowExpand && (
+        <div className={`p-4 flex justify-center bg-slate-50 dark:bg-white/[0.02] border-t border-slate-200 dark:border-white/10 ${!isExpanded ? '-mt-px relative z-30' : ''}`}>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all bg-white dark:bg-[#161B22] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-teal-500/10 dark:hover:text-teal-400 border border-slate-200 dark:border-white/10 shadow-sm active:scale-95"
+          >
+            {isExpanded ? (
+              <><ChevronUp className="w-3 h-3" /> Show Less</>
+            ) : (
+              <><ChevronDown className="w-3 h-3" /> Show More</>
+            )}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
