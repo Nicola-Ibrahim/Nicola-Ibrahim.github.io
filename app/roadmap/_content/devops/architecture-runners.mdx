@@ -1,44 +1,53 @@
----
-title: "Infrastructure & Runners"
-icon: "server"
-iconColor: "text-red-500"
-topics:
-  - id: "hosted-vs-self-hosted"
-    title: "1. GitHub-hosted vs. Self-hosted Runners"
-    shortDesc: "Where does your automation actually run?"
-  - id: "docker-container-jobs"
-    title: "2. Running Jobs inside Docker Containers"
-    shortDesc: "Ensuring absolute consistency using the container directive."
----
+# Infrastructure & Runners
 
-<Topic 
-  id="hosted-vs-self-hosted" 
-  title="1. GitHub-hosted vs. Self-hosted Runners" 
-  shortDesc="Where does your automation actually run?"
->
-When GitHub Actions runs a job, it needs a physical computer (a Runner) to execute your scripts. You have two choices.
+## GitHub-hosted vs. Self-hosted Runners
 
-**1. GitHub-Hosted Runners**
+When GitHub Actions runs a job, it needs a physical computer (a **Runner**) to execute your scripts. Choosing the right infrastructure is a balance between maintenance and control.
 
-- **How it works:** GitHub provides fresh, ephemeral Virtual Machines (Ubuntu, Windows, macOS). When the job finishes, the VM is immediately destroyed.
-- **Pros/Cons:** Zero maintenance, completely free for public repos. However, they have limited CPU/RAM and cannot access your private corporate intranet (VPNs/VPCs).
 
-**2. Self-Hosted Runners**
+| Feature | GitHub-Hosted | Self-Hosted |
+| --- | --- | --- |
+| **Maintenance** | Zero (Managed) | High (You patch it) |
+| **Security** | Public Internet | Private Network/VPC |
+| **Hardware** | Fixed (VMs) | Custom (GPUs, Bare Metal) |
+| **Cost** | Pay-as-you-go | You pay for the server |
 
-- **How it works:** You install the GitHub Runner agent on your own servers (like an AWS EC2 instance or an on-premise rack).
-- **Pros/Cons:** You have total control over the hardware (e.g., attaching powerful GPUs for AI training) and they sit safely behind your corporate firewall. The downside is you are responsible for updating and securing the server.
-</Topic>
 
-<Topic 
-  id="docker-container-jobs" 
-  title="2. Running Jobs inside Docker Containers" 
-  shortDesc="Ensuring absolute consistency using the container directive."
->
-The classic developer problem: "The pipeline passes on GitHub, but the code fails in production." This happens because the GitHub Ubuntu runner might have different system libraries than your production server.
+## Runner Types
 
-**The Container Solution**
+- **GitHub-Hosted:** Provisons fresh, ephemeral VMs (Ubuntu, Windows, macOS). When the job finishes, the VM is instantly destroyed. Perfect for 90% of use cases.
+- **Self-Hosted:** You install the GitHub Runner agent on your own servers (AWS EC2, on-prem rack). Essential if you need to access private databases or specialized hardware (like NVIDIA GPUs for AI).
 
-- **The `container:` Directive:** Instead of running commands directly on the Ubuntu VM, you can instruct GitHub to pull a specific Docker image and run all steps *inside* that container.
-- **Absolute Consistency:** If production runs `python:3.10-slim`, your CI pipeline runs inside the exact same `python:3.10-slim` image. No surprises.
-- **Tooling Isolation:** Prevents conflicts. You don't need to install Python, Node, and Java on the host machine; the container brings exactly the tools it needs.
-</Topic>
+
+> [!warning] Security Risk: Public Self-Hosted Runners
+> Never use self-hosted runners for **public repositories**. Malicious users can open a Pull Request with a script that steals your server's credentials or installs a rootkit on your hardware.
+
+
+
+
+
+
+
+## Running Jobs inside Docker Containers
+
+The classic developer problem: *"The pipeline passes on GitHub, but the code fails in production."* This happens because the host OS (Ubuntu) might have different system libraries than your production server.
+
+## The Container Directive
+Instead of running commands directly on the host VM, you can instruct GitHub to pull a specific Docker image and run all steps **inside** that container.
+
+- **Absolute Consistency:** If production runs `python:3.10-slim`, your CI pipeline runs inside the exact same image. No surprises.
+- **Tooling Isolation:** The container brings exactly the tools it needs. You don't need to manually install dependencies like `g++` or `libpq-dev` on the host runner.
+
+```yaml
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-bookworm
+    steps:
+      - run: node --version
+```
+
+
+> [!info] How it Works Behind the Scenes
+> When you use `container:`, GitHub Actions automatically maps the workspace directory on the host VM into the container, so your source code is available inside the isolated environment.

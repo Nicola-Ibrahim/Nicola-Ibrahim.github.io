@@ -1,146 +1,212 @@
----
-title: "Core Development Skills"
-icon: "terminal"
-iconColor: "text-teal-600"
-topics:
-  - id: "accessibility-auditor"
-    title: "Accessibility Auditor"
-    shortDesc: "Turn your agent into a strict WCAG 2.1 AA auditor."
-    prompt: |
-      Create an Accessibility Auditor skill. Set up the directory .agent/skills/accessibility-auditor/ with standard subfolders.
-      In SKILL.md, add name: accessibility-auditor and description: Trigger this before any frontend PR. Use it to audit HTML/JSX for WCAG 2.1 AA compliance.
-      Instruct the agent to look for missing aria-labels, poor color contrast (if hex available), missing alt tags, and non-semantic HTML. It must provide a 'Compliance Report' with a 'Fix List' for every component it reviews. Create an example in examples/audit-example.md showing a before/after of a fixed component.
-  - id: "brand-identity"
-    title: "Brand Identity"
-    shortDesc: "Ensure every UI component adheres to strict brand voice and visual guidelines."
-    prompt: |
-      Create a Brand Identity skill. Set up the directory .agent/skills/brand-identity/ with standard subfolders.
-      In SKILL.md, add name: brand-identity and description: Use this to verify that all UI copy and styling matches the brand guidelines.
-      Instruct the agent to check for specific hex codes, font-weights, and 'Tone of Voice'. For example, if the brand is 'Professional but Minimalist', the agent must flag any exclamation marks or overly 'flowery' language. Create a resource in resources/brand-tokens.json containing your primary color palette.
-  - id: "bug-hunter"
-    title: "Bug Hunter"
-    shortDesc: "Equip your agent with a 'Security & Logic' lens to catch edge cases before they hit production."
-    prompt: |
-      Create a Bug Hunter skill. Set up the directory .agent/skills/bug-hunter/ with standard subfolders.
-      In SKILL.md, add name: bug-hunter and description: Trigger this during code reviews or before merging. Its job is to find logic flaws, race conditions, and common security vulnerabilities (XSS, SQLi).
-      Instruct the agent to always assume worst-case input. It must check for null pointer exceptions, unhandled promises, and improper error handling. Create a checklist in resources/vulnerability-checklist.md for the agent to follow.
-  - id: "code-reviewer"
-    title: "Code Reviewer"
-    shortDesc: "Enforce clean code principles, performance standards, and team-specific conventions."
-    prompt: |
-      Create a Code Reviewer skill. Set up the directory .agent/skills/code-reviewer/ with standard subfolders.
-      In SKILL.md, add name: code-reviewer and description: Use this to provide deep, architectural code reviews. It shouldn't just find bugs; it should suggest better patterns (e.g., DRY, SOLID).
-      Instruct the agent to focus on maintainability. It must flag deeply nested loops, large functions (>20 lines), and poor naming. Create an example in examples/refactor-suggestion.md showing a 'Bad Code' vs 'Reviewed Code' comparison.
-  - id: "component-storyteller"
-    title: "Component Storyteller"
-    shortDesc: "Automate the creation of high-quality documentation and stories for UI components."
-    prompt: |
-      Create a Component Storyteller skill. Set up the directory .agent/skills/component-storyteller/ with standard subfolders.
-      In SKILL.md, add name: component-storyteller and description: Trigger this after creating a new UI component. It will generate a corresponding .stories.tsx file and a README.md explaining the component's props and usage.
-      Instruct the agent to write clear, user-facing documentation. It must include examples for variant/state (Loading, Error, Disabled).
-  - id: "feature-builder"
-    title: "Feature Builder"
-    shortDesc: "Standardize how new features are scaffolded, from API routes to frontend views."
-    prompt: |
-      Create a Feature Builder skill. Set up the directory .agent/skills/feature-builder/ with standard subfolders.
-      In SKILL.md, add name: feature-builder and description: Use this when I ask to 'Build a new feature X'. It must follow the repository's preferred folder structure and tech stack.
-      Instruct the agent to create all necessary files: a page, a component, an API route, and a schema/type definition. It must use the 'atomic design' approach if configured. Create a template in resources/feature-template.json showing the required file list for any new feature.
-  - id: "test-writer"
-    title: "Test Writer"
-    shortDesc: "Generate robust unit and edge-case tests automatically."
-    prompt: |
-      Create a Test Writer skill. Set up the directory .agent/skills/test-writer/ with standard subfolders.
-      In SKILL.md, add name: test-writer and description: Trigger this when I ask you to write unit tests, integration tests, or improve test coverage.
-      Instruct the agent to always use [Insert Testing Framework, e.g., PyTest/Jest]. It must write one happy path test and at least two edge-case tests per function. Do not mock database calls unless told to. Create an example in examples/perfect_test.[ext] showing exactly how to structure the test file.
----
+# Core Development Skills
 
-<Topic 
-  id="accessibility-auditor" 
-  title="Accessibility Auditor" 
-  shortDesc="Turn your agent into a strict WCAG 2.1 AA auditor."
-  prompt="Create an Accessibility Auditor skill. Set up the directory .agent/skills/accessibility-auditor/ with standard subfolders.\nIn SKILL.md, add name: accessibility-auditor and description: Trigger this before any frontend PR. Use it to audit HTML/JSX for WCAG 2.1 AA compliance.\nInstruct the agent to look for missing aria-labels, poor color contrast (if hex available), missing alt tags, and non-semantic HTML. It must provide a 'Compliance Report' with a 'Fix List' for every component it reviews. Create an example in examples/audit-example.md showing a before/after of a fixed component."
->
+## Development Overview
+
+To truly harness the power of an AI coding agent, you must think of it as a **Junior Engineer** with infinite speed but questionable judgment. Specialized skills provide the "guardrails" and "checklists" that ensure high-quality output.
+
+
+| Skill | Purpose | Key Benefit |
+| --- | --- | --- |
+| **Accessibility** | WCAG 2.1 Compliance | Inclusivity by default |
+| **Brand Identity** | Voice & Token consistency | No "brand drift" in UI |
+| **Bug Hunter** | Red-teaming & Logic checks | Catching edge cases early |
+| **Code Reviewer** | Architectural enforcement | SOLID/DRY compliance |
+| **Storyteller** | Documentation automation | Stories & READMEs on the fly |
+| **Feature Builder** | Full-stack scaffolding | 10x faster project start |
+| **Test Writer** | Aggressive test coverage | Robust, regression-free code |
+
+
+
+> [!info] What is a Skill?
+> A **Skill** is a structured prompt and set of resources that lives inside your repository (usually in `.agent/skills/`). It instructs the agent on *how* to perform a specific, repeatable task according to your standards.
+
+
+
+
+
+
+
+## Accessibility Auditor
+
 Ensures your frontend is inclusive by automating the most common (and missed) accessibility audits.
 
-- **Automated Audits:** Flags missing ARIA attributes and low-contrast colors.
+### Audit Focus
+
+- **Automated Checks:** Flags missing ARIA attributes and low-contrast colors.
 - **Semantic HTML Enforcement:** Ensures that buttons are `<button>` and links are `<a>`, preventing accessibility regressions.
 - **Structured Reporting:** Produces a clear checklist of fixes for developers to implement.
-</Topic>
 
-<Topic 
-  id="brand-identity" 
-  title="Brand Identity" 
-  shortDesc="Ensure every UI component adheres to strict brand voice and visual guidelines."
-  prompt="Create a Brand Identity skill. Set up the directory .agent/skills/brand-identity/ with standard subfolders.\nIn SKILL.md, add name: brand-identity and description: Use this to verify that all UI copy and styling matches the brand guidelines.\nInstruct the agent to check for specific hex codes, font-weights, and 'Tone of Voice'. For example, if the brand is 'Professional but Minimalist', the agent must flag any exclamation marks or overly 'flowery' language. Create a resource in resources/brand-tokens.json containing your primary color palette."
->
-Prevents "brand drift" by forcing the agent to cross-reference every design decision with your official tokens and voice.
+
+> [!tip] Why Automate A11y?
+> Accessibility is often treated as an afterthought. By making it a core agent skill, you ensure that every new component is audited **before** it even reaches a human reviewer.
+
+
+
+```prompt
+Create an Accessibility Auditor skill. Set up the directory .agent/skills/accessibility-auditor/ with standard subfolders.
+In SKILL.md, add name: accessibility-auditor and description: Trigger this before any frontend PR. Use it to audit HTML/JSX for WCAG 2.1 AA compliance.
+Instruct the agent to look for missing aria-labels, poor color contrast (if hex available), missing alt tags, and non-semantic HTML. It must provide a 'Compliance Report' with a 'Fix List' for every component it reviews. Create an example in examples/audit-example.md showing a before/after of a fixed component.
+
+```
+
+
+
+
+
+
+## Brand Identity
+
+Prevents "brand drift" by forcing the agent to cross-reference every design decision with your official tokens and voice guidelines.
 
 - **Visual Consistency:** Validates hex codes, spacing, and typography tokens.
-- **Voice & Tone:** Keeps copy within the specified "vibe" (e.g., professional, witty, or technical).
+- **Voice & Tone:** Keeps copy within the specified "vibe" (e.g., professional, minimal, or technical).
 - **Style Guide Adherence:** Acts as a gatekeeper for any UI changes that feel "off-brand."
-</Topic>
 
-<Topic 
-  id="bug-hunter" 
-  title="Bug Hunter" 
-  shortDesc="Equip your agent with a 'Security & Logic' lens to catch edge cases before they hit production."
-  prompt="Create a Bug Hunter skill. Set up the directory .agent/skills/bug-hunter/ with standard subfolders.\nIn SKILL.md, add name: bug-hunter and description: Trigger this during code reviews or before merging. Its job is to find logic flaws, race conditions, and common security vulnerabilities (XSS, SQLi).\nInstruct the agent to always assume worst-case input. It must check for null pointer exceptions, unhandled promises, and improper error handling. Create a checklist in resources/vulnerability-checklist.md for the agent to follow."
->
-A dedicated skill for adversarial thinking, forcing the AI to try and "break" your logic.
 
-- **Security Auditing:** Scans for potential XSS, SQLi, and authentication flaws.
-- **Edge Case Analysis:** Identifies race conditions and unhandled rejection paths.
+> [!warning] Token Enforcement
+> If your agent starts using "magic numbers" for colors or padding, this skill should immediately flag them and suggest the corresponding CSS variable from your design system.
+
+
+
+```prompt
+Create a Brand Identity skill. Set up the directory .agent/skills/brand-identity/ with standard subfolders.
+In SKILL.md, add name: brand-identity and description: Use this to verify that all UI copy and styling matches the brand guidelines.
+Instruct the agent to check for specific hex codes, font-weights, and 'Tone of Voice'. For example, if the brand is 'Professional but Minimalist', the agent must flag any exclamation marks or overly 'flowery' language. Create a resource in resources/brand-tokens.json containing your primary color palette.
+
+```
+
+
+
+
+
+
+## Bug Hunter
+
+A dedicated skill for adversarial thinking, forcing the AI to try and "break" your logic before a user (or hacker) does.
+
+### Security Lens
+
+- **Vulnerability Scanning:** Checks for potential XSS, SQLi, and authentication flaws.
+- **Edge Case Analysis:** Identifies race conditions and unhandled promise rejections.
 - **Defensive Coding:** Recommends sanitization and robust error handling patterns.
-</Topic>
 
-<Topic 
-  id="code-reviewer" 
-  title="Code Reviewer" 
-  shortDesc="Enforce clean code principles, performance standards, and team-specific conventions."
-  prompt="Create a Code Reviewer skill. Set up the directory .agent/skills/code-reviewer/ with standard subfolders.\nIn SKILL.md, add name: code-reviewer and description: Use this to provide deep, architectural code reviews. It shouldn't just find bugs; it should suggest better patterns (e.g., DRY, SOLID).\nInstruct the agent to focus on maintainability. It must flag deeply nested loops, large functions (>20 lines), and poor naming. Create an example in examples/refactor-suggestion.md showing a 'Bad Code' vs 'Reviewed Code' comparison."
->
+
+> [!ai] Adversarial Prompting
+> The Bug Hunter prompt is designed to put the agent in a "hacker" mindset. This often catches simple logic errors that a developer might overlook during a long coding session.
+
+
+
+```prompt
+Create a Bug Hunter skill. Set up the directory .agent/skills/bug-hunter/ with standard subfolders.
+In SKILL.md, add name: bug-hunter and description: Trigger this during code reviews or before merging. Its job is to find logic flaws, race conditions, and common security vulnerabilities (XSS, SQLi).
+Instruct the agent to always assume worst-case input. It must check for null pointer exceptions, unhandled promises, and improper error handling. Create a checklist in resources/vulnerability-checklist.md for the agent to follow.
+
+```
+
+
+
+
+
+
+## Code Reviewer
+
 Levels up your team by providing consistent, logic-driven code reviews based on proven software patterns.
 
-- **Architectural Guidance:** Suggests SOLID and DRY improvements for better maintainability.
+### Architecture & Clean Code
+
+- **SOLID/DRY Guidance:** Suggests structural improvements for better maintainability.
 - **Complexity Guardrails:** Flags functions that are too long or logic that is too nested.
 - **Naming Conventions:** Ensures clear, descriptive variable and function names across the stack.
-</Topic>
 
-<Topic 
-  id="component-storyteller" 
-  title="Component Storyteller" 
-  shortDesc="Automate the creation of high-quality documentation and stories for UI components."
-  prompt="Create a Component Storyteller skill. Set up the directory .agent/skills/component-storyteller/ with standard subfolders.\nIn SKILL.md, add name: component-storyteller and description: Trigger this after creating a new UI component. It will generate a corresponding .stories.tsx file and a README.md explaining the component's props and usage.\nInstruct the agent to write clear, user-facing documentation. It must include examples for variant/state (Loading, Error, Disabled)."
->
-Takes the pain out of documentation by generating Storybook files and descriptive READMEs as part of the dev loop.
+
+> [!info] Don't just fix, explain
+> A good Code Reviewer skill shouldn't just provide a diff; it should explain **why** the change is better, turning the review into a mentorship opportunity.
+
+
+
+```prompt
+Create a Code Reviewer skill. Set up the directory .agent/skills/code-reviewer/ with standard subfolders.
+In SKILL.md, add name: code-reviewer and description: Use this to provide deep, architectural code reviews. It shouldn't just find bugs; it should suggest better patterns (e.g., DRY, SOLID).
+Instruct the agent to focus on maintainability. It must flag deeply nested loops, large functions (>20 lines), and poor naming. Create an example in examples/refactor-suggestion.md showing a 'Bad Code' vs 'Reviewed Code' comparison.
+
+```
+
+
+
+
+
+
+## Component Storyteller
+
+Takes the pain out of documentation by generating Storybook files and descriptive READMEs as part of the development loop.
 
 - **Automated Stories:** Creates `.stories.tsx` files for interaction testing.
 - **Prop Documentation:** Extracts and explains JSDoc props automatically.
 - **Living UI Library:** Ensures your internal design system is always up-to-date with usage examples.
-</Topic>
 
-<Topic 
-  id="feature-builder" 
-  title="Feature Builder" 
-  shortDesc="Standardize how new features are scaffolded, from API routes to frontend views."
-  prompt="Create a Feature Builder skill. Set up the directory .agent/skills/feature-builder/ with standard subfolders.\nIn SKILL.md, add name: feature-builder and description: Use this when I ask to 'Build a new feature X'. It must follow the repository's preferred folder structure and tech stack.\nInstruct the agent to create all necessary files: a page, a component, an API route, and a schema/type definition. It must use the 'atomic design' approach if configured. Create a template in resources/feature-template.json showing the required file list for any new feature."
->
+
+> [!tip] Storybook Integration
+> By generating stories automatically, you ensure that every new component is immediately testable in isolation, which is a core tenant of modern frontend development.
+
+
+
+```prompt
+Create a Component Storyteller skill. Set up the directory .agent/skills/component-storyteller/ with standard subfolders.
+In SKILL.md, add name: component-storyteller and description: Trigger this after creating a new UI component. It will generate a corresponding .stories.tsx file and a README.md explaining the component's props and usage.
+Instruct the agent to write clear, user-facing documentation. It must include examples for variant/state (Loading, Error, Disabled).
+
+```
+
+
+
+
+
+
+## Feature Builder
+
 Dramatically reduces setup time by scaffolding entire features across the full stack with one command.
 
-- **End-to-End Scaffolding:** Creates components, routes, and database schemas in one go.
-- **Pattern Preservation:** Ensures new code follows established architectural patterns.
-- **Atomic Implementation:** Follows atomic design principles for clean component hierarchy.
-</Topic>
+## The Scaffold Loop
 
-<Topic 
-  id="test-writer" 
-  title="Test Writer" 
-  shortDesc="Generate robust unit and edge-case tests automatically."
-  prompt="Create a Test Writer skill. Set up the directory .agent/skills/test-writer/ with standard subfolders.\nIn SKILL.md, add name: test-writer and description: Trigger this when I ask you to write unit tests, integration tests, or improve test coverage.\nInstruct the agent to always use [Insert Testing Framework, e.g., PyTest/Jest]. It must write one happy path test and at least two edge-case tests per function. Do not mock database calls unless told to. Create an example in examples/perfect_test.[ext] showing exactly how to structure the test file."
->
-Forces the agent to adhere to a specific testing framework and mandates aggressive test coverage.
+- **End-to-End Generation:** Creates components, routes, and database schemas in one go.
+- **Pattern Preservation:** Ensures new code follows established architectural patterns (e.g., Atomic Design).
+- **Type Safety:** Automatically generates TypeScript interfaces for the entire feature.
 
-- **Happy Path & Edge Cases:** Requires at least two edge-case tests per function to prevent fragile passing.
-- **Mocking Rules:** Instructs the agent not to mock database calls unless explicitly told.
-- **Structured Output:** Enforces output via an ideal test boilerplate file.
-</Topic>
+
+> [!ai] Consistency over Speed
+> The real value here isn't just speed—it's **Consistency**. If every feature is built the same way, any developer on the team can jump into any part of the codebase without a learning curve.
+
+
+
+```prompt
+Create a Feature Builder skill. Set up the directory .agent/skills/feature-builder/ with standard subfolders.
+In SKILL.md, add name: feature-builder and description: Use this when I ask to 'Build a new feature X'. It must follow the repository's preferred folder structure and tech stack.
+Instruct the agent to create all necessary files: a page, a component, an API route, and a schema/type definition. It must use the 'atomic design' approach if configured. Create a template in resources/feature-template.json showing the required file list for any new feature.
+
+```
+
+
+
+
+
+
+## Test Writer
+
+Forces the agent to adhere to a specific testing framework and mandates aggressive test coverage for every function.
+
+- **Edge Case Focus:** Mandates at least two edge-case tests per function to prevent "fragile greens."
+- **Mocking Rules:** Instructs the agent not to mock database calls unless explicitly requested, ensuring integration tests are meaningful.
+- **Structured Output:** Enforces a specific output format via an ideal "Perfect Test" boilerplate.
+
+
+> [!warning] The TDD Loop
+> Use the Test Writer skill in a **Test-Driven Development (TDD)** flow: generate the tests first, then have the agent implement the feature until the tests pass.
+
+
+
+```prompt
+Create a Test Writer skill. Set up the directory .agent/skills/test-writer/ with standard subfolders.
+In SKILL.md, add name: test-writer and description: Trigger this when I ask you to write unit tests, integration tests, or improve test coverage.
+Instruct the agent to always use [Insert Testing Framework, e.g., PyTest/Jest]. It must write one happy path test and at least two edge-case tests per function. Do not mock database calls unless told to. Create an example in examples/perfect_test.[ext] showing exactly how to structure the test file.
+
+```

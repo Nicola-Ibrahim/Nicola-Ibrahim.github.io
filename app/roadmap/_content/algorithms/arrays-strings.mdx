@@ -1,102 +1,110 @@
----
-title: "Arrays, Strings & Searching"
-icon: "layout"
-iconColor: "text-blue-500"
-topics:
-  - id: "arrays-hash-maps"
-    title: "1. Arrays, Strings & Hash Maps"
-    shortDesc: "The foundation of O(1) lookups and data manipulation."
-    links:
-      - label: "Two Sum"
-        url: "https://leetcode.com/problems/two-sum/"
-      - label: "Valid Anagram"
-        url: "https://leetcode.com/problems/valid-anagram/"
-      - label: "Contains Duplicate"
-        url: "https://leetcode.com/problems/contains-duplicate/"
-      - label: "Group Anagrams"
-        url: "https://leetcode.com/problems/group-anagrams/"
-      - label: "Top K Frequent Elements"
-        url: "https://leetcode.com/problems/top-k-frequent-elements/"
-  - id: "binary-search"
-    title: "2. Binary Search"
-    shortDesc: "Divide and conquer in O(log N) time on sorted data."
-    links:
-      - label: "Binary Search"
-        url: "https://leetcode.com/problems/binary-search/"
-      - label: "Search a 2D Matrix"
-        url: "https://leetcode.com/problems/search-a-2d-matrix/"
-      - label: "Koko Eating Bananas"
-        url: "https://leetcode.com/problems/koko-eating-bananas/"
-      - label: "Find Minimum in Rotated Sorted Array"
-        url: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/"
-  - id: "two-pointers-sliding-window"
-    title: "3. Two Pointers & Sliding Window"
-    shortDesc: "Optimizing O(N^2) nested loops into O(N) linear time."
-    links:
-      - label: "Valid Palindrome"
-        url: "https://leetcode.com/problems/valid-palindrome/"
-      - label: "3Sum"
-        url: "https://leetcode.com/problems/3sum/"
-      - label: "Container With Most Water"
-        url: "https://leetcode.com/problems/container-with-most-water/"
-      - label: "Best Time to Buy & Sell Stock"
-        url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"
-      - label: "Longest Substring Without Repeating"
-        url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
----
+# Arrays, Strings & Searching
 
-<Topic 
-  id="arrays-hash-maps" 
-  title="1. Arrays, Strings & Hash Maps" 
-  shortDesc="The foundation of O(1) lookups and data manipulation."
-  links={[
-    { label: "Two Sum", url: "https://leetcode.com/problems/two-sum/" },
-    { label: "Valid Anagram", url: "https://leetcode.com/problems/valid-anagram/" },
-    { label: "Contains Duplicate", url: "https://leetcode.com/problems/contains-duplicate/" },
-    { label: "Group Anagrams", url: "https://leetcode.com/problems/group-anagrams/" },
-    { label: "Top K Frequent Elements", url: "https://leetcode.com/problems/top-k-frequent-elements/" }
-  ]}
->
-Hash maps trade space for time, giving you O(1) lookups. This is usually the first optimization step in brute-force O(N^2) array problems.
+## Arrays, Strings & Hash Maps
 
-- **Frequency Counters:** Count occurrences of elements to quickly solve anagram or duplicate problems.
-- **Prefix Sums:** Pre-calculate running totals to optimize subarray computations.
-- **Index Mapping:** Store elements alongside their indices for fast retrieval (e.g., Two Sum).
-</Topic>
+Hash maps trade space for time, giving you **O(1)** average lookups. This is almost always the first optimization step when moving away from a brute-force **O(N²)** solution.
 
-<Topic 
-  id="binary-search" 
-  title="2. Binary Search" 
-  shortDesc="Divide and conquer in O(log N) time on sorted data."
-  links={[
-    { label: "Binary Search", url: "https://leetcode.com/problems/binary-search/" },
-    { label: "Search a 2D Matrix", url: "https://leetcode.com/problems/search-a-2d-matrix/" },
-    { label: "Koko Eating Bananas", url: "https://leetcode.com/problems/koko-eating-bananas/" },
-    { label: "Find Minimum in Rotated Sorted Array", url: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/" }
-  ]}
->
-Binary search isn't just for finding elements in a sorted array; it's a powerful divide-and-conquer strategy.
 
-- **O(log N) Time:** Slashes search space in half at every step.
-- **Search on Answer:** Used to find optimal solutions in a range (e.g., Koko Eating Bananas).
-- **Key Challenge:** Identifying the monotonic property and managing left/right pointer edge cases.
-</Topic>
+| Technique | Goal | Complexity |
+| --- | --- | --- |
+| **Frequency Counter** | Count occurrences (Anagrams) | Time: O(N), Space: O(K) |
+| **Prefix Sum** | Range Sum Queries | Time: O(N) pre-calc |
+| **Index Mapping** | Store value -> index (Two Sum) | Time: O(1) Lookup |
 
-<Topic 
-  id="two-pointers-sliding-window" 
-  title="3. Two Pointers & Sliding Window" 
-  shortDesc="Optimizing O(N^2) nested loops into O(N) linear time."
-  links={[
-    { label: "Valid Palindrome", url: "https://leetcode.com/problems/valid-palindrome/" },
-    { label: "3Sum", url: "https://leetcode.com/problems/3sum/" },
-    { label: "Container With Most Water", url: "https://leetcode.com/problems/container-with-most-water/" },
-    { label: "Best Time to Buy & Sell Stock", url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" },
-    { label: "Longest Substring Without Repeating", url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/" }
-  ]}
->
-Two Pointers are used when traversing sorted arrays or finding pairs. Sliding Window is a subset used to find contiguous subarrays.
 
-- **Opposite Ends:** Move left and right pointers inward to find pairs (e.g., Valid Palindrome).
-- **Sliding Window:** Expand the window by moving the right pointer, and shrink it by moving the left pointer.
-- **Optimization:** Converts nested O(N^2) loops into linear O(N) time.
-</Topic>
+## Core Patterns
+
+- **Hashing:** Use a dictionary (Python) or Map (JS) to store the presence of elements.
+- **Strings as Arrays:** Most string problems are just array problems where the elements are characters.
+- **Fixed Size Arrays:** If the character set is limited (e.g., lowercase a-z), use an array of size 26 instead of a full hash map to save space overhead.
+
+
+> [!tip] Pro Tip: Sorting vs Hashing
+> If the problem asks for constant space **O(1)** and allows modifying the input, try **Sorting** first. If not, a **Hash Map** is usually the faster solution.
+
+
+
+### Recommended Practice
+
+- [Two Sum](https://leetcode.com/problems/two-sum/)
+- [Valid Anagram](https://leetcode.com/problems/valid-anagram/)
+- [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/)
+- [Group Anagrams](https://leetcode.com/problems/group-anagrams/)
+- [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+
+
+
+
+
+
+## Binary Search
+
+Binary search isn't just for finding elements in a sorted array; it's a powerful divide-and-conquer strategy that slashes search space in half at every step.
+
+### The Mechanics
+
+```python
+while left <= right:
+    mid = left + (right - left) // 2
+    if target == arr[mid]:
+        return mid
+    elif target < arr[mid]:
+        right = mid - 1
+    else:
+        left = mid + 1
+```
+
+- **O(log N) Time:** Efficiently handles millions of items in under 20 steps.
+- **Search on Answer:** Used to find optimal solutions in a range (e.g., *"What is the minimum speed needed to eat all bananas in H hours?"*).
+- **Key Challenge:** identifying the **Monotonic Property** (True/False boundary) and managing left/right pointer edge cases.
+
+
+> [!warning] Integer Overflow
+> Avoid `(left + right) // 2`. In languages like Java/C++, this can cause overflow. Always use `left + (right - left) // 2`.
+
+
+
+### Recommended Practice
+
+- [Binary Search](https://leetcode.com/problems/binary-search/)
+- [Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
+- [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
+- [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
+
+
+
+
+
+
+## Two Pointers & Sliding Window
+
+Two Pointers involve traversing an array from different directions. Sliding Window is a special subset used to find contiguous subarrays or substrings.
+
+### Techniques Breakdown
+
+
+- **Opposite Ends:** Move `left` and `right` pointers inward to find pairs or validate palindromes.
+- **Fast & Slow:** Useful for cycle detection in linked lists (not strictly array-based but a core pointer concept).
+- **Sliding Window:** Expand the window by moving the `right` pointer, and shrink it by moving the `left` pointer when a constraint is violated.
+
+
+| Strategy | When to use? | Complexity |
+| --- | --- | --- |
+| **Two Pointers** | Sorted arrays, finding pairs | Time: O(N) |
+| **Fixed Window** | Subarray of size K | Time: O(N) |
+| **Variable Window** | Longest/Shortest subarray | Time: O(N) |
+
+
+
+> [!info] Why linear time?
+> Even though there are two pointers, each element is visited at most **twice** (once by the right pointer, once by the left). This keeps the complexity at **O(2N)** which simplifies to **O(N)**.
+
+
+
+### Recommended Practice
+
+- [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
+- [3Sum](https://leetcode.com/problems/3sum/)
+- [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+- [Best Time to Buy & Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+- [Longest Substring Without Repeating](https://leetcode.com/problems/longest-substring-without-repeating-characters/)

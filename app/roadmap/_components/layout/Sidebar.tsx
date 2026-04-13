@@ -63,14 +63,14 @@ export function Sidebar({
             <Link
               href={`/roadmap/${tab.id}`}
               className={`w-full flex items-center justify-between group px-3 py-3 rounded-xl transition-all duration-300 border ${activeTab === tab.id
-                  ? 'bg-slate-50/80 dark:bg-white/5 border-slate-100 dark:border-white/10 shadow-sm'
-                  : 'bg-transparent border-transparent text-slate-500 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:border-slate-100 dark:hover:border-white/5'
+                ? 'bg-slate-50/80 dark:bg-white/5 border-slate-100 dark:border-white/10 shadow-sm'
+                : 'bg-transparent border-transparent text-slate-500 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:border-slate-100 dark:hover:border-white/5'
                 }`}
             >
               <div className="flex items-center gap-3">
                 <div className={`p-2 rounded-lg transition-all duration-300 ${activeTab === tab.id
-                    ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/30 rotate-3'
-                    : 'bg-slate-100 dark:bg-white/5 group-hover:bg-slate-200 dark:group-hover:bg-white/10'
+                  ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/30 rotate-3'
+                  : 'bg-slate-100 dark:bg-white/5 group-hover:bg-slate-200 dark:group-hover:bg-white/10'
                   }`}>
                   <div className="w-4 h-4 flex items-center justify-center">
                     {getIcon(tab.icon)}
@@ -96,8 +96,8 @@ export function Sidebar({
                     key={cat.id}
                     href={`/roadmap/${tab.id}/${cat.slug}`}
                     className={`block py-2.5 pl-6 pr-4 text-[11px] transition-all relative tracking-tight ${activeCategory === cat.slug
-                        ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 font-medium'
+                      ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 font-medium'
                       }`}
                   >
                     {activeCategory === cat.slug && (

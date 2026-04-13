@@ -15,7 +15,21 @@ import {
   Database,
   Cpu,
   Target,
-  Sparkles
+  Sparkles,
+  Activity,
+  Workflow,
+  Send,
+  Zap,
+  Anchor,
+  FlaskConical,
+  Gauge,
+  List,
+  TreePine,
+  Share2,
+  Hash,
+  PlayCircle,
+  FileText,
+  GitFork
 } from 'lucide-react';
 
 export type IconName = 
@@ -34,7 +48,21 @@ export type IconName =
   | 'database' 
   | 'cpu'
   | 'target'
-  | 'sparkles';
+  | 'sparkles'
+  | 'activity'
+  | 'workflow'
+  | 'send'
+  | 'zap'
+  | 'anchor'
+  | 'flask-conical'
+  | 'gauge'
+  | 'list'
+  | 'tree'
+  | 'share-2'
+  | 'hash'
+  | 'play-circle'
+  | 'file-text'
+  | 'git-fork';
 
 const iconMap: Record<IconName, any> = {
   'git-branch': GitBranch,
@@ -53,6 +81,20 @@ const iconMap: Record<IconName, any> = {
   'cpu': Cpu,
   'target': Target,
   'sparkles': Sparkles,
+  'activity': Activity,
+  'workflow': Workflow,
+  'send': Send,
+  'zap': Zap,
+  'anchor': Anchor,
+  'flask-conical': FlaskConical,
+  'gauge': Gauge,
+  'list': List,
+  'tree': TreePine,
+  'share-2': Share2,
+  'hash': Hash,
+  'play-circle': PlayCircle,
+  'file-text': FileText,
+  'git-fork': GitFork,
 };
 
 export function getIcon(name: string, className: string = "w-6 h-6"): ReactNode {

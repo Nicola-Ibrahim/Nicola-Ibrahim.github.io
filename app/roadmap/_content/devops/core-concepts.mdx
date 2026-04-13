@@ -1,74 +1,84 @@
----
-title: "GitHub Actions Architecture"
-icon: "layers"
-iconColor: "text-purple-500"
-topics:
-  - id: "workflows-jobs-steps"
-    title: "1. Workflows, Jobs, and Steps"
-    shortDesc: "The hierarchy of GitHub Actions architecture."
-  - id: "job-dependencies"
-    title: "2. Dependencies between jobs (needs)"
-    shortDesc: "Creating sequential stages in your pipeline."
-  - id: "env-vars-secrets"
-    title: "3. Environment Variables & Secrets"
-    shortDesc: "Safely handling API keys and passwords."
-  - id: "manual-execution"
-    title: "4. Executing Workflows Manually"
-    shortDesc: "Using the workflow_dispatch event trigger."
----
+# GitHub Actions Architecture
 
-<Topic 
-  id="workflows-jobs-steps" 
-  title="1. Workflows, Jobs, and Steps" 
-  shortDesc="The hierarchy of GitHub Actions architecture."
->
-To write efficient pipelines, you must understand the structural hierarchy of GitHub Actions.
+## Workflows, Jobs, and Steps
 
-**The Anatomy of a Pipeline**
+To write efficient pipelines, you must understand the structural hierarchy of GitHub Actions. It is a nested model of automation.
 
-- **Workflow:** The top-level automation process defined in a single YAML file (e.g., "Build and Deploy to Prod").
-- **Job:** A Workflow contains one or more Jobs. **Crucial detail:** Jobs run in parallel by default, and each Job spins up on a completely fresh, isolated Virtual Machine.
-- **Step:** A Job contains a sequence of Steps. These run sequentially on the same VM. A Step can either be a simple shell command (`run: npm test`) or a pre-built Action (`uses: actions/checkout@v3`).
-</Topic>
 
-<Topic 
-  id="job-dependencies" 
-  title="2. Dependencies between jobs (needs)" 
-  shortDesc="Creating sequential stages in your pipeline."
->
+| Component | Scope | Execution |
+| --- | --- | --- |
+| **Workflow** | The entire `.yml` file | Triggered by events (Push, PR). |
+| **Job** | A group of steps | **Parallel** by default on fresh VMs. |
+| **Step** | A single Task/Action | **Sequential** on the same VM. |
+
+
+## The Anatomy of a Pipeline
+
+- **Workflow:** The top-level automation process (e.g., "CI/CD Pipeline").
+- **Job:** A Workflow contains one or more Jobs. **Crucial detail:** Each Job spins up on a completely fresh, isolated Virtual Machine (Runner).
+- **Step:** A Job contains a sequence of Steps. A Step can either be a simple shell command (`run: npm test`) or a pre-built Action (`uses: actions/checkout@v4`).
+
+
+> [!warning] Isolated Jobs
+> Because each Job runs on a new runner, files created in `Job A` are **not** available in `Job B` unless you explicitly upload them as "Artifacts".
+
+
+
+
+
+
+
+## Dependencies between jobs (needs)
+
 Because Jobs run in parallel by default, a basic pipeline will try to deploy your code at the exact same time it runs your tests. This will break your deployment.
 
-**Orchestrating the Flow**
+## Orchestrating the Flow
 
 - **The `needs` Keyword:** By adding `needs: [test_job]` to your `deploy_job`, you force the deployment to wait. It will only execute if the tests pass successfully.
-- **Creating Stages:** This is how you map out traditional delivery pipelines: Build -> Test -> Deploy Staging -> Deploy Prod.
-- **Matrix Builds:** You can use jobs to run tests in parallel across different OS versions (Ubuntu, Windows) or Python versions (3.9, 3.10), drastically reducing total CI time.
-</Topic>
+- **Matrix Builds:** You can use a `strategy: matrix` to run tests in parallel across different OS versions (Ubuntu, Windows) or Node versions, drastically reducing total CI time.
 
-<Topic 
-  id="env-vars-secrets" 
-  title="3. Environment Variables & Secrets" 
-  shortDesc="Safely handling API keys and passwords."
->
-Hardcoding database passwords or AWS keys into your source code is the fastest way to get your company hacked. Pipelines need a way to access credentials safely.
 
-**Secure Configuration**
+> [!tip] Fail-Fast Strategy
+> By default, if one job in a matrix fails, GitHub cancels all other jobs. You can disable this with `fail-fast: false` if you want to see the full test report across all environments.
 
-- **GitHub Secrets:** A secure vault in your repository settings. You store the actual password here, and reference it in your code using `${{ secrets.DB_PASSWORD }}`.
-- **Log Masking:** If your script accidentally tries to print a secret to the console (`echo $DB_PASSWORD`), GitHub intercepts it and prints `***` instead, preventing leaks in the public logs.
-- **Environment Variables (`env`):** Used for non-sensitive data (like `NODE_ENV=production` or `LOG_LEVEL=debug`). You can set them at the Workflow level, Job level, or Step level depending on scope.
-</Topic>
 
-<Topic 
-  id="manual-execution" 
-  title="4. Executing Workflows Manually" 
-  shortDesc="Using the workflow_dispatch event trigger."
->
+
+
+
+
+
+## Environment Variables & Secrets
+
+Hardcoding database passwords or AWS keys into your source code is the fastest way to get compromised. Pipelines need a way to access credentials safely.
+
+## Secure Configuration
+
+### GitHub Secrets
+A secure vault in your repository settings. You store the actual password here, and reference it in your code using `${{ secrets.DB_PASSWORD }}`. GitHub **masks** these in logs (printing `***`).
+
+### Environment Variables (env)
+Used for non-sensitive data (like `NODE_ENV=production`). You can set them at the **Workflow**, **Job**, or **Step** level depending on where they are needed.
+
+
+> [!danger] Security Warning
+> Never `echo` secrets into files that are later uploaded as artifacts. Log masking only works for the console output, not for file contents.
+
+
+
+
+
+
+
+## Executing Workflows Manually
+
 Not every script should run automatically on a git push. Sometimes you need a literal button in the UI to trigger an operational task.
 
-**The `workflow_dispatch` Trigger**
+## The workflow_dispatch Trigger
 
-- **Manual Execution:** Adding `on: workflow_dispatch` to your YAML allows team members to run the pipeline directly from the "Actions" tab in GitHub.
-- **Dynamic Inputs:** You can configure this trigger to ask the user for inputs before running. For example, a dropdown menu asking "Which environment do you want to deploy to? (Dev/Staging/Prod)".
+- **Manual Execution:** Adding `on: workflow_dispatch` allows team members to run the pipeline directly from the "Actions" tab.
+- **Dynamic Inputs:** You can ask the user for inputs before running (e.g., "Which branch to deploy?").
 - **Use Cases:** Perfect for manual database migrations, rollback scripts, or triggering heavy data-processing jobs on demand.
-</Topic>
+
+
+> [!info] Pro Scenario
+> Combine `workflow_dispatch` with **GitHub Environments** to require manual approval from a Lead Engineer before a production deployment can move forward.
