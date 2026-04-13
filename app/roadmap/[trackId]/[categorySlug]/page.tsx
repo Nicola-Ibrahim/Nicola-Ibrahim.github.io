@@ -180,10 +180,7 @@ export default async function ModulePage({ params }: { params: { trackId: string
                   [
                     rehypePrettyCode,
                     {
-                      theme: {
-                        light: 'vitesse-light',
-                        dark: 'vitesse-dark',
-                      },
+                      theme: 'github-dark',
                       keepBackground: false,
                     },
                   ],

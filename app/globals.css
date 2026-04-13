@@ -102,13 +102,12 @@
 
   .light-sweep {
     @apply absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700;
-    background: linear-gradient(105deg, 
-      transparent 20%, 
-      rgba(255, 255, 255, 0.1) 40%, 
-      rgba(255, 255, 255, 0.2) 50%, 
-      rgba(255, 255, 255, 0.1) 60%, 
-      transparent 80%
-    );
+    background: linear-gradient(105deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.1) 40%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.1) 60%,
+        transparent 80%);
     transform: translateX(-100%);
   }
 
@@ -117,8 +116,13 @@
   }
 
   @keyframes sweep {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
   }
 }
 
@@ -155,10 +159,12 @@
 }
 
 @keyframes blink {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
@@ -206,4 +212,89 @@ html:not(.dark) [data-theme='dark'] {
 [data-rehype-pretty-code-figure] pre {
   @apply bg-transparent !important;
   margin: 0 !important;
+  padding: 0 !important;
+}
+
+[data-rehype-pretty-code-figure] code {
+  counter-reset: line;
+  @apply flex flex-col min-w-full;
+}
+
+[data-rehype-pretty-code-figure] [data-line] {
+  @apply flex min-w-full transition-colors duration-200 leading-[1.6] relative;
+}
+
+[data-rehype-pretty-code-figure] [data-line]:hover {
+  @apply bg-slate-100/50 dark:bg-white/[0.03];
+}
+
+/* Line Number Gutter */
+[data-rehype-pretty-code-figure] [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply sticky left-0 z-10 flex-shrink-0 inline-block w-12 text-left select-none;
+  @apply text-slate-400 dark:text-slate-500 font-mono text-[11px];
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  padding-top: 0.1rem;
+}
+
+/* Vertical Divider in the gutter */
+[data-rehype-pretty-code-figure] [data-line]::after {
+  content: '';
+  @apply absolute left-[3rem] top-0 bottom-0 w-px z-10;
+}
+
+html.dark [data-rehype-pretty-code-figure] [data-line]::before {
+  background-color: #0d1117;
+}
+html.dark [data-rehype-pretty-code-figure] [data-line]::after {
+  @apply bg-white/[0.1];
+}
+
+html:not(.dark) [data-rehype-pretty-code-figure] [data-line]::before {
+  background-color: #f9fafb;
+}
+html:not(.dark) [data-rehype-pretty-code-figure] [data-line]::after {
+  @apply bg-slate-200;
+}
+
+/* Padding for the code content to skip the gutter and vertical line */
+[data-rehype-pretty-code-figure] [data-line] > span:first-child,
+[data-rehype-pretty-code-figure] [data-line] > .token:first-child {
+  padding-left: 1.25rem;
+}
+
+/* Exclude numbering and flex constraints for Agent Skills */
+[data-is-skill="true"] [data-rehype-pretty-code-figure] code {
+  counter-reset: none;
+  @apply block;
+}
+
+[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line] {
+  @apply block;
+}
+
+[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line]::before,
+[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line]::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Base token scaling text sizes */
+[data-rehype-pretty-code-figure] code span {
+  font-size: 13.5px;
+}
+
+/* Scrollbar refinement */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-white/10 rounded-full hover:bg-slate-400 dark:hover:bg-white/20 transition-colors;
 }
