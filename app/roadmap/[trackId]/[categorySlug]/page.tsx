@@ -52,14 +52,15 @@ const mdxComponents = {
     ...props
   }),
   h2: (props: any) => React.createElement('h2', { id: generateId(props.children), className: 'text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-16 mb-8 tracking-tight border-l-4 border-teal-500 pl-6 scroll-mt-24', ...props }),
-  h3: (props: any) => React.createElement('h3', { className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-6 tracking-wide', ...props }),
+  h3: (props: any) => React.createElement('h3', { id: generateId(props.children), className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-6 tracking-wide scroll-mt-24', ...props }),
+  h4: (props: any) => React.createElement('h4', { id: generateId(props.children), className: 'text-base md:text-lg font-bold text-slate-700 dark:text-slate-300 mt-8 mb-4 tracking-wide scroll-mt-24', ...props }),
   p: (props: any) => React.createElement('p', { className: 'text-base leading-relaxed mb-6 text-slate-600 dark:text-slate-400 max-w-5xl', ...props }),
   ul: (props: any) => React.createElement('ul', { className: 'list-disc pl-8 mb-8 space-y-4 text-slate-600 dark:text-slate-400 text-base', ...props }),
   li: (props: any) => React.createElement('li', { className: 'leading-relaxed hover:text-slate-900 dark:hover:text-white transition-colors', ...props }),
   strong: (props: any) => React.createElement('strong', { className: 'font-bold text-slate-900 dark:text-white', ...props }),
 
   table: (props: any) => (
-    <div className="my-10 overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0B0E14]">
+    <div className="my-10 overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-white/[0.02]">
       <table className="w-full text-left border-collapse" {...props} />
     </div>
   ),
@@ -80,9 +81,9 @@ const mdxComponents = {
     const isInline = !props.className;
     if (!isInline) return <code {...props} />;
     return (
-      <code 
-        className="px-[0.3em] py-[0.1em] mx-[0.1em] rounded bg-slate-100 dark:bg-white/10 text-teal-600 dark:text-teal-400 font-mono text-[0.85em] font-bold" 
-        {...props} 
+      <code
+        className="px-[0.3em] py-[0.1em] mx-[0.1em] rounded bg-slate-100 dark:bg-white/10 text-teal-600 dark:text-teal-400 font-mono text-[0.85em] font-bold"
+        {...props}
       />
     );
   },

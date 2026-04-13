@@ -25,9 +25,9 @@ export const CodeBlock = ({ children, className }: { children: any, className?: 
   };
 
   return (
-    <div className="not-prose my-10 group relative rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0B0E14] overflow-hidden">
+    <div className="not-prose my-10 group relative rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-white/[0.02] overflow-hidden">
       {/* Branded Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-slate-100/50 dark:bg-black/40 border-b border-slate-200 dark:border-white/10">
+      <div className="flex items-center justify-between px-4 py-3 bg-slate-100/50 dark:bg-white/[0.03] border-b border-slate-200 dark:border-white/10">
         <div className="flex items-center gap-4">
           {/* Tab Element */}
           <div className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-[#161B22] border border-slate-200 dark:border-white/10 border-b-0 rounded-t-lg -mb-[13px] z-10 text-[10px] font-black tracking-widest uppercase text-slate-500 dark:text-slate-400">
@@ -62,9 +62,27 @@ export const CodeBlock = ({ children, className }: { children: any, className?: 
  */
 export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'warning', title?: string, children: React.ReactNode }) => {
   const configs = {
-    info: { icon: Info, borderClass: 'border-l-blue-500', bgClass: 'bg-blue-50 dark:bg-blue-900/10', titleColor: 'text-blue-700 dark:text-blue-400', label: 'INFO' },
-    tip: { icon: Lightbulb, borderClass: 'border-l-teal-500', bgClass: 'bg-teal-50 dark:bg-teal-900/10', titleColor: 'text-teal-700 dark:text-teal-400', label: 'TIP' },
-    warning: { icon: AlertTriangle, borderClass: 'border-l-amber-500', bgClass: 'bg-amber-50 dark:bg-amber-900/10', titleColor: 'text-amber-700 dark:text-amber-400', label: 'WARNING' }
+    info: { 
+      icon: Info, 
+      containerClass: 'border-blue-200 dark:border-blue-900/30 bg-blue-50/50 dark:bg-blue-900/5', 
+      headerClass: 'bg-blue-100/50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-900/30', 
+      titleColor: 'text-blue-700 dark:text-blue-400', 
+      label: 'INFO' 
+    },
+    tip: { 
+      icon: Lightbulb, 
+      containerClass: 'border-teal-200 dark:border-teal-900/30 bg-teal-50/50 dark:bg-teal-900/5', 
+      headerClass: 'bg-teal-100/50 dark:bg-teal-900/20 border-teal-200 dark:border-teal-900/30', 
+      titleColor: 'text-teal-700 dark:text-teal-400', 
+      label: 'TIP' 
+    },
+    warning: { 
+      icon: AlertTriangle, 
+      containerClass: 'border-amber-200 dark:border-amber-900/30 bg-amber-50/50 dark:bg-amber-900/5', 
+      headerClass: 'bg-amber-100/50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-900/30', 
+      titleColor: 'text-amber-700 dark:text-amber-400', 
+      label: 'WARNING' 
+    }
   };
   const config = configs[type];
   const Icon = config.icon;
@@ -81,12 +99,12 @@ export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'war
   });
 
   return (
-    <div className={`my-5 rounded-[4px] rounded-l-[2px] border-l-4 ${config.borderClass} bg-white dark:bg-[#16181D] ring-1 ring-slate-200 dark:ring-white/5 overflow-hidden`}>
-      <div className={`flex items-center gap-2 px-4 py-2 text-[13px] font-bold ${config.bgClass} ${config.titleColor}`}>
+    <div className={`my-10 rounded-xl border ${config.containerClass} overflow-hidden shadow-px`}>
+      <div className={`flex items-center gap-2.5 px-5 py-3 border-b ${config.headerClass} ${config.titleColor}`}>
         <Icon className="w-4 h-4" />
-        <span>{displayTitle}</span>
+        <span className="text-[11px] font-black uppercase tracking-[0.2em]">{displayTitle}</span>
       </div>
-      <div className="p-4 text-[14px] leading-[1.6] text-slate-700 dark:text-[#c7ccd7] prose-p:my-0">
+      <div className="p-6 text-[15px] leading-relaxed text-slate-700 dark:text-slate-300 prose-p:my-0 prosec-a:text-teal-600 dark:prose-a:text-teal-400 prose-a:font-bold">
         {cleanChildren}
       </div>
     </div>
