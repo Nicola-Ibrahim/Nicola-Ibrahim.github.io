@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Nicola Ibrahim"
   },
   description: "Personal portfolio of Nicola Ibrahim, showcasing high-performance backend, AI projects, and interactive technical roadmaps.",
-  keywords: ["Backend Engineer", "Distributed Systems", "Python", "FastAPI", "Django", "M.Sc Thesis", "Inverse Engineering", "Nicola Ibrahim"],
+  keywords: ["Software Engineer", "Backend Engineer", "Distributed Systems", "Python", "FastAPI", "Django", "M.Sc Thesis", "Inverse Engineering", "Nicola Ibrahim"],
   authors: [{ name: "Nicola Ibrahim" }],
   creator: "Nicola Ibrahim",
   openGraph: {

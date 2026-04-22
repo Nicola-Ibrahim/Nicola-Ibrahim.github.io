@@ -48,6 +48,7 @@ const STAGGER_CONTAINER = {
 export default function PortfolioPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('devops-cloud');
+  const [openGithubIdx, setOpenGithubIdx] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,6 +62,14 @@ export default function PortfolioPage() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = () => setOpenGithubIdx(null);
+    if (openGithubIdx !== null) {
+      window.addEventListener('click', handleClickOutside);
+    }
+    return () => window.removeEventListener('click', handleClickOutside);
+  }, [openGithubIdx]);
 
   const filteredSkills = skills.filter(skill => skill.category === activeFilter);
 
@@ -127,8 +136,8 @@ export default function PortfolioPage() {
               <span className="text-gradient">Nicola Ibrahim</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 font-light">
-              <TypingText text="Backend & DevOps Engineer" /> <br />
-              Developing distributed systems and automated infrastructure.
+              <TypingText text="Software Engineer" /> <br />
+              Developing systems and automated infrastructure.
             </p>
             <div className="flex items-center justify-center">
               <a href="#projects" className="btn-primary group">
@@ -157,7 +166,7 @@ export default function PortfolioPage() {
                 Systems & <span className="text-primary">Infrastructure</span> Engineering
               </h2>
               <p className="text-lg text-gray-400 mb-6 leading-relaxed">
-                I am a Backend Engineer focused on building maintainable server-side applications and managing cloud infrastructure. I spend my time optimizing database performance and automating the software delivery lifecycle.
+                I am a Software Engineer focused on building maintainable applications and managing robust systems. I spend my time optimizing database performance and automating the software delivery lifecycle.
               </p>
               <p className="text-lg text-gray-400 mb-10 leading-relaxed">
                 I apply architectural patterns to solve technical constraints. I prioritize observability and system stability over speculative features.
@@ -321,9 +330,43 @@ export default function PortfolioPage() {
                           Read Case Study <i className="fas fa-arrow-right ml-3 text-sm"></i>
                         </Link>
                       )}
-                      <a href={project.githubUrl} target="_blank" className={`inline-flex items-center ${project.caseStudyUrl ? 'btn-outline border-white/20 hover:border-white' : 'btn-primary'}`}>
-                        GitHub Code <i className="fab fa-github ml-3 text-sm"></i>
-                      </a>
+                      {project.githubUrls.length > 1 ? (
+                        <div className="relative">
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setOpenGithubIdx(openGithubIdx === idx ? null : idx);
+                            }}
+                            className={`inline-flex items-center ${project.caseStudyUrl ? 'btn-outline border-white/20 hover:border-white' : 'btn-primary'}`}
+                          >
+                            GitHub Code <i className="fab fa-github ml-3 text-sm"></i>
+                            <i className={`fas fa-chevron-${openGithubIdx === idx ? 'up' : 'down'} ml-2 text-[10px]`}></i>
+                          </button>
+                          {openGithubIdx === idx && (
+                            <div className="absolute top-full left-0 mt-2 py-2 bg-[#0d0d0d] border border-white/10 rounded-xl shadow-2xl z-20 min-w-[180px] overflow-hidden backdrop-blur-xl">
+                              {project.githubUrls.map((link, lIdx) => (
+                                <a 
+                                  key={lIdx} 
+                                  href={link.url} 
+                                  target="_blank" 
+                                  className="flex items-center justify-between px-5 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-all group/link"
+                                >
+                                  {link.label}
+                                  <i className="fas fa-external-link-alt text-[10px] opacity-0 group-hover/link:opacity-50 transition-opacity"></i>
+                                </a>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <a 
+                          href={project.githubUrls[0].url} 
+                          target="_blank" 
+                          className={`inline-flex items-center ${project.caseStudyUrl ? 'btn-outline border-white/20 hover:border-white' : 'btn-primary'}`}
+                        >
+                          GitHub Code <i className="fab fa-github ml-3 text-sm"></i>
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -399,7 +442,7 @@ export default function PortfolioPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-gradient text-2xl font-semibold">Nicola Ibrahim</p>
-            <p className="text-gray-500 text-sm">Backend engineer building scalable systems.</p>
+            <p className="text-gray-500 text-sm">Software engineer building scalable systems.</p>
           </div>
           <div className="flex space-x-6">
             <a href="https://github.com/Nicola-Ibrahim" className="text-gray-400 hover:text-white transition-colors"><i className="fab fa-github text-xl"></i></a>
