@@ -50,7 +50,10 @@ export const projects = [
     tags: ["Python", "FastAPI", "DDD", "Docker", "CI/CD"],
     image: "/images/projects/trace_engine.png",
     demoUrl: "https://tracing-objectives-backwards-frontend.onrender.com/",
-    githubUrl: "https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards",
+    githubUrls: [
+      { label: "Backend", url: "https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards-backend" },
+      { label: "Frontend", url: "https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards-front" }
+    ],
     caseStudyUrl: "/projects/tracing-objectives-backwards",
     highlightColor: "primary"
   },
@@ -61,7 +64,9 @@ export const projects = [
     tags: ["FastAPI", "DDD", "Docker", "PostgreSQL"],
     image: null,
     icon: "fas fa-server",
-    githubUrl: "https://github.com/Nicola-Ibrahim/Bot-Chatting",
+    githubUrls: [
+      { label: "Code", url: "https://github.com/Nicola-Ibrahim/Bot-Chatting" }
+    ],
     caseStudyUrl: "/projects/bot-system",
     highlightColor: "secondary"
   },
@@ -72,7 +77,9 @@ export const projects = [
     tags: ["Django", "JWT", "Python"],
     image: null,
     icon: "fas fa-shield-alt",
-    githubUrl: "https://github.com/Nicola-Ibrahim/User-Authenticator",
+    githubUrls: [
+      { label: "Code", url: "https://github.com/Nicola-Ibrahim/User-Authenticator" }
+    ],
     caseStudyUrl: "/projects/iam-identity-service",
     highlightColor: "accent"
   }

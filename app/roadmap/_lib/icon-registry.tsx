@@ -72,7 +72,7 @@ export type IconName =
   | 'chevron-down'
   | 'chevron-up';
 
-const iconMap: Record<IconName, any> = {
+const iconMap: Record<IconName, React.ElementType> = {
   'git-branch': GitBranch,
   'cloud': Cloud,
   'server': Server,

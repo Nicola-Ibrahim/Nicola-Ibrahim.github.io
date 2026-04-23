@@ -9,16 +9,15 @@ export default async function TrackLayout({
   children: React.ReactNode;
   params: Promise<{ trackId: string }>;
 }) {
-  const { trackId } = await params;
+  await params;
   const roadmapsData = await getFullRoadmapsData();
   const roadmaps = Object.values(roadmapsData);
-  const activeTab = trackId || 'ai_agents';
 
   return (
     <div className="flex gap-8 xl:gap-12">
       {/* 1. LEFT SIDEBAR (Track Selector) */}
       <Sidebar
-        roadmaps={roadmaps as any}
+        roadmaps={roadmaps}
       />
 
       {/* 2. MAIN CONTENT AREA */}

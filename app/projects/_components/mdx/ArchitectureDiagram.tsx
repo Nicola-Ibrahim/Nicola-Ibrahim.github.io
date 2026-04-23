@@ -1,4 +1,6 @@
 
+import Image from 'next/image';
+
 interface ArchitectureDiagramProps {
   src?: string;
   alt: string;
@@ -23,9 +25,11 @@ export const ArchitectureDiagram = ({ src, alt, caption, children }: Architectur
             {children}
           </div>
         ) : src ? (
-          <img 
+          <Image 
             src={src} 
             alt={alt} 
+            width={1200}
+            height={800}
             className="w-full h-auto rounded-lg shadow-inner group-hover:scale-[1.01] transition-transform duration-700" 
           />
         ) : null}

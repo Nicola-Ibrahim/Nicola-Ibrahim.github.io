@@ -72,7 +72,7 @@ async function repairFiles() {
                     const cleanContent = matter.stringify(body, data);
                     fs.writeFileSync(filePath, cleanContent);
                     fixedCount++;
-                 } catch (innerE) {
+                 } catch {
                     console.error(`[CRITICAL] Manual repair failed for ${filePath}`);
                     errorCount++;
                  }

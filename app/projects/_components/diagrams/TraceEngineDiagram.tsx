@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Target, Search, Settings, ArrowRight } from 'lucide-react';
+import { Target, Search, Settings } from 'lucide-react';
 
 export default function TraceEngineDiagram() {
   return (
