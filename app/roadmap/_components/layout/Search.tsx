@@ -6,7 +6,7 @@ import { Search as SearchIcon, X, ChevronRight, Hash, Folder, Layout, Command, L
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { RoadmapData } from '../../_lib/mdx';
+
 import Fuse from 'fuse.js';
 
 interface SearchResult {
@@ -19,10 +19,6 @@ interface SearchResult {
   isApproximate?: boolean;
 }
 
-interface SearchProps {
-  roadmaps: RoadmapData[];
-}
-
 interface SearchItem {
   slug: string;
   title: string;
@@ -31,7 +27,7 @@ interface SearchItem {
   trackId: string;
 }
 
-export function Search({ roadmaps }: SearchProps) {
+export function Search() {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);

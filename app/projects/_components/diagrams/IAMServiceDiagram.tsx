@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { ShieldCheck, UserCheck, Key, Lock, Activity, RefreshCw } from 'lucide-react';
+import { ShieldCheck, UserCheck, Key, Lock, RefreshCw } from 'lucide-react';
 
 export default function IAMServiceDiagram() {
   return (

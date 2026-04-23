@@ -59,7 +59,7 @@ export interface MDXContent {
   frontmatter: {
     title: string;
     description?: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 

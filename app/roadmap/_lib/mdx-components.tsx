@@ -2,14 +2,13 @@
 
 import React from 'react';
 import { Terminal, Copy, Check, Info, Lightbulb, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { extractText, generateId } from './mdx-utils';
+import { extractText } from './mdx-utils';
 
 /**
  * Single master CodeBlock representing all code and prompt fences.
  * High-fidelity "Premium SaaS" aesthetic with a compact footprint.
  */
-export const CodeBlock = ({ children, className }: { children: any, className?: string }) => {
+export const CodeBlock = ({ children, className }: { children: React.ReactNode, className?: string }) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [shouldShowExpand, setShouldShowExpand] = React.useState(false);
@@ -126,9 +125,10 @@ export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'war
   // Render children minus the markup [!type] wrapper natively
   const cleanChildren = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
-      const subChildren = React.Children.toArray((child.props as any).children);
+      const props = child.props as { children?: React.ReactNode };
+      const subChildren = React.Children.toArray(props.children);
       const newSubChildren = subChildren.map(c => typeof c === 'string' ? c.replace(/^\s*\[!(info|tip|warning)\]\s*/i, '') : c);
-      return React.cloneElement(child, { ...(child.props as any) }, ...newSubChildren);
+      return React.cloneElement(child, props, ...newSubChildren);
     }
     return child;
   });

@@ -12,7 +12,7 @@ export interface ProjectMDXContent {
     category?: string;
     tags?: string[];
     date?: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 

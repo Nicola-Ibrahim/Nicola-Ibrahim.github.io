@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { TableOfContents } from '../../_components/layout/TableOfContents';
 import { getTrackMeta, getCategoryMeta, getFullRoadmapsData, getUnifiedChapterContent } from '../../_lib/mdx';
-import { getIcon } from '../../_lib/icon-registry';
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
@@ -29,12 +28,13 @@ import NotificationStrategies from '@/app/roadmap/_content/backend/_components/N
  * resolve both standard HTML tags and interactive Client Components during build time.
  */
 const mdxComponents = {
-  pre: (props: any) => {
-    const className = props.children?.props?.className || props['data-language'] || '';
+  pre: (props: React.ComponentPropsWithoutRef<'pre'>) => {
+    const children = props.children as React.ReactElement;
+    const className = (children?.props as any)?.className || (props as any)['data-language'] || '';
     return React.createElement(CodeBlock, { className, children: props.children });
   },
 
-  blockquote: (props: any) => {
+  blockquote: (props: React.ComponentPropsWithoutRef<'blockquote'>) => {
     const text = extractText(props.children).trim();
     const match = text.match(/^\[!(info|tip|warning)\]/i);
     if (match) {
@@ -47,37 +47,37 @@ const mdxComponents = {
     });
   },
 
-  h1: (props: any) => React.createElement('h1', {
+  h1: (props: React.ComponentPropsWithoutRef<'h1'>) => React.createElement('h1', {
     className: 'text-2xl md:text-4xl font-black text-slate-900 dark:text-white mb-12 tracking-tight leading-tight',
     ...props
   }),
-  h2: (props: any) => React.createElement('h2', { id: generateId(props.children), className: 'text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-16 mb-8 tracking-tight border-l-4 border-teal-500 pl-6 scroll-mt-24', ...props }),
-  h3: (props: any) => React.createElement('h3', { id: generateId(props.children), className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-6 tracking-wide scroll-mt-24 pl-10', ...props }),
-  h4: (props: any) => React.createElement('h4', { id: generateId(props.children), className: 'text-base md:text-lg font-bold text-slate-700 dark:text-slate-300 mt-8 mb-4 tracking-wide scroll-mt-24 pl-10', ...props }),
-  p: (props: any) => React.createElement('p', { className: 'text-base leading-relaxed mb-6 text-slate-600 dark:text-slate-400 max-w-5xl pl-10', ...props }),
-  ul: (props: any) => React.createElement('ul', { className: 'list-disc pl-16 mb-8 space-y-4 text-slate-600 dark:text-slate-400 text-base', ...props }),
-  li: (props: any) => React.createElement('li', { className: 'leading-relaxed hover:text-slate-900 dark:hover:text-white transition-colors', ...props }),
-  strong: (props: any) => React.createElement('strong', { className: 'font-bold text-slate-900 dark:text-white', ...props }),
+  h2: (props: React.ComponentPropsWithoutRef<'h2'>) => React.createElement('h2', { id: generateId(props.children), className: 'text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-16 mb-8 tracking-tight border-l-4 border-teal-500 pl-6 scroll-mt-24', ...props }),
+  h3: (props: React.ComponentPropsWithoutRef<'h3'>) => React.createElement('h3', { id: generateId(props.children), className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-6 tracking-wide scroll-mt-24 pl-10', ...props }),
+  h4: (props: React.ComponentPropsWithoutRef<'h4'>) => React.createElement('h4', { id: generateId(props.children), className: 'text-base md:text-lg font-bold text-slate-700 dark:text-slate-300 mt-8 mb-4 tracking-wide scroll-mt-24 pl-10', ...props }),
+  p: (props: React.ComponentPropsWithoutRef<'p'>) => React.createElement('p', { className: 'text-base leading-relaxed mb-6 text-slate-600 dark:text-slate-400 max-w-5xl pl-10', ...props }),
+  ul: (props: React.ComponentPropsWithoutRef<'ul'>) => React.createElement('ul', { className: 'list-disc pl-16 mb-8 space-y-4 text-slate-600 dark:text-slate-400 text-base', ...props }),
+  li: (props: React.ComponentPropsWithoutRef<'li'>) => React.createElement('li', { className: 'leading-relaxed hover:text-slate-900 dark:hover:text-white transition-colors', ...props }),
+  strong: (props: React.ComponentPropsWithoutRef<'strong'>) => React.createElement('strong', { className: 'font-bold text-slate-900 dark:text-white', ...props }),
 
-  table: (props: any) => (
+  table: (props: React.ComponentPropsWithoutRef<'table'>) => (
     <div className="my-10 ml-10 overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-white/[0.02]">
       <table className="w-full text-left border-collapse" {...props} />
     </div>
   ),
-  thead: (props: any) => (
+  thead: (props: React.ComponentPropsWithoutRef<'thead'>) => (
     <thead className="bg-slate-50 dark:bg-white/[0.02] border-b border-slate-200 dark:border-white/10" {...props} />
   ),
-  tr: (props: any) => (
+  tr: (props: React.ComponentPropsWithoutRef<'tr'>) => (
     <tr className="border-b border-slate-100 dark:border-white/5 last:border-0 hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors" {...props} />
   ),
-  th: (props: any) => (
+  th: (props: React.ComponentPropsWithoutRef<'th'>) => (
     <th className="px-6 py-4 text-slate-900 dark:text-slate-100 font-bold uppercase tracking-wider text-[11px]" {...props} />
   ),
-  td: (props: any) => (
+  td: (props: React.ComponentPropsWithoutRef<'td'>) => (
     <td className="px-6 py-4 text-[14px] leading-relaxed text-slate-600 dark:text-slate-400" {...props} />
   ),
 
-  code: (props: any) => {
+  code: (props: React.ComponentPropsWithoutRef<'code'>) => {
     const isInline = !props.className;
     if (!isInline) return <code {...props} />;
     return (

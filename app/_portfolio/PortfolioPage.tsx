@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Script from 'next/script';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { skills, projects } from './_content/data';
 import BlackholeCanvas from './_components/BlackholeCanvas';
 import ParticleSphereCanvas from './_components/ParticleSphereCanvas';
 import TypingText from './_components/TypingText';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
+
 
 // Animation Variants
 const FADE_UP = {
@@ -295,7 +295,7 @@ export default function PortfolioPage() {
                     <div className="browser-frame transform transition-transform duration-700 aspect-video flex flex-col">
                       <div className="relative flex-1 overflow-hidden flex items-center justify-center bg-white/5 group/demo">
                         {project.image ? (
-                          <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                          <Image src={project.image} alt={project.title} width={800} height={450} className="w-full h-full object-cover" />
                         ) : (
                           <i className={`${project.icon} text-7xl md:text-9xl text-white/20 group-hover:text-${project.highlightColor} transition-colors duration-500`}></i>
                         )}
