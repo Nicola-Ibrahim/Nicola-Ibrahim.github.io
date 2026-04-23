@@ -55,8 +55,10 @@ export const projects = [
       { label: "Frontend", url: "https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards-front" }
     ],
     caseStudyUrl: "/projects/tracing-objectives-backwards",
+    icon: null,
     highlightColor: "primary"
   },
+/*
   {
     title: "Bot System",
     category: "Backend / Infrastructure / DDD",
@@ -83,4 +85,5 @@ export const projects = [
     caseStudyUrl: "/projects/iam-identity-service",
     highlightColor: "accent"
   }
+*/
 ];
