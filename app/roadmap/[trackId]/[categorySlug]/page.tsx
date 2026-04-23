@@ -28,10 +28,10 @@ import NotificationStrategies from '@/app/roadmap/_content/backend/_components/N
  * resolve both standard HTML tags and interactive Client Components during build time.
  */
 const mdxComponents = {
-  pre: (props: React.ComponentPropsWithoutRef<'pre'>) => {
-    const children = props.children as React.ReactElement;
-    const className = (children?.props as any)?.className || (props as any)['data-language'] || '';
-    return React.createElement(CodeBlock, { className, children: props.children });
+  pre: ({ children, ...props }: React.ComponentPropsWithoutRef<'pre'> & { 'data-language'?: string }) => {
+    const child = children as React.ReactElement<{ className?: string }>;
+    const className = child?.props?.className || props['data-language'] || '';
+    return <CodeBlock className={className}>{children}</CodeBlock>;
   },
 
   blockquote: (props: React.ComponentPropsWithoutRef<'blockquote'>) => {

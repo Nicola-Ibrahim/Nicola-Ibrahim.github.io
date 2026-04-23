@@ -96,12 +96,7 @@ export default async function ProjectCaseStudyPage({ params }: { params: { slug:
         <MDXRemote source={project.source} components={components} />
       </div>
 
-      <section className="mt-30 pt-20 border-t border-white/10 text-center">
-        <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">Discuss this architecture?</h2>
-        <a href="mailto:nicolaibrahim969@gmail.com" className="btn-primary px-12 py-4">
-          GET IN TOUCH
-        </a>
-      </section>
+
     </article>
   );
 }
