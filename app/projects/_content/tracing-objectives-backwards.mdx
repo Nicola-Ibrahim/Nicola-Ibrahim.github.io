@@ -1,47 +1,84 @@
 ---
 title: "Tracing Objectives Backwards"
 category: "System Optimization / Research"
-description: "Solving the inverse engineering problem through geometric search and mathematical modeling. The engine maps target outcomes back to feasible parameters using a high-dimensional search layer, containerized and deployed with modern CI/CD."
-tags: ["Python", "FastAPI", "DDD", "Docker", "CI/CD"]
+description: "A backend engine that inverts the engineering design process —
+given a target performance outcome, it calculates the exact input parameters
+required to achieve it using geometric search over high-dimensional
+parameter spaces."
+tags: ["Python", "FastAPI", "NumPy", "SciPy", "Docker", "CI/CD"]
 date: "2024-03-24"
 ---
 
-## The Problem / Context
+## The Problem
 
-In traditional engineering, the standard approach follows a **forward modeling** paradigm: engineers define input parameters (materials, dimensions, forces) and simulate the resulting output. While effective, this becomes highly inefficient when a specific target performance is required but the necessary inputs are unknown.
+Every engineering design process runs forward: define inputs, simulate
+outputs. This works when you are exploring possibilities. It breaks down
+completely when you already know the outcome you need.
 
-The objective of this M.Sc. thesis project was to flip this script. I focused on solving the **inverse problem**—building an engine where a user defines a specific target outcome first, and the system calculates the exact or closest feasible input parameters required to achieve it. This is critical in fields like structural optimization and material science, where performance targets are non-negotiable.
+A structural engineer who needs a beam with a specific load tolerance
+cannot efficiently reverse-engineer which combination of material, cross
+section, and geometry produces exactly that result. The search space is
+non-linear, high-dimensional, and filled with infeasible regions. Brute
+force is computationally prohibitive. A conventional database cannot
+generalize to unexplored regions of the parameter space.
 
-## System Approach & Architecture
+The objective was to build a backend engine that solves this in reverse:
+the user defines the target outcome, the system finds the input parameters.
 
-The backend is built entirely in **Python**, designed as a lightweight but mathematically dense engine. Unlike typical search applications, this system does not rely on traditional database indexing or text-based retrieval. Instead, it treats the problem space as a high-dimensional geometric field.
+## Architecture
 
-<ArchitectureDiagram 
-  alt="Trace Engine Core Architecture" 
-  caption="The engine maps high-dimensional input objectives into a feasible parameter space using a geometric search layer."
+The system is a **Python backend** built on **FastAPI**, designed around
+a three-stage pipeline:
+
+<ArchitectureDiagram
+  alt="Trace Engine Core Architecture"
+  caption="Target objectives are normalized, searched geometrically across
+  the feasibility space, and converged into concrete input parameters."
 >
   <TraceEngineDiagram />
 </ArchitectureDiagram>
 
-The architecture follows a pipeline where target objectives are first normalized, then processed through a geometric search algorithm that dynamically calculates the feasible parameter space. This allows the system to explore potential designs that haven't been pre-computed or stored in a static database.
+**Stage 1 — Normalization.** Raw target values are normalized into a
+dimensionless objective vector. This makes the search algorithm
+scale-invariant across different engineering domains.
 
-## Technical Decisions & Trade-offs
+**Stage 2 — Geometric Search.** The core of the system. Rather than
+querying a database of pre-computed results, the engine treats the
+parameter space as a geometric field and navigates it using constrained
+optimization. NumPy and SciPy power the underlying linear algebra and
+optimization routines. The search progressively tightens constraints
+to converge on feasible solutions — or finds the closest approximation
+when an exact solution does not exist.
 
-<Badge color="blue">Python</Badge>
-<Badge color="teal">NumPy</Badge>
-<Badge color="green">SciPy</Badge>
+**Stage 3 — Convergence.** The engine returns a ranked set of feasible
+parameter combinations with confidence scores, ranked by proximity to the
+target objective.
 
-- **Mathematical Modeling vs. Conventional DBs**: I opted for custom geometric search over conventional database search paradigms. While a database could store historical results, it cannot generalize to unexplored regions of the parameter space. Custom mathematical modeling allows for true exploration.
-- **Scientific Computing Ecosystem**: Python was chosen specifically for its robust scientific computing libraries. **NumPy** and **SciPy** provided the foundational linear algebra and optimization routines necessary for high-dimensional geometric calculations.
+## Key Technical Decisions
 
-## Challenges Overcome
+**Geometric search over database lookup.** A static database of
+pre-computed results cannot generalize to unseen regions of the parameter
+space. Custom geometric search can. The trade-off is computational cost
+per query versus zero pre-computation overhead and full generalization.
 
-The core technical hurdle was the **inherent ambiguity of inverse mapping**. In many engineering scenarios, multiple different input combinations can produce the same output, or a specific output might be mathematically unreachable.
+**Handling ambiguity explicitly.** Inverse problems are inherently
+ambiguous — multiple input combinations can produce the same output, and
+some outputs are mathematically unreachable. The engine handles this by
+treating infeasible targets as an optimization problem rather than an
+error state, always returning the closest feasible approximation with an
+explicit confidence score.
 
-To solve this, I refined the **geometric search constraints** to focus on convergence. Instead of a naive search, the system uses a progressive tightening of constraints to identify the "closest feasible" approximation when an exact match is impossible. This ensures the system remains useful even in "ambiguous" mathematical spaces where 1-to-1 mappings don't exist.
+**FastAPI for the interface layer.** The compute-heavy work is synchronous
+and CPU-bound. FastAPI provides a clean REST interface over the engine
+without adding async complexity to the mathematical core.
 
 ## Outcomes
 
-- **Functional Proof-of-Concept**: Successfully built a data-driven backend engine that proves the viability of using geometric search models for inverse exploration.
-- **Performance**: Demonstrated that mathematical modeling could replace static indexing for specific engineering use cases, offering a more flexible and exploratory design tool.
-- **Academic Contribution**: Validated the approach of using geometric search to navigate complex input-output relationships without the overhead of massive pre-computed datasets.
+- Deployed and live — the engine accepts real engineering targets and
+  returns converged parameter sets via REST API
+- Demonstrated that geometric search generalizes across parameter spaces
+  without any pre-computed dataset
+- Validated inverse mapping as a practical engineering tool, not just
+  a theoretical one
+- Full CI/CD pipeline — containerized with Docker, deployed on Render
+  via GitHub Actions
