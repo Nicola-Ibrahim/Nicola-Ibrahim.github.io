@@ -95,23 +95,57 @@ const ParticleSphereCanvas: React.FC = () => {
 
     camera.position.z = 4.5;
 
-    // Animation loop
-    let animationId: number;
-    const animate = () => {
-      animationId = requestAnimationFrame(animate);
-      const time = Date.now() * 0.001;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let draggingPointer: number | null = null;
+    let lastPointerX = 0;
+    let lastPointerY = 0;
 
-      points.rotation.y += 0.002;
-      points.rotation.x += 0.001;
-      points.rotation.y += Math.sin(time * 0.2) * 0.001;
-      points.rotation.x += Math.cos(time * 0.3) * 0.001;
-
+    const render = () => {
       lines.rotation.copy(points.rotation);
-
       renderer.render(scene, camera);
     };
 
-    animate();
+    const handlePointerDown = (event: PointerEvent) => {
+      if (draggingPointer !== null || (event.pointerType === 'mouse' && event.button !== 0)) return;
+      draggingPointer = event.pointerId;
+      lastPointerX = event.clientX;
+      lastPointerY = event.clientY;
+      container.setPointerCapture(event.pointerId);
+      container.style.cursor = 'grabbing';
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (event.pointerId !== draggingPointer) return;
+      points.rotation.y += (event.clientX - lastPointerX) * 0.006;
+      points.rotation.x += (event.clientY - lastPointerY) * 0.006;
+      lastPointerX = event.clientX;
+      lastPointerY = event.clientY;
+      render();
+    };
+
+    const handlePointerEnd = (event: PointerEvent) => {
+      if (event.pointerId !== draggingPointer) return;
+      draggingPointer = null;
+      container.style.cursor = 'grab';
+      if (container.hasPointerCapture(event.pointerId)) container.releasePointerCapture(event.pointerId);
+    };
+
+    container.addEventListener('pointerdown', handlePointerDown);
+    container.addEventListener('pointermove', handlePointerMove);
+    container.addEventListener('pointerup', handlePointerEnd);
+    container.addEventListener('pointercancel', handlePointerEnd);
+    container.addEventListener('lostpointercapture', handlePointerEnd);
+
+    // Animation loop
+    let animationId = 0;
+    const animate = () => {
+      animationId = requestAnimationFrame(animate);
+      if (draggingPointer === null) points.rotation.y += 0.002;
+      render();
+    };
+
+    if (reducedMotion) render();
+    else animate();
 
     // Resize handler
     const handleResize = () => {
@@ -121,6 +155,7 @@ const ParticleSphereCanvas: React.FC = () => {
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
+      if (reducedMotion) render();
     };
 
     window.addEventListener('resize', handleResize);
@@ -128,6 +163,11 @@ const ParticleSphereCanvas: React.FC = () => {
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
+      container.removeEventListener('pointerdown', handlePointerDown);
+      container.removeEventListener('pointermove', handlePointerMove);
+      container.removeEventListener('pointerup', handlePointerEnd);
+      container.removeEventListener('pointercancel', handlePointerEnd);
+      container.removeEventListener('lostpointercapture', handlePointerEnd);
       cancelAnimationFrame(animationId);
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -142,7 +182,7 @@ const ParticleSphereCanvas: React.FC = () => {
   return (
     <div 
       ref={containerRef} 
-      className="absolute inset-0 w-full h-full cursor-pointer z-10" 
+      className="absolute inset-0 w-full h-full cursor-grab touch-pan-y z-10"
     />
   );
 };
