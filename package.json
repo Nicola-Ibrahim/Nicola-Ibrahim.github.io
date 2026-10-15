@@ -1,48 +1,39 @@
 {
   "name": "nicola-ibrahim.github.io",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "packageManager": "npm@11.19.0",
   "scripts": {
+    "predev": "node scripts/build-search-index.mjs",
     "dev": "next dev",
     "prebuild": "node scripts/build-search-index.mjs",
     "build": "next build",
-    "start": "next start",
     "lint": "eslint .",
-    "export": "next build",
-    "serve": "npx serve out"
+    "typecheck": "tsc --noEmit",
+    "check": "npm run lint && npm run typecheck"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Nicola-Ibrahim/Nicola-Ibrahim.github.io.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Nicola-Ibrahim/Nicola-Ibrahim.github.io/issues"
-  },
-  "homepage": "https://github.com/Nicola-Ibrahim/Nicola-Ibrahim.github.io#readme",
-  "description": "",
-  "overrides": {
-    "glob": "^10.5.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^16.2.4",
     "@tailwindcss/typography": "^0.5.19",
-    "@typescript-eslint/eslint-plugin": "^8.59.0",
-    "@typescript-eslint/parser": "^8.59.0",
-    "autoprefixer": "^10.4.21",
-    "eslint": "^10.2.1",
-    "eslint-config-next": "^16.2.4",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.17",
-    "typescript-eslint": "^8.59.0"
-  },
-  "dependencies": {
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/three": "^0.183.1",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^10.2.1",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.59.0"
+  },
+  "dependencies": {
     "framer-motion": "^12.38.0",
     "fuse.js": "^7.3.0",
     "gray-matter": "^4.0.3",
@@ -55,8 +46,6 @@
     "remark-gfm": "4.0.0",
     "remove-markdown": "^0.6.3",
     "shiki": "^4.0.2",
-    "three": "^0.183.2",
-    "typescript": "^6.0.2",
-    "vanilla-tilt": "^1.8.1"
+    "three": "^0.183.2"
   }
 }

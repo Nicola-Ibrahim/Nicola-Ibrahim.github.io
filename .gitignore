@@ -4,6 +4,7 @@ out/
 
 # Dependencies
 node_modules/
+public/search-index.json
 
 # Static Exports (optional, but usually ignored if rebuilt on CI)
 # dist/
@@ -12,6 +13,7 @@ node_modules/
 .env*.local
 
 # Debug logs
+*.tsbuildinfo
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
