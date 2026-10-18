@@ -4,7 +4,6 @@ import { type MouseEvent } from 'react';
 import Link from 'next/link';
 import BlackholeCanvas from './BlackholeCanvas';
 import { useHeroSpaceTransition } from '../_shared/HeroSpaceTransition';
-import styles from './HomePage.module.css';
 
 export default function HomePage() {
   const { start } = useHeroSpaceTransition();
@@ -20,7 +19,7 @@ export default function HomePage() {
       <main>
         <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
           <BlackholeCanvas />
-          <div className={`max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center hero-content ${styles.heroContent}`}>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 text-center">
             <p className="text-sm md:text-base font-bold uppercase tracking-[0.24em] text-primary mb-6">Software Engineer</p>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-tight">
               Hi, I&apos;m <br /><span className="text-gradient">Nicola Ibrahim</span>
