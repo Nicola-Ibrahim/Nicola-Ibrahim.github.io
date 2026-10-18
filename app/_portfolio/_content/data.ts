@@ -64,8 +64,8 @@ export const skillGroups = [
 export const projects = [
   {
     title: 'Tracing Objectives Backwards',
-    category: 'System Optimization / Research',
-    description: 'A Python and FastAPI engine that maps target outcomes back to feasible parameters using geometric search, NumPy, and SciPy. Its API and deployment pipeline turn mathematical modeling into a usable application.',
+    category: 'Backend / Optimization',
+    description: 'A FastAPI project that works backward from a target result to possible input settings. Python, NumPy, and SciPy support the search, and an API makes it available to other software.',
     tags: ['Python', 'FastAPI', 'NumPy', 'SciPy', 'Docker'],
     image: '/images/projects/trace_engine.png',
     icon: 'fas fa-diagram-project',
@@ -80,8 +80,8 @@ export const projects = [
   /* Keep these case studies available; re-enable them when ready to feature them.
   {
     title: 'Bot System',
-    category: 'AI Integration / Backend',
-    description: 'A FastAPI prototype that connects multiple LLM providers through adapters, normalizes their responses, and stores conversation state in PostgreSQL.',
+    category: 'AI integration / Backend',
+    description: 'A FastAPI prototype for calling several AI providers through one API. Adapters bring their different responses into a common format.',
     tags: ['FastAPI', 'LLM APIs', 'PostgreSQL', 'Docker'],
     image: null,
     icon: 'fas fa-robot',
@@ -92,8 +92,8 @@ export const projects = [
   },
   {
     title: 'IAM Identity Service',
-    category: 'Security / Backend',
-    description: 'A Django REST Framework service for centralized authentication, JWT verification, token rotation, and session termination.',
+    category: 'Backend / Identity',
+    description: 'A Django REST Framework project that brings login, JWT handling, and logout into one service for other applications to use.',
     tags: ['Django', 'JWT', 'Python'],
     image: null,
     icon: 'fas fa-shield-halved',

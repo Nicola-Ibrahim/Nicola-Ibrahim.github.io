@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     default: "Nicola Ibrahim | Portfolio",
     template: "%s | Nicola Ibrahim"
   },
-  description: "Personal portfolio of Nicola Ibrahim, showcasing high-performance backend, AI projects, and interactive technical roadmaps.",
+  description: "Nicola Ibrahim's portfolio: backend projects, data and ML work, and the tools behind them.",
   keywords: ["Software Engineer", "Backend Engineer", "Distributed Systems", "Python", "FastAPI", "Django", "M.Sc Thesis", "Inverse Engineering", "Nicola Ibrahim"],
   authors: [{ name: "Nicola Ibrahim" }],
   creator: "Nicola Ibrahim",
@@ -29,14 +29,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://nicolaibrahim.github.io",
     title: "Nicola Ibrahim | Portfolio",
-    description: "High-performance backend architecture, AI systems, and technical roadmaps.",
+    description: "Backend projects, data and ML work, and the tools behind them.",
     siteName: "Nicola Ibrahim Portfolio",
   },
   twitter: {
     card: "summary_large_image",
     title: "Nicola Ibrahim | Portfolio",
-    description: "High-performance backend architecture, AI systems, and technical roadmaps.",
-    creator: "@nicolaibrahim", // Placeholder: update if you have a handle
+    description: "Backend projects, data and ML work, and the tools behind them.",
   },
   robots: {
     index: true,

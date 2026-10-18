@@ -1,51 +1,32 @@
 ---
 title: "IAM Identity Service"
-category: "Security / Identity Management"
-description: "A centralized Identity and Access Management service built with Django and JWT. Focused on stateless token lifecycle management, secure session termination, and establishing standard security protocols."
+category: "Backend / Identity"
+description: "A Django REST Framework project that puts login and token handling in one service for other applications to use."
 tags: ["Django", "JWT", "Python"]
 date: "2024-04-18"
 ---
 
-## The Problem / Context
+## Overview
 
-In a microservices-based architecture, implementing authentication independently inside every individual service leads to an explosion of redundant code, inconsistent security standards, and difficult-to-manage user sessions. 
+When several applications each implement login, the same work is repeated
+and changes become harder to manage. This project explores a shared
+authentication service.
 
-The objective of this project was to extract and centralize the user authentication process into a dedicated **Identity and Access Management (IAM) service**. This provides a single source of truth for the entire internal ecosystem.
+## Approach
 
-## System Approach & Architecture
+The service uses Django REST Framework for registration and login. It
+issues JWT access tokens, supports refresh tokens, and keeps a blocklist
+for tokens that have been revoked at logout.
 
-The IAM service is built with **Django REST Framework (DRF)** and acts as a central **gatekeeper**. It is responsible for user registration, authentication, and session management.
-
-<ArchitectureDiagram 
-  alt="IAM Identity Service Architecture" 
-  caption="The IAM service acts as a centralized gatekeeper for session management and stateless token verification."
+<ArchitectureDiagram
+  alt="IAM Identity Service architecture"
+  caption="Applications use one service for login and token management."
 >
   <IAMServiceDiagram />
 </ArchitectureDiagram>
 
-Upon successful login, the service issues stateless **JSON Web Tokens (JWTs)**. These tokens contain the user's claims and can be verified by any internal microservice without needing to re-query the central IAM database.
+## What it demonstrates
 
-## Technical Decisions & Trade-offs
-
-<Badge color="green">Django REST Framework</Badge>
-<Badge color="purple">JWT Authentication</Badge>
-
-- **Django REST Framework (DRF)**: Chosen for its rapid development ecosystem and built-in security features, which are critical for any identity-focused application.
-- **Stateless Verification via JWT**: To minimize database load and avoid a central bottle-neck, I implemented **stateless verification**. This allows internal services to trust tokens based purely on cryptographic signatures.
-
-## Challenges Overcome
-
-A major challenge in stateless JWT architectures is **secure session termination**. Since JWTs are stored on the client and are stateless by design, they cannot be easily revoked before they expire.
-
-To overcome this, I designed a **comprehensive token lifecycle management system**:
-1.  **Short-lived Access Tokens**: Minimizes the window of opportunity for stolen tokens.
-2.  **Rotation with Refresh Tokens**: Allows for long-lived sessions while maintaining security.
-3.  **Token Blocklist Mechanism**: I built a dedicated blocklist in the service's layer to explicitly track and revoke tokens upon logout, ensuring session termination is robust and immediate.
-
-## Outcomes
-
-- **Security Standardization**: Enforced standard security protocols (stateless identity, centralized auth) throughout the simulated ecosystem.
-- **Microservice Autonomy**: Demonstrated how localized verification drastically reduces inter-service communication overhead.
-- **Framework Mastery**: Showcased the power of Django for building highly secure, backend-focused identity nodes.
-
-*(Note: This project is a conceptual and enrichment-focused system, not intended for live infrastructure deployment.)*
+The project demonstrates token lifecycle design and the trade-offs of
+centralizing authentication. It is a concept project rather than a
+deployed identity system.

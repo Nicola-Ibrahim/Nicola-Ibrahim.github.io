@@ -260,10 +260,10 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
     let height = 1;
     let frame = 0;
     let previousTime = 0;
-    let baseCameraZ = 12;
+    let baseCameraZ = 14.3;
     let orbitRadiusX = 4.8;
     let orbitRadiusZ = 2.2;
-    let orbitY = 0.75;
+    let orbitY = 0.9;
     let orbitPosition = focusRef.current;
     const orbitStep = Math.PI * 2 / destinations.length;
     const orbitTilt = THREE.MathUtils.degToRad(32);
@@ -277,10 +277,10 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
       height = container.clientHeight;
       if (!width || !height) return;
       camera.aspect = width / height;
-      baseCameraZ = width < 640 ? 12.8 : 12;
+      baseCameraZ = width < 640 ? 14.5 : 14.3;
       orbitRadiusX = width < 640 ? 2.65 : 4.8;
       orbitRadiusZ = width < 640 ? 1.8 : 2.2;
-      orbitY = width < 640 ? 1.18 : 0.75;
+      orbitY = width < 640 ? 1.32 : 0.9;
       if (travelStart === null) camera.position.set(0, 0, baseCameraZ);
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);

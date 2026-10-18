@@ -4,7 +4,7 @@ import { AboutSection, EducationSection } from '../_portfolio/PortfolioSections'
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Learn about Nicola Ibrahim’s software engineering background, education, and approach.',
+  description: 'A little about my background, education, and the kind of software I like building.',
 };
 
 export default function AboutPage() {

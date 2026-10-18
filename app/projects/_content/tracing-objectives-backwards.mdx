@@ -1,84 +1,36 @@
 ---
 title: "Tracing Objectives Backwards"
-category: "System Optimization / Research"
-description: "A backend engine that inverts the engineering design process —
-given a target performance outcome, it calculates the exact input parameters
-required to achieve it using geometric search over high-dimensional
-parameter spaces."
+category: "Backend / Optimization"
+description: "A Python and FastAPI project that starts with a target result and searches for input settings that could produce it."
 tags: ["Python", "FastAPI", "NumPy", "SciPy", "Docker", "CI/CD"]
 date: "2024-03-24"
 ---
 
-## The Problem
+## Overview
 
-Every engineering design process runs forward: define inputs, simulate
-outputs. This works when you are exploring possibilities. It breaks down
-completely when you already know the outcome you need.
+Engineering design often starts with a desired result but no clear set of
+inputs to produce it. This project explores the reverse problem: given a
+target, search for possible parameter combinations. When an exact match
+is unavailable, the search can return a nearby option.
 
-A structural engineer who needs a beam with a specific load tolerance
-cannot efficiently reverse-engineer which combination of material, cross
-section, and geometry produces exactly that result. The search space is
-non-linear, high-dimensional, and filled with infeasible regions. Brute
-force is computationally prohibitive. A conventional database cannot
-generalize to unexplored regions of the parameter space.
+## Approach
 
-The objective was to build a backend engine that solves this in reverse:
-the user defines the target outcome, the system finds the input parameters.
-
-## Architecture
-
-The system is a **Python backend** built on **FastAPI**, designed around
-a three-stage pipeline:
+FastAPI handles requests while a separate Python module runs the search.
+NumPy and SciPy support the numerical work. The API and search code are
+kept separate so each can be changed and tested independently.
 
 <ArchitectureDiagram
-  alt="Trace Engine Core Architecture"
-  caption="Target objectives are normalized, searched geometrically across
-  the feasibility space, and converged into concrete input parameters."
+  plain
+  alt="Tracing Objectives Backwards project architecture"
+  caption="A target is prepared, searched against constraints, and returned as possible input settings."
 >
   <TraceEngineDiagram />
 </ArchitectureDiagram>
 
-**Stage 1 — Normalization.** Raw target values are normalized into a
-dimensionless objective vector. This makes the search algorithm
-scale-invariant across different engineering domains.
+The application is containerized with Docker, with a deployment pipeline
+for the demo.
 
-**Stage 2 — Geometric Search.** The core of the system. Rather than
-querying a database of pre-computed results, the engine treats the
-parameter space as a geometric field and navigates it using constrained
-optimization. NumPy and SciPy power the underlying linear algebra and
-optimization routines. The search progressively tightens constraints
-to converge on feasible solutions — or finds the closest approximation
-when an exact solution does not exist.
+## What it demonstrates
 
-**Stage 3 — Convergence.** The engine returns a ranked set of feasible
-parameter combinations with confidence scores, ranked by proximity to the
-target objective.
-
-## Key Technical Decisions
-
-**Geometric search over database lookup.** A static database of
-pre-computed results cannot generalize to unseen regions of the parameter
-space. Custom geometric search can. The trade-off is computational cost
-per query versus zero pre-computation overhead and full generalization.
-
-**Handling ambiguity explicitly.** Inverse problems are inherently
-ambiguous — multiple input combinations can produce the same output, and
-some outputs are mathematically unreachable. The engine handles this by
-treating infeasible targets as an optimization problem rather than an
-error state, always returning the closest feasible approximation with an
-explicit confidence score.
-
-**FastAPI for the interface layer.** The compute-heavy work is synchronous
-and CPU-bound. FastAPI provides a clean REST interface over the engine
-without adding async complexity to the mathematical core.
-
-## Outcomes
-
-- Deployed and live — the engine accepts real engineering targets and
-  returns converged parameter sets via REST API
-- Demonstrated that geometric search generalizes across parameter spaces
-  without any pre-computed dataset
-- Validated inverse mapping as a practical engineering tool, not just
-  a theoretical one
-- Full CI/CD pipeline — containerized with Docker, deployed on Render
-  via GitHub Actions
+The project demonstrates optimization work behind an API, including how to
+handle targets with several possible answers or no exact match.

@@ -1,12 +1,11 @@
 .explorer {
   min-height: 100svh;
-  padding-top: 80px;
   color: #eefbfc;
   background: #030b17;
 }
 .scene {
   position: relative;
-  height: calc(100svh - 80px);
+  height: 100svh;
   min-height: 680px;
   overflow: hidden;
   isolation: isolate;
@@ -56,7 +55,7 @@
 .mapTop {
   position: absolute;
   z-index: 20;
-  top: 30px;
+  top: 88px;
   left: clamp(24px, 3vw, 58px);
   right: clamp(24px, 3vw, 58px);
   display: flex;
@@ -164,7 +163,7 @@
 }
 @media (max-width: 600px) {
   .scene { min-height: 700px; }
-  .mapTop { top: 17px; left: 20px; right: 20px; font-size: .54rem; }
+  .mapTop { top: 78px; left: 20px; right: 20px; font-size: .54rem; }
   .coordinates { display: none; }
   .planetLink { top: 36%; width: 330px; height: 330px; }
   .worldCaption { top: calc(100% + 8px); gap: 4px; }

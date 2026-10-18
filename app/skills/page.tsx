@@ -4,7 +4,7 @@ import { SkillsSection } from '../_portfolio/PortfolioSections';
 
 export const metadata: Metadata = {
   title: 'Skills',
-  description: 'Explore Nicola Ibrahim’s software engineering, data, ML, and cloud skills.',
+  description: 'Tools I have used across backend, data, frontend, and deployment projects.',
 };
 
 export default function SkillsPage() {

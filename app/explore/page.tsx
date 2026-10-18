@@ -4,17 +4,14 @@ import SpaceExplorer from '../_portfolio/_components/SpaceExplorer';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'Explore in Space',
-  description: 'Explore Nicola Ibrahim’s portfolio through an interactive map of work, skills, and more.',
+  title: 'Explore',
+  description: 'Take a look around my work, background, and skills.',
 };
 
 export default function ExplorePage() {
   return (
     <main className={styles.page}>
-      <header className={styles.header}>
-        <Link href="/" className={styles.brand} aria-label="Nicola Ibrahim, home">NI<span>.</span></Link>
-        <Link href="/" className={styles.back}><span aria-hidden="true">←</span> Back to portfolio</Link>
-      </header>
+      <Link href="/" className="return-link"><span aria-hidden="true">←</span> Back to home</Link>
       <SpaceExplorer />
     </main>
   );

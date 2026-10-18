@@ -4,7 +4,7 @@ import { ProjectsSection, ServicesSection } from '../_portfolio/PortfolioSection
 
 export const metadata: Metadata = {
   title: 'Work',
-  description: 'Selected software engineering projects and specialized backend, data, and AI integration services by Nicola Ibrahim.',
+  description: 'A project I built and the backend, data, and AI integration work I enjoy doing.',
 };
 
 export default function ProjectsPage() {

@@ -4,7 +4,7 @@ import { ContactSection } from '../_portfolio/PortfolioSections';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Contact Nicola Ibrahim about software engineering and ML integration work.',
+  description: 'Get in touch about a project or ask me about my work.',
 };
 
 export default function ContactPage() {

@@ -6,7 +6,7 @@ export default function PortfolioFooter() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-left">
           <p className="text-gradient text-2xl font-semibold">Nicola Ibrahim</p>
-          <p className="text-gray-500 text-sm">Software engineer building reliable systems.</p>
+          <p className="text-gray-500 text-sm">Software engineering across backend, data, and ML.</p>
         </div>
         <div className="flex items-center gap-6 text-sm">
           <Link href="/explore" className="text-gray-400 hover:text-white">Explore</Link>
