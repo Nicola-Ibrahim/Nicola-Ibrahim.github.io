@@ -13,7 +13,6 @@ type Props = {
 };
 
 const palette: Record<SpaceDestination['kind'], [number[], number[], number[]]> = {
-  ice: [[12, 43, 58], [47, 137, 153], [148, 234, 228]],
   ocean: [[6, 35, 52], [13, 120, 131], [81, 215, 192]],
   gas: [[13, 31, 74], [47, 93, 174], [147, 195, 247]],
   rock: [[28, 24, 58], [95, 70, 142], [177, 150, 211]],
@@ -56,7 +55,7 @@ function planetTexture(kind: SpaceDestination['kind']) {
       const fine = smoothNoise(u * 61, v * 29, 61);
       const grain = smoothNoise(u * 143, v * 71, 143);
       const warp = (large - 0.5) * 0.075 + (medium - 0.5) * 0.027;
-      const bands = Math.sin((v + warp) * (kind === 'gas' ? 47 : kind === 'ice' ? 32 : 29) + Math.sin(u * Math.PI * 2) * 0.65);
+      const bands = Math.sin((v + warp) * (kind === 'gas' ? 47 : 29) + Math.sin(u * Math.PI * 2) * 0.65);
       let value = large * 0.48 + medium * 0.32 + fine * 0.2 + bands * 0.07;
       const index = (y * canvas.width + x) * 4;
       if (kind === 'ocean') {
@@ -75,7 +74,6 @@ function planetTexture(kind: SpaceDestination['kind']) {
         continue;
       }
       if (kind === 'gas') value = 0.39 + bands * 0.11 + medium * 0.17 + large * 0.14 + fine * 0.07 + grain * 0.04;
-      if (kind === 'ice') value = 0.37 + bands * 0.075 + large * 0.27 + medium * 0.12 + fine * 0.07;
       if (kind === 'rock') value = large * 0.42 + medium * 0.34 + fine * 0.18 + grain * 0.05;
       if (kind === 'desert') value = 0.25 + large * 0.39 + bands * 0.055 + medium * 0.18 + fine * 0.08;
       if (kind === 'gas') {
@@ -89,7 +87,6 @@ function planetTexture(kind: SpaceDestination['kind']) {
           else if (distance < 1.12) value += (1.12 - distance) * 0.2;
         }
       }
-      if (kind === 'ice') value += THREE.MathUtils.smoothstep(Math.abs(v - 0.5) * 2, 0.7, 0.95) * 0.19;
       value = THREE.MathUtils.clamp(value, 0, 1);
       const low = value < 0.5 ? colors[0] : colors[1];
       const high = value < 0.5 ? colors[1] : colors[2];

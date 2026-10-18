@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import PortfolioSubpage from '../_portfolio/_components/PortfolioSubpage';
-import { ProjectsSection } from '../_portfolio/PortfolioSections';
+import { ProjectsSection, ServicesSection } from '../_portfolio/PortfolioSections';
 
 export const metadata: Metadata = {
-  title: 'Projects',
-  description: 'Selected software engineering, data, and AI integration projects by Nicola Ibrahim.',
+  title: 'Work',
+  description: 'Selected software engineering projects and specialized backend, data, and AI integration services by Nicola Ibrahim.',
 };
 
 export default function ProjectsPage() {
-  return <PortfolioSubpage planetId="projects"><ProjectsSection /></PortfolioSubpage>;
+  return <PortfolioSubpage planetId="projects"><ProjectsSection /><ServicesSection /></PortfolioSubpage>;
 }

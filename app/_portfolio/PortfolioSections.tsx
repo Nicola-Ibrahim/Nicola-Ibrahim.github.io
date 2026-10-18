@@ -32,7 +32,7 @@ export function ServicesSection() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-14">
           <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">What I do</span>
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-6">Specialized Services &amp; Solutions</h1>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">Specialized Services &amp; Solutions</h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">I bring backend engineering, data work, and delivery together so an idea can become a usable system.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
