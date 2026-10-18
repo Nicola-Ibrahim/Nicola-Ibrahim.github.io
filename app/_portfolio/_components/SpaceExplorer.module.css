@@ -90,11 +90,11 @@
   transform: translate(-50%, -50%);
   cursor: pointer;
 }
-.planetLink:hover { box-shadow: 0 0 0 1px rgba(140,234,237,.25), 0 0 60px rgba(70,189,205,.14); }
 .planetLink:disabled { cursor: wait; }
-.planetLink:focus-visible,
 .arrowButton:focus-visible,
 .progress button:focus-visible { outline: 2px solid #a4f5ec; outline-offset: 4px; }
+.planetLink:focus-visible { outline: none; }
+.planetLink:focus-visible .worldCaption strong { text-decoration: underline; text-decoration-color: #a4f5ec; text-underline-offset: 7px; }
 .worldCaption {
   position: absolute;
   top: calc(100% - 8px);
@@ -152,7 +152,7 @@
 .progress .currentDot { width: 28px; background: #69e1d9; }
 .travelling .mapTop,
 .travelling .sceneControls,
-.travelling .worldCaption { opacity: 0; transition: opacity 600ms; }
+.travelling .worldCaption { opacity: 0; transition: opacity 500ms; }
 @keyframes breathe { 50% { opacity: .65; transform: scale(1.12); } }
 @media (max-width: 850px) {
   .scene { min-height: 700px; }
@@ -190,6 +190,7 @@
   .sceneControls { right: 20px; bottom: 10px; left: auto; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .scene { animation: none; transition: none; }
   .sceneGlow { animation: none; }
   .spaceBackdrop, .arrowButton, .progress button { transition-duration: 0ms; }
 }
