@@ -48,6 +48,7 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
+import HeroSpaceTransitionProvider from './_portfolio/_components/HeroSpaceTransition';
 
 export default function RootLayout({
   children,
@@ -62,7 +63,7 @@ export default function RootLayout({
       </head>
       <body className="bg-dark text-light font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
-          {children}
+          <HeroSpaceTransitionProvider>{children}</HeroSpaceTransitionProvider>
         </ThemeProvider>
       </body>
     </html>

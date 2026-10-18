@@ -8,6 +8,7 @@ type Props = {
   focusedIndex: number;
   dragOffset: number;
   travellingTo: string | null;
+  hovered: boolean;
   reducedMotion: boolean;
   onReady: () => void;
 };
@@ -136,23 +137,26 @@ const atmosphereVertex = `
 `;
 const atmosphereFragment = `
   uniform vec3 uColor;
+  uniform float uGlow;
   varying vec3 vNormal;
   void main() {
     float edge = pow(1.0 - abs(dot(normalize(vNormal), vec3(0.0, 0.0, 1.0))), 3.0);
-    gl_FragColor = vec4(uColor, edge * 0.2);
+    gl_FragColor = vec4(uColor, edge * 0.2 * uGlow);
   }
 `;
 
-export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingTo, reducedMotion, onReady }: Props) {
+export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingTo, hovered, reducedMotion, onReady }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const focusRef = useRef(focusedIndex);
   const dragRef = useRef(dragOffset);
   const travelRef = useRef(travellingTo);
   const motionRef = useRef(reducedMotion);
+  const hoverRef = useRef(hovered);
   focusRef.current = focusedIndex;
   dragRef.current = dragOffset;
   travelRef.current = travellingTo;
   motionRef.current = reducedMotion;
+  hoverRef.current = hovered;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -219,7 +223,7 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
 
       const atmosphereGeometry = new THREE.SphereGeometry(radius * 1.055, 64, 48);
       const atmosphereMaterial = new THREE.ShaderMaterial({
-        uniforms: { uColor: { value: new THREE.Color(destination.color) } },
+        uniforms: { uColor: { value: new THREE.Color(destination.color) }, uGlow: { value: 1 } },
         vertexShader: atmosphereVertex,
         fragmentShader: atmosphereFragment,
         transparent: true,
@@ -239,7 +243,7 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
           disposables.push(ringGeometry, ringMaterial);
         }
       }
-      return { destination, group, sphere, material, cloud };
+      return { destination, group, sphere, material, cloud, atmosphereMaterial };
     });
 
     const starCount = container.clientWidth < 700 ? 90 : 160;
@@ -301,7 +305,7 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
         const difference = ((target - orbitPosition + half) % destinations.length + destinations.length) % destinations.length - half;
         orbitPosition += difference * (motionRef.current ? 1 : 0.12);
       }
-      planets.forEach(({ group, sphere, material, cloud }, index) => {
+      planets.forEach(({ group, sphere, material, cloud, atmosphereMaterial }, index) => {
         const angle = (index - orbitPosition) * orbitStep;
         const depth = (Math.cos(angle) + 1) / 2;
         group.position.set(
@@ -318,8 +322,10 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
           ? 0.05 + 0.95 * Math.pow(depth, 1.5)
           : 0.44 + 0.56 * Math.pow(depth, 1.5);
         group.scale.setScalar(THREE.MathUtils.lerp(group.scale.x, targetScale, motionRef.current ? 1 : 0.08));
-        material.color.setScalar(0.38 + depth * 0.62);
-        material.emissiveIntensity += ((0.004 + depth * 0.021) - material.emissiveIntensity) * 0.08;
+        const isHovered = hoverRef.current && index === focusRef.current && !travelRef.current;
+        material.color.setScalar(0.38 + depth * 0.62 + (isHovered ? 0.05 : 0));
+        material.emissiveIntensity += ((0.004 + depth * 0.021 + (isHovered ? 0.055 : 0)) - material.emissiveIntensity) * 0.12;
+        atmosphereMaterial.uniforms.uGlow.value += ((isHovered ? 1.55 : 1) - atmosphereMaterial.uniforms.uGlow.value) * 0.12;
       });
       system.updateMatrixWorld(true);
       if (travelRef.current && travelStart === null && !motionRef.current) {
