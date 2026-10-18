@@ -11,8 +11,8 @@ export default function ProjectLayout({
     <div className="min-h-screen bg-dark text-light overflow-x-hidden pt-20">
       <nav className="fixed w-full z-50 top-0 bg-dark/80 backdrop-blur-md border-b border-white/10 h-20 flex items-center">
         <div className="max-w-5xl mx-auto px-6 w-full flex items-center justify-between">
-          <Link href="/#projects" className="group flex items-center gap-2 text-sm font-bold tracking-widest uppercase text-slate-400 hover:text-white transition-colors">
-            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Portfolio
+          <Link href="/projects" className="group flex items-center gap-2 text-sm font-bold tracking-widest uppercase text-slate-400 hover:text-white transition-colors">
+            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Projects
           </Link>
           <div className="text-xl font-heading font-bold tracking-tighter text-white">
             NI<span className="text-primary">.</span>
