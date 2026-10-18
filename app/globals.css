@@ -254,7 +254,17 @@ html[data-space-slide="forward"]::view-transition-old(root) { animation-name: sl
 html[data-space-slide="forward"]::view-transition-new(root) { animation-name: slide-page-from-right; }
 html[data-space-slide="backward"]::view-transition-old(root) { animation-name: slide-page-right; }
 html[data-space-slide="backward"]::view-transition-new(root) { animation-name: slide-page-from-left; }
+html[data-space-slide="returnPlanet"]::view-transition-old(root) {
+  z-index: 2;
+  animation: 850ms cubic-bezier(.2,.7,.2,1) both detail-recede;
+}
+html[data-space-slide="returnPlanet"]::view-transition-new(root) {
+  z-index: 1;
+  animation: 850ms cubic-bezier(.2,.7,.2,1) both scene-zoom-out;
+}
 @keyframes slide-page-left { to { transform: translateX(-100%); } }
 @keyframes slide-page-from-right { from { transform: translateX(100%); } }
 @keyframes slide-page-right { to { transform: translateX(100%); } }
 @keyframes slide-page-from-left { from { transform: translateX(-100%); } }
+@keyframes detail-recede { to { opacity: 0; transform: scale(.7); } }
+@keyframes scene-zoom-out { from { opacity: .6; transform: scale(1.45); } }

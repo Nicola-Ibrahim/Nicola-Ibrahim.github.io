@@ -20,6 +20,9 @@ const palette: Record<SpaceDestination['kind'], [number[], number[], number[]]> 
   desert: [[62, 37, 41], [153, 87, 66], [232, 175, 119]],
 };
 
+const planetCanvasCache = new Map<SpaceDestination['kind'], HTMLCanvasElement>();
+let oceanCloudCanvas: HTMLCanvasElement | null = null;
+
 function noise(x: number, y: number) {
   const value = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
   return value - Math.floor(value);
@@ -40,6 +43,13 @@ function smoothNoise(x: number, y: number, periodX?: number) {
 }
 
 function planetTexture(kind: SpaceDestination['kind']) {
+  const cached = planetCanvasCache.get(kind);
+  if (cached) {
+    const texture = new THREE.CanvasTexture(cached);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 4;
+    return texture;
+  }
   const canvas = document.createElement('canvas');
   canvas.width = 768;
   canvas.height = 384;
@@ -97,6 +107,7 @@ function planetTexture(kind: SpaceDestination['kind']) {
     }
   }
   context.putImageData(image, 0, 0);
+  planetCanvasCache.set(kind, canvas);
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.anisotropy = 4;
@@ -104,6 +115,11 @@ function planetTexture(kind: SpaceDestination['kind']) {
 }
 
 function oceanCloudTexture() {
+  if (oceanCloudCanvas) {
+    const texture = new THREE.CanvasTexture(oceanCloudCanvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return texture;
+  }
   const canvas = document.createElement('canvas');
   canvas.width = 512;
   canvas.height = 256;
@@ -123,6 +139,7 @@ function oceanCloudTexture() {
     }
   }
   context.putImageData(image, 0, 0);
+  oceanCloudCanvas = canvas;
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
   return texture;
@@ -263,6 +280,7 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
     let width = 1;
     let height = 1;
     let frame = 0;
+    let firstFrameRendered = false;
     let previousTime = 0;
     let baseCameraZ = 14.3;
     let orbitRadiusX = 4.8;
@@ -348,8 +366,11 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
         );
       }
       renderer.render(scene, camera);
+      if (!firstFrameRendered) {
+        firstFrameRendered = true;
+        onReady();
+      }
     };
-    onReady();
     frame = requestAnimationFrame(animate);
 
     return () => {

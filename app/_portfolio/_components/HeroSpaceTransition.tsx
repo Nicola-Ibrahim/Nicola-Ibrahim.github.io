@@ -3,9 +3,9 @@
 import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-type Direction = 'forward' | 'backward';
+type Direction = 'forward' | 'backward' | 'returnPlanet';
 type TransitionContext = { start: (destination: string, direction: Direction) => void };
-type PendingNavigation = { destination: string; resolve: () => void; timeout: ReturnType<typeof setTimeout> };
+type PendingNavigation = { pathname: string; resolve: () => void; timeout: ReturnType<typeof setTimeout> };
 
 const Context = createContext<TransitionContext | null>(null);
 
@@ -23,7 +23,7 @@ export default function HeroSpaceTransitionProvider({ children }: { children: Re
 
   useEffect(() => {
     const pending = pendingRef.current;
-    if (pending && pathname === pending.destination) {
+    if (pending && pathname === pending.pathname) {
       clearTimeout(pending.timeout);
       pendingRef.current = null;
       pending.resolve();
@@ -49,7 +49,11 @@ export default function HeroSpaceTransitionProvider({ children }: { children: Re
         pendingRef.current = null;
         resolve();
       }, 6000);
-      pendingRef.current = { destination, resolve, timeout };
+      pendingRef.current = {
+        pathname: new URL(destination, window.location.origin).pathname,
+        resolve,
+        timeout,
+      };
       router.push(destination);
     }));
     void transition.finished.finally(() => {

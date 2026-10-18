@@ -20,6 +20,7 @@ export default function SpaceExplorer() {
   const ignoreClickRef = useRef(false);
   const travelTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [focusedIndex, setFocusedIndex] = useState(0);
+  const [initialFocusReady, setInitialFocusReady] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [travellingTo, setTravellingTo] = useState<string | null>(null);
   const [planetHovered, setPlanetHovered] = useState(false);
@@ -41,6 +42,7 @@ export default function SpaceExplorer() {
     const requested = new URLSearchParams(window.location.search).get('planet');
     const index = destinations.findIndex(destination => destination.id === requested);
     if (index >= 0) setFocusedIndex(index);
+    setInitialFocusReady(true);
   }, []);
 
   useEffect(() => {
@@ -67,7 +69,9 @@ export default function SpaceExplorer() {
     return () => scene.removeEventListener('wheel', handleWheel);
   }, [travellingTo]);
 
-  const handleSceneReady = useCallback(() => setSceneReady(true), []);
+  const handleSceneReady = useCallback(() => {
+    setSceneReady(true);
+  }, []);
   const focused = destinations[focusedIndex];
 
   const travel = (destination: SpaceDestination) => {
@@ -142,23 +146,23 @@ export default function SpaceExplorer() {
         <Link href="/" className="return-link" data-scene-control onClick={returnHome}><span aria-hidden="true">←</span> Back to home</Link>
         <div className={styles.spaceBackdrop} style={{ transform: `scale(1.08) translateX(${Math.sin(focusedIndex * Math.PI * 2 / destinations.length) * 2.8}%)` }} aria-hidden="true" />
         <div className={styles.sceneGlow} aria-hidden="true" />
-        {!sceneReady && <div className={styles.fallbackPlanet} style={{ '--fallback-color': focused.color, '--fallback-dark': focused.dark } as CSSProperties} aria-hidden="true" />}
-        <SpaceSceneCanvas focusedIndex={focusedIndex} dragOffset={dragOffset} travellingTo={travellingTo} hovered={planetHovered} reducedMotion={reducedMotion} onReady={handleSceneReady} />
-        <div className={styles.mapTop}><span className={styles.signal} /> THE UNIVERSE <span className={styles.coordinates}>DRAG OR SWIPE · 0{focusedIndex + 1} / 0{destinations.length}</span></div>
-        <button type="button" className={styles.planetLink} onClick={() => travel(focused)} onPointerEnter={() => setPlanetHovered(true)} onPointerLeave={() => setPlanetHovered(false)} onFocus={() => setPlanetHovered(true)} onBlur={() => setPlanetHovered(false)} aria-label={`Explore ${focused.title}: ${focused.detail}`} disabled={Boolean(travellingTo)}>
+        {initialFocusReady && !sceneReady && <div className={styles.fallbackPlanet} style={{ '--fallback-color': focused.color, '--fallback-dark': focused.dark } as CSSProperties} aria-hidden="true" />}
+        {initialFocusReady && <SpaceSceneCanvas focusedIndex={focusedIndex} dragOffset={dragOffset} travellingTo={travellingTo} hovered={planetHovered} reducedMotion={reducedMotion} onReady={handleSceneReady} />}
+        {initialFocusReady && <div className={styles.mapTop}><span className={styles.signal} /> THE UNIVERSE <span className={styles.coordinates}>DRAG OR SWIPE · 0{focusedIndex + 1} / 0{destinations.length}</span></div>}
+        {initialFocusReady && <button type="button" className={styles.planetLink} onClick={() => travel(focused)} onPointerEnter={() => setPlanetHovered(true)} onPointerLeave={() => setPlanetHovered(false)} onFocus={() => setPlanetHovered(true)} onBlur={() => setPlanetHovered(false)} aria-label={`Explore ${focused.title}: ${focused.detail}`} disabled={Boolean(travellingTo)}>
           <span className={styles.worldCaption}>
             <span className={styles.worldIndex}>WORLD 0{focusedIndex + 1} / 0{destinations.length}</span>
             <strong>{focused.title}</strong>
             <span className={styles.worldDetail}>{focused.detail}</span>
           </span>
-        </button>
-        <div className={styles.sceneControls} data-scene-control>
+        </button>}
+        {initialFocusReady && <div className={styles.sceneControls} data-scene-control>
           <button type="button" className={styles.arrowButton} onClick={() => moveTo(focusedIndex - 1)} disabled={Boolean(travellingTo)} aria-label="Previous planet">←</button>
           <div className={styles.progress} aria-label={`Planet ${focusedIndex + 1} of ${destinations.length}`}>
             {destinations.map((destination, index) => <button key={destination.id} type="button" className={index === focusedIndex ? styles.currentDot : styles.dot} onClick={() => moveTo(index)} aria-label={`Show ${destination.title}`} aria-current={index === focusedIndex ? 'step' : undefined} />)}
           </div>
           <button type="button" className={styles.arrowButton} onClick={() => moveTo(focusedIndex + 1)} disabled={Boolean(travellingTo)} aria-label="Next planet">→</button>
-        </div>
+        </div>}
       </div>
       <FlightVeil active={Boolean(travellingTo)} />
     </div>
