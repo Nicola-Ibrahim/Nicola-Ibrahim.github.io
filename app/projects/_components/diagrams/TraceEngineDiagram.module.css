@@ -1,0 +1,184 @@
+.workflow {
+  width: 100%;
+  color: #eef6f7;
+  font-family: var(--font-inter), sans-serif;
+}
+
+.heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 12px 22px;
+  border-bottom: 1px solid rgba(149, 190, 198, 0.2);
+}
+
+.heading h3 {
+  margin: 8px 0 0;
+  color: #f3fbfb;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+
+.eyebrow,
+.number,
+.tools,
+.visualLabel,
+.example {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #63d9d0;
+  text-transform: uppercase;
+}
+
+.tools {
+  margin: 0;
+  color: #91a8b5;
+  white-space: nowrap;
+}
+
+.flow {
+  display: grid;
+  grid-template-columns: minmax(135px, 1fr) 24px minmax(0, 2.6fr) 24px minmax(135px, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 28px 0 8px;
+}
+
+.side,
+.solver {
+  min-width: 0;
+  border: 1px solid rgba(149, 190, 198, 0.22);
+  border-radius: 10px;
+  background: #101923;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  min-height: 248px;
+  padding: 20px 16px;
+}
+
+.number { color: #63d9d0; text-transform: uppercase; }
+
+.side h4,
+.solver h4 {
+  margin: 16px 0 0;
+  color: #f1f8f8;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.side p {
+  margin: 12px 0 20px;
+  color: #afc1ca;
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.example {
+  display: block;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(149, 190, 198, 0.16);
+  color: #87a5af;
+  letter-spacing: 0;
+}
+
+.connector {
+  position: relative;
+  height: 1px;
+  background: #7bbec1;
+}
+
+.connector::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  border-right: 1px solid #7bbec1;
+  border-top: 1px solid #7bbec1;
+  transform: rotate(45deg);
+}
+
+.solver {
+  padding: 20px;
+  border-color: rgba(88, 210, 202, 0.45);
+  background: #10202a;
+}
+
+.solverHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.solver h4 { margin-top: 7px; }
+.visualLabel { color: #7eabb2; font-size: 0.54rem; text-transform: uppercase; text-align: right; }
+
+.searchField {
+  overflow: hidden;
+  border: 1px solid rgba(149, 190, 198, 0.18);
+  border-radius: 6px;
+  background: #0b1520;
+}
+
+.searchField svg { display: block; width: 100%; height: auto; }
+.point { fill: #53747f; opacity: 0.7; }
+.routeBase { fill: none; stroke: #55c7bf; stroke-width: 2; opacity: 0.65; }
+.routeMotion { fill: none; stroke: #a8fff4; stroke-width: 2.5; stroke-dasharray: 7 18; animation: search 5s linear infinite; }
+.startPoint { fill: #0b1520; stroke: #8bb7bd; stroke-width: 2; }
+.targetRing { fill: rgba(88, 210, 202, 0.12); stroke: #75e7da; stroke-width: 1.5; }
+.targetPoint { fill: #a8fff4; }
+
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  margin-top: 16px;
+  color: #d7eeee;
+  font-size: 0.66rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.steps span:nth-child(even) { color: #65c5c0; }
+.refine { margin: 9px 0 0; color: #8eabb4; font-size: 0.65rem; line-height: 1.4; }
+
+@keyframes search { to { stroke-dashoffset: -50; } }
+
+@media (max-width: 800px) {
+  .heading { align-items: start; flex-direction: column; gap: 8px; }
+  .flow { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 20px; }
+  .side { min-height: 0; padding: 16px; }
+  .side h4 { margin-top: 7px; }
+  .side p { margin-bottom: 12px; }
+  .example { margin-top: 0; padding-top: 10px; }
+  .connector { width: 1px; height: 24px; justify-self: center; }
+  .connector::after { right: -4px; top: auto; bottom: 0; transform: rotate(135deg); }
+  .solver { padding: 16px; }
+}
+
+@media (max-width: 420px) {
+  .visualLabel { display: none; }
+  .steps { flex-wrap: wrap; justify-content: start; row-gap: 3px; white-space: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .routeMotion { animation: none; display: none; }
+}

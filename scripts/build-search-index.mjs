@@ -2,10 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import removeMarkdown from 'remove-markdown';
-
-
-
-
 // Constants
 const CONTENT_PATH = path.join(process.cwd(), 'app/roadmap/_content');
 const OUTPUT_PATH = path.join(process.cwd(), 'public/search-index.json');
@@ -15,8 +11,7 @@ const MAX_INDEX_SIZE = 512000; // 500KB
  * Strips MDX character-for-character into clean prose for search ingestion.
  */
 function stripMdx(mdx) {
-  // 1. Remove Frontmatter
-  let content = mdx.replace(/^---[\s\S]*?---/, '');
+  let content = mdx;
   
   // 2. Remove Imports & Exports
   content = content
@@ -46,18 +41,17 @@ function generateSearchIndex() {
   const index = [];
   
   if (!fs.existsSync(CONTENT_PATH)) {
-    console.warn('Search Indexer: CONTENT_PATH not found:', CONTENT_PATH);
-    return index;
+    throw new Error(`Search content directory not found: ${CONTENT_PATH}`);
   }
 
   // Get all track directories
   const tracks = fs.readdirSync(CONTENT_PATH).filter(f => 
     fs.lstatSync(path.join(CONTENT_PATH, f)).isDirectory() && f !== '_components'
-  );
+  ).sort();
 
   for (const trackId of tracks) {
     const trackDirPath = path.join(CONTENT_PATH, trackId);
-    const trackItems = fs.readdirSync(trackDirPath);
+    const trackItems = fs.readdirSync(trackDirPath).sort();
 
     // CASE 0: Track Overview (index.mdx)
     const trackIndexFile = path.join(trackDirPath, 'index.mdx');
@@ -82,7 +76,7 @@ function generateSearchIndex() {
 
       if (isDir) {
         // CASE 1: Fragmented Category (Folder with topic files)
-        const topicFiles = fs.readdirSync(itemPath).filter(f => f.endsWith('.mdx') && f !== 'index.mdx');
+        const topicFiles = fs.readdirSync(itemPath).filter(f => f.endsWith('.mdx') && f !== 'index.mdx').sort();
         for (const topicFile of topicFiles) {
           const topicPath = path.join(itemPath, topicFile);
           const topicId = topicFile.replace('.mdx', '');

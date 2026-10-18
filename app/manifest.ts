@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Nicola Ibrahim | Portfolio',
     short_name: 'N. Ibrahim',
-    description: 'Personal portfolio of Nicola Ibrahim, showcasing high-performance backend, AI projects, and interactive technical roadmaps.',
+    description: "Nicola Ibrahim's portfolio: backend projects, data and ML work, and the tools behind them.",
     start_url: '/',
     display: 'standalone',
     background_color: '#0a0a0a',

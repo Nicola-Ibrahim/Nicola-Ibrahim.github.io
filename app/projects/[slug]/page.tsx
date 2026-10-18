@@ -2,15 +2,12 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getProjectContent, getAllProjectSlugs } from '../_lib/mdx';
-import { Badge } from '../_components/mdx/Badge';
 import { ArchitectureDiagram } from '../_components/mdx/ArchitectureDiagram';
 import TraceEngineDiagram from '../_components/diagrams/TraceEngineDiagram';
 import BotSystemDiagram from '../_components/diagrams/BotSystemDiagram';
 import IAMServiceDiagram from '../_components/diagrams/IAMServiceDiagram';
 
-// Component registry for MDX
 const components = {
-  Badge,
   ArchitectureDiagram,
   TraceEngineDiagram,
   BotSystemDiagram,
@@ -37,7 +34,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const project = await getProjectContent(slug);
   if (!project) return { title: 'Project Not Found' };
 
-  const title = `${project.frontmatter.title} | Engineering Case Study`;
+  const title = `${project.frontmatter.title} | Project`;
   const description = project.frontmatter.description;
 
   return {
@@ -72,7 +69,7 @@ export default async function ProjectCaseStudyPage({ params }: { params: { slug:
     <article className="max-w-none">
       <header className="mb-20">
         <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
-          Case Study: {project.frontmatter.category}
+          {project.frontmatter.category}
         </span>
         <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter leading-[1.1]">
           {project.frontmatter.title}
@@ -80,16 +77,6 @@ export default async function ProjectCaseStudyPage({ params }: { params: { slug:
         <p className="text-xl md:text-2xl text-gray-400 max-w-3xl font-light leading-relaxed mb-12">
           {project.frontmatter.description}
         </p>
-        <div className="flex flex-wrap gap-4 items-center">
-          <div className="flex items-center gap-3 pr-6 border-r border-white/10">
-            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">NI</div>
-            <div>
-              <p className="text-xs font-bold text-white uppercase tracking-wider">Nicola Ibrahim</p>
-              <p className="text-[10px] text-gray-500 uppercase">Backend Engineer</p>
-            </div>
-          </div>
-          <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">{project.frontmatter.date}</p>
-        </div>
       </header>
 
       <div className="max-w-none">

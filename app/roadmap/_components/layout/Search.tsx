@@ -169,7 +169,7 @@ export function Search() {
     setResults(matches);
     setIsApproximate(approx);
     setActiveIndex(0); // Reset selection to top on new query
-  }, [query]);
+  }, [query, searchIndex]);
 
 
   // Navigate using keys
@@ -195,9 +195,11 @@ export function Search() {
   return (
     <>
       {/* Search Trigger (Top Bar Input Style) */}
-      <div 
+      <button
+        type="button"
         onClick={() => setIsOpen(true)}
-        className="flex-1 max-w-2xl mx-auto w-full group/trigger"
+        aria-label="Search the roadmaps"
+        className="flex-1 max-w-2xl mx-auto w-full group/trigger text-left"
       >
         <div className="relative cursor-text">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -210,7 +212,7 @@ export function Search() {
             </div>
           </div>
         </div>
-      </div>
+      </button>
 
       <AnimatePresence>
         {isOpen && (
