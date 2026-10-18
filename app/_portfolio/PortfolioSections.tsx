@@ -31,9 +31,9 @@ export function ServicesSection() {
     <section id="services" className="py-24 bg-grid-dark scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-14">
-          <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">What I do</span>
+          <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">Areas of work</span>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6">Specialized Services &amp; Solutions</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">Work across backend development, data integration, and deployment, from the first API to a running service.</p>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">The work covers backend development, data integration, and deployment, from the first API to a running service.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="glass-card p-8">
@@ -117,7 +117,7 @@ export function SkillsSection() {
   return (
     <section id="tools" className="py-24 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <h1 className="text-3xl md:text-5xl font-bold mb-4">Tools I work with</h1>
+        <h1 className="text-3xl md:text-5xl font-bold mb-4">Tools and practices</h1>
         <p className="text-gray-400 max-w-2xl mb-12">Tools used across backend, data, frontend, and deployment projects.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillGroups.map(group => (

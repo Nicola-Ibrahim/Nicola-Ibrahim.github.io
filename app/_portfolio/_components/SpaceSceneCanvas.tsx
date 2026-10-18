@@ -277,10 +277,10 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
       height = container.clientHeight;
       if (!width || !height) return;
       camera.aspect = width / height;
-      baseCameraZ = width < 640 ? 14.5 : 14.3;
+      baseCameraZ = width < 640 ? 18.5 : 14.3;
       orbitRadiusX = width < 640 ? 2.65 : 4.8;
       orbitRadiusZ = width < 640 ? 1.8 : 2.2;
-      orbitY = width < 640 ? 1.32 : 0.9;
+      orbitY = width < 640 ? 1.72 : 0.9;
       if (travelStart === null) camera.position.set(0, 0, baseCameraZ);
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
@@ -314,7 +314,9 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
           sphere.rotation.y += delta * (index % 2 ? 0.11 : 0.085);
           if (cloud) cloud.rotation.y += delta * 0.035;
         }
-        const targetScale = 0.44 + 0.56 * Math.pow(depth, 1.5);
+        const targetScale = width < 640
+          ? 0.05 + 0.95 * Math.pow(depth, 1.5)
+          : 0.44 + 0.56 * Math.pow(depth, 1.5);
         group.scale.setScalar(THREE.MathUtils.lerp(group.scale.x, targetScale, motionRef.current ? 1 : 0.08));
         material.color.setScalar(0.38 + depth * 0.62);
         material.emissiveIntensity += ((0.004 + depth * 0.021) - material.emissiveIntensity) * 0.08;
