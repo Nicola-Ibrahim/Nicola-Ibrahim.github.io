@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import PortfolioSubpage from '../_portfolio/_components/PortfolioSubpage';
-import { ContactSection } from '../_portfolio/PortfolioSections';
+import PortfolioSubpage from '../_shared/PortfolioSubpage';
+import { ContactSection } from './_components/ContactSection';
 
 export const metadata: Metadata = {
   title: 'Contact',

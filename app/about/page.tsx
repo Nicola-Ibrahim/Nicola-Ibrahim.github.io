@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import PortfolioSubpage from '../_portfolio/_components/PortfolioSubpage';
-import { AboutSection, EducationSection } from '../_portfolio/PortfolioSections';
+import PortfolioSubpage from '../_shared/PortfolioSubpage';
+import { AboutSection, EducationSection } from './_components/AboutSections';
 
 export const metadata: Metadata = {
   title: 'About',

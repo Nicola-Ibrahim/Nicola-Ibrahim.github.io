@@ -2,11 +2,11 @@
 
 import { type MouseEvent } from 'react';
 import Link from 'next/link';
-import BlackholeCanvas from './_components/BlackholeCanvas';
-import { useHeroSpaceTransition } from './_components/HeroSpaceTransition';
-import styles from './PortfolioPage.module.css';
+import BlackholeCanvas from './BlackholeCanvas';
+import { useHeroSpaceTransition } from '../_shared/HeroSpaceTransition';
+import styles from './HomePage.module.css';
 
-export default function PortfolioPage() {
+export default function HomePage() {
   const { start } = useHeroSpaceTransition();
 
   const enterSpace = (event: MouseEvent<HTMLAnchorElement>) => {

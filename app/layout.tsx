@@ -47,8 +47,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { ThemeProvider } from '@/components/ui/ThemeProvider';
-import HeroSpaceTransitionProvider from './_portfolio/_components/HeroSpaceTransition';
+import HeroSpaceTransitionProvider from './_shared/HeroSpaceTransition';
 
 export default function RootLayout({
   children,
@@ -56,15 +55,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`dark ${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
-      <body className="bg-dark text-light font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
-        <ThemeProvider>
-          <HeroSpaceTransitionProvider>{children}</HeroSpaceTransitionProvider>
-        </ThemeProvider>
+      <body className="bg-dark text-light font-sans antialiased overflow-x-hidden">
+        <HeroSpaceTransitionProvider>{children}</HeroSpaceTransitionProvider>
       </body>
     </html>
   );

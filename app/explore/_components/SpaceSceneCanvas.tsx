@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { destinations, type SpaceDestination } from './spaceDestinations';
+import { destinations, type SpaceDestination } from '../../_shared/spaceDestinations';
 
 type Props = {
   focusedIndex: number;

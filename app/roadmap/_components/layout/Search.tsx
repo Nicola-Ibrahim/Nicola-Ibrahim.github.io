@@ -206,7 +206,7 @@ export function Search() {
             <SearchIcon className="h-4 w-4 text-slate-400 group-hover/trigger:text-teal-600 transition-colors" />
           </div>
           <div className="w-full pl-12 pr-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl text-sm font-medium text-slate-400 dark:text-slate-500 transition-all group-hover/trigger:border-teal-500/50 flex items-center justify-between">
-            <span>Explore the documentation...</span>
+            <span>Search the roadmaps...</span>
             <div className="hidden sm:flex items-center gap-1 px-2 py-1 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-[10px] font-black uppercase tracking-tighter opacity-60 group-hover/trigger:opacity-100 transition-opacity">
               <Command className="w-3 h-3" /> K
             </div>

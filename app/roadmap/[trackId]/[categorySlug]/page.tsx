@@ -110,7 +110,7 @@ export async function generateStaticParams() {
   return params;
 }
 
-export async function generateMetadata({ params }: { params: { trackId: string; categorySlug: string } }): Promise<Metadata | null> {
+export async function generateMetadata({ params }: { params: Promise<{ trackId: string; categorySlug: string }> }): Promise<Metadata | null> {
   const { trackId, categorySlug } = await params;
   const track = getTrackMeta(trackId);
   if (!track) return { title: 'Track Not Found' };
@@ -119,12 +119,12 @@ export async function generateMetadata({ params }: { params: { trackId: string; 
   if (!category) return { title: 'Module Not Found' };
 
   return {
-    title: `${category.title.split(':')[1]?.trim() || category.title} - ${track.title.split(' ')[0]} Track | Nicola Ibrahim Academy`,
-    description: `Deep dive into ${category.title} within the ${track.title}.`,
+    title: `${category.title.split(':')[1]?.trim() || category.title} | ${track.title}`,
+    description: `Study notes on ${category.title} in the ${track.title} track.`,
   };
 }
 
-export default async function ModulePage({ params }: { params: { trackId: string; categorySlug: string } }) {
+export default async function ModulePage({ params }: { params: Promise<{ trackId: string; categorySlug: string }> }) {
   const { trackId, categorySlug } = await params;
   const currentRoadmap = getTrackMeta(trackId);
 
@@ -156,13 +156,13 @@ export default async function ModulePage({ params }: { params: { trackId: string
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
           <Link href="/" className="flex items-center gap-1.5 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            <Home className="w-3.5 h-3.5" /> Academy
+            <Home className="w-3.5 h-3.5" /> Home
           </Link>
           <ChevronRight className="w-3 h-3 opacity-30" />
-          <Link href="/roadmap" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Documentation</Link>
+          <Link href="/roadmap" className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Roadmaps</Link>
           <ChevronRight className="w-3 h-3 opacity-30" />
           <Link href={`/roadmap/${trackId}`} className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            {currentRoadmap.title.split(' ')[0]} Track
+            {currentRoadmap.title}
           </Link>
           <ChevronRight className="w-3 h-3 opacity-30" />
           <span className="text-teal-600 dark:text-teal-400">{categoryMeta.title.split(':')[1]?.trim() || categoryMeta.title}</span>

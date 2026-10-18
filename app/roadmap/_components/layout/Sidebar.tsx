@@ -22,7 +22,26 @@ export function Sidebar({
   const activeCategory = segments[2]; // /roadmap/[trackId]/[categorySlug]
 
   return (
-    <aside className="w-[280px] hidden lg:block sticky top-28 self-start h-[calc(100vh-120px)] overflow-y-auto custom-scrollbar">
+    <>
+      <nav aria-label="Roadmap navigation" className="lg:hidden w-full mb-6">
+        <details className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03]">
+          <summary className="cursor-pointer px-4 py-3 font-semibold text-slate-900 dark:text-white">Browse tracks and chapters</summary>
+          <div className="border-t border-slate-200 dark:border-white/10 px-4 py-3 max-h-[55vh] overflow-y-auto">
+            <Link href="/roadmap" className="block py-2 text-sm text-teal-700 dark:text-teal-400">All tracks</Link>
+            {roadmaps.map(track => (
+              <div key={track.id} className="border-t border-slate-100 dark:border-white/10 py-2">
+                <Link href={`/roadmap/${track.id}`} aria-current={activeTab === track.id && !activeCategory ? 'page' : undefined} className="block py-1 font-medium text-sm text-slate-900 dark:text-white">{track.title}</Link>
+                {activeTab === track.id && track.categories.map(category => (
+                  <Link key={category.slug} href={`/roadmap/${track.id}/${category.slug}`} aria-current={activeCategory === category.slug ? 'page' : undefined} className="block pl-4 py-1.5 text-sm text-slate-600 dark:text-slate-400 aria-[current=page]:text-teal-700 dark:aria-[current=page]:text-teal-400">
+                    {category.title}
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+        </details>
+      </nav>
+      <aside className="w-[280px] hidden lg:block sticky top-28 self-start h-[calc(100vh-120px)] overflow-y-auto custom-scrollbar">
       {/* Sidebar Navigation Context */}
       <div className="mb-10 px-4">
         <Link
@@ -113,6 +132,7 @@ export function Sidebar({
           </React.Fragment>
         ))}
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

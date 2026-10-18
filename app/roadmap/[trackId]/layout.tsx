@@ -14,7 +14,7 @@ export default async function TrackLayout({
   const roadmaps = Object.values(roadmapsData);
 
   return (
-    <div className="flex gap-8 xl:gap-12">
+    <div className="flex flex-col lg:flex-row gap-8 xl:gap-12">
       {/* 1. LEFT SIDEBAR (Track Selector) */}
       <Sidebar
         roadmaps={roadmaps}

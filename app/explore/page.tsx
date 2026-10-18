@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import SpaceExplorer from '../_portfolio/_components/SpaceExplorer';
+import SpaceExplorer from './_components/SpaceExplorer';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {

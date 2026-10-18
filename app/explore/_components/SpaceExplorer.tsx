@@ -4,9 +4,9 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Mous
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import FlightVeil from './FlightVeil';
-import { useHeroSpaceTransition } from './HeroSpaceTransition';
+import { useHeroSpaceTransition } from '../../_shared/HeroSpaceTransition';
 import SpaceSceneCanvas from './SpaceSceneCanvas';
-import { destinations, type SpaceDestination } from './spaceDestinations';
+import { destinations, type SpaceDestination } from '../../_shared/spaceDestinations';
 import styles from './SpaceExplorer.module.css';
 
 const wrapIndex = (index: number) => (index + destinations.length) % destinations.length;

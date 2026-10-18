@@ -1,7 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
 import { Terminal, Home, ChevronRight } from 'lucide-react';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { Search } from './Search';
 
 
@@ -43,16 +41,13 @@ export function Header() {
           <Search />
         </div>
 
-        {/* Right Side: Theme / Links */}
-        <div className="flex items-center gap-4 shrink-0">
+        <div className="hidden sm:flex items-center shrink-0">
           <Link 
             href="/roadmap"
-            className="hidden sm:inline-flex text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest hover:text-teal-600 transition-colors"
+            className="inline-flex text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest hover:text-teal-600 transition-colors"
           >
             All Tracks
           </Link>
-          <div className="h-6 w-[1px] bg-slate-200 dark:bg-white/10 hidden sm:block" />
-          <ThemeToggle />
         </div>
 
       </div>

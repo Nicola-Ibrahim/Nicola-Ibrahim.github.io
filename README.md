@@ -4,10 +4,12 @@ A single Next.js app exported as a static site for GitHub Pages. Use npm; `packa
 
 ## Project map
 
-- `app/_portfolio`: homepage and portfolio data
-- `app/projects`: project pages and MDX content
+- `app/_home`: homepage and black hole visual
+- `app/_shared`: navigation transitions and layout shared by portfolio pages
+- `app/explore`: planet navigation and scene
+- `app/about`, `app/contact`, `app/skills`: page content beside each route
+- `app/projects`: work page, project data, case studies, and MDX content
 - `app/roadmap`: roadmap pages, content, and search UI
-- `components/ui`: shared theme controls
 - `public`: static assets; the roadmap search index is generated locally
 - `scripts/build-search-index.mjs`: generates the search index for development and export
 
