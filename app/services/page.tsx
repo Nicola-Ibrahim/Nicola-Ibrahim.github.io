@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
-  return <PortfolioSubpage><ServicesSection /></PortfolioSubpage>;
+  return <PortfolioSubpage planetId="services"><ServicesSection /></PortfolioSubpage>;
 }

@@ -188,7 +188,6 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
     const disposables: Array<{ dispose: () => void }> = [];
     const planets = destinations.map((destination, index) => {
       const group = new THREE.Group();
-      group.position.set(index * 4.8, 0, destination.kind === 'gas' ? 0 : -0.45);
       system.add(group);
       const radius = destination.id === 'projects' ? 1.68 : 1.58;
       const geometry = new THREE.SphereGeometry(radius, 96, 72);
@@ -246,15 +245,6 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
       return { destination, group, sphere, material, cloud };
     });
 
-    const routePoints = Array.from({ length: 100 }, (_, index) => {
-      const x = (index / 99) * 4.8 * (destinations.length - 1);
-      return new THREE.Vector3(x, -2.45 + Math.sin(index * 0.12) * 0.12, -2.7);
-    });
-    const routeGeometry = new THREE.BufferGeometry().setFromPoints(routePoints);
-    const routeMaterial = new THREE.LineBasicMaterial({ color: 0x68d6d7, transparent: true, opacity: 0.14 });
-    system.add(new THREE.Line(routeGeometry, routeMaterial));
-    disposables.push(routeGeometry, routeMaterial);
-
     const starCount = container.clientWidth < 700 ? 90 : 160;
     const starPositions = new Float32Array(starCount * 3);
     for (let index = 0; index < starCount; index++) {
@@ -273,8 +263,13 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
     let height = 1;
     let frame = 0;
     let previousTime = 0;
-    let baseCameraZ = 10.8;
-    let spacing = 4.8;
+    let baseCameraZ = 12;
+    let orbitRadiusX = 4.8;
+    let orbitRadiusZ = 2.2;
+    let orbitY = 0.75;
+    let orbitPosition = focusRef.current;
+    const orbitStep = Math.PI * 2 / destinations.length;
+    const orbitTilt = THREE.MathUtils.degToRad(32);
     let travelStart: number | null = null;
     const travelOrigin = new THREE.Vector3();
     const travelTarget = new THREE.Vector3();
@@ -285,14 +280,12 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
       height = container.clientHeight;
       if (!width || !height) return;
       camera.aspect = width / height;
-      baseCameraZ = width < 640 ? 9.2 : 10.8;
-      spacing = width < 640 ? 3.1 : 4.8;
-      if (travelStart === null) camera.position.z = baseCameraZ;
+      baseCameraZ = width < 640 ? 12.8 : 12;
+      orbitRadiusX = width < 640 ? 2.65 : 4.8;
+      orbitRadiusZ = width < 640 ? 1.8 : 2.2;
+      orbitY = width < 640 ? 1.18 : 0.75;
+      if (travelStart === null) camera.position.set(0, 0, baseCameraZ);
       camera.updateProjectionMatrix();
-      planets.forEach(({ group, destination }, index) => group.position.set(index * spacing, width < 640 ? 0.75 : 0.25, destination.kind === 'gas' ? 0 : -0.45));
-      routePoints.forEach((point, index) => point.x = index / 99 * spacing * (destinations.length - 1));
-      routeGeometry.setFromPoints(routePoints);
-      camera.position.x = focusRef.current * spacing;
       renderer.setSize(width, height);
     };
     const observer = new ResizeObserver(resize);
@@ -305,20 +298,29 @@ export default function SpaceSceneCanvas({ focusedIndex, dragOffset, travellingT
       const delta = Math.min((time - previousTime) / 1000, 0.05);
       previousTime = time;
       if (!travelRef.current) {
-        const worldPerPixel = 2 * baseCameraZ * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) / height;
-        const desiredX = focusRef.current * spacing - dragRef.current * worldPerPixel;
-        camera.position.x += (desiredX - camera.position.x) * (motionRef.current ? 1 : 0.11);
+        const target = focusRef.current - dragRef.current / 260;
+        // Choose the short arc so moving between the first and last worlds is seamless.
+        const half = destinations.length / 2;
+        const difference = ((target - orbitPosition + half) % destinations.length + destinations.length) % destinations.length - half;
+        orbitPosition += difference * (motionRef.current ? 1 : 0.12);
       }
       planets.forEach(({ group, sphere, material, cloud }, index) => {
+        const angle = (index - orbitPosition) * orbitStep;
+        const depth = (Math.cos(angle) + 1) / 2;
+        group.position.set(
+          Math.sin(angle) * orbitRadiusX,
+          orbitY + (1 - Math.cos(angle)) * orbitRadiusZ * Math.sin(orbitTilt)
+            + (!motionRef.current && !reducedMotionQuery.matches ? Math.sin(time * 0.00055 + index * 1.7) * 0.045 : 0),
+          Math.cos(angle) * orbitRadiusZ * Math.cos(orbitTilt),
+        );
         if (!motionRef.current && !reducedMotionQuery.matches) {
           sphere.rotation.y += delta * (index % 2 ? 0.11 : 0.085);
           if (cloud) cloud.rotation.y += delta * 0.035;
-          group.position.y = (width < 640 ? 0.75 : 0.25) + Math.sin(time * 0.00055 + index * 1.7) * 0.045;
         }
-        const distance = Math.abs(index - focusRef.current);
-        const targetScale = distance === 0 ? 1 : distance === 1 ? 0.72 : 0.56;
+        const targetScale = 0.44 + 0.56 * Math.pow(depth, 1.5);
         group.scale.setScalar(THREE.MathUtils.lerp(group.scale.x, targetScale, motionRef.current ? 1 : 0.08));
-        material.emissiveIntensity += ((distance === 0 ? 0.025 : 0.005) - material.emissiveIntensity) * 0.08;
+        material.color.setScalar(0.38 + depth * 0.62);
+        material.emissiveIntensity += ((0.004 + depth * 0.021) - material.emissiveIntensity) * 0.08;
       });
       system.updateMatrixWorld(true);
       if (travelRef.current && travelStart === null && !motionRef.current) {

@@ -6,9 +6,13 @@ import SpaceSceneCanvas from './SpaceSceneCanvas';
 import { destinations, type SpaceDestination } from './spaceDestinations';
 import styles from './SpaceExplorer.module.css';
 
+const wrapIndex = (index: number) => (index + destinations.length) % destinations.length;
+
 export default function SpaceExplorer() {
   const router = useRouter();
+  const sceneRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ pointerId: number; startX: number; moved: boolean; target: HTMLElement | null }>({ pointerId: -1, startX: 0, moved: false, target: null });
+  const wheelRef = useRef({ lastTime: 0, distance: 0, consumed: false });
   const ignoreClickRef = useRef(false);
   const travelTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [focusedIndex, setFocusedIndex] = useState(0);
@@ -28,20 +32,51 @@ export default function SpaceExplorer() {
     };
   }, []);
 
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get('planet');
+    const index = destinations.findIndex(destination => destination.id === requested);
+    if (index >= 0) setFocusedIndex(index);
+  }, []);
+
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    const handleWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || Math.abs(event.deltaX) < 2) return;
+      event.preventDefault();
+      const gesture = wheelRef.current;
+      const now = performance.now();
+      if (now - gesture.lastTime > 300) {
+        gesture.distance = 0;
+        gesture.consumed = false;
+      }
+      gesture.lastTime = now;
+      if (gesture.consumed || travellingTo) return;
+      gesture.distance += event.deltaX * (event.deltaMode === WheelEvent.DOM_DELTA_LINE ? 16 : 1);
+      if (Math.abs(gesture.distance) < 65) return;
+      gesture.consumed = true;
+      setFocusedIndex(current => wrapIndex(current + (gesture.distance > 0 ? 1 : -1)));
+      setDragOffset(0);
+    };
+    scene.addEventListener('wheel', handleWheel, { passive: false });
+    return () => scene.removeEventListener('wheel', handleWheel);
+  }, [travellingTo]);
+
   const handleSceneReady = useCallback(() => setSceneReady(true), []);
   const focused = destinations[focusedIndex];
-  const previous = destinations[focusedIndex - 1];
-  const next = destinations[focusedIndex + 1];
 
   const travel = (destination: SpaceDestination) => {
     if (travellingTo || ignoreClickRef.current) return;
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('planet', destination.id);
+    window.history.replaceState(window.history.state, '', currentUrl.pathname + currentUrl.search + currentUrl.hash);
     setTravellingTo(destination.id);
     travelTimerRef.current = setTimeout(() => router.push(destination.path), reducedMotion ? 0 : sceneReady ? 1100 : 300);
   };
 
   const moveTo = (index: number) => {
     if (travellingTo) return;
-    setFocusedIndex(Math.max(0, Math.min(destinations.length - 1, index)));
+    setFocusedIndex(wrapIndex(index));
     setDragOffset(0);
   };
 
@@ -75,6 +110,7 @@ export default function SpaceExplorer() {
   return (
     <div className={`${styles.explorer} ${travellingTo ? styles.travelling : ''}`}>
       <div
+        ref={sceneRef}
         className={styles.scene}
         tabIndex={0}
         onKeyDown={event => {
@@ -89,27 +125,26 @@ export default function SpaceExplorer() {
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerEnd}
         onPointerCancel={handlePointerEnd}
-        aria-label="Planet navigation. Drag or swipe left and right, or use arrow keys, to choose a world. Press Enter or select the planet to explore it."
+        aria-label="Planet navigation. Drag, swipe on a touchpad or screen, or use arrow keys to choose a world. Press Enter or select the planet to explore it."
       >
-        <div className={styles.spaceBackdrop} style={{ transform: `scale(1.08) translateX(${(2 - focusedIndex) * 1.4}%)` }} aria-hidden="true" />
+        <div className={styles.spaceBackdrop} style={{ transform: `scale(1.08) translateX(${Math.sin(focusedIndex * Math.PI * 2 / destinations.length) * 2.8}%)` }} aria-hidden="true" />
         <div className={styles.sceneGlow} aria-hidden="true" />
         {!sceneReady && <div className={styles.fallbackPlanet} style={{ '--fallback-color': focused.color, '--fallback-dark': focused.dark } as CSSProperties} aria-hidden="true" />}
         <SpaceSceneCanvas focusedIndex={focusedIndex} dragOffset={dragOffset} travellingTo={travellingTo} reducedMotion={reducedMotion} onReady={handleSceneReady} />
-        <div className={styles.mapTop}><span className={styles.signal} /> THE UNIVERSE OF NICOLA IBRAHIM <span className={styles.coordinates}>DRAG TO EXPLORE · 0{focusedIndex + 1} / 0{destinations.length}</span></div>
+        <div className={styles.mapTop}><span className={styles.signal} /> THE UNIVERSE <span className={styles.coordinates}>DRAG OR SWIPE · 0{focusedIndex + 1} / 0{destinations.length}</span></div>
         <button type="button" className={styles.planetLink} onClick={() => travel(focused)} aria-label={`Explore ${focused.title}: ${focused.detail}`} disabled={Boolean(travellingTo)}>
           <span className={styles.worldCaption}>
             <span className={styles.worldIndex}>WORLD 0{focusedIndex + 1} / 0{destinations.length}</span>
             <strong>{focused.title}</strong>
             <span className={styles.worldDetail}>{focused.detail}</span>
-            <span className={styles.enterHint}>EXPLORE THIS WORLD <span aria-hidden="true">↗</span></span>
           </span>
         </button>
         <div className={styles.sceneControls} data-scene-control>
-          <button type="button" className={styles.arrowButton} onClick={() => moveTo(focusedIndex - 1)} disabled={!previous || Boolean(travellingTo)} aria-label="Previous planet">←</button>
+          <button type="button" className={styles.arrowButton} onClick={() => moveTo(focusedIndex - 1)} disabled={Boolean(travellingTo)} aria-label="Previous planet">←</button>
           <div className={styles.progress} aria-label={`Planet ${focusedIndex + 1} of ${destinations.length}`}>
             {destinations.map((destination, index) => <button key={destination.id} type="button" className={index === focusedIndex ? styles.currentDot : styles.dot} onClick={() => moveTo(index)} aria-label={`Show ${destination.title}`} aria-current={index === focusedIndex ? 'step' : undefined} />)}
           </div>
-          <button type="button" className={styles.arrowButton} onClick={() => moveTo(focusedIndex + 1)} disabled={!next || Boolean(travellingTo)} aria-label="Next planet">→</button>
+          <button type="button" className={styles.arrowButton} onClick={() => moveTo(focusedIndex + 1)} disabled={Boolean(travellingTo)} aria-label="Next planet">→</button>
         </div>
       </div>
     </div>
