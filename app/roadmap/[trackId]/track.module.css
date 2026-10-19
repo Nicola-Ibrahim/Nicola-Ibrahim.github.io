@@ -9,7 +9,7 @@
   align-items: center;
   gap: 9px;
   margin-bottom: 22px;
-  color: #94c9ca;
+  color: #b8d0cf;
   font-size: 13px;
   font-weight: 700;
   text-decoration: none;
@@ -17,7 +17,7 @@
 }
 
 .backLink:hover {
-  color: #b9fff3;
+  color: #e0eeeb;
 }
 
 .backLink:focus-visible, .chapterCard:focus-visible {
@@ -44,22 +44,22 @@
   border: 1px solid rgba(112,231,215,.4);
   border-radius: 19px;
   background: rgba(69,217,203,.1);
-  color: #8becdf;
+  color: #b6d3d0;
   box-shadow: 0 0 28px rgba(47,219,204,.1);
 }
 
 .eyebrow {
   margin: 0 0 13px;
-  color: #76ddd5;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .17em;
+  color: #b7cdcc;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
   text-transform: uppercase;
 }
 
 .trackHero h1 {
   margin: 0;
-  color: #f2fbfc;
+  color: #e8eef0;
   font-size: clamp(2rem,4vw,3.8rem);
   line-height: 1.1;
   letter-spacing: -.055em;
@@ -68,7 +68,7 @@
 .description {
   max-width: 680px;
   margin: 18px 0 0;
-  color: #b1c7d1;
+  color: #c4d0d5;
   font-size: 15px;
   line-height: 1.7;
 }
@@ -78,7 +78,7 @@
   align-items: center;
   gap: 9px;
   margin: 24px 0 0;
-  color: #a4e7de;
+  color: #bdd4d1;
   font-size: 12px;
   font-weight: 700;
 }
@@ -97,14 +97,14 @@
 
 .pathHeading h2 {
   margin: 0;
-  color: #f4f9fb;
+  color: #e8eef0;
   font-size: 29px;
   letter-spacing: -.04em;
 }
 
 .pathHeading > p {
   margin: 0 0 5px;
-  color: #9fb3be;
+  color: #b7c5cb;
   font-size: 13px;
 }
 
@@ -142,8 +142,8 @@
   border: 1px solid rgba(100,220,210,.4);
   border-radius: 50%;
   background: #1b3038;
-  box-shadow: 0 0 0 7px #23272f;
-  color: #9cf4e8;
+  box-shadow: 0 0 0 7px #20262e;
+  color: #c1d9d5;
   font: 700 11px ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 
@@ -157,7 +157,7 @@
   border: 1px solid rgba(164,213,223,.14);
   border-radius: 18px;
   background: #1a2933;
-  color: #f4f9fb;
+  color: #e5ecee;
   text-decoration: none;
   transition: transform .23s ease, border-color .23s ease, background .23s ease;
 }
@@ -176,7 +176,7 @@
   height: 41px;
   border-radius: 12px;
   background: rgba(103,226,216,.09);
-  color: #8eebdf;
+  color: #b5d3d0;
 }
 
 .chapterCopy {
@@ -194,7 +194,7 @@
 
 .chapterCopy > span {
   overflow: hidden;
-  color: #9fb4c0;
+  color: #b8c7cd;
   font-size: 12px;
   line-height: 1.5;
   text-overflow: ellipsis;
@@ -203,7 +203,7 @@
 
 .chapterMeta {
   flex: none;
-  color: #8eabb5;
+  color: #aebfc5;
   font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
@@ -211,7 +211,7 @@
 
 .chapterArrow {
   flex: none;
-  color: #77dcd2;
+  color: #b4d0cd;
 }
 
 @media (max-width: 680px) {
@@ -245,7 +245,7 @@
   .stepMarker {
     width: 33px;
     height: 33px;
-    box-shadow: 0 0 0 4px #23272f;
+    box-shadow: 0 0 0 4px #20262e;
     font-size: 10px;
   }
   .chapterCard {

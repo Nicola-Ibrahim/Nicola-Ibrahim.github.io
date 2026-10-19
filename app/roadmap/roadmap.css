@@ -1,3 +1,32 @@
+/* Reading colors are scoped to the roadmap and shared by MDX elements. */
+.roadmap-article {
+  --tw-prose-body: #c8d2d7;
+  --tw-prose-headings: #e8eef0;
+  --tw-prose-lead: #c8d2d7;
+  --tw-prose-links: #bdd5d3;
+  --tw-prose-bold: #d7e0e3;
+  --tw-prose-counters: #adbdc4;
+  --tw-prose-bullets: #91a3ab;
+  --tw-prose-hr: #45515b;
+  --tw-prose-quotes: #c8d2d7;
+  --tw-prose-quote-borders: #8faeae;
+  --tw-prose-captions: #aebdc4;
+  --tw-prose-code: #dce6e8;
+  --tw-prose-th-borders: #45515b;
+  --tw-prose-td-borders: #39454e;
+  color: #c8d2d7;
+}
+
+.roadmap-article a {
+  color: #bdd5d3;
+  text-decoration-color: #789795;
+  text-underline-offset: 3px;
+}
+
+.roadmap-article a:hover {
+  color: #e2eeed;
+}
+
 /* Code blocks in roadmap MDX */
 [data-rehype-pretty-code-figure] {
   @apply w-full;
@@ -19,7 +48,7 @@
 }
 
 [data-rehype-pretty-code-figure] [data-line]:hover {
-  @apply bg-slate-100/50 dark:bg-white/[0.03];
+  @apply bg-white/[0.035];
 }
 
 /* Line number gutter */
@@ -27,7 +56,7 @@
   counter-increment: line;
   content: counter(line);
   @apply sticky left-0 z-10 flex-shrink-0 inline-block w-12 text-left select-none;
-  @apply text-slate-400 dark:text-slate-500 font-mono text-[11px];
+  @apply text-slate-400 font-mono text-[11px];
   padding-left: 1rem;
   padding-right: 0.5rem;
   padding-top: 0.1rem;
@@ -39,7 +68,7 @@
 }
 
 html.dark [data-rehype-pretty-code-figure] [data-line]::before {
-  background-color: #0d1117;
+  background-color: #171e26;
 }
 
 html.dark [data-rehype-pretty-code-figure] [data-line]::after {
@@ -80,5 +109,5 @@ html.dark [data-rehype-pretty-code-figure] [data-line]::after {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-white/10 rounded-full hover:bg-slate-400 dark:hover:bg-white/20 transition-colors;
+  @apply rounded-full bg-white/10 transition-colors hover:bg-white/20;
 }

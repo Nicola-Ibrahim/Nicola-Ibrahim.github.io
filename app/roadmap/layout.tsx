@@ -13,7 +13,7 @@ export default async function RoadmapLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-white dark:bg-dark text-slate-900 dark:text-slate-200 font-sans selection:bg-teal-500/30 pb-20 transition-colors duration-500">
+    <div className="min-h-screen bg-[#20262e] pb-20 font-sans text-[#c8d2d7] selection:bg-[#a8c8c6]/25">
       <Header />
 
       {/* Main Content Container */}

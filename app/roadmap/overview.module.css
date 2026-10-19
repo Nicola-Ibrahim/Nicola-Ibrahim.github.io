@@ -39,17 +39,17 @@
   align-items: center;
   gap: 10px;
   margin: 0 0 20px;
-  color: #74e5dc;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .19em;
+  color: #b7cdcc;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
   text-transform: uppercase;
 }
 
 .hero h1 {
   max-width: 660px;
   margin: 0;
-  color: #f1fbff;
+  color: #e8eef0;
   font-size: clamp(2.7rem, 5vw, 5rem);
   line-height: 1.04;
   letter-spacing: -.065em;
@@ -57,13 +57,13 @@
 
 .hero h1 span {
   display: block;
-  color: #72ded5;
+  color: #e8eef0;
 }
 
 .intro {
   max-width: 550px;
   margin: 24px 0 0;
-  color: #abc2cf;
+  color: #c4d0d5;
   font-size: 1rem;
   line-height: 1.75;
 }
@@ -74,7 +74,7 @@
   align-items: center;
   gap: 10px 26px;
   margin-top: 34px;
-  color: #a8c2cd;
+  color: #b9c8ce;
   font-size: 12px;
 }
 
@@ -85,13 +85,13 @@
 }
 
 .heroStats strong {
-  color: #f2ffff;
+  color: #e8eef0;
   font-size: 21px;
   line-height: 1;
 }
 
 .heroStats svg {
-  color: #72ded5;
+  color: #a9c8c7;
 }
 
 .orbit {
@@ -200,19 +200,19 @@
 
 .sectionHeading .eyebrow {
   margin-bottom: 9px;
-  color: #68ccc5;
+  color: #a9c5c4;
 }
 
 .sectionHeading h2 {
   margin: 0;
-  color: #f4f8fb;
+  color: #e8eef0;
   font-size: clamp(1.7rem, 2.5vw, 2.5rem);
   letter-spacing: -.045em;
 }
 
 .sectionHeading > p {
   margin: 0 0 5px;
-  color: #95aab9;
+  color: #afbec5;
   font-size: 14px;
 }
 
@@ -232,7 +232,7 @@
   border: 1px solid rgba(165,211,226,.14);
   border-radius: 22px;
   background: linear-gradient(150deg, #1a2834, #111c27 72%);
-  color: #f2f8fa;
+  color: #e5ecee;
   text-decoration: none;
   transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
@@ -275,11 +275,11 @@
   border: 1px solid rgba(114,226,215,.24);
   border-radius: 14px;
   background: rgba(69,217,203,.09);
-  color: #8be9e0;
+  color: #b1d0ce;
 }
 
 .trackNumber {
-  color: #8399a9;
+  color: #aab9c1;
   font: 700 10px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
   letter-spacing: .14em;
 }
@@ -302,7 +302,7 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  color: #a2b6c3;
+  color: #b9c8ce;
   font-size: 13px;
   line-height: 1.6;
 }
@@ -311,7 +311,7 @@
   margin-top: auto;
   padding-top: 14px;
   border-top: 1px solid rgba(161,211,220,.12);
-  color: #9dcac9;
+  color: #b9d1ce;
   font-size: 12px;
   font-weight: 700;
 }

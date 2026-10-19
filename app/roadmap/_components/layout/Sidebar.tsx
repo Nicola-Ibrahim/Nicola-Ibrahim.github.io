@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { RoadmapData } from '../../_lib/mdx';
 import { getIcon } from '../../_lib/icon-registry';
-import { ChevronRight, Sparkles, ArrowLeft, Menu } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 interface SidebarProps {
@@ -24,15 +24,15 @@ export function Sidebar({
   return (
     <>
       <nav aria-label="Roadmap navigation" className="lg:hidden w-full mb-6">
-        <details className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03]">
-          <summary className="cursor-pointer px-4 py-3 font-semibold text-slate-900 dark:text-white">Browse tracks and chapters</summary>
-          <div className="border-t border-slate-200 dark:border-white/10 px-4 py-3 max-h-[55vh] overflow-y-auto">
-            <Link href="/roadmap" className="block py-2 text-sm text-teal-700 dark:text-teal-400">All tracks</Link>
+        <details className="rounded-xl border border-white/10 bg-white/[0.03]">
+          <summary className="cursor-pointer px-4 py-3 font-medium text-[#dce6e8]">Browse tracks and chapters</summary>
+          <div className="max-h-[55vh] overflow-y-auto border-t border-white/10 px-4 py-3">
+            <Link href="/roadmap" className="block py-2 text-sm text-[#c6d9d7]">All tracks</Link>
             {roadmaps.map(track => (
-              <div key={track.id} className="border-t border-slate-100 dark:border-white/10 py-2">
-                <Link href={`/roadmap/${track.id}`} aria-current={activeTab === track.id && !activeCategory ? 'page' : undefined} className="block py-1 font-medium text-sm text-slate-900 dark:text-white">{track.title}</Link>
+              <div key={track.id} className="border-t border-white/10 py-2">
+                <Link href={`/roadmap/${track.id}`} aria-current={activeTab === track.id && !activeCategory ? 'page' : undefined} className="block py-1 text-sm font-medium text-[#dce6e8]">{track.title}</Link>
                 {activeTab === track.id && track.categories.map(category => (
-                  <Link key={category.slug} href={`/roadmap/${track.id}/${category.slug}`} aria-current={activeCategory === category.slug ? 'page' : undefined} className="block pl-4 py-1.5 text-sm text-slate-600 dark:text-slate-400 aria-[current=page]:text-teal-700 dark:aria-[current=page]:text-teal-400">
+                  <Link key={category.slug} href={`/roadmap/${track.id}/${category.slug}`} aria-current={activeCategory === category.slug ? 'page' : undefined} className="block py-1.5 pl-4 text-sm text-[#b8c7cd] aria-[current=page]:font-semibold aria-[current=page]:text-[#e1e9eb]">
                     {category.title}
                   </Link>
                 ))}
@@ -42,85 +42,57 @@ export function Sidebar({
         </details>
       </nav>
       <aside className="w-[280px] hidden lg:block sticky top-28 self-start h-[calc(100vh-120px)] overflow-y-auto custom-scrollbar">
-      {/* Sidebar Navigation Context */}
-      <div className="mb-10 px-4">
-        <Link
-          href="/"
-          className="group flex items-center gap-3 text-slate-500 hover:text-teal-600 dark:hover:text-teal-400 transition-colors mb-8"
-        >
-          <div className="p-2 bg-slate-100 dark:bg-white/5 rounded-lg group-hover:bg-teal-500/10 transition-colors border border-transparent group-hover:border-teal-500/20">
-            <ArrowLeft className="w-4 h-4" />
-          </div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.1em] opacity-80 group-hover:opacity-100 transition-opacity">Back to Home</span>
-        </Link>
-
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-600">
-            <Menu className="w-4 h-4" />
-          </div>
-          <h2 className="text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-widest">
-            Module <span className="text-teal-600 dark:text-teal-400">Library</span>
-          </h2>
-        </div>
-        <p className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest pl-11">
-          {roadmaps.length} Tracks Available
-        </p>
+      <div className="mb-5 px-4">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[#b7c6cc]">
+          Tracks
+        </h2>
       </div>
 
-
-      {/* Roadmap Switcher */}
       <div className="space-y-1 px-3">
-        <div className="flex items-center gap-2 mb-6 px-3">
-          <Sparkles className="w-4 h-4 text-teal-500" />
-          <h4 className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.1em]">
-            Select Engineering Track
-          </h4>
-        </div>
-
         {roadmaps.map((tab) => (
           <React.Fragment key={tab.id}>
             <Link
               href={`/roadmap/${tab.id}`}
-              className={`w-full flex items-center justify-between group px-3 py-3 rounded-xl transition-all duration-300 border ${activeTab === tab.id
-                ? 'bg-slate-50/80 dark:bg-white/5 border-slate-100 dark:border-white/10 shadow-sm'
-                : 'bg-transparent border-transparent text-slate-500 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-white/[0.02] hover:border-slate-100 dark:hover:border-white/5'
+              className={`group flex w-full items-center justify-between rounded-lg border px-3 py-2.5 transition-colors ${activeTab === tab.id
+                ? 'border-white/10 bg-white/[0.055]'
+                : 'border-transparent text-[#afbec5] hover:bg-white/[0.035]'
                 }`}
             >
               <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-lg transition-all duration-300 ${activeTab === tab.id
-                  ? 'bg-teal-600 text-white shadow-lg shadow-teal-500/30 rotate-3'
-                  : 'bg-slate-100 dark:bg-white/5 group-hover:bg-slate-200 dark:group-hover:bg-white/10'
+                <div className={`rounded-lg p-2 ${activeTab === tab.id
+                  ? 'bg-white/10 text-[#c5d9d6]'
+                  : 'bg-white/[0.04] text-[#aebfc5] group-hover:bg-white/[0.07]'
                   }`}>
                   <div className="w-4 h-4 flex items-center justify-center">
                     {getIcon(tab.icon)}
                   </div>
                 </div>
                 <div className="text-left">
-                  <p className={`text-[11px] font-semibold tracking-wide ${activeTab === tab.id ? 'text-teal-700 dark:text-slate-200' : 'text-slate-600 dark:text-slate-400'
+                  <p className={`text-[13px] leading-snug ${activeTab === tab.id ? 'font-semibold text-[#e1e9eb]' : 'font-medium text-[#b7c5cb]'
                     }`}>
-                    {tab.title.replace('Syllabus', '').replace('Technical', '').replace('Engineering', '').replace('Architecture', '').trim()}
+                    {tab.title}
                   </p>
                 </div>
               </div>
               {activeTab === tab.id && (
-                <ChevronRight className="w-3 h-3 text-teal-600 dark:text-teal-400" />
+                <ChevronRight className="h-3.5 w-3.5 text-[#b7cfcc]" />
               )}
             </Link>
 
             {/* Render Category List if active */}
             {activeTab === tab.id && (
-              <div className="mt-1 mb-6 space-y-0.5 ml-[23px] border-l border-slate-200 dark:border-white/10 overflow-hidden">
+              <div className="mb-5 ml-[23px] mt-1 space-y-0.5 overflow-hidden border-l border-white/10">
                 {tab.categories.map((cat) => (
                   <Link
                     key={cat.id}
                     href={`/roadmap/${tab.id}/${cat.slug}`}
-                    className={`block py-2.5 pl-6 pr-4 text-[11px] transition-all relative tracking-tight ${activeCategory === cat.slug
-                      ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5'
-                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-300 font-medium'
+                    className={`relative block py-2.5 pl-5 pr-3 text-[12px] leading-snug transition-colors ${activeCategory === cat.slug
+                      ? 'bg-white/[0.035] font-semibold text-[#e1e9eb]'
+                      : 'font-medium text-[#aebfc5] hover:text-[#e1e9eb]'
                       }`}
                   >
                     {activeCategory === cat.slug && (
-                      <div className="absolute left-[-1px] top-0 bottom-0 w-[2px] bg-teal-600 dark:bg-teal-400 animate-in fade-in slide-in-from-top-1 duration-300" />
+                      <div className="absolute bottom-0 left-[-1px] top-0 w-[2px] bg-[#9dbdb9]" />
                     )}
                     <span className="truncate block">
                       {cat.title.split(':')[1]?.trim() || cat.title}

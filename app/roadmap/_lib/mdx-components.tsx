@@ -4,10 +4,7 @@ import React from 'react';
 import { Terminal, Copy, Check, Info, Lightbulb, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { extractText } from './mdx-utils';
 
-/**
- * Single master CodeBlock representing all code and prompt fences.
- * High-fidelity "Premium SaaS" aesthetic with a compact footprint.
- */
+/** Code and prompt fences share copy and expand controls. */
 export const CodeBlock = ({ children, className }: { children: React.ReactNode, className?: string }) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const [isExpanded, setIsExpanded] = React.useState(false);
@@ -34,24 +31,22 @@ export const CodeBlock = ({ children, className }: { children: React.ReactNode, 
 
   return (
     <div 
-      className="not-prose my-10 ml-0 lg:ml-10 group relative rounded-xl border border-slate-200 dark:border-white/10 bg-[#f9fafb] dark:bg-[#0d1117] overflow-hidden shadow-sm transition-all duration-300"
+      className="not-prose group relative my-9 overflow-hidden rounded-xl border border-white/10 bg-[#171e26]"
       data-is-skill={isPrompt}
     >
-      {/* Branded Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-slate-50 dark:bg-white/[0.03] border-b border-slate-200 dark:border-white/10">
+      <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.025] px-4 py-2.5">
         <div className="flex items-center gap-4">
-          {/* Tab Element */}
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-[#161B22] border border-slate-200 dark:border-white/10 border-b-0 rounded-t-lg -mb-[13px] z-10 text-[10px] font-black tracking-widest uppercase text-slate-500 dark:text-slate-400 shadow-[0_-1px_0_rgba(0,0,0,0.05)] dark:shadow-none">
-            <Terminal className="w-3 h-3 text-teal-600 dark:text-teal-400" />
+          <div className="flex items-center gap-2 text-xs font-medium text-[#b8c7ce]">
+            <Terminal className="h-3.5 w-3.5 text-[#a9c8c7]" />
             {isPrompt ? 'Agent Skill' : lang}
           </div>
         </div>
 
         <button
           onClick={handleCopy}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-md text-[9px] font-black uppercase tracking-widest transition-all bg-white dark:bg-[#161B22] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-teal-500/10 dark:hover:text-teal-400 border border-slate-200 dark:border-white/10 active:scale-95 group/copy shadow-sm"
+          className="group/copy flex items-center gap-2 rounded-md px-2.5 py-1.5 text-xs font-medium text-[#b8c7ce] transition-colors hover:bg-white/[0.06] hover:text-[#e4ecee] focus-visible:outline-2 focus-visible:outline-[#b5d0cf]"
         >
-          {isCopied ? <Check className="w-3 h-3 text-teal-600 dark:text-teal-400" /> : <Copy className="w-3 h-3 group-hover/copy:text-teal-600 dark:group-hover/copy:text-teal-400 transition-colors" />}
+          {isCopied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
           {isCopied ? 'Copied' : (isPrompt ? 'Copy Skill' : 'Copy Code')}
         </button>
       </div>
@@ -61,22 +56,22 @@ export const CodeBlock = ({ children, className }: { children: React.ReactNode, 
         ref={contentRef}
         suppressHydrationWarning
         style={{ maxHeight: shouldShowExpand && !isExpanded ? '400px' : 'none' }}
-        className={`relative py-6 px-0 bg-transparent font-mono text-[14px] leading-relaxed overflow-x-auto selection:bg-teal-500/30 custom-scrollbar [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0 [&_code]:!bg-transparent [&_code]:!p-0 ${isPrompt ? "whitespace-pre-wrap text-black dark:text-white [&_*]:!text-inherit px-6" : "whitespace-pre"}`}
+        className={`custom-scrollbar relative overflow-x-auto bg-transparent px-0 py-5 font-mono text-[13px] leading-[1.65] text-[#c8d2d7] selection:bg-white/20 [&_code]:!bg-transparent [&_code]:!p-0 [&_pre]:!m-0 [&_pre]:!bg-transparent [&_pre]:!p-0 ${isPrompt ? "whitespace-pre-wrap px-5 [&_*]:!text-inherit" : "whitespace-pre"}`}
       >
         {children}
 
         {/* Gradient Overlay for collapsed state */}
         {shouldShowExpand && !isExpanded && (
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#f9fafb] via-[#f9fafb]/80 to-transparent dark:from-[#0d1117] dark:via-[#0d1117]/80 dark:to-transparent z-20 pointer-events-none" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-24 bg-gradient-to-t from-[#171e26] via-[#171e26]/80 to-transparent" />
         )}
       </div>
 
       {/* Expand/Collapse Toggle */}
       {shouldShowExpand && (
-        <div className={`p-4 flex justify-center bg-slate-50 dark:bg-white/[0.02] border-t border-slate-200 dark:border-white/10 ${!isExpanded ? '-mt-px relative z-30' : ''}`}>
+        <div className={`flex justify-center border-t border-white/10 bg-white/[0.025] p-3 ${!isExpanded ? '-mt-px relative z-30' : ''}`}>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all bg-white dark:bg-[#161B22] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-teal-500/10 dark:hover:text-teal-400 border border-slate-200 dark:border-white/10 shadow-sm active:scale-95"
+            className="flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium text-[#c2cdd2] transition-colors hover:bg-white/[0.06] hover:text-white focus-visible:outline-2 focus-visible:outline-[#b5d0cf]"
           >
             {isExpanded ? (
               <><ChevronUp className="w-3 h-3" /> Show Less</>
@@ -91,30 +86,28 @@ export const CodeBlock = ({ children, className }: { children: React.ReactNode, 
 };
 
 
-/**
- * Callout - MkDocs Admonition style for architectural notes, tips, and warnings.
- */
+/** Inline notes for additional context and cautions. */
 export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'warning', title?: string, children: React.ReactNode }) => {
   const configs = {
     info: {
       icon: Info,
-      containerClass: 'border-blue-200 dark:border-blue-900/30 bg-blue-50/50 dark:bg-blue-900/5',
-      headerClass: 'bg-blue-100/50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-900/30',
-      titleColor: 'text-blue-700 dark:text-blue-400',
+      containerClass: 'border-[#58718a]/35 bg-[#26323c]',
+      headerClass: 'border-[#58718a]/25 bg-[#58718a]/10',
+      titleColor: 'text-[#c6d8e6]',
       label: 'INFO'
     },
     tip: {
       icon: Lightbulb,
-      containerClass: 'border-teal-200 dark:border-teal-900/30 bg-teal-50/50 dark:bg-teal-900/5',
-      headerClass: 'bg-teal-100/50 dark:bg-teal-900/20 border-teal-200 dark:border-teal-900/30',
-      titleColor: 'text-teal-700 dark:text-teal-400',
+      containerClass: 'border-[#72918f]/35 bg-[#263331]',
+      headerClass: 'border-[#72918f]/25 bg-[#72918f]/10',
+      titleColor: 'text-[#c5d8d5]',
       label: 'TIP'
     },
     warning: {
       icon: AlertTriangle,
-      containerClass: 'border-amber-200 dark:border-amber-900/30 bg-amber-50/50 dark:bg-amber-900/5',
-      headerClass: 'bg-amber-100/50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-900/30',
-      titleColor: 'text-amber-700 dark:text-amber-400',
+      containerClass: 'border-[#9a8363]/35 bg-[#332e29]',
+      headerClass: 'border-[#9a8363]/25 bg-[#9a8363]/10',
+      titleColor: 'text-[#e2d1b8]',
       label: 'WARNING'
     }
   };
@@ -134,12 +127,12 @@ export const Callout = ({ type, title, children }: { type: 'info' | 'tip' | 'war
   });
 
   return (
-    <div className={`my-10 ml-10 rounded-xl border ${config.containerClass} overflow-hidden shadow-px`}>
+    <div className={`my-8 overflow-hidden rounded-xl border ${config.containerClass}`}>
       <div className={`flex items-center gap-2.5 px-5 py-3 border-b ${config.headerClass} ${config.titleColor}`}>
         <Icon className="w-4 h-4" />
-        <span className="text-[11px] font-black uppercase tracking-[0.2em]">{displayTitle}</span>
+        <span className="text-xs font-semibold uppercase tracking-[0.12em]">{displayTitle}</span>
       </div>
-      <div className="p-6 text-[15px] leading-relaxed text-slate-700 dark:text-slate-300 prose-p:my-0 prosec-a:text-teal-600 dark:prose-a:text-teal-400 prose-a:font-bold">
+      <div className="p-5 text-[15px] leading-[1.75] text-[#c8d2d7] prose-p:my-0 prose-a:font-medium">
         {cleanChildren}
       </div>
     </div>
