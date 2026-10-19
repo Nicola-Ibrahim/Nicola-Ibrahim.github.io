@@ -20,7 +20,7 @@ npm ci
 npm run dev
 ```
 
-The `predev` script regenerates `public/search-index.json` from the roadmap MDX files. Restart the dev server after changing roadmap content to refresh the index.
+The `predev` script generates `public/search-index.json` from the roadmap MDX files. While the dev server runs, changes to those files refresh the index automatically.
 
 ## Validate and export
 

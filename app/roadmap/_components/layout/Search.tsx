@@ -6,26 +6,8 @@ import { Search as SearchIcon, X, ChevronRight, Hash, Folder, Layout, Command, L
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-
-import Fuse from 'fuse.js';
-
-interface SearchResult {
-  type: 'track' | 'category' | 'topic';
-  title: string;
-  subtitle?: string;
-  description?: string;
-  url: string;
-  trackId: string;
-  isApproximate?: boolean;
-}
-
-interface SearchItem {
-  slug: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  trackId: string;
-}
+import type Fuse from 'fuse.js';
+import { createFuzzyIndex, searchDocs, type SearchItem, type SearchResult } from '../../_lib/search';
 
 export function Search() {
   const router = useRouter();
@@ -36,18 +18,18 @@ export function Search() {
   const [searchIndex, setSearchIndex] = useState<SearchItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [isApproximate, setIsApproximate] = useState(false);
   const fuseRef = useRef<Fuse<SearchItem>>(null);
-  const fuseFallbackRef = useRef<Fuse<SearchItem>>(null);
+  const loadedOnceRef = useRef(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
 
-  // Lazy-load the optimized prose index when search is opened
+  // Load once in production; refetch on each opening during development.
   useEffect(() => {
-    if (isOpen && searchIndex.length === 0 && !isLoading && !isError) {
+    if (isOpen && (!loadedOnceRef.current || process.env.NODE_ENV === 'development')) {
       setIsLoading(true);
-      fetch('/search-index.json')
+      setIsError(false);
+      fetch('/search-index.json', { cache: 'no-store' })
         .then(res => {
           if (!res.ok) throw new Error('Failed to load search index');
           return res.json();
@@ -55,29 +37,8 @@ export function Search() {
         .then(data => {
           if (!Array.isArray(data)) throw new Error('Invalid index format');
           setSearchIndex(data);
-          
-          const fuseOptions = {
-            keys: [
-              { name: 'title', weight: 2.0 },
-              { name: 'excerpt', weight: 0.6 },
-              { name: 'content', weight: 0.4 }
-            ],
-            location: 0,
-            distance: 100,
-            minMatchCharLength: 2,
-            ignoreLocation: true,
-            includeMatches: true
-          };
-
-          fuseRef.current = new Fuse(data, {
-            ...fuseOptions,
-            threshold: 0.3
-          });
-
-          fuseFallbackRef.current = new Fuse(data, {
-            ...fuseOptions,
-            threshold: 0.45
-          });
+          fuseRef.current = createFuzzyIndex(data);
+          loadedOnceRef.current = true;
 
           setIsLoading(false);
         })
@@ -87,7 +48,7 @@ export function Search() {
           setIsLoading(false);
         });
     }
-  }, [isOpen, searchIndex.length, isLoading, isError]);
+  }, [isOpen]);
 
 
   // Keyboard shortcut listener (Cmd+K / Ctrl+K)
@@ -126,48 +87,14 @@ export function Search() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  // INSTANT SEARCH logic: Perform search in browser memory
+  // Search the local section index. Exact matches lead; fuzzy matches fill gaps.
   useEffect(() => {
     if (!query.trim() || !fuseRef.current) {
       setResults([]);
       setActiveIndex(0);
-      setIsApproximate(false);
       return;
     }
-
-    // Attempt strict search first (0.3 threshold)
-    let fuseResults = fuseRef.current.search(query);
-    let approx = false;
-
-    // Fallback to approximate if zero results
-    if (fuseResults.length === 0 && fuseFallbackRef.current) {
-      fuseResults = fuseFallbackRef.current.search(query);
-      approx = fuseResults.length > 0;
-    }
-
-    const matches: SearchResult[] = fuseResults.slice(0, 8).map(({ item }) => {
-      const type: 'track' | 'category' | 'topic' = item.slug.includes('#') ? 'topic' : 'category';
-      
-      const snippetLength = 140;
-      const description = item.excerpt || (
-        item.content.length > snippetLength 
-          ? item.content.slice(0, snippetLength) + '...' 
-          : item.content
-      );
-
-      return {
-        type,
-        title: item.title,
-        description,
-        url: item.slug,
-        trackId: item.trackId,
-        subtitle: item.trackId.toUpperCase(),
-        isApproximate: approx
-      };
-    });
-
-    setResults(matches);
-    setIsApproximate(approx);
+    setResults(searchDocs(searchIndex, fuseRef.current, query));
     setActiveIndex(0); // Reset selection to top on new query
   }, [query, searchIndex]);
 
@@ -248,7 +175,7 @@ export function Search() {
                   ref={inputRef}
                   type="text"
                   className="flex-1 bg-transparent border-none outline-none text-lg font-bold placeholder:text-slate-400 dark:placeholder:text-slate-600 text-slate-900 dark:text-white"
-                  placeholder="Ask anything..."
+                  placeholder="Search topics, chapters, or concepts..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
@@ -291,15 +218,9 @@ export function Search() {
                   </div>
                 ) : results.length > 0 ? (
                   <div className="space-y-1">
-                    {isApproximate && (
-                      <div className="flex items-center gap-2 px-4 py-2 mb-2 bg-amber-50 dark:bg-amber-500/10 border border-amber-200/50 dark:border-amber-500/20 rounded-xl">
-                        <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-400">Showing approximate matches</span>
-                      </div>
-                    )}
                     {results.map((result, idx) => (
                       <Link
-                        key={`${result.type}-${idx}`}
+                        key={result.url}
                         href={result.url}
                         onClick={() => setIsOpen(false)}
                         onMouseEnter={() => setActiveIndex(idx)}
@@ -311,12 +232,12 @@ export function Search() {
                       >
                         {/* Icon */}
                         <div className={`mt-1 w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                          result.type === 'topic' ? 'bg-teal-500/10 text-teal-600 shadow-sm' :
-                          result.type === 'category' ? 'bg-slate-500/10 text-slate-500 shadow-sm' :
+                          result.type === 'section' ? 'bg-teal-500/10 text-teal-600 shadow-sm' :
+                          result.type === 'chapter' ? 'bg-slate-500/10 text-slate-500 shadow-sm' :
                           'bg-teal-600 text-white shadow-lg shadow-teal-500/20'
                         }`}>
-                          {result.type === 'topic' ? <Hash className="w-4 h-4" /> :
-                           result.type === 'category' ? <Folder className="w-4 h-4" /> :
+                          {result.type === 'section' ? <Hash className="w-4 h-4" /> :
+                           result.type === 'chapter' ? <Folder className="w-4 h-4" /> :
                            <Layout className="w-4 h-4" />}
                         </div>
  
@@ -328,17 +249,14 @@ export function Search() {
                             }`}>
                               {result.title}
                             </p>
-                            {result.subtitle && (
-                              <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest px-2 py-0.5 bg-slate-100 dark:bg-white/5 rounded-full">
-                                {result.subtitle}
-                              </span>
-                            )}
+                            {result.approximate && <span className="text-[10px] font-semibold text-amber-400">Close match</span>}
                           </div>
-                          {result.description && (
-                            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 leading-relaxed italic">
-                              {result.description}
-                            </p>
-                          )}
+                          <p className="mb-1 text-[11px] text-slate-500 dark:text-slate-400">
+                            {result.trackTitle}{result.type === 'section' && result.chapterTitle ? ` / ${result.chapterTitle}` : ''}
+                          </p>
+                          <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
+                            {result.snippet}
+                          </p>
                         </div>
  
                         <ChevronRight className={`w-4 h-4 mt-3 transition-all ${

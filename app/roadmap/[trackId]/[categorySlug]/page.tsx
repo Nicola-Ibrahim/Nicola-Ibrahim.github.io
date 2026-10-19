@@ -27,7 +27,16 @@ import NotificationStrategies from '@/app/roadmap/_components/interactive/Notifi
  * Defining this here ensures that MDXRemote (RSC) can properly 
  * resolve both standard HTML tags and interactive Client Components during build time.
  */
-const mdxComponents = {
+function createMdxComponents() {
+  const usedIds = new Map<string, number>();
+  const headingId = (children: React.ReactNode) => {
+    const baseId = generateId(children);
+    const count = usedIds.get(baseId) || 0;
+    usedIds.set(baseId, count + 1);
+    return count ? `${baseId}-${count}` : baseId;
+  };
+
+  return {
   pre: ({ children, ...props }: React.ComponentPropsWithoutRef<'pre'> & { 'data-language'?: string }) => {
     const child = children as React.ReactElement<{ className?: string }>;
     const className = child?.props?.className || props['data-language'] || '';
@@ -51,9 +60,9 @@ const mdxComponents = {
     className: 'mb-10 text-3xl font-bold leading-[1.14] tracking-tight text-[#e8eef0] md:text-[2.7rem]',
     ...props
   }),
-  h2: (props: React.ComponentPropsWithoutRef<'h2'>) => React.createElement('h2', { id: generateId(props.children), className: 'mt-14 mb-6 scroll-mt-28 border-l-[3px] border-[#8faeae] pl-4 text-xl font-semibold tracking-tight text-[#e5ebed] md:text-2xl', ...props }),
-  h3: (props: React.ComponentPropsWithoutRef<'h3'>) => React.createElement('h3', { id: generateId(props.children), className: 'mt-10 mb-5 scroll-mt-28 text-lg font-semibold tracking-tight text-[#dce4e7] md:text-xl', ...props }),
-  h4: (props: React.ComponentPropsWithoutRef<'h4'>) => React.createElement('h4', { id: generateId(props.children), className: 'mt-8 mb-4 scroll-mt-28 text-base font-semibold tracking-tight text-[#d7e0e3] md:text-lg', ...props }),
+  h2: (props: React.ComponentPropsWithoutRef<'h2'>) => React.createElement('h2', { id: headingId(props.children), className: 'mt-14 mb-6 scroll-mt-28 border-l-[3px] border-[#8faeae] pl-4 text-xl font-semibold tracking-tight text-[#e5ebed] md:text-2xl', ...props }),
+  h3: (props: React.ComponentPropsWithoutRef<'h3'>) => React.createElement('h3', { id: headingId(props.children), className: 'mt-10 mb-5 scroll-mt-28 text-lg font-semibold tracking-tight text-[#dce4e7] md:text-xl', ...props }),
+  h4: (props: React.ComponentPropsWithoutRef<'h4'>) => React.createElement('h4', { id: headingId(props.children), className: 'mt-8 mb-4 scroll-mt-28 text-base font-semibold tracking-tight text-[#d7e0e3] md:text-lg', ...props }),
   p: (props: React.ComponentPropsWithoutRef<'p'>) => React.createElement('p', { className: 'mb-6 max-w-[72ch] text-[15px] leading-[1.8] text-[#c8d2d7] sm:text-base', ...props }),
   ul: (props: React.ComponentPropsWithoutRef<'ul'>) => React.createElement('ul', { className: 'mb-8 list-disc space-y-3 pl-6 text-[15px] leading-[1.75] text-[#c8d2d7] sm:text-base', ...props }),
   li: (props: React.ComponentPropsWithoutRef<'li'>) => React.createElement('li', { className: 'leading-relaxed', ...props }),
@@ -92,7 +101,8 @@ const mdxComponents = {
   ThreadsVsCoroutines,
   EventLoopStepper,
   NotificationStrategies,
-};
+  };
+}
 
 export async function generateStaticParams() {
   const roadmaps = await getFullRoadmapsData();
@@ -179,7 +189,7 @@ export default async function ModulePage({ params }: { params: Promise<{ trackId
         <article className="roadmap-article prose max-w-none">
           <MDXRemote
             source={unifiedMdx.source}
-            components={mdxComponents}
+            components={createMdxComponents()}
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm],
