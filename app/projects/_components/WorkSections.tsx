@@ -1,30 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { projects, skillGroups } from './_content/data';
-import ParticleSphereCanvas from './_components/ParticleSphereCanvas';
-
-export function AboutSection() {
-  return (
-    <section id="about" className="py-24 relative scroll-mt-20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <div>
-          <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">My background</span>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-8 leading-tight">A little about <span className="text-primary">me</span></h1>
-          <p className="text-lg text-gray-400 leading-relaxed">
-            Backend engineering is the main focus: APIs, data flows, and services built for practical use. The work also includes connecting models and AI tools to applications, from preparing inputs to handling results.
-          </p>
-          <div className="flex flex-wrap gap-10 mt-10 pt-8 border-t border-white/10">
-            <div><p className="text-3xl font-black text-primary mb-1">4+</p><p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Years of experience</p></div>
-            <div><p className="text-3xl font-black text-accent mb-1">M.Sc.</p><p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Computer Engineering</p></div>
-          </div>
-        </div>
-        <div className="relative aspect-square max-w-lg w-full mx-auto rounded-3xl overflow-hidden" aria-hidden="true">
-          <ParticleSphereCanvas />
-        </div>
-      </div>
-    </section>
-  );
-}
+import { projects } from '../_content/data';
 
 export function ServicesSection() {
   return (
@@ -108,70 +84,6 @@ export function ProjectsSection() {
             </article>
           ))}
         </div>}
-      </div>
-    </section>
-  );
-}
-
-export function SkillsSection() {
-  return (
-    <section id="tools" className="py-24 scroll-mt-20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <h1 className="text-3xl md:text-5xl font-bold mb-4">Tools and practices</h1>
-        <p className="text-gray-400 max-w-2xl mb-12">Tools used across backend, data, frontend, and deployment projects.</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillGroups.map(group => (
-            <div key={group.title} className="glass-card p-7">
-              <h3 className="text-xl font-bold text-white mb-5">{group.title}</h3>
-              <div className="flex flex-wrap gap-2">
-                {group.skills.map(skill => (
-                  <span key={skill.name} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200">
-                    <i className={skill.icon} style={{ color: skill.color }} aria-hidden="true" />{skill.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function EducationSection() {
-  return (
-    <section id="education" className="py-24 scroll-mt-20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <div>
-          <h2 className="text-3xl font-bold mb-8"><i className="fas fa-graduation-cap text-primary mr-4" aria-hidden="true" />Education</h2>
-          <p className="text-sm text-primary font-medium mb-1">2023 – 2026</p>
-          <h3 className="text-xl font-bold">M.Sc. Computer Engineering</h3>
-          <p className="text-gray-400">Paderborn University, Germany</p>
-          <p className="text-gray-500 mt-2 text-sm">Thesis: Tracing the Objectives Backwards</p>
-        </div>
-        <div>
-          <h2 className="text-3xl font-bold mb-8"><i className="fas fa-quote-left text-secondary mr-4" aria-hidden="true" />From a collaborator</h2>
-          <blockquote className="glass-card">
-            <p className="text-lg text-gray-300 italic mb-6 leading-relaxed">“Nicola is a brilliant engineer who quickly grasped our complex requirements and delivered a scalable solution.”</p>
-            <footer><strong className="text-white">Raphael Meyer-Alten</strong><span className="block text-sm text-gray-500">CEO at Choyze Company</span></footer>
-          </blockquote>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function ContactSection() {
-  return (
-    <section id="contact" className="py-24 relative scroll-mt-20">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none" />
-      <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6">Want to talk?</h1>
-        <p className="text-xl text-gray-400 mb-10">For a project idea or a question about the work, send a note or connect on LinkedIn.</p>
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <a href="mailto:nicolaibrahim969@gmail.com" className="btn-primary inline-flex items-center">Send an email <i className="fas fa-paper-plane ml-3 text-sm" aria-hidden="true" /></a>
-          <a href="https://linkedin.com/in/nicola-ibrahim/" target="_blank" rel="noopener noreferrer" className="btn-outline inline-flex items-center">LinkedIn</a>
-        </div>
       </div>
     </section>
   );

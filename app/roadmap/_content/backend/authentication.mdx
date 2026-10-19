@@ -1,75 +1,41 @@
 # API Design & Security
 
-## JWT Authentication
+## Signed Tokens and Sessions
 
-JSON Web Tokens (JWT) provide stateless, cryptographically secure user sessions for modern APIs. Instead of storing session IDs in a database, the server issues a signed token containing user claims.
+A JSON Web Token (JWT) carries a set of claims and can be signed so an API can verify who issued it and whether it was changed. A signed token is not encrypted: clients can read its payload. The application still needs a clear session and authorization policy.
 
-### Why is it Stateless?
+### What an API Must Check
 
-- **No Database Lookups:** The token contains the user's identity (Payload) and is mathematically signed (Signature). The server only needs its secret key to verify the token hasn't been tampered with.
-- **Microservice Friendly:** Any backend service with the secret (or public key) can verify the user independently. You don't need a central Redis instance just to check if a user is logged in.
-
-### JWT Anatomy
-A JWT is composed of three parts separated by dots (`.`): `Header.Payload.Signature`.
+- **Signature and algorithm:** Accept only the algorithms and keys configured for the trusted issuer.
+- **Issuer and audience:** Confirm that the token was issued by the expected service and intended for this API.
+- **Time claims:** Check expiry and any not-before value.
+- **Authorization:** Check the requested action against the current permissions. A role claim can become stale before the token expires.
 
 ```json
-// Example Decoded Payload
 {
-  "sub": "1234567890",
-  "name": "John Doe",
-  "iat": 1516239022,
-  "role": "admin"
+  "sub": "user-123",
+  "iss": "https://auth.example.com",
+  "aud": "portfolio-api",
+  "exp": 1760000000
 }
 ```
 
-#### What to Save in the Payload (Claims)
-- **Standard Identifiers:** Usually, you store the user ID (`sub`), issue time (`iat`), and expiration time (`exp`).
-- **Roles & Permissions:** Storing `role: "admin"` allows the backend to authorize actions instantly.
+The payload should contain only the claims the receiver needs. Avoid passwords, secrets, and sensitive personal data.
 
+### Storage and Revocation
 
-> [!danger] Security Warning
-> The payload is merely **Base64 encoded, not encrypted**. Anyone who intercepts it can read the contents. **NEVER** store sensitive data like passwords, SSNs, or PII inside a JWT.
+Browser storage choices have different risks. JavaScript-accessible storage exposes tokens to injected scripts. An `HttpOnly` cookie limits that exposure, but cookie-based sessions need appropriate `SameSite`, `Secure`, and cross-site request protections. Choose a strategy for the application's threat model.
 
+A signed token can remain valid until it expires unless the API checks a revocation mechanism. Short lifetimes, refresh-token rotation, a server-side session, or a denylist are possible tools; each adds operational trade-offs.
 
-### Secure Storage
-Where you store the token on the client determines your vulnerability to different attacks.
+## API Versioning
 
+Version an API when clients need time to migrate through a breaking contract change. The version can be part of the URL, a request header, or a dated contract. The choice matters less than documenting what changes, supporting an overlap period, and testing old clients.
 
-| Storage Method | Security Risk | Recommendation |
+| Approach | Example | Trade-off |
 | --- | --- | --- |
-| **LocalStorage** | High (XSS Vulnerable) | ❌ Avoid for sensitive sessions. |
-| **HttpOnly Cookies** | Low (XSS Protected) | ✅ **Best Practice.** JavaScript cannot read it. |
+| URL version | `/api/v2/users` | Easy to see and route; versions appear in resource URLs |
+| Header version | `API-Version: 2` | Keeps URLs stable; less visible without request inspection |
+| Date-based contract | `API-Version: 2026-01-01` | Records a precise contract point; requires clear change tracking |
 
-
-
-> [!tip] Pro Tip: Refresh Tokens
-> Use short-lived **Access Tokens** (15m) for requests and long-lived **Refresh Tokens** (7d) stored in HttpOnly cookies to maintain security without forcing users to log in constantly.
-
-
-### The Revocation Problem
-Because JWTs are purely stateless, you cannot easily "invalidate" them before they expire. 
-
-- **The Problem:** If a user logs out, the physical token remains technically valid until `exp`.
-- **The Fix:** Rely on short-lived access tokens, or maintain a fast **Deny List** in Redis for logged-out tokens (though this technically makes the system slightly stateful again).
-
-
-
-
-
-
-
-## API Versioning Strategies
-
-Choosing the right API versioning strategy is critical for avoiding breaking changes and maintaining backward compatibility.
-
-
-| Strategy | Pattern | Best For | Verdict |
-| --- | --- | --- | --- |
-| **Global (URI)** | `/api/v1/users` | Small/Medium apps | Simple to manage and understand. |
-| **Resource-Level** | `/api/users/v2` | Microservices | Teams can move independently. |
-| **Header** | `Accept: v2+json` | Public APIs | Keeps URLs clean and RESTful. |
-
-
-
-> [!info] Industry Insight
-> **GitHub** and **Stripe** are famous for using Header-based versioning or custom Date-based headers to provide a seamless experience for developers while iterating on their platforms.
+Further reading: [OWASP JWT guidance](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet.html) and [OWASP REST security guidance](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html).

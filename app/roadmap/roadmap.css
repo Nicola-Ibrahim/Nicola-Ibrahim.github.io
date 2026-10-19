@@ -1,0 +1,113 @@
+/* Reading colors are scoped to the roadmap and shared by MDX elements. */
+.roadmap-article {
+  --tw-prose-body: #c8d2d7;
+  --tw-prose-headings: #e8eef0;
+  --tw-prose-lead: #c8d2d7;
+  --tw-prose-links: #bdd5d3;
+  --tw-prose-bold: #d7e0e3;
+  --tw-prose-counters: #adbdc4;
+  --tw-prose-bullets: #91a3ab;
+  --tw-prose-hr: #45515b;
+  --tw-prose-quotes: #c8d2d7;
+  --tw-prose-quote-borders: #8faeae;
+  --tw-prose-captions: #aebdc4;
+  --tw-prose-code: #dce6e8;
+  --tw-prose-th-borders: #45515b;
+  --tw-prose-td-borders: #39454e;
+  color: #c8d2d7;
+}
+
+.roadmap-article a {
+  color: #bdd5d3;
+  text-decoration-color: #789795;
+  text-underline-offset: 3px;
+}
+
+.roadmap-article a:hover {
+  color: #e2eeed;
+}
+
+/* Code blocks in roadmap MDX */
+[data-rehype-pretty-code-figure] {
+  @apply w-full;
+}
+
+[data-rehype-pretty-code-figure] pre {
+  @apply bg-transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+[data-rehype-pretty-code-figure] code {
+  counter-reset: line;
+  @apply flex flex-col min-w-full;
+}
+
+[data-rehype-pretty-code-figure] [data-line] {
+  @apply flex min-w-full transition-colors duration-200 leading-[1.6] relative;
+}
+
+[data-rehype-pretty-code-figure] [data-line]:hover {
+  @apply bg-white/[0.035];
+}
+
+/* Line number gutter */
+[data-rehype-pretty-code-figure] [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply sticky left-0 z-10 flex-shrink-0 inline-block w-12 text-left select-none;
+  @apply text-slate-400 font-mono text-[11px];
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  padding-top: 0.1rem;
+}
+
+[data-rehype-pretty-code-figure] [data-line]::after {
+  content: '';
+  @apply absolute left-[3rem] top-0 bottom-0 w-px z-10;
+}
+
+html.dark [data-rehype-pretty-code-figure] [data-line]::before {
+  background-color: #171e26;
+}
+
+html.dark [data-rehype-pretty-code-figure] [data-line]::after {
+  @apply bg-white/[0.1];
+}
+
+[data-rehype-pretty-code-figure] [data-line] > span:first-child,
+[data-rehype-pretty-code-figure] [data-line] > .token:first-child {
+  padding-left: 1.25rem;
+}
+
+/* Skill prompts keep their original line layout. */
+[data-is-skill="true"] [data-rehype-pretty-code-figure] code {
+  counter-reset: none;
+  @apply block;
+}
+
+[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line] {
+  @apply block;
+}
+
+[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line]::before,
+[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line]::after {
+  content: none !important;
+  display: none !important;
+}
+
+[data-rehype-pretty-code-figure] code span {
+  font-size: 13.5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-white/10 transition-colors hover:bg-white/20;
+}

@@ -4,7 +4,6 @@ import typography from '@tailwindcss/typography';
 const config: Config = {
   darkMode: 'class',
   content: [
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -22,20 +21,6 @@ const config: Config = {
         heading: ["var(--font-inter)", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
       },
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-      },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-20px)' },
-        },
-        glow: {
-          '0%': { boxShadow: '0 0 3px rgba(0, 150, 136, 0.3)' },
-          '100%': { boxShadow: '0 0 8px rgba(0, 188, 212, 0.4), 0 0 4px rgba(0, 150, 136, 0.2)' },
-        }
-      }
     },
   },
   plugins: [

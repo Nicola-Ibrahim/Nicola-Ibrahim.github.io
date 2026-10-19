@@ -36,7 +36,7 @@ In a distributed system, simply writing `print("error")` to a terminal is useles
 ## The Three Pillars
 
 ### Structured Logging
-Logs must be emitted as **JSON**, not plain text. This allows you to easily search, filter, and alert on specific machine-readable fields.
+Structured logs, often emitted as JSON, make fields easier to search, filter, and use in alerts. Plain text can still be useful for local debugging.
 ```json
 {
   "level": "ERROR", 

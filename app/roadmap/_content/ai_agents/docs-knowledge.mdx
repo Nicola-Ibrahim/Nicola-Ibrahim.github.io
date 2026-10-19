@@ -2,7 +2,7 @@
 
 ## Knowledge Overview
 
-Documentation is often the first thing to go stale in a fast-moving project. By treating documentation as a **Task** for an AI agent, you ensure that your READMEs, diagrams, and API specs are always in sync with the actual code.
+Documentation can drift as code changes. An agent can draft updates from the repository, while a reviewer checks whether the explanations still match the system and its intended behavior.
 
 
 | Skill | Focus | Output Format |
@@ -38,7 +38,7 @@ Keeps the "big picture" of your software clear by automatically mapping dependen
 
 
 ```prompt
-Create an Architecture Mapper skill. Set up the directory .agent/skills/architecture-mapper/ with standard subfolders.
+Create an Architecture Mapper skill. Set up the directory skills/architecture-mapper/ with standard subfolders.
 In SKILL.md, add name: architecture-mapper and description: Trigger this when I ask to 'Explain how the system fits together' or 'Map out the project structure'.
 Instruct the agent to look for key files (index.ts, main.py, etc.) and generate a high-level Markdown list of component responsibilities. It must identify external dependencies and show how they are imported. Create a template in resources/arch_diagram.mermaid for the agent to follow when generating Mermaid flowcharts.
 
@@ -53,7 +53,7 @@ Instruct the agent to look for key files (index.ts, main.py, etc.) and generate 
 
 Teaches the AI to read source code routes and output structured markdown documentation that follows industry standards.
 
-- **Auto-Updating:** Keeps READMEs and inline comments perfectly in sync with codebase changes.
+- **Draft Updates:** Suggests README and comment changes when the underlying code changes.
 - **API Formatting:** Formats documentation strictly to standards like **OpenAPI** or **Swagger**.
 - **Template Discipline:** Follows an example route documentation template to ensure consistency across the entire API surface.
 
@@ -64,7 +64,7 @@ Teaches the AI to read source code routes and output structured markdown documen
 
 
 ```prompt
-Create a Docs Generator skill. Set up the directory .agent/skills/docs-generator/ with standard subfolders.
+Create a Docs Generator skill. Set up the directory skills/docs-generator/ with standard subfolders.
 In SKILL.md, add name: docs-generator and description: Trigger this when I ask you to update the README, generate API documentation, or write inline comments.
 Instruct the agent to read the source code and generate clear, markdown-formatted documentation. For APIs, it should format outputs to match [Insert Standard, e.g., OpenAPI/Swagger]. Create an example in examples/api_endpoint_doc.md showing how a standard route should be documented.
 

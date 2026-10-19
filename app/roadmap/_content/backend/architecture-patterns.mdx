@@ -2,7 +2,7 @@
 
 ## Modular Monolith
 
-A software architecture that keeps all code in a single deployable application but enforces strict internal boundaries. It is the perfect starting point for most startups.
+A modular monolith keeps the application in one deployable unit while defining boundaries between business areas. It can be a practical starting point when the domain and scaling needs are still changing.
 
 ### The Concept
 
@@ -12,7 +12,7 @@ A software architecture that keeps all code in a single deployable application b
 ### Why it's popular
 
 - **Simplicity:** Easier to debug and test than microservices. There is no network latency between modules because communication is strictly in-memory.
-- **Future-Proofing:** Because the boundaries are already strict, it is incredibly easy to break a module out into a separate microservice later if it requires independent scaling.
+- **Future Options:** Clear boundaries can make it easier to extract a service later, although data ownership and integration still require work.
 
 
 > [!tip] Pro Tip: The 'Monolith First' Strategy
@@ -61,7 +61,7 @@ An execution model where the cloud provider dynamically manages the allocation a
 ### The Concept
 
 - **Event-Driven:** Code executes only in response to triggers (like an HTTP request, a file uploaded to S3, or a scheduled cron job).
-- **Scale to Zero:** If nobody is using your app, no code runs, and you pay $0. It scales up instantly to thousands of concurrent executions if traffic spikes.
+- **Elastic Capacity:** Some function platforms can scale down when idle and add capacity as requests arrive. Billing and scaling limits vary by provider and configuration.
 
 ### Cold Starts & Use Cases
 

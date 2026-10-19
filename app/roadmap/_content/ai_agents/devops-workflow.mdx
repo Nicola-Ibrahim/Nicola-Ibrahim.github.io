@@ -2,7 +2,7 @@
 
 ## Workflow Overview
 
-DevOps is where AI agents truly shine. By automating repetitive tasks like migration verification, deployment health checks, and git hygiene, you free up your human engineers for deep architectural work.
+Agent instructions can help prepare repeatable delivery tasks: reviewing a migration, checking a deployment plan, or summarizing a diff. Production changes still need explicit review and the safeguards of the team's delivery process.
 
 
 | Skill | Focus | Safety Mechanism |
@@ -14,7 +14,7 @@ DevOps is where AI agents truly shine. By automating repetitive tasks like migra
 
 
 > [!info] The Safety Gate Principle
-> In an AI-driven DevOps workflow, the agent doesn't just "do" the work—it **proves** the work is safe before proceeding. This "gatekeeper" mindset is what prevents automated disasters.
+> A checklist can surface missing checks, but it cannot prove a deployment is safe. Keep approvals, tests, and rollback procedures in the actual delivery process.
 
 
 
@@ -38,7 +38,7 @@ Ensures your database stays healthy and synchronized by automating the lifecycle
 
 
 ```prompt
-Create a Database Migrator skill. Set up the directory .agent/skills/database-migrator/ with standard subfolders.
+Create a Database Migrator skill. Set up the directory skills/database-migrator/ with standard subfolders.
 In SKILL.md, add name: database-migrator and description: Use this whenever the code change involves database schemas, migrations, or seed data.
 Instruct the agent to always run 'dry-runs' first and to generate a 'Rollback Plan' before suggesting any schema changes. It must follow the repository's migration framework (e.g., Prisma, Alembic, Sequelize). Create a resource in resources/migration-checklist.md for the agent to follow.
 
@@ -64,7 +64,7 @@ Reduces deployment anxiety by providing AI-driven gates for production readiness
 
 
 ```prompt
-Create a Deployment Manager skill. Set up the directory .agent/skills/deployment-manager/ with standard subfolders.
+Create a Deployment Manager skill. Set up the directory skills/deployment-manager/ with standard subfolders.
 In SKILL.md, add name: deployment-manager and description: Trigger this before deploying to staging or production. It will verify all environment variables and run a health-check script.
 Instruct the agent to look for 'Deployment Blockers' (e.g., failed tests, missing secrets). It must generate a 'Release Note' automatically from the commit history. Create a script in scripts/health_check.sh that pings your staging URL and checks for a 200 OK.
 
@@ -92,7 +92,7 @@ Teaches the AI to read git diffs safely and generate highly consistent, professi
 
 
 ```prompt
-Create a Git Manager skill. Set up the directory .agent/skills/git-manager/ with standard subfolders.
+Create a Git Manager skill. Set up the directory skills/git-manager/ with standard subfolders.
 In SKILL.md, add name: git-manager and description: Trigger this when I ask to write a commit message, document a git diff, or write a Pull Request summary.
 Instruct the agent to use Conventional Commits (feat:, fix:, chore:, etc.). Create a script in scripts/get_diff.sh that safely runs git diff. In examples/pr_template.md, provide the exact Markdown template the agent should fill out when summarizing code changes (including What Changed and How to Test sections).
 

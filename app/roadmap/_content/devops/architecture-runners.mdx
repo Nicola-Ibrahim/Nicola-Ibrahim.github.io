@@ -15,7 +15,7 @@ When GitHub Actions runs a job, it needs a physical computer (a **Runner**) to e
 
 ## Runner Types
 
-- **GitHub-Hosted:** Provisons fresh, ephemeral VMs (Ubuntu, Windows, macOS). When the job finishes, the VM is instantly destroyed. Perfect for 90% of use cases.
+- **GitHub-Hosted:** Provisions managed runners for each job. This is a convenient default when the job does not need private-network access or a specialized machine.
 - **Self-Hosted:** You install the GitHub Runner agent on your own servers (AWS EC2, on-prem rack). Essential if you need to access private databases or specialized hardware (like NVIDIA GPUs for AI).
 
 

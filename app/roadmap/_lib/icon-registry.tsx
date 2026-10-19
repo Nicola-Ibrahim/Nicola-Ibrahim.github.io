@@ -33,10 +33,14 @@ import {
   Copy,
   Check,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Bot,
+  Users
 } from 'lucide-react';
 
 export type IconName = 
+  | 'bot'
+  | 'users'
   | 'git-branch' 
   | 'cloud' 
   | 'server' 
@@ -73,6 +77,8 @@ export type IconName =
   | 'chevron-up';
 
 const iconMap: Record<IconName, React.ElementType> = {
+  'bot': Bot,
+  'users': Users,
   'git-branch': GitBranch,
   'cloud': Cloud,
   'server': Server,
