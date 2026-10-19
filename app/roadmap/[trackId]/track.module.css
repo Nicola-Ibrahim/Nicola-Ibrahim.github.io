@@ -1,0 +1,272 @@
+.trackPage {
+  width: min(100%, 940px);
+  margin: 0 auto;
+  padding: 22px 0 64px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 22px;
+  color: #94c9ca;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.backLink:hover {
+  color: #b9fff3;
+}
+
+.backLink:focus-visible, .chapterCard:focus-visible {
+  outline: 2px solid #8af4e6;
+  outline-offset: 3px;
+}
+
+.trackHero {
+  display: grid;
+  grid-template-columns: 66px minmax(0,1fr);
+  gap: 27px;
+  padding: clamp(28px, 5vw, 52px);
+  border: 1px solid rgba(121,225,218,.2);
+  border-radius: 26px;
+  background: radial-gradient(circle at 94% 4%, rgba(12,153,145,.2), transparent 38%), linear-gradient(130deg, #1a2a36, #101b28);
+  box-shadow: 0 20px 60px rgba(0,0,0,.12);
+}
+
+.trackHeroIcon {
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  border: 1px solid rgba(112,231,215,.4);
+  border-radius: 19px;
+  background: rgba(69,217,203,.1);
+  color: #8becdf;
+  box-shadow: 0 0 28px rgba(47,219,204,.1);
+}
+
+.eyebrow {
+  margin: 0 0 13px;
+  color: #76ddd5;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+
+.trackHero h1 {
+  margin: 0;
+  color: #f2fbfc;
+  font-size: clamp(2rem,4vw,3.8rem);
+  line-height: 1.1;
+  letter-spacing: -.055em;
+}
+
+.description {
+  max-width: 680px;
+  margin: 18px 0 0;
+  color: #b1c7d1;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.chapterCount {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 24px 0 0;
+  color: #a4e7de;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pathHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 55px 0 25px;
+}
+
+.pathHeading .eyebrow {
+  margin-bottom: 8px;
+}
+
+.pathHeading h2 {
+  margin: 0;
+  color: #f4f9fb;
+  font-size: 29px;
+  letter-spacing: -.04em;
+}
+
+.pathHeading > p {
+  margin: 0 0 5px;
+  color: #9fb3be;
+  font-size: 13px;
+}
+
+.chapterPath {
+  position: relative;
+  display: grid;
+  gap: 13px;
+}
+
+.chapterPath::before {
+  content: '';
+  position: absolute;
+  top: 29px;
+  bottom: 29px;
+  left: 22px;
+  width: 1px;
+  background: linear-gradient(#5bddd0, rgba(91,221,208,.15));
+}
+
+.chapterStep {
+  position: relative;
+  display: grid;
+  grid-template-columns: 45px minmax(0,1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.stepMarker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  border: 1px solid rgba(100,220,210,.4);
+  border-radius: 50%;
+  background: #1b3038;
+  box-shadow: 0 0 0 7px #23272f;
+  color: #9cf4e8;
+  font: 700 11px ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+.chapterCard {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  min-width: 0;
+  min-height: 100px;
+  padding: 18px 21px;
+  border: 1px solid rgba(164,213,223,.14);
+  border-radius: 18px;
+  background: #1a2933;
+  color: #f4f9fb;
+  text-decoration: none;
+  transition: transform .23s ease, border-color .23s ease, background .23s ease;
+}
+
+.chapterCard:hover {
+  transform: translateX(5px);
+  border-color: rgba(113,228,215,.46);
+  background: #20343c;
+}
+
+.chapterIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 41px;
+  height: 41px;
+  border-radius: 12px;
+  background: rgba(103,226,216,.09);
+  color: #8eebdf;
+}
+
+.chapterCopy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.chapterCopy strong {
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.chapterCopy > span {
+  overflow: hidden;
+  color: #9fb4c0;
+  font-size: 12px;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chapterMeta {
+  flex: none;
+  color: #8eabb5;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.chapterArrow {
+  flex: none;
+  color: #77dcd2;
+}
+
+@media (max-width: 680px) {
+  .trackPage {
+    padding-top: 8px;
+  }
+  .trackHero {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 28px 24px;
+  }
+  .trackHeroIcon {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+  }
+  .pathHeading {
+    display: block;
+    margin-top: 40px;
+  }
+  .pathHeading > p {
+    margin-top: 7px;
+  }
+  .chapterStep {
+    grid-template-columns: 33px minmax(0,1fr);
+    gap: 10px;
+  }
+  .chapterPath::before {
+    left: 16px;
+  }
+  .stepMarker {
+    width: 33px;
+    height: 33px;
+    box-shadow: 0 0 0 4px #23272f;
+    font-size: 10px;
+  }
+  .chapterCard {
+    gap: 10px;
+    min-height: 84px;
+    padding: 14px;
+  }
+  .chapterIcon {
+    width: 34px;
+    height: 34px;
+  }
+  .chapterCopy strong {
+    font-size: 14px;
+  }
+  .chapterMeta {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapterCard {
+    transition: none;
+  }
+}

@@ -2,7 +2,7 @@
 
 ## Functional vs Non-Functional Requirements
 
-Understanding the difference between Functional and Non-Functional requirements is the absolute foundation of System Design. It is where every architecture conversation begins.
+Separating functional requirements from quality requirements helps frame an architecture discussion: what the system must do, and what conditions it must meet while doing it.
 
 
 | Feature | Functional (The "What") | Non-Functional (The "How") |
@@ -25,15 +25,13 @@ These define what the system **must do**. They are the specific behaviors, featu
 These define how the system **must perform**. Also known as "Quality Attributes" (the "ilities": scalability, reliability, availability, latency).
 
 - **The Focus:** Performance, security, capacity, and availability.
-- **The Impact:** If you miss a non-functional requirement, the software might work for 10 users, but it will crash when 10,000 users log in.
+- **The Impact:** Missing a quality requirement can leave a system too slow, difficult to operate, or unable to handle the expected load.
 
 
 > [!tip] Architectural Decision Record (ADR)
-> In a professional setting, we document these decisions in **ADRs**.  
->   - **Functional** requirements dictate your **code** (e.g., Python functions).  
->   - **Non-Functional** requirements dictate your **infrastructure** (e.g., Load Balancers, Redis, or CDNs).
+> An architectural decision record (ADR) can capture the requirement, options considered, and the reason for a decision. Both functional and quality requirements can influence application code and infrastructure.
 
 
 
 > [!warning] The Availability Trap
-> Don't aim for "Five Nines" (99.999% uptime) unless you truly need it. Every extra "9" doubles the complexity and cost of your infrastructure.
+> Set an availability target based on user needs and operational capacity. Higher targets usually require more redundancy, monitoring, and recovery work; the cost depends on the system.

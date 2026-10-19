@@ -4,7 +4,7 @@ import { TableOfContents } from '../../_components/layout/TableOfContents';
 import { getTrackMeta, getCategoryMeta, getFullRoadmapsData, getUnifiedChapterContent } from '../../_lib/mdx';
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { ChevronRight, Home } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronRight, Home } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypePrettyCode from 'rehype-pretty-code';
@@ -17,10 +17,10 @@ import {
 } from '../../_lib/mdx-components';
 
 // Custom Roadmap Widgets (Client Components)
-import AsyncDecisionFlowchart from '@/app/roadmap/_content/backend/_components/AsyncDecisionFlowchart';
-import ThreadsVsCoroutines from '@/app/roadmap/_content/backend/_components/ThreadsVsCoroutines';
-import EventLoopStepper from '@/app/roadmap/_content/backend/_components/EventLoopStepper';
-import NotificationStrategies from '@/app/roadmap/_content/backend/_components/NotificationStrategies';
+import AsyncDecisionFlowchart from '@/app/roadmap/_components/interactive/AsyncDecisionFlowchart';
+import ThreadsVsCoroutines from '@/app/roadmap/_components/interactive/ThreadsVsCoroutines';
+import EventLoopStepper from '@/app/roadmap/_components/interactive/EventLoopStepper';
+import NotificationStrategies from '@/app/roadmap/_components/interactive/NotificationStrategies';
 
 /**
  * mdxComponents - The Master Server-Side Registry.
@@ -48,19 +48,19 @@ const mdxComponents = {
   },
 
   h1: (props: React.ComponentPropsWithoutRef<'h1'>) => React.createElement('h1', {
-    className: 'text-2xl md:text-4xl font-black text-slate-900 dark:text-white mb-12 tracking-tight leading-tight',
+    className: 'text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-10 tracking-tight leading-[1.12]',
     ...props
   }),
-  h2: (props: React.ComponentPropsWithoutRef<'h2'>) => React.createElement('h2', { id: generateId(props.children), className: 'text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-16 mb-8 tracking-tight border-l-4 border-teal-500 pl-6 scroll-mt-24', ...props }),
-  h3: (props: React.ComponentPropsWithoutRef<'h3'>) => React.createElement('h3', { id: generateId(props.children), className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-6 tracking-wide scroll-mt-24 pl-10', ...props }),
-  h4: (props: React.ComponentPropsWithoutRef<'h4'>) => React.createElement('h4', { id: generateId(props.children), className: 'text-base md:text-lg font-bold text-slate-700 dark:text-slate-300 mt-8 mb-4 tracking-wide scroll-mt-24 pl-10', ...props }),
-  p: (props: React.ComponentPropsWithoutRef<'p'>) => React.createElement('p', { className: 'text-base leading-relaxed mb-6 text-slate-600 dark:text-slate-400 max-w-5xl pl-10', ...props }),
-  ul: (props: React.ComponentPropsWithoutRef<'ul'>) => React.createElement('ul', { className: 'list-disc pl-16 mb-8 space-y-4 text-slate-600 dark:text-slate-400 text-base', ...props }),
+  h2: (props: React.ComponentPropsWithoutRef<'h2'>) => React.createElement('h2', { id: generateId(props.children), className: 'text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-14 mb-6 tracking-tight border-l-[3px] border-teal-400 pl-4 scroll-mt-28', ...props }),
+  h3: (props: React.ComponentPropsWithoutRef<'h3'>) => React.createElement('h3', { id: generateId(props.children), className: 'text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 mt-10 mb-5 tracking-tight scroll-mt-28', ...props }),
+  h4: (props: React.ComponentPropsWithoutRef<'h4'>) => React.createElement('h4', { id: generateId(props.children), className: 'text-base md:text-lg font-bold text-slate-700 dark:text-slate-300 mt-8 mb-4 tracking-tight scroll-mt-28', ...props }),
+  p: (props: React.ComponentPropsWithoutRef<'p'>) => React.createElement('p', { className: 'text-[15px] sm:text-base leading-[1.8] mb-6 text-slate-600 dark:text-slate-300 max-w-3xl', ...props }),
+  ul: (props: React.ComponentPropsWithoutRef<'ul'>) => React.createElement('ul', { className: 'list-disc pl-6 mb-8 space-y-3 text-slate-600 dark:text-slate-300 text-[15px] sm:text-base leading-[1.75]', ...props }),
   li: (props: React.ComponentPropsWithoutRef<'li'>) => React.createElement('li', { className: 'leading-relaxed hover:text-slate-900 dark:hover:text-white transition-colors', ...props }),
   strong: (props: React.ComponentPropsWithoutRef<'strong'>) => React.createElement('strong', { className: 'font-bold text-slate-900 dark:text-white', ...props }),
 
   table: (props: React.ComponentPropsWithoutRef<'table'>) => (
-    <div className="my-10 ml-10 overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-white/[0.02]">
+    <div className="my-10 overflow-x-auto rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/30 dark:bg-white/[0.02]">
       <table className="w-full text-left border-collapse" {...props} />
     </div>
   ),
@@ -144,6 +144,9 @@ export default async function ModulePage({ params }: { params: Promise<{ trackId
   if (!category) {
     notFound();
   }
+  const categoryIndex = roadmap.categories.findIndex(c => c.slug === categorySlug);
+  const previousCategory = roadmap.categories[categoryIndex - 1];
+  const nextCategory = roadmap.categories[categoryIndex + 1];
 
   const unifiedMdx = await getUnifiedChapterContent(trackId, categorySlug);
   if (!unifiedMdx) {
@@ -151,10 +154,10 @@ export default async function ModulePage({ params }: { params: Promise<{ trackId
   }
 
   return (
-    <div className="flex gap-8 xl:gap-12">
+    <div className="flex gap-8 xl:gap-12 pt-2">
       <div className="flex-1 min-w-0">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-8 text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">
           <Link href="/" className="flex items-center gap-1.5 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
             <Home className="w-3.5 h-3.5" /> Home
           </Link>
@@ -168,8 +171,12 @@ export default async function ModulePage({ params }: { params: Promise<{ trackId
           <span className="text-teal-600 dark:text-teal-400">{categoryMeta.title.split(':')[1]?.trim() || categoryMeta.title}</span>
         </nav>
 
-        {/* Content */}
-        <div className="prose dark:prose-invert max-w-none">
+        <div className="mb-9 rounded-2xl border border-teal-400/20 bg-gradient-to-r from-teal-500/10 to-transparent px-5 py-4">
+          <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.18em] text-teal-500 dark:text-teal-300">Chapter {String(categoryIndex + 1).padStart(2, '0')} / {String(roadmap.categories.length).padStart(2, '0')}</p>
+          <p className="m-0 text-sm text-slate-600 dark:text-slate-300">{category.content.length} topics in this chapter</p>
+        </div>
+
+        <article className="prose dark:prose-invert max-w-none">
           <MDXRemote
             source={unifiedMdx.source}
             components={mdxComponents}
@@ -188,7 +195,22 @@ export default async function ModulePage({ params }: { params: Promise<{ trackId
               }
             }}
           />
-        </div>
+        </article>
+
+        <nav aria-label="Chapter navigation" className="mt-16 grid gap-3 border-t border-white/10 pt-7 sm:grid-cols-2">
+          {previousCategory ? (
+            <Link href={`/roadmap/${trackId}/${previousCategory.slug}`} className="group rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-teal-400/40 focus-visible:outline-2 focus-visible:outline-teal-400">
+              <span className="mb-2 flex items-center gap-2 text-xs text-teal-300"><ArrowLeft size={14} /> Previous chapter</span>
+              <strong className="text-sm text-slate-100 group-hover:text-white">{previousCategory.title}</strong>
+            </Link>
+          ) : <span />}
+          {nextCategory && (
+            <Link href={`/roadmap/${trackId}/${nextCategory.slug}`} className="group rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-teal-400/40 focus-visible:outline-2 focus-visible:outline-teal-400">
+              <span className="mb-2 flex items-center gap-2 text-xs text-teal-300">Next chapter <ArrowRight size={14} /></span>
+              <strong className="text-sm text-slate-100 group-hover:text-white">{nextCategory.title}</strong>
+            </Link>
+          )}
+        </nav>
       </div>
 
       <TableOfContents content={category.content} />

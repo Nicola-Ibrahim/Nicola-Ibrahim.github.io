@@ -15,7 +15,7 @@ Understanding the difference between blocking, concurrent, and parallel executio
 ### Execution Breakdown
 
 - **Synchronous (Sync):** Python executes code exactly one line at a time. If a line takes 10 seconds to query a database, the entire server stops and waits.
-- **Asynchronous (Async):** "Smart Waiting." The server never wastes time waiting for I/O. It moves to the next task while the database finishes.
+- **Asynchronous (Async):** A task can yield during I/O so the runtime can work on another task while the database responds.
 - **Parallelism:** Doing multiple things at the exact same physical millisecond. This requires multiple CPU cores and `multiprocessing` in Python.
 
 <AsyncDecisionFlowchart />
@@ -28,7 +28,7 @@ Understanding the difference between blocking, concurrent, and parallel executio
 
 ## Deep Dive: Inside the Event Loop
 
-The magic of asynchronous programming is that the computer never waits. 
+Asynchronous code can make progress on other work while an operation waits for I/O. It does not remove the waiting or make CPU-bound work run in parallel by itself.
 
 When a coroutine hits an `await` statement (like querying a database), it explicitly **yields control** back to the Event Loop, saying: *"I am going to sleep until the database answers. Go run something else!"*
 
@@ -70,7 +70,7 @@ Pub/Sub (Publish/Subscribe) is an asynchronous communication paradigm where send
 ### The 1-to-Many Pattern
 - **🧠 The Mindset:** "I am announcing a fact. I don't care who is listening."
 - **🎯 Use Case:** Real-time dashboards, user notifications, logging, or cross-service updates.
-- **🚀 Decoupling:** Producers never need to know about Consumers. You can add a "Newsletter Service" listener later without touching the code of the "Payment Service."
+- **Decoupling:** Producers can publish an event without calling each consumer directly. Event schemas and delivery guarantees still need coordination.
 
 
 

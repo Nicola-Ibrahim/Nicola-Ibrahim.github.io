@@ -1,75 +1,36 @@
-# Cloud Compute Paradigms
+# Cloud Compute Models
 
-## Serverful (VPS / Bare Metal)
+Cloud hosting is a choice about how much infrastructure a team wants to operate. A virtual machine, a managed application platform, and a function service can all run application code, but they place different responsibilities on the team.
 
-Virtual Private Servers (VPS) or Infrastructure as a Service (IaaS) gives you a raw virtual machine (like AWS EC2 or a DigitalOcean Droplet). You are handed a Linux terminal and full root access.
-
-
-| Pros | Cons | Best For |
+| Model | Team manages | Useful when |
 | --- | --- | --- |
-| **Full Control** | High Maintenance | Predictable heavy traffic |
-| **Fixed Cost** | Pay while idle | Legacy monoliths |
-| **Custom Kernel** | Manual Security | Low-level C++ libraries |
+| Virtual machine / IaaS | Operating system, runtime, deployment, and most scaling decisions | The application needs a specific runtime or more infrastructure control |
+| Managed application platform | Application code, configuration, and service integrations | The team wants a simpler deployment and operations path |
+| Functions / FaaS | Function code, triggers, configuration, and connected services | Work is event-driven or has variable demand |
 
+## Virtual Machines
 
-### The Raw Infrastructure
-- **Always On:** You pay a fixed monthly rate 24/7, regardless of whether you have 0 users or 10,000 users.
-- **Legacy Systems:** Older monoliths that aren't containerized often require a traditional server environment with specific OS dependencies.
+A virtual machine gives the team control over the operating system and runtime. Examples include AWS EC2 and a VPS from another provider. That control is useful for unusual dependencies or deployment requirements, but it also means planning for patches, monitoring, backups, and capacity.
 
+### Operational Questions
 
-> [!warning] The Security Burden
-> In a Serverful model, **you** are responsible for patching the OS, configuring firewalls, and managing the load balancer. If you don't have a DevOps background, this is a massive risk.
+- Who applies security updates and monitors the host?
+- How will the application be deployed and rolled back?
+- What happens when the instance or its region becomes unavailable?
 
+## Managed Application Platforms
 
+A managed platform handles parts of the hosting environment and gives developers a deployment interface. The exact boundary varies: a platform may manage the runtime and HTTPS while databases, background workers, or scaling settings remain separate concerns.
 
+A platform can reduce setup work, but its limits, pricing, and supported runtimes still need to match the application. Check the current documentation for the specific provider before choosing one.
 
+## Functions as a Service
 
+Functions run in response to requests or events. AWS Lambda is one example. This model can fit scheduled jobs, event processing, or APIs with uneven traffic. It comes with service-specific limits on execution time, concurrency, and resources.
 
+Cold starts can add latency when a new execution environment is created. The delay varies with the runtime and configuration, so measure the actual workload instead of assuming a fixed number. Costs can also include requests, execution, storage, data transfer, and connected services.
 
-## PaaS (The "Sweet Spot")
+> [!tip] Choosing a Model
+> Start with the application's runtime, traffic pattern, latency needs, and the team's operational capacity. Compare the full system cost and the work required to run it, not only the price of the compute unit.
 
-Platform as a Service (PaaS) represents the "Sweet Spot" for most modern development teams (e.g., Heroku, Render, Vercel, AWS AppRunner).
-
-### The Developer Experience
-- **Connect & Deploy:** Simply connect your GitHub repo. The platform handles the Linux OS, load balancing, SSL certificates, and zero-downtime deployments.
-- **Scaling:** Need more power? Just drag a slider in the UI to add more "Dynos" or instances behind their managed load balancer.
-
-
-| Tool | Focus | Pricing Style |
-| --- | --- | --- |
-| **Vercel** | Frontend / Next.js | Per seat / Bandwidth |
-| **Render** | Backend / Databases | Per instance hour |
-| **AWS AppRunner** | Containers | vCPU / RAM seconds |
-
-
-
-> [!tip] Why Start with PaaS?
-> For startups, **Time to Market** is more valuable than saving $20 on server costs. PaaS allows engineers to focus on product features instead of Nginx configurations.
-
-
-
-
-
-
-
-## Serverless (FaaS)
-
-Serverless (Function as a Service / FaaS) fundamentally changes how compute is billed and executed (e.g., AWS Lambda, Google Cloud Functions).
-
-### Event-Driven Scaling
-- **Pay Per Millisecond:** You are billed exactly for the execution time. If no one visits your site, your bill is literally **$0.00**.
-- **Infinite Scaling:** The cloud provider spins up thousands of parallel instances instantly to handle sudden spikes.
-
-### The Trade-offs
-
-
-| Feature | Serverless (FaaS) | Serverful (VPS) |
-| --- | --- | --- |
-| **Scale** | Instant / Automatic | Manual / Slow |
-| **Timeout** | Hard limit (15m) | Infinite |
-| **Latency** | Cold Starts | Always Ready |
-
-
-
-> [!danger] The Cold Start Problem
-> If a function hasn't run recently, the cloud must "boot" a new container. This adds 1-3 seconds of latency to the first request. Avoid Serverless for real-time gaming or high-frequency trading.
+Further reading: [AWS Lambda quotas](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html), [Lambda execution lifecycle](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html), [AWS Lambda pricing](https://aws.amazon.com/lambda/pricing/), and [Vercel pricing](https://vercel.com/docs/pricing).

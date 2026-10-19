@@ -34,6 +34,19 @@ function stripMdx(mdx) {
   return content.replace(/\s+/g, ' ').replace(/\n/g, ' ').trim();
 }
 
+function readMdx(filePath) {
+  const { data, content } = matter(fs.readFileSync(filePath, 'utf8'));
+  const heading = content.match(/^#\s+(.+)$/m)?.[1]?.trim();
+  return {
+    title: data.title || heading || path.basename(filePath, '.mdx'),
+    description: data.description || '',
+    content: stripMdx(content),
+    summary: stripMdx(content.replace(/^#{1,6}\s+.+$/gm, '')),
+    order: data.order,
+    chapters: data.chapters,
+  };
+}
+
 /**
  * Generates a flat search index by crawling the local MDX documentation tree.
  */
@@ -44,69 +57,33 @@ function generateSearchIndex() {
     throw new Error(`Search content directory not found: ${CONTENT_PATH}`);
   }
 
-  // Get all track directories
-  const tracks = fs.readdirSync(CONTENT_PATH).filter(f => 
-    fs.lstatSync(path.join(CONTENT_PATH, f)).isDirectory() && f !== '_components'
-  ).sort();
+  const tracks = fs.readdirSync(CONTENT_PATH).filter(f =>
+    fs.lstatSync(path.join(CONTENT_PATH, f)).isDirectory()
+  ).sort((a, b) => readMdx(path.join(CONTENT_PATH, a, 'index.mdx')).order -
+    readMdx(path.join(CONTENT_PATH, b, 'index.mdx')).order);
 
   for (const trackId of tracks) {
     const trackDirPath = path.join(CONTENT_PATH, trackId);
-    const trackItems = fs.readdirSync(trackDirPath).sort();
+    const track = readMdx(path.join(trackDirPath, 'index.mdx'));
+    if (!Array.isArray(track.chapters)) throw new Error(`Missing chapter list for ${trackId}`);
 
-    // CASE 0: Track Overview (index.mdx)
-    const trackIndexFile = path.join(trackDirPath, 'index.mdx');
-    if (fs.existsSync(trackIndexFile)) {
-      const raw = fs.readFileSync(trackIndexFile, 'utf8');
-      const { data, content } = matter(raw);
-      const strippedContent = stripMdx(content);
+    index.push({
+      slug: `/roadmap/${trackId}`,
+      title: track.title,
+      excerpt: track.description,
+      content: track.content,
+      trackId,
+    });
+
+    for (const categorySlug of track.chapters) {
+      const chapter = readMdx(path.join(trackDirPath, `${categorySlug}.mdx`));
       index.push({
-        slug: `/roadmap/${trackId}`,
-        title: `${data.title || trackId} (Overview)`,
-        excerpt: data.description || (strippedContent.slice(0, 140) + (strippedContent.length > 140 ? '...' : '')),
-        content: strippedContent,
-        trackId: trackId
+        slug: `/roadmap/${trackId}/${categorySlug}`,
+        title: chapter.title,
+        excerpt: chapter.description || chapter.summary.slice(0, 140),
+        content: chapter.content,
+        trackId,
       });
-    }
-
-    for (const item of trackItems) {
-      if (item === 'index.mdx' || item === '_components') continue;
-
-      const itemPath = path.join(trackDirPath, item);
-      const isDir = fs.lstatSync(itemPath).isDirectory();
-
-      if (isDir) {
-        // CASE 1: Fragmented Category (Folder with topic files)
-        const topicFiles = fs.readdirSync(itemPath).filter(f => f.endsWith('.mdx') && f !== 'index.mdx').sort();
-        for (const topicFile of topicFiles) {
-          const topicPath = path.join(itemPath, topicFile);
-          const topicId = topicFile.replace('.mdx', '');
-          const raw = fs.readFileSync(topicPath, 'utf8');
-          const { data, content } = matter(raw);
-          
-          const strippedContent = stripMdx(content);
-          index.push({
-            slug: `/roadmap/${trackId}/${item}#${topicId}`,
-            title: data.title || topicId,
-            excerpt: data.shortDesc || data.description || (strippedContent.slice(0, 140) + (strippedContent.length > 140 ? '...' : '')),
-            content: strippedContent,
-            trackId: trackId
-          });
-        }
-      } else if (item.endsWith('.mdx')) {
-        // CASE 2: Unified Category (Single large MDX file)
-        const categorySlug = item.replace('.mdx', '');
-        const raw = fs.readFileSync(itemPath, 'utf8');
-        const { data, content } = matter(raw);
-        
-        const strippedContent = stripMdx(content);
-        index.push({
-          slug: `/roadmap/${trackId}/${categorySlug}`,
-          title: data.title || categorySlug,
-          excerpt: data.shortDesc || data.description || (strippedContent.slice(0, 140) + (strippedContent.length > 140 ? '...' : '')),
-          content: strippedContent,
-          trackId: trackId
-        });
-      }
     }
   }
 

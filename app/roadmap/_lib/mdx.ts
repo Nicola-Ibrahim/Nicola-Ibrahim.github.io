@@ -13,7 +13,7 @@ const DEFAULT_ICON_MAP: Record<string, string> = {
   // Tracks
   ai_agents: 'bot',
   backend: 'server',
-  algorithms: 'code-2',
+  algorithms: 'code2',
   cloud: 'cloud',
   devops: 'terminal',
   network: 'layers',
@@ -51,7 +51,7 @@ function getHeuristicIcon(slug: string): string {
     if (slug.includes(kw)) return DEFAULT_ICON_MAP[kw];
   }
 
-  return 'code-2'; // Ultimate fallback
+  return 'code2';
 }
 
 export interface MDXContent {
@@ -68,6 +68,8 @@ export interface TrackMeta {
   title: string;
   icon: string;
   description: string;
+  order: number;
+  chapters: string[];
 }
 
 export interface CategoryMeta {
@@ -128,6 +130,8 @@ function scrapeMdxContent(filePath: string, slug: string) {
     description,
     icon: data.icon || getHeuristicIcon(slug),
     iconColor: data.iconColor || null,
+    order: data.order as unknown,
+    chapters: data.chapters as unknown,
   };
 }
 
@@ -135,12 +139,18 @@ export function getTrackMeta(trackId: string): TrackMeta | null {
   const indexPath = path.join(CONTENT_PATH, trackId, 'index.mdx');
   const meta = scrapeMdxContent(indexPath, trackId);
   if (!meta) return null;
+  if (typeof meta.order !== 'number' || !Number.isInteger(meta.order) || !Array.isArray(meta.chapters) ||
+    !meta.chapters.every((chapter: unknown) => typeof chapter === 'string')) {
+    throw new Error(`Invalid roadmap index metadata: ${indexPath}`);
+  }
 
   return {
     id: trackId,
     title: meta.title,
     icon: meta.icon,
     description: meta.description,
+    order: meta.order,
+    chapters: meta.chapters as string[],
   };
 }
 
@@ -188,26 +198,34 @@ export async function getFullRoadmapsData(): Promise<Record<string, RoadmapData>
   const roadmaps: Record<string, RoadmapData> = {};
   if (!fs.existsSync(CONTENT_PATH)) return roadmaps;
 
-  const tracks = fs.readdirSync(CONTENT_PATH).filter(f => 
-    fs.lstatSync(path.join(CONTENT_PATH, f)).isDirectory()
-  );
+  const tracks = fs.readdirSync(CONTENT_PATH)
+    .filter(item => fs.lstatSync(path.join(CONTENT_PATH, item)).isDirectory())
+    .map(trackId => {
+      const meta = getTrackMeta(trackId);
+      if (!meta) throw new Error(`Missing roadmap index: ${trackId}/index.mdx`);
+      return meta;
+    })
+    .sort((a, b) => a.order - b.order);
 
-  for (const trackId of tracks) {
-    const trackMeta = getTrackMeta(trackId);
-    if (!trackMeta) continue;
+  for (const trackMeta of tracks) {
+    const trackId = trackMeta.id;
 
     const categories: CategoryData[] = [];
     const trackDirPath = path.join(CONTENT_PATH, trackId);
-    const trackItems = fs.readdirSync(trackDirPath);
+    const trackItems = fs.readdirSync(trackDirPath)
+      .filter(item => item.endsWith('.mdx') && item !== 'index.mdx')
+      .map(item => item.slice(0, -4));
+    if (new Set(trackMeta.chapters).size !== trackMeta.chapters.length ||
+      trackItems.length !== trackMeta.chapters.length ||
+      trackItems.some(slug => !trackMeta.chapters.includes(slug))) {
+      throw new Error(`Chapter list does not match files in ${trackDirPath}/index.mdx`);
+    }
 
-    for (const item of trackItems) {
-      if (item === 'index.mdx' || !item.endsWith('.mdx')) continue;
-      
-      const slug = item.replace('.mdx', '');
+    for (const slug of trackMeta.chapters) {
       const catMeta = getCategoryMeta(trackId, slug);
       if (!catMeta) continue;
 
-      const filePath = path.join(trackDirPath, item);
+      const filePath = path.join(trackDirPath, `${slug}.mdx`);
       const fileContent = fs.readFileSync(filePath, 'utf8');
       const { content } = matter(fileContent);
       const topics = extractHeadings(content);

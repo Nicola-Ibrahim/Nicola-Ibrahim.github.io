@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header } from './_components/layout/Header';
+import './roadmap.css';
 
 export const metadata: Metadata = {
   title: "Technical Roadmaps",

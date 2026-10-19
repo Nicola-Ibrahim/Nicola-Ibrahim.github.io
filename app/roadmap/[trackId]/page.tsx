@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getTrackMeta, getFullRoadmapsData } from '../_lib/mdx';
+import { getIcon } from '../_lib/icon-registry';
 import { notFound } from 'next/navigation';
+import { ArrowLeft, ArrowUpRight, BookOpenText } from 'lucide-react';
+import styles from './track.module.css';
 
 export async function generateStaticParams() {
   const roadmaps = await getFullRoadmapsData();
@@ -42,17 +45,39 @@ export default async function TrackDashboardPage({ params }: { params: Promise<{
   if (!track) notFound();
 
   return (
-    <section className="max-w-4xl py-4 sm:py-8">
-      <Link href="/roadmap" className="text-sm font-medium text-teal-700 dark:text-teal-400 hover:underline">← All tracks</Link>
-      <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mt-6 mb-3">{track.title}</h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-8">{track.categories.length} chapters in this track.</p>
-      <div className="grid gap-3">
+    <section className={styles.trackPage}>
+      <Link href="/roadmap" className={styles.backLink}><ArrowLeft size={16} aria-hidden="true" /> All tracks</Link>
+      <header className={styles.trackHero}>
+        <div className={styles.trackHeroIcon}>{getIcon(track.icon, 'w-9 h-9')}</div>
+        <div>
+          <p className={styles.eyebrow}>Engineering notes / track {String(Object.keys(allRoadmaps).indexOf(trackId) + 1).padStart(2, '0')}</p>
+          <h1>{track.title}</h1>
+          <p className={styles.description}>{track.description || `A collection of chapters on ${track.title.toLowerCase()}.`}</p>
+          <p className={styles.chapterCount}><BookOpenText size={16} aria-hidden="true" /> {track.categories.length} chapters</p>
+        </div>
+      </header>
+
+      <div className={styles.pathHeading}>
+        <div>
+          <p className={styles.eyebrow}>The path</p>
+          <h2>Chapters</h2>
+        </div>
+        <p>Open any chapter to read its notes.</p>
+      </div>
+      <div className={styles.chapterPath}>
         {track.categories.map((category, index) => (
-          <Link key={category.slug} href={`/roadmap/${trackId}/${category.slug}`} className="group flex items-center gap-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] px-5 py-4 hover:border-teal-500/50 focus-visible:outline-2 focus-visible:outline-teal-500">
-            <span className="text-xs font-semibold text-teal-700 dark:text-teal-400 tabular-nums">{String(index + 1).padStart(2, '0')}</span>
-            <span className="flex-1 font-medium text-slate-900 dark:text-white">{category.title}</span>
-            <span className="text-slate-400 group-hover:text-teal-600" aria-hidden="true">→</span>
-          </Link>
+          <div key={category.slug} className={styles.chapterStep}>
+            <span className={styles.stepMarker} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <Link href={`/roadmap/${trackId}/${category.slug}`} className={styles.chapterCard}>
+              <span className={styles.chapterIcon}>{getIcon(category.icon, 'w-5 h-5')}</span>
+              <span className={styles.chapterCopy}>
+                <strong>{category.title}</strong>
+                <span>{category.content.slice(0, 3).map(topic => topic.title).join(' · ') || 'Open chapter notes'}</span>
+              </span>
+              <span className={styles.chapterMeta}>{category.content.length} topics</span>
+              <ArrowUpRight className={styles.chapterArrow} size={20} aria-hidden="true" />
+            </Link>
+          </div>
         ))}
       </div>
     </section>

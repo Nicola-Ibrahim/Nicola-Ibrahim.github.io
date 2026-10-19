@@ -82,24 +82,6 @@
     position: absolute;
   }
 
-  .nav-link {
-    @apply relative text-gray-300 hover:text-white transition-colors duration-300;
-  }
-
-  .nav-link::after {
-    content: '';
-    @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300;
-  }
-
-  .nav-link:hover::after,
-  .nav-link-active::after {
-    @apply w-full;
-  }
-
-  .nav-link-active {
-    @apply text-white;
-  }
-
   .browser-frame {
     @apply relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl;
   }
@@ -130,101 +112,6 @@
 
 ::-webkit-scrollbar-thumb {
   @apply bg-white/5 rounded-full hover:bg-white/10 transition-colors;
-}
-
-/* Ensure code blocks within MDX take up the full width and respect whitespace */
-[data-rehype-pretty-code-figure] {
-  @apply w-full;
-}
-
-[data-rehype-pretty-code-figure] pre {
-  @apply bg-transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-[data-rehype-pretty-code-figure] code {
-  counter-reset: line;
-  @apply flex flex-col min-w-full;
-}
-
-[data-rehype-pretty-code-figure] [data-line] {
-  @apply flex min-w-full transition-colors duration-200 leading-[1.6] relative;
-}
-
-[data-rehype-pretty-code-figure] [data-line]:hover {
-  @apply bg-slate-100/50 dark:bg-white/[0.03];
-}
-
-/* Line Number Gutter */
-[data-rehype-pretty-code-figure] [data-line]::before {
-  counter-increment: line;
-  content: counter(line);
-  @apply sticky left-0 z-10 flex-shrink-0 inline-block w-12 text-left select-none;
-  @apply text-slate-400 dark:text-slate-500 font-mono text-[11px];
-  padding-left: 1rem;
-  padding-right: 0.5rem;
-  padding-top: 0.1rem;
-}
-
-/* Vertical Divider in the gutter */
-[data-rehype-pretty-code-figure] [data-line]::after {
-  content: '';
-  @apply absolute left-[3rem] top-0 bottom-0 w-px z-10;
-}
-
-html.dark [data-rehype-pretty-code-figure] [data-line]::before {
-  background-color: #0d1117;
-}
-html.dark [data-rehype-pretty-code-figure] [data-line]::after {
-  @apply bg-white/[0.1];
-}
-
-html:not(.dark) [data-rehype-pretty-code-figure] [data-line]::before {
-  background-color: #f9fafb;
-}
-html:not(.dark) [data-rehype-pretty-code-figure] [data-line]::after {
-  @apply bg-slate-200;
-}
-
-/* Padding for the code content to skip the gutter and vertical line */
-[data-rehype-pretty-code-figure] [data-line] > span:first-child,
-[data-rehype-pretty-code-figure] [data-line] > .token:first-child {
-  padding-left: 1.25rem;
-}
-
-/* Exclude numbering and flex constraints for Agent Skills */
-[data-is-skill="true"] [data-rehype-pretty-code-figure] code {
-  counter-reset: none;
-  @apply block;
-}
-
-[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line] {
-  @apply block;
-}
-
-[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line]::before,
-[data-is-skill="true"] [data-rehype-pretty-code-figure] [data-line]::after {
-  content: none !important;
-  display: none !important;
-}
-
-/* Base token scaling text sizes */
-[data-rehype-pretty-code-figure] code span {
-  font-size: 13.5px;
-}
-
-/* Scrollbar refinement */
-.custom-scrollbar::-webkit-scrollbar {
-  height: 8px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-white/10 rounded-full hover:bg-slate-400 dark:hover:bg-white/20 transition-colors;
 }
 
 /* Move the two page snapshots together, so neither route needs a covering panel. */

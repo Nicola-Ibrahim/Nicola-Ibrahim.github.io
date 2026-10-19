@@ -1,20 +1,61 @@
 import Link from 'next/link';
+import { ArrowUpRight, Compass, Layers3 } from 'lucide-react';
 import { getFullRoadmapsData } from './_lib/mdx';
+import { getIcon } from './_lib/icon-registry';
+import styles from './overview.module.css';
 
 export default async function RoadmapPage() {
   const roadmaps = Object.values(await getFullRoadmapsData());
+  const chapterCount = roadmaps.reduce((total, track) => total + track.categories.length, 0);
 
   return (
-    <section className="max-w-5xl mx-auto py-8 sm:py-12">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-4">Study references</p>
-      <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">Technical roadmaps</h1>
-      <p className="text-slate-600 dark:text-slate-400 max-w-2xl mb-10">Notes grouped by engineering topic. Choose a track to see its chapters.</p>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {roadmaps.map(track => (
-          <Link key={track.id} href={`/roadmap/${track.id}`} className="group block rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-6 hover:border-teal-500/50 focus-visible:outline-2 focus-visible:outline-teal-500">
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-teal-400">{track.title}</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">{track.categories.length} chapters</p>
-            <span className="inline-block mt-5 text-sm font-medium text-teal-700 dark:text-teal-400">View chapters <span aria-hidden="true">→</span></span>
+    <section className={styles.overview}>
+      <div className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}><Compass size={15} aria-hidden="true" /> Engineering notes / field guide</p>
+          <h1>Find your way <span>through the stack.</span></h1>
+          <p className={styles.intro}>A map of technical notes across software engineering. Pick a track, then open a chapter to follow the ideas in more detail.</p>
+          <div className={styles.heroStats} aria-label="Roadmap contents">
+            <span><strong>{String(roadmaps.length).padStart(2, '0')}</strong> tracks</span>
+            <span><strong>{String(chapterCount).padStart(2, '0')}</strong> chapters</span>
+            <span><Layers3 size={16} aria-hidden="true" /> Topics connected across disciplines</span>
+          </div>
+        </div>
+        <div className={styles.orbit} aria-hidden="true">
+          <div className={styles.orbitRing} />
+          <div className={styles.orbitRingInner} />
+          <div className={styles.orbitCore}><span>THE</span><strong>MAP</strong></div>
+          {roadmaps.slice(0, 6).map((track, index) => (
+            <span key={track.id} className={`${styles.orbitNode} ${styles[`orbitNode${index}`]}`}>
+              {getIcon(track.icon, 'w-5 h-5')}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.sectionHeading}>
+        <div>
+          <p className={styles.eyebrow}>Explore by discipline</p>
+          <h2>Choose a track</h2>
+        </div>
+        <p>Each track is a short collection of chapters.</p>
+      </div>
+
+      <div className={styles.trackGrid}>
+        {roadmaps.map((track, index) => (
+          <Link key={track.id} href={`/roadmap/${track.id}`} className={styles.trackCard}>
+            <span className={styles.trackTop}>
+              <span className={styles.trackIcon}>{getIcon(track.icon, 'w-6 h-6')}</span>
+              <span className={styles.trackNumber}>{String(index + 1).padStart(2, '0')} / {String(roadmaps.length).padStart(2, '0')}</span>
+            </span>
+            <span className={styles.trackBody}>
+              <strong>{track.title}</strong>
+              <span className={styles.trackPreview}>{track.categories.slice(0, 3).map(category => category.title).join(' · ')}</span>
+            </span>
+            <span className={styles.trackBottom}>
+              <span>{track.categories.length} chapters</span>
+              <span className={styles.trackArrow}><ArrowUpRight size={18} aria-hidden="true" /></span>
+            </span>
           </Link>
         ))}
       </div>
