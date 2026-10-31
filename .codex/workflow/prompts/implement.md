@@ -6,6 +6,9 @@ Use $portfolio-change to implement the approved task in
 
 Follow AGENTS.md. Read the task and inspect staged and unstaged changes. Complete
 only its authorized scope and preserve existing behavior and unrelated edits.
+For a clearly specified, bounded implementation, you may delegate to the coder
+role in .codex/agents/coder.toml; otherwise implement directly. The coordinator
+integrates the work and reviews the diff. Delegate only when it is useful.
 Run focused checks that match the acceptance criteria; use npm run check and/or
 npm run build when appropriate. For a visible UI regression, use the read-only
 browser-debugger role in .codex/agents/browser-debugger.toml when its MCP tools

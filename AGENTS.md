@@ -69,7 +69,9 @@ it was not performed.
 
 - Handle small, clear tasks directly. Delegation is optional, not a workflow step.
 - Use at most one subagent by default. Choose investigator for unclear code paths,
-  browser debugger for a reproducible UI issue, or reviewer for a substantial,
-  higher-risk diff. Do not run these roles in sequence by default.
-- Add another agent only when the first result reveals a separate unresolved
-  question. Give it a narrow scope and request concise evidence, not a full report.
+  browser debugger for a reproducible UI issue, coder for a bounded implementation
+  with clear requirements, or reviewer for a substantial, higher-risk diff.
+  Do not run these roles in sequence by default.
+- Add another agent only for a separate unresolved question or a justified
+  independent review of a substantial change. Give it a narrow scope and request
+  concise evidence, not a full report.
