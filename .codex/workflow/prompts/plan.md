@@ -7,9 +7,9 @@ Record substantial work in .codex/workflow/tasks/<task-name>.md, starting from
 
 Follow AGENTS.md. Inspect the working tree and relevant route/components first.
 We want <observable outcome>. Preserve <existing behavior/content/constraints>.
-Use the investigator role in .codex/agents/investigator.toml for a bounded,
-read-only trace if delegation is available; otherwise investigate directly and
-state that limitation.
+For a small or clear task, investigate directly. Use at most one investigator
+subagent only if the code path is unclear or spans multiple areas. Ask for a
+read-only path map and key evidence in five bullets or fewer.
 
 Record confirmed facts separately from hypotheses, the smallest justified change,
 acceptance criteria, affected files and verification plan. Identify decisions

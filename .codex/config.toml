@@ -1,0 +1,6 @@
+[agents]
+max_concurrent_threads_per_session = 2
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest", "--isolated", "--no-usage-statistics"]

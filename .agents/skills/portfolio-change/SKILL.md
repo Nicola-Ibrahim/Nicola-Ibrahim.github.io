@@ -30,6 +30,8 @@ For work spanning multiple files, routes, or interactions, use
 `.codex/workflow/templates/task.md` and keep the task record under
 `.codex/workflow/tasks/`. Write observable acceptance criteria and identify
 existing behavior to preserve. Planning alone does not authorize implementation.
+Handle clear tasks directly; use at most one subagent by default, chosen for the
+main uncertainty. Avoid serial investigator, browser-debugger and reviewer passes.
 
 ## Verify and hand off
 
@@ -38,3 +40,4 @@ and `npm run build`; the latter regenerates the roadmap search index and static
 export. For visual changes, inspect the rendered page at relevant screen sizes
 when browser inspection is available. Report actual commands/results and any
 verification limits. Review the diff and preserve unrelated or staged changes.
+Ask agents for only the needed evidence in five bullets or fewer.
