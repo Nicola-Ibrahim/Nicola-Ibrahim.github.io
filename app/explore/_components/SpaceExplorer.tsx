@@ -128,6 +128,8 @@ export default function SpaceExplorer() {
       <div
         ref={sceneRef}
         className={`${styles.scene} space-scene`}
+        role="region"
+        aria-describedby="planet-navigation-help"
         tabIndex={0}
         onKeyDown={event => {
           if ((event.target as HTMLElement).closest('button, a')) return;
@@ -141,8 +143,10 @@ export default function SpaceExplorer() {
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerEnd}
         onPointerCancel={handlePointerEnd}
-        aria-label="Planet navigation. Drag, swipe on a touchpad or screen, or use arrow keys to choose a world. Press Enter or select the planet to explore it."
+        aria-label="Planet navigation"
       >
+        <p id="planet-navigation-help" className="sr-only">Drag, swipe on a touchpad or screen, or use arrow keys to choose a world. Press Enter or select the planet to explore it.</p>
+        {initialFocusReady && <p className="sr-only" role="status" aria-atomic="true">{focused.title}, planet {focusedIndex + 1} of {destinations.length}.</p>}
         <Link href="/" className="return-link" data-scene-control onClick={returnHome}><span aria-hidden="true">←</span> Back to home</Link>
         <div className={styles.spaceBackdrop} style={{ transform: `scale(1.08) translateX(${Math.sin(focusedIndex * Math.PI * 2 / destinations.length) * 2.8}%)` }} aria-hidden="true" />
         <div className={styles.sceneGlow} aria-hidden="true" />

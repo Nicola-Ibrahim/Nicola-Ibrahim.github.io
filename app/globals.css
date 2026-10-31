@@ -5,6 +5,7 @@
 @layer base {
   body {
     @apply bg-dark text-light font-sans antialiased overflow-x-hidden;
+    overflow-wrap: anywhere;
   }
 
   h1,
@@ -32,7 +33,7 @@
   }
 
   .btn-primary {
-    @apply relative px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold tracking-wide overflow-hidden transition-all duration-300 active:scale-95;
+    @apply relative px-8 py-3 rounded-full bg-gradient-to-r from-teal-700 to-cyan-700 text-white font-bold tracking-wide overflow-hidden transition-all duration-300 active:scale-95;
   }
 
   .btn-primary:hover {
@@ -45,6 +46,13 @@
 
   .btn-outline:hover {
     box-shadow: 0 0 10px rgba(0, 150, 136, 0.1);
+  }
+
+  .btn-primary,
+  .btn-outline {
+    min-width: 0;
+    max-width: 100%;
+    padding-inline: clamp(16px, 4vw, 32px);
   }
 
   .return-link {
@@ -142,3 +150,12 @@ html[data-space-slide="returnPlanet"]::view-transition-new(root) {
 @keyframes slide-page-from-left { from { transform: translateX(-100%); } }
 @keyframes detail-recede { to { opacity: 0; transform: scale(.7); } }
 @keyframes scene-zoom-out { from { opacity: .6; transform: scale(1.45); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-outline,
+  .glass-card,
+  .return-link { transition: none; }
+  .btn-primary:active,
+  .btn-outline:active { transform: none; }
+}

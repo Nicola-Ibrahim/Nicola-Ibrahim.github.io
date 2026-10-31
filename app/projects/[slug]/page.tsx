@@ -15,11 +15,11 @@ const components = {
   h1: (props: React.ComponentPropsWithoutRef<'h1'>) => <h1 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-tight" {...props} />,
   h2: (props: React.ComponentPropsWithoutRef<'h2'>) => <h2 className="text-2xl md:text-3xl font-bold text-white mt-16 mb-6 tracking-tight border-l-4 border-primary pl-6" {...props} />,
   h3: (props: React.ComponentPropsWithoutRef<'h3'>) => <h3 className="text-xl font-bold text-slate-200 mt-10 mb-4 tracking-wide" {...props} />,
-  p: (props: React.ComponentPropsWithoutRef<'p'>) => <p className="text-lg leading-relaxed text-slate-400 mb-6" {...props} />,
-  ul: (props: React.ComponentPropsWithoutRef<'ul'>) => <ul className="list-disc pl-6 mb-8 space-y-3 text-slate-400" {...props} />,
+  p: (props: React.ComponentPropsWithoutRef<'p'>) => <p className="max-w-[65ch] text-lg leading-relaxed text-slate-400 mb-6" {...props} />,
+  ul: (props: React.ComponentPropsWithoutRef<'ul'>) => <ul className="max-w-[65ch] list-disc pl-6 mb-8 space-y-3 text-slate-400" {...props} />,
   li: (props: React.ComponentPropsWithoutRef<'li'>) => <li className="text-lg leading-relaxed" {...props} />,
   strong: (props: React.ComponentPropsWithoutRef<'strong'>) => <strong className="font-bold text-white" {...props} />,
-  blockquote: (props: React.ComponentPropsWithoutRef<'blockquote'>) => <blockquote className="border-l-4 border-secondary pl-6 italic text-slate-300 my-8" {...props} />,
+  blockquote: (props: React.ComponentPropsWithoutRef<'blockquote'>) => <blockquote className="max-w-[65ch] border-l-4 border-secondary pl-6 italic text-slate-300 my-8" {...props} />,
 };
 
 export async function generateStaticParams() {
@@ -68,7 +68,7 @@ export default async function ProjectCaseStudyPage({ params }: { params: { slug:
   return (
     <article className="max-w-none">
       <header className="mb-20">
-        <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
+        <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-readable text-xs font-bold tracking-widest uppercase mb-6">
           {project.frontmatter.category}
         </span>
         <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter leading-[1.1]">

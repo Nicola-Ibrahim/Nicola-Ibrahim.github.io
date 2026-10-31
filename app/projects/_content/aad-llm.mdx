@@ -1,0 +1,28 @@
+---
+title: "LLM-Driven Algorithm Design"
+category: "AI / Optimization research"
+description: "Harnessing LLMs for automated algorithm design, with generated optimization algorithms evaluated against classical optimizers."
+tags: ["Python", "LLMs", "BBOB", "SQLite"]
+---
+
+## Overview
+
+The project explores automated algorithm design: harnessing LLMs to generate and
+improve Python optimization algorithms, then measuring how they perform on
+continuous black-box optimization problems, including problems with noise.
+
+## Approach
+
+LLMs generate candidate algorithms and refine them using evaluation feedback.
+An evaluation harness runs
+the candidates on BBOB (Black-Box Optimization Benchmarking) problems. Selected
+algorithms are independently benchmarked against classical optimizers, including
+CMA-ES, differential evolution, and particle swarm optimization.
+
+Notebooks organize experiments and statistical analysis. SQLite stores experiment
+metadata, while candidate code and benchmark traces are saved for later analysis.
+
+## What it demonstrates
+
+LLM integration, generated-code evaluation, experiment persistence, and benchmark
+analysis within a Python research workflow.

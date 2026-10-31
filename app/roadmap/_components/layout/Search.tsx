@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useId } from 'react';
 import { Search as SearchIcon, X, ChevronRight, Hash, Folder, Layout, Command, Loader2, AlertCircle } from 'lucide-react';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import type Fuse from 'fuse.js';
 import { createFuzzyIndex, searchDocs, type SearchItem, type SearchResult } from '../../_lib/search';
 
@@ -20,8 +20,14 @@ export function Search() {
   const [isError, setIsError] = useState(false);
   const fuseRef = useRef<Fuse<SearchItem>>(null);
   const loadedOnceRef = useRef(false);
-  const searchRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const searchId = useId();
+  const inputId = `${searchId}-input`;
+  const resultsId = `${searchId}-results`;
+  const titleId = `${searchId}-title`;
+  const reducedMotion = useReducedMotion();
+  const hasResults = !isLoading && !isError && results.length > 0;
 
 
   // Load once in production; refetch on each opening during development.
@@ -66,26 +72,30 @@ export function Search() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Autofocus input when modal opens
+  // A native modal contains focus and makes the rest of the page inert.
   useEffect(() => {
-    if (isOpen) {
-      setActiveIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
+    const dialog = dialogRef.current;
+    if (!isOpen || !dialog) return;
+    const previousFocus = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    setActiveIndex(0);
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+    inputRef.current?.focus({ preventScroll: true });
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) {
+        previousFocus.focus({ preventScroll: true });
+      }
+    };
   }, [isOpen]);
 
-  // Handle click outside to close
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
+    if (isOpen && hasResults) {
+      document.getElementById(`${resultsId}-${activeIndex}`)?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
     }
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen]);
+  }, [isOpen, hasResults, activeIndex, resultsId, results]);
 
   // Search the local section index. Exact matches lead; fuzzy matches fill gaps.
   useEffect(() => {
@@ -101,7 +111,7 @@ export function Search() {
 
   // Navigate using keys
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (results.length === 0) return;
+    if (!hasResults || e.nativeEvent.isComposing) return;
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -126,13 +136,14 @@ export function Search() {
         type="button"
         onClick={() => setIsOpen(true)}
         aria-label="Search the roadmaps"
+        aria-haspopup="dialog"
         className="flex-1 max-w-2xl mx-auto w-full group/trigger text-left"
       >
         <div className="relative cursor-text">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
             <SearchIcon className="h-4 w-4 text-slate-400 group-hover/trigger:text-teal-600 transition-colors" />
           </div>
-          <div className="w-full pl-12 pr-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl text-sm font-medium text-slate-400 dark:text-slate-500 transition-all group-hover/trigger:border-teal-500/50 flex items-center justify-between">
+          <div className="w-full pl-12 pr-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl text-sm font-medium text-slate-600 dark:text-slate-300 transition-all group-hover/trigger:border-teal-500/50 flex items-center justify-between">
             <span className="sm:hidden">Search</span>
             <span className="hidden sm:inline">Search the roadmaps...</span>
             <div className="hidden sm:flex items-center gap-1 px-2 py-1 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-[10px] font-black uppercase tracking-tighter opacity-60 group-hover/trigger:opacity-100 transition-opacity">
@@ -142,58 +153,77 @@ export function Search() {
         </div>
       </button>
 
-      <AnimatePresence>
+      <dialog
+        ref={dialogRef}
+        aria-labelledby={titleId}
+        onKeyDown={event => {
+          if (event.key !== 'Tab') return;
+          const controls = event.currentTarget.querySelectorAll<HTMLElement>('input:not(:disabled), button:not(:disabled), a[href]:not([tabindex="-1"])');
+          const first = controls[0];
+          const last = controls[controls.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last?.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first?.focus();
+          }
+        }}
+        onCancel={event => { event.preventDefault(); setIsOpen(false); }}
+        onClose={() => { if (!dialogRef.current?.open) setIsOpen(false); }}
+        onClick={event => { if (event.target === event.currentTarget) setIsOpen(false); }}
+        className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none overflow-y-auto border-0 bg-transparent p-4 text-inherit backdrop:bg-slate-900/60 backdrop:backdrop-blur-md open:flex open:items-start open:justify-center sm:p-6 md:p-20"
+      >
         {isOpen && (
-          <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] p-4 sm:p-6 md:p-20">
-            {/* Backdrop */}
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-slate-900/60 backdrop-blur-md"
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Modal Container */}
-            <motion.div 
-              ref={searchRef}
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              initial={reducedMotion ? false : { scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-2xl bg-white dark:bg-[#0f1115] border border-slate-200 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden"
+              transition={reducedMotion ? { duration: 0 } : { type: "spring", damping: 25, stiffness: 300 }}
+              className="relative mt-[8dvh] flex max-h-[calc(92dvh-2rem)] min-w-0 w-full max-w-2xl flex-col rounded-3xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-[#0f1115] sm:max-h-[calc(92dvh-3rem)] md:mt-0 md:max-h-[calc(100dvh-10rem)]"
             >
+              <h2 id={titleId} className="sr-only">Search engineering notes</h2>
+              <p role="status" className="sr-only">
+                {isLoading ? 'Loading search index.' : isError ? 'Search unavailable. Please check your connection and reload.' : query.trim() ? `${results.length} results found.` : 'Type to search topics, chapters, or concepts.'}
+              </p>
               {/* Search Input */}
-              <div className="flex items-center px-6 py-5 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-black/20">
+              <div className="flex shrink-0 items-center gap-3 rounded-t-3xl border-b border-slate-100 bg-slate-50/50 px-4 py-4 dark:border-white/5 dark:bg-black/20 sm:px-6 sm:py-5">
                 {isLoading ? (
-                  <Loader2 className="h-5 w-5 text-teal-600 dark:text-teal-400 mr-4 animate-spin" />
+                  <Loader2 aria-hidden="true" className="h-5 w-5 shrink-0 text-teal-600 dark:text-teal-400 motion-safe:animate-spin" />
                 ) : (
-                  <SearchIcon className="h-5 w-5 text-teal-600 dark:text-teal-400 mr-4" />
+                  <SearchIcon aria-hidden="true" className="h-5 w-5 shrink-0 text-teal-600 dark:text-teal-400" />
                 )}
+                <label htmlFor={inputId} className="sr-only">Search topics, chapters, or concepts</label>
                 <input
-
+                  id={inputId}
                   ref={inputRef}
                   type="text"
-                  className="flex-1 bg-transparent border-none outline-none text-lg font-bold placeholder:text-slate-400 dark:placeholder:text-slate-600 text-slate-900 dark:text-white"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-expanded={hasResults}
+                  aria-controls={hasResults ? resultsId : undefined}
+                  aria-activedescendant={hasResults && results[activeIndex] ? `${resultsId}-${activeIndex}` : undefined}
+                  className="min-w-0 flex-1 rounded bg-transparent border-none outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300 focus-visible:outline-offset-4 text-base sm:text-lg font-bold placeholder:text-slate-500 dark:placeholder:text-slate-400 text-slate-900 dark:text-white"
                   placeholder="Search topics, chapters, or concepts..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                 />
                 <button 
+                  type="button"
+                  aria-label="Close search"
                   onClick={() => setIsOpen(false)}
-                  className="p-2 hover:bg-slate-200 dark:hover:bg-white/5 rounded-xl transition-colors text-slate-400"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center hover:bg-slate-200 dark:hover:bg-white/5 rounded-xl transition-colors text-slate-600 dark:text-slate-300"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Results Area */}
-              <div className="max-h-[50vh] overflow-y-auto p-4 custom-scrollbar">
+              <div className="min-h-0 overflow-y-auto p-4 custom-scrollbar">
                 {isLoading ? (
                   <div className="space-y-3 p-2">
                     {[1, 2, 3].map((i) => (
-                      <div key={i} className="flex gap-4 p-4 animate-pulse">
+                      <div key={i} className="flex gap-4 p-4 motion-safe:animate-pulse">
                         <div className="w-10 h-10 bg-slate-100 dark:bg-white/5 rounded-xl" />
                         <div className="flex-1 space-y-2 py-1">
                           <div className="h-4 bg-slate-100 dark:bg-white/5 rounded w-1/4" />
@@ -217,17 +247,21 @@ export function Search() {
                     </button>
                   </div>
                 ) : results.length > 0 ? (
-                  <div className="space-y-1">
+                  <div id={resultsId} role="listbox" aria-label="Search results" className="space-y-1">
                     {results.map((result, idx) => (
                       <Link
                         key={result.url}
+                        id={`${resultsId}-${idx}`}
+                        role="option"
+                        aria-selected={activeIndex === idx}
+                        tabIndex={-1}
                         href={result.url}
                         onClick={() => setIsOpen(false)}
                         onMouseEnter={() => setActiveIndex(idx)}
                         className={`flex items-start gap-4 p-4 rounded-2xl transition-all group border ${
                           activeIndex === idx 
                           ? 'bg-teal-50/50 dark:bg-teal-500/5 border-teal-500/20 shadow-sm' 
-                          : 'bg-transparent border-transparent grayscale-[0.6] opacity-60 hover:opacity-100 hover:grayscale-0'
+                          : 'bg-transparent border-transparent hover:bg-white/5'
                         }`}
                       >
                         {/* Icon */}
@@ -267,8 +301,9 @@ export function Search() {
                   </div>
                 ) : query.trim() ? (
                   <motion.div 
-                    initial={{ opacity: 0 }}
+                    initial={reducedMotion ? false : { opacity: 0 }}
                     animate={{ opacity: 1 }}
+                    transition={reducedMotion ? { duration: 0 } : undefined}
                     className="py-20 text-center"
                   >
                     <div className="inline-flex p-4 rounded-full bg-slate-50 dark:bg-white/5 mb-4">
@@ -279,24 +314,23 @@ export function Search() {
                   </motion.div>
                 ) : (
                   <div className="py-20 text-center">
-                    <h3 className="text-sm font-black text-slate-400 dark:text-slate-600 uppercase tracking-[0.2em] animate-pulse">Start typing to explore...</h3>
+                    <h3 className="text-sm font-black text-slate-600 dark:text-slate-300 uppercase tracking-[0.2em]">Start typing to explore...</h3>
                   </div>
                 )}
               </div>
 
 
               {/* Modal Footer */}
-              <div className="px-6 py-4 bg-slate-50 dark:bg-black/20 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-400">
-                <div className="flex items-center gap-6">
+              <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 rounded-b-3xl border-t border-slate-100 bg-slate-50 px-4 py-4 text-[10px] font-black uppercase tracking-widest text-slate-600 dark:border-white/5 dark:bg-black/20 dark:text-slate-300 sm:px-6">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-6">
                   <span className="flex items-center gap-1.5"><kbd className="px-1.5 py-0.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded text-slate-900 dark:text-slate-200">Enter</kbd> to select</span>
                   <span className="flex items-center gap-1.5"><kbd className="px-1.5 py-0.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded text-slate-900 dark:text-slate-200">↑↓</kbd> to navigate</span>
                 </div>
                 <span className="flex items-center gap-1.5"><kbd className="px-1.5 py-0.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded text-slate-900 dark:text-slate-200">Esc</kbd> to close</span>
               </div>
             </motion.div>
-          </div>
         )}
-      </AnimatePresence>
+      </dialog>
     </>
   );
 }

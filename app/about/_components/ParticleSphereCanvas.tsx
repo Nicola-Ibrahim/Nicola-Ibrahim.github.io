@@ -14,7 +14,12 @@ const ParticleSphereCanvas: React.FC = () => {
     // Setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch {
+      return;
+    }
 
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -95,7 +100,7 @@ const ParticleSphereCanvas: React.FC = () => {
 
     camera.position.z = 4.5;
 
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let draggingPointer: number | null = null;
     let lastPointerX = 0;
     let lastPointerY = 0;
@@ -144,8 +149,13 @@ const ParticleSphereCanvas: React.FC = () => {
       render();
     };
 
-    if (reducedMotion) render();
-    else animate();
+    const updateMotion = () => {
+      cancelAnimationFrame(animationId);
+      if (motionQuery.matches) render();
+      else animate();
+    };
+    motionQuery.addEventListener('change', updateMotion);
+    updateMotion();
 
     // Resize handler
     const handleResize = () => {
@@ -155,7 +165,7 @@ const ParticleSphereCanvas: React.FC = () => {
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
-      if (reducedMotion) render();
+      if (motionQuery.matches) render();
     };
 
     window.addEventListener('resize', handleResize);
@@ -163,6 +173,7 @@ const ParticleSphereCanvas: React.FC = () => {
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
+      motionQuery.removeEventListener('change', updateMotion);
       container.removeEventListener('pointerdown', handlePointerDown);
       container.removeEventListener('pointermove', handlePointerMove);
       container.removeEventListener('pointerup', handlePointerEnd);
@@ -176,6 +187,7 @@ const ParticleSphereCanvas: React.FC = () => {
       material.dispose();
       lineGeometry.dispose();
       lineMaterial.dispose();
+      renderer.dispose();
     };
   }, []);
 

@@ -15,7 +15,7 @@ export default function ProjectLayout({
       </main>
 
       <footer className="py-12 border-t border-white/10 bg-dark-lighter text-center">
-        <p className="text-gray-500 text-sm">&copy; {new Date().getFullYear()} Nicola Ibrahim.</p>
+        <p className="text-gray-400 text-sm">&copy; {new Date().getFullYear()} Nicola Ibrahim.</p>
       </footer>
     </div>
   );

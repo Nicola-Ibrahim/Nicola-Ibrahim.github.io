@@ -75,7 +75,7 @@ export function TableOfContents({
                     onItemClick(item.id);
                   } else {
                     const el = document.getElementById(item.id);
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    if (el) el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
                   }
                 }}
                 style={{ paddingLeft: `${depth * 16 + 8}px` }}

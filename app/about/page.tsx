@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PortfolioSubpage from '../_shared/PortfolioSubpage';
 import { AboutSection, EducationSection } from './_components/AboutSections';
+import { AreasOfWorkSection } from './_components/AreasOfWorkSection';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <PortfolioSubpage planetId="about"><AboutSection /><EducationSection /></PortfolioSubpage>;
+  return <PortfolioSubpage planetId="about"><AboutSection /><AreasOfWorkSection /><EducationSection /></PortfolioSubpage>;
 }

@@ -12,6 +12,7 @@ const config: Config = {
         primary: "#009688", // FastAPI Teal
         secondary: "#00bcd4", // Cyan 500 (Harmonized)
         accent: "#00ccb8", // FastAPI Light Teal/Cyan
+        readable: "#5eead4",
         dark: "#23272f", // Lighter FastAPI Slate
         "dark-lighter": "#2d333b", // Shifted Depth Slate
         light: "#f9fafb", // Gray 50
