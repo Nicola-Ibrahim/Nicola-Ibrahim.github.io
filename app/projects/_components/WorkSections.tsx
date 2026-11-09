@@ -9,7 +9,7 @@ export function ProjectsSection() {
         <div className="mb-14">
           <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-readable text-xs font-bold tracking-widest uppercase mb-6">Selected work</span>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Projects</h1>
-          <p className="text-gray-400 max-w-xl">Software projects exploring backend systems, optimization, and AI.</p>
+          <p className="text-gray-400 max-w-xl">Selected projects in AI, optimization, platform engineering, and developer tooling.</p>
         </div>
         <div className="space-y-20 lg:space-y-28">
           {projects.map((project, index) => (
