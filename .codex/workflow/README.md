@@ -8,7 +8,7 @@ run automatically.
 | --- | --- |
 | [AGENTS.md](../../AGENTS.md) | Stable repository guidance |
 | [Agent roles](../agents/) | Investigator, browser debugger, coder and reviewer instructions |
-| [Portfolio change skill](../../.agents/skills/portfolio-change/SKILL.md) | Procedure for substantial frontend changes |
+| [Portfolio skills](../../.agents/skills/) | Change management, architecture, visuals, content and verification |
 | [Prompts](prompts/README.md) | Copy-and-paste planning, implementation and resume prompts |
 | [Task template](templates/task.md) | Record for one substantial task |
 
