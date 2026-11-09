@@ -110,7 +110,7 @@
   text-shadow: 0 2px 24px #000;
 }
 .worldIndex { color: #88d9d9; font: 700 .63rem/1.2 monospace; letter-spacing: .22em; }
-.worldCaption strong { font-size: clamp(2.3rem, 4.5vw, 4.3rem); font-weight: 800; letter-spacing: -.055em; line-height: 1; }
+.worldCaption strong { font-size: clamp(2.3rem, 4.5vw, 4.3rem); font-weight: 800; letter-spacing: -.055em; line-height: 1; white-space: nowrap; }
 .worldDetail { display: block; max-width: 320px; color: #c1d6dd; font-size: .88rem; line-height: 1.4; letter-spacing: 0; }
 .planetLink:hover .worldCaption strong, .planetLink:focus-visible .worldCaption strong { color: #b9fff8; }
 .sceneControls {
@@ -138,18 +138,32 @@
 }
 .arrowButton:hover:not(:disabled) { border-color: #71d9d7; background: rgba(25,80,88,.8); }
 .arrowButton:disabled { opacity: .27; cursor: default; }
-.progress { display: flex; align-items: center; gap: 9px; }
+.progress { display: flex; align-items: center; gap: 2px; }
 .progress button {
-  width: 8px;
-  height: 8px;
+  position: relative;
+  width: 24px;
+  height: 32px;
   padding: 0;
   border: 0;
   border-radius: 99px;
-  background: #56717f;
+  background: transparent;
   cursor: pointer;
+  transition: width 240ms;
+}
+.progress button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: #56717f;
+  transform: translate(-50%, -50%);
   transition: width 240ms, background 240ms;
 }
-.progress .currentDot { width: 28px; background: #69e1d9; }
+.progress .currentDot { width: 44px; }
+.progress .currentDot::before { width: 28px; background: #69e1d9; }
 .travelling .mapTop,
 .travelling .sceneControls,
 .travelling .worldCaption { opacity: 0; transition: opacity 500ms; }
@@ -192,5 +206,5 @@
 @media (prefers-reduced-motion: reduce) {
   .scene { animation: none; transition: none; }
   .sceneGlow { animation: none; }
-  .spaceBackdrop, .arrowButton, .progress button { transition-duration: 0ms; }
+  .spaceBackdrop, .arrowButton, .progress button, .progress button::before { transition-duration: 0ms; }
 }

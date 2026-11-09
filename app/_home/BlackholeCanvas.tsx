@@ -291,7 +291,7 @@ export default function BlackholeCanvas() {
     const starMaterial = new THREE.PointsMaterial({ color: 0xb6d8db, size: 0.075, transparent: true, opacity: 0.55 });
     scene.add(new THREE.Points(starGeometry, starMaterial));
 
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const pointer = new THREE.Vector2();
     const timer = new THREE.Timer();
     timer.connect(document);
@@ -338,13 +338,23 @@ export default function BlackholeCanvas() {
 
     updateSize();
     window.addEventListener('resize', updateSize);
-    if (!reducedMotion) {
-      window.addEventListener('pointermove', handlePointerMove, { passive: true });
-      frameId = requestAnimationFrame(animate);
-    }
+    const updateMotion = () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener('pointermove', handlePointerMove);
+      if (motionQuery.matches) {
+        renderer.render(scene, camera);
+      } else {
+        lastFrame = 0;
+        window.addEventListener('pointermove', handlePointerMove, { passive: true });
+        frameId = requestAnimationFrame(animate);
+      }
+    };
+    motionQuery.addEventListener('change', updateMotion);
+    updateMotion();
 
     return () => {
       window.removeEventListener('resize', updateSize);
+      motionQuery.removeEventListener('change', updateMotion);
       window.removeEventListener('pointermove', handlePointerMove);
       cancelAnimationFrame(frameId);
       timer.dispose();

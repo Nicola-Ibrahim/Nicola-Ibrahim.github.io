@@ -9,7 +9,7 @@ export function SkillsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillGroups.map(group => (
             <div key={group.title} className="glass-card p-7">
-              <h3 className="text-xl font-bold text-white mb-5">{group.title}</h3>
+              <h2 className="text-xl font-bold text-white mb-5">{group.title}</h2>
               <div className="flex flex-wrap gap-2">
                 {group.skills.map(skill => (
                   <span key={skill.name} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200">

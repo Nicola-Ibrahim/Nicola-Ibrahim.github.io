@@ -28,10 +28,10 @@ export default async function RoadmapLayout({
       
       {/* Footer Branding */}
       <footer className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-200 dark:border-white/5 text-center relative z-10 mt-20">
-        <p className="text-slate-500 text-sm font-medium">
+        <p className="text-slate-400 text-sm font-medium">
           Engineering study notes
         </p>
-        <p className="text-slate-600 text-xs mt-2 uppercase tracking-[0.2em]">
+        <p className="text-slate-400 text-xs mt-2 uppercase tracking-[0.2em]">
           &copy; {new Date().getFullYear()} Nicola Ibrahim
         </p>
       </footer>

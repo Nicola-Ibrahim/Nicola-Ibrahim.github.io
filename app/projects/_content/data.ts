@@ -1,8 +1,21 @@
-export const projects = [
+type Project = {
+  title: string;
+  category: string;
+  description: string;
+  tags: string[];
+  image: string | null;
+  icon: string;
+  demoUrl: string | null;
+  githubUrls: { label: string; url: string }[];
+  caseStudyUrl: string | null;
+  note: string;
+};
+
+export const projects: Project[] = [
   {
     title: 'Tracing Objectives Backwards',
-    category: 'Backend / Optimization',
-    description: 'A FastAPI project that works backward from a target result to possible input settings. Python, NumPy, and SciPy support the search, and an API makes it available to other software.',
+    category: 'AI / Optimization',
+    description: 'A Python and FastAPI project that searches for possible input settings given a target result. NumPy and SciPy support the search, which other applications can access through an API.',
     tags: ['Python', 'FastAPI', 'NumPy', 'SciPy', 'Docker'],
     image: '/images/projects/trace_engine.png',
     icon: 'fas fa-diagram-project',
@@ -12,6 +25,30 @@ export const projects = [
       { label: 'Frontend', url: 'https://github.com/Nicola-Ibrahim/Tracing-Objectives-Backwards-front' },
     ],
     caseStudyUrl: '/projects/tracing-objectives-backwards',
+    note: '',
+  },
+  {
+    title: 'LLM-Driven Algorithm Design',
+    category: 'AI / Optimization research',
+    description: 'Harnessing LLMs for automated algorithm design: generating and improving Python optimization algorithms, then benchmarking them against classical optimizers on BBOB problems with configurable noise.',
+    tags: ['Python', 'LLMs', 'BBOB', 'SQLite'],
+    image: null,
+    icon: 'fas fa-brain',
+    demoUrl: null,
+    githubUrls: [{ label: 'Repository', url: 'https://github.com/Nicola-Ibrahim/AAD_LLM' }],
+    caseStudyUrl: '/projects/aad-llm',
+    note: '',
+  },
+  {
+    title: 'Document Q&A with RAG',
+    category: 'AI / Information retrieval',
+    description: 'A planned exploration of retrieval-augmented generation (RAG): retrieving relevant document passages to support LLM answers.',
+    tags: ['Retrieval', 'LLMs'],
+    image: null,
+    icon: 'fas fa-book-open',
+    demoUrl: null,
+    githubUrls: [],
+    caseStudyUrl: null,
     note: '',
   },
   /* Keep these case studies available; re-enable them when ready to feature them.
