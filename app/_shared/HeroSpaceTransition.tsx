@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-type Direction = 'forward' | 'backward' | 'returnPlanet';
+type Direction = 'forward' | 'backward' | 'returnPlanet' | 'page';
 type TransitionContext = { start: (destination: string, direction: Direction) => void };
 type PendingNavigation = { pathname: string; resolve: () => void; timeout: ReturnType<typeof setTimeout> };
 

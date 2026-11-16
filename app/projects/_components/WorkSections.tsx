@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import TransitionLink from '../../_shared/TransitionLink';
 import { projects } from '../_content/data';
 
 export function ProjectsSection() {
@@ -34,7 +34,7 @@ export function ProjectsSection() {
                   {project.tags.map(tag => <span key={tag} className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300">{tag}</span>)}
                 </div>
                 {(project.caseStudyUrl || project.demoUrl) && <div className="flex flex-wrap gap-3">
-                  {project.caseStudyUrl && <Link href={project.caseStudyUrl} className="btn-primary inline-flex items-center">About the project <i className="fas fa-arrow-right ml-3 text-sm" aria-hidden="true" /></Link>}
+                  {project.caseStudyUrl && <TransitionLink href={project.caseStudyUrl} className="btn-primary inline-flex items-center">About the project <i className="fas fa-arrow-right ml-3 text-sm" aria-hidden="true" /></TransitionLink>}
                   {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="btn-outline inline-flex items-center">Live demo <i className="fas fa-external-link-alt ml-3 text-sm" aria-hidden="true" /></a>}
                 </div>}
                 {project.githubUrls.length > 0 && <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm">

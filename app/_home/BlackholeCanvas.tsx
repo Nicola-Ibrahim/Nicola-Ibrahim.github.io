@@ -204,6 +204,8 @@ export default function BlackholeCanvas() {
     const container = containerRef.current;
     if (!container) return;
 
+    container.dataset.renderMode = 'fallback';
+
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
@@ -218,6 +220,7 @@ export default function BlackholeCanvas() {
     renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
+    container.dataset.renderMode = 'webgl';
 
     const blackHole = new THREE.Group();
     scene.add(blackHole);
@@ -349,6 +352,20 @@ export default function BlackholeCanvas() {
         frameId = requestAnimationFrame(animate);
       }
     };
+    const handleContextLost = (event: Event) => {
+      event.preventDefault();
+      container.dataset.renderMode = 'fallback';
+      renderer.domElement.style.visibility = 'hidden';
+      cancelAnimationFrame(frameId);
+    };
+    const handleContextRestored = () => {
+      renderer.domElement.style.visibility = '';
+      container.dataset.renderMode = 'webgl';
+      updateSize();
+      updateMotion();
+    };
+    renderer.domElement.addEventListener('webglcontextlost', handleContextLost);
+    renderer.domElement.addEventListener('webglcontextrestored', handleContextRestored);
     motionQuery.addEventListener('change', updateMotion);
     updateMotion();
 
@@ -356,6 +373,8 @@ export default function BlackholeCanvas() {
       window.removeEventListener('resize', updateSize);
       motionQuery.removeEventListener('change', updateMotion);
       window.removeEventListener('pointermove', handlePointerMove);
+      renderer.domElement.removeEventListener('webglcontextlost', handleContextLost);
+      renderer.domElement.removeEventListener('webglcontextrestored', handleContextRestored);
       cancelAnimationFrame(frameId);
       timer.dispose();
       container.removeChild(renderer.domElement);
@@ -375,5 +394,5 @@ export default function BlackholeCanvas() {
     };
   }, []);
 
-  return <div ref={containerRef} aria-hidden="true" className="absolute inset-0 -z-10 pointer-events-none opacity-50 md:opacity-80" />;
+  return <div ref={containerRef} aria-hidden="true" data-render-mode="fallback" className="absolute inset-0 pointer-events-none" />;
 }

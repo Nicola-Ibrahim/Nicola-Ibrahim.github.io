@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import TransitionLink from '../../_shared/TransitionLink';
 
 export default function ProjectLayout({
   children,
@@ -8,7 +8,7 @@ export default function ProjectLayout({
 }) {
   return (
     <div className="min-h-screen bg-dark text-light overflow-x-hidden pt-20">
-      <Link href="/projects" className="return-link return-link--page"><span aria-hidden="true">←</span> Back to Work</Link>
+      <TransitionLink href="/projects" className="return-link return-link--page"><span aria-hidden="true">←</span> Back to Work</TransitionLink>
 
       <main className="max-w-5xl mx-auto px-6 py-20">
         {children}

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ trackId: 
     openGraph: {
       title,
       description,
-      url: `https://nicolaibrahim.github.io/roadmap/${trackId}`,
+      url: `https://nicola-ibrahim.github.io/roadmap/${trackId}`,
       siteName: 'Nicola Ibrahim Portfolio',
     },
     twitter: {

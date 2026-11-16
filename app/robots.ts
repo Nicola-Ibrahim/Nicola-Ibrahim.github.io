@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://nicolaibrahim.github.io/sitemap.xml',
+    sitemap: 'https://nicola-ibrahim.github.io/sitemap.xml',
   }
 }

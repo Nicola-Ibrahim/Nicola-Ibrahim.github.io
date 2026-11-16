@@ -136,6 +136,13 @@ html[data-space-slide="forward"]::view-transition-old(root) { animation-name: sl
 html[data-space-slide="forward"]::view-transition-new(root) { animation-name: slide-page-from-right; }
 html[data-space-slide="backward"]::view-transition-old(root) { animation-name: slide-page-right; }
 html[data-space-slide="backward"]::view-transition-new(root) { animation-name: slide-page-from-left; }
+html[data-space-slide="page"]::view-transition-old(root),
+html[data-space-slide="page"]::view-transition-new(root) {
+  animation-duration: 360ms;
+  animation-timing-function: ease-in-out;
+}
+html[data-space-slide="page"]::view-transition-old(root) { animation-name: fade-page-out; }
+html[data-space-slide="page"]::view-transition-new(root) { animation-name: fade-page-in; }
 html[data-space-slide="returnPlanet"]::view-transition-old(root) {
   z-index: 2;
   animation: 850ms cubic-bezier(.2,.7,.2,1) both detail-recede;
@@ -148,6 +155,8 @@ html[data-space-slide="returnPlanet"]::view-transition-new(root) {
 @keyframes slide-page-from-right { from { transform: translateX(100%); } }
 @keyframes slide-page-right { to { transform: translateX(100%); } }
 @keyframes slide-page-from-left { from { transform: translateX(-100%); } }
+@keyframes fade-page-out { to { opacity: 0; transform: translateY(-8px); } }
+@keyframes fade-page-in { from { opacity: 0; transform: translateY(8px); } }
 @keyframes detail-recede { to { opacity: 0; transform: scale(.7); } }
 @keyframes scene-zoom-out { from { opacity: .6; transform: scale(1.45); } }
 
