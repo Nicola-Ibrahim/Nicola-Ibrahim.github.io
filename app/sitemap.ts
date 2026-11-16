@@ -5,7 +5,7 @@ import { getFullRoadmapsData } from './roadmap/_lib/mdx'
 export const dynamic = 'force-static'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://nicolaibrahim.github.io'
+  const baseUrl = 'https://nicola-ibrahim.github.io'
 
   // Dynamic projects
   const projectSlugs = getAllProjectSlugs()

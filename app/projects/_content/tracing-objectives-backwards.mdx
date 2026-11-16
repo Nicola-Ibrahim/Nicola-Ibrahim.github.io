@@ -6,14 +6,14 @@ tags: ["Python", "FastAPI", "NumPy", "SciPy", "Docker", "CI/CD"]
 date: "2024-03-24"
 ---
 
-## Overview
+## Problem
 
 Engineering design often starts with a desired result but no clear set of
 inputs to produce it. This project explores the reverse problem: given a
 target, search for possible parameter combinations. When an exact match
 is unavailable, the search can return a nearby option.
 
-## Approach
+## Solution and architecture
 
 FastAPI handles requests while a separate Python module runs the search.
 NumPy and SciPy support the numerical work. The API and search code are
@@ -30,7 +30,14 @@ kept separate so each can be changed and tested independently.
 The application is containerized with Docker, with a deployment pipeline
 for the demo.
 
-## What it demonstrates
+## Technical decisions and challenges
 
-The project demonstrates optimization work behind an API, including how to
+Keeping the API separate from the search module allows the request layer and
+numerical work to be changed and tested independently. The search also needs to
 handle targets with several possible answers or no exact match.
+
+## Evidence and status
+
+The [live demo](https://tracing-objectives-backwards-frontend.onrender.com/)
+shows the application interface. The architecture diagram above shows how a
+target moves through the search and returns possible input settings.

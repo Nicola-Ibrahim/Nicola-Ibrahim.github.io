@@ -1,5 +1,7 @@
+.work { background:linear-gradient(180deg,transparent 0,rgba(17,48,86,.12) 420px,#030912 900px); }
 .work :global(#projects) { background:transparent; padding-top:70px; }
 .work :global(#projects > div) { position:relative; }
 .work :global(.browser-frame) { background:rgba(8,23,39,.78); border-color:rgba(61,102,119,.48); }
+.work :global(.browser-frame > div) { background:radial-gradient(circle at 42% 20%,rgba(62,126,211,.22),transparent 65%),#081727; }
 .work :global(.glass-card) { background:rgba(8,23,39,.7); border-color:rgba(61,102,119,.4); }
 @media(min-width:900px) { .work :global(#projects > div > div:first-child) { max-width:700px; min-height:185px; } }

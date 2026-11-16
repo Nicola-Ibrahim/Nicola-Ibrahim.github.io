@@ -15,7 +15,7 @@ export default async function Image() {
     (
       <div
         style={{
-          background: '#0a0a0a',
+          background: '#030912',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -23,7 +23,7 @@ export default async function Image() {
           alignItems: 'center',
           justifyContent: 'center',
           fontFamily: 'sans-serif',
-          border: '10px solid #111111',
+          border: '10px solid #102637',
         }}
       >
         <div
@@ -34,14 +34,14 @@ export default async function Image() {
             width: 80,
             height: 80,
             borderRadius: '50%',
-            background: 'rgba(255, 255, 255, 0.1)',
+            background: 'rgba(124, 232, 221, 0.1)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: 40,
             color: '#fff',
             fontWeight: 900,
-            border: '2px solid rgba(255, 255, 255, 0.2)',
+            border: '2px solid #7ce8dd',
           }}
         >
           NI
@@ -69,12 +69,12 @@ export default async function Image() {
             style={{
               fontSize: 32,
               fontWeight: 500,
-              color: '#888888',
+              color: '#a8bccb',
               textTransform: 'uppercase',
               letterSpacing: '0.2em',
             }}
           >
-            Software Engineer & AI Architect
+            Software Engineer
           </div>
         </div>
         <div
@@ -83,11 +83,11 @@ export default async function Image() {
             bottom: 40,
             right: 40,
             fontSize: 24,
-            color: '#444444',
+            color: '#7ce8dd',
             fontWeight: 700,
           }}
         >
-          nicolaibrahim.github.io
+          nicola-ibrahim.github.io
         </div>
       </div>
     ),

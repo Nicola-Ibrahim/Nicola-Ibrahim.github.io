@@ -5,13 +5,13 @@ description: "Harnessing LLMs for automated algorithm design, with generated opt
 tags: ["Python", "LLMs", "BBOB", "SQLite"]
 ---
 
-## Overview
+## Problem
 
 The project explores automated algorithm design: harnessing LLMs to generate and
 improve Python optimization algorithms, then measuring how they perform on
 continuous black-box optimization problems, including problems with noise.
 
-## Approach
+## Solution and architecture
 
 LLMs generate candidate algorithms and refine them using evaluation feedback.
 An evaluation harness runs
@@ -22,7 +22,10 @@ CMA-ES, differential evolution, and particle swarm optimization.
 Notebooks organize experiments and statistical analysis. SQLite stores experiment
 metadata, while candidate code and benchmark traces are saved for later analysis.
 
-## What it demonstrates
+## Technical decisions and evidence
 
-LLM integration, generated-code evaluation, experiment persistence, and benchmark
-analysis within a Python research workflow.
+The BBOB evaluation harness and comparisons with classical optimizers provide
+a basis for examining the generated algorithms. SQLite stores experiment metadata,
+while candidate code and benchmark traces remain available for later analysis.
+The [source repository](https://github.com/Nicola-Ibrahim/AAD_LLM) contains the
+experimental workflow; no performance result is claimed here.

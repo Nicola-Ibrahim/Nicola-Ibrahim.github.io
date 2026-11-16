@@ -15,11 +15,10 @@ export default function HomePage() {
         </header>
 
         <div className={styles.content}>
-          <p className={styles.eyebrow}>SOFTWARE ENGINEER&nbsp; / &nbsp;BACKEND &amp; AI</p>
+          <p className={styles.eyebrow}>SOFTWARE ENGINEER</p>
           <h1 id="home-title" className={styles.title}>Nicola<br /> Ibrahim.</h1>
           <p className={styles.description}>
-            Software architecture, backend systems, and applied AI —<br className={styles.desktopBreak} />
-            {' '}from initial experiments to working applications.
+            I design backend services, develop software platforms, and explore practical applications of AI.
           </p>
           <nav className={styles.actions} aria-label="Explore the portfolio">
             <Link href="/about" className={styles.primaryAction}>Explore portfolio <span aria-hidden="true">↗</span></Link>

@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title,
       description,
       type: 'article',
-      url: `https://nicolaibrahim.github.io/projects/${slug}`,
+      url: `https://nicola-ibrahim.github.io/projects/${slug}`,
       publishedTime: project.frontmatter.date,
       authors: ['Nicola Ibrahim'],
       tags: project.frontmatter.tags,

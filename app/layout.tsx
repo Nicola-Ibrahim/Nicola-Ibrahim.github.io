@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nicolaibrahim.github.io'),
+  metadataBase: new URL('https://nicola-ibrahim.github.io'),
   title: {
     default: "Nicola Ibrahim | Portfolio",
     template: "%s | Nicola Ibrahim"
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://nicolaibrahim.github.io",
+    url: "https://nicola-ibrahim.github.io",
     title: "Nicola Ibrahim | Portfolio",
     description: "Backend projects, data and ML work, and the tools behind them.",
     siteName: "Nicola Ibrahim Portfolio",

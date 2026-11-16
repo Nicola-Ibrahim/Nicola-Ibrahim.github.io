@@ -12,25 +12,10 @@
   flex-direction: column;
   overflow: hidden;
   background:
-    linear-gradient(90deg, #030912 0%, rgba(3, 9, 18, 0.96) 39%, rgba(3, 9, 18, 0.48) 72%, rgba(3, 9, 18, 0.68) 100%),
-    radial-gradient(ellipse at 78% 48%, rgba(18, 102, 133, 0.24), transparent 46%),
+    linear-gradient(90deg, #030912 0%, rgba(3, 9, 18, 0.97) 39%, rgba(3, 9, 18, 0.68) 72%, rgba(3, 9, 18, 0.38) 100%),
+    linear-gradient(0deg, rgba(3, 9, 18, 0.42), rgba(3, 9, 18, 0.16)),
+    url('/images/space-nebula.webp') center / cover,
     #030912;
-}
-
-.hero::before {
-  position: absolute;
-  z-index: -2;
-  inset: 0 auto 0 0;
-  width: 68%;
-  background-image: url('/images/space/landing-cinematic.png');
-  background-repeat: no-repeat;
-  background-position: left center;
-  background-size: auto 100%;
-  content: '';
-  opacity: 0.38;
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 100%);
-  pointer-events: none;
 }
 
 .canvas {
@@ -41,13 +26,25 @@
   pointer-events: none;
 }
 
-/* The existing canvas scene places its black hole to the left; mirroring the
-   canvas moves that same animation to the right without changing its motion. */
 .canvas > div {
   z-index: 0;
   opacity: 1;
-  filter: brightness(1.8) contrast(1.2) saturate(1.25);
+  background:
+    linear-gradient(90deg, rgba(3, 9, 18, 0.94), rgba(3, 9, 18, 0.72) 42%, rgba(3, 9, 18, 0.12) 80%),
+    url('/images/space/landing-cinematic.png') 50% 50% / cover no-repeat;
+  pointer-events: none;
+}
+
+.canvas > div[data-render-mode='webgl'] {
+  background: none;
+}
+
+.canvas > div canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
   transform: scaleX(-1);
+  filter: brightness(1.8) contrast(1.2) saturate(1.25);
 }
 
 .header {
@@ -156,24 +153,19 @@
   .hero {
     min-height: max(700px, 100svh);
     background:
-      linear-gradient(90deg, rgba(3, 9, 18, 0.97), rgba(3, 9, 18, 0.75)),
-      radial-gradient(ellipse at 78% 48%, rgba(18, 102, 133, 0.22), transparent 50%),
+      linear-gradient(90deg, rgba(3, 9, 18, 0.97), rgba(3, 9, 18, 0.72)),
+      linear-gradient(0deg, rgba(3, 9, 18, 0.48), rgba(3, 9, 18, 0.2)),
+      url('/images/space-nebula.webp') center / cover,
       #030912;
   }
 
-  .hero::before {
-    width: 100%;
-    background-size: auto 78%;
-    background-position: 30% center;
-    opacity: 0.28;
-    -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 82%);
-    mask-image: linear-gradient(90deg, #000 0%, transparent 82%);
+  .canvas > div {
+    background:
+      linear-gradient(90deg, rgba(3, 9, 18, 0.9), rgba(3, 9, 18, 0.65)),
+      url('/images/space/landing-cinematic.png') 74% center / cover no-repeat;
   }
 
-  .canvas > div {
-    opacity: 0.9;
-    filter: brightness(1.55) contrast(1.15) saturate(1.2);
-  }
+  .canvas > div[data-render-mode='webgl'] { background:none; }
 
   .header,
   .content {
@@ -199,10 +191,6 @@
 
   .description {
     margin-left: 13px;
-  }
-
-  .desktopBreak {
-    display: none;
   }
 
   .actions {

@@ -15,7 +15,7 @@ export default async function Image() {
     (
       <div
         style={{
-          background: '#0a0a0a',
+          background: '#030912',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -23,7 +23,7 @@ export default async function Image() {
           alignItems: 'center',
           justifyContent: 'center',
           fontFamily: 'sans-serif',
-          borderTop: '20px solid #ffffff',
+          borderTop: '20px solid #7ce8dd',
         }}
       >
         <div
@@ -41,12 +41,12 @@ export default async function Image() {
           style={{
             fontSize: 32,
             fontWeight: 500,
-            color: '#888888',
+            color: '#a8bccb',
             textTransform: 'uppercase',
             letterSpacing: '0.2em',
           }}
         >
-          Software Engineer & AI Architect
+          Software Engineer
         </div>
       </div>
     ),
