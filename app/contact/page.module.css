@@ -1,0 +1,8 @@
+.links { display:grid; gap:12px; max-width:720px; margin-top:70px; }
+.link { display:grid; grid-template-columns:44px 145px 1fr 24px; align-items:center; gap:12px; min-height:59px; padding:10px 17px; border:1px solid rgba(61,102,119,.4); border-radius:20px; background:rgba(8,23,39,.7); backdrop-filter:blur(10px); }
+.link:hover,.link:focus-visible { border-color:var(--world-accent); background:rgba(30,44,53,.85); }
+.number,.arrow { color:var(--world-accent); font-size:13px; font-weight:700; }
+.link strong { color:#eaf5f7; font-size:20px; font-weight:600; }
+.detail { color:#a8bccb; font-size:14px; overflow-wrap:anywhere; }
+.arrow { font-size:20px; }
+@media(max-width:700px) { .links { margin-top:44px; } .link { grid-template-columns:30px 1fr 24px; gap:5px 12px; } .detail { grid-column:2; grid-row:2; font-size:12px; } .arrow { grid-column:3; grid-row:1 / span 2; } .link strong { font-size:17px; } }

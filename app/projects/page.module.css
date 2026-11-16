@@ -1,0 +1,5 @@
+.work :global(#projects) { background:transparent; padding-top:70px; }
+.work :global(#projects > div) { position:relative; }
+.work :global(.browser-frame) { background:rgba(8,23,39,.78); border-color:rgba(61,102,119,.48); }
+.work :global(.glass-card) { background:rgba(8,23,39,.7); border-color:rgba(61,102,119,.4); }
+@media(min-width:900px) { .work :global(#projects > div > div:first-child) { max-width:700px; min-height:185px; } }
