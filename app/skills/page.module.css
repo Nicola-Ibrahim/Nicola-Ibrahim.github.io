@@ -1,0 +1,9 @@
+.domains { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; width:min(900px,calc(100vw - 100px)); margin-top:60px; }
+.domain { min-height:210px; padding:17px; border:1px solid rgba(61,102,119,.4); border-radius:20px; background:rgba(8,23,39,.7); backdrop-filter:blur(12px); }
+.accent { display:block; width:40px; height:3px; border-radius:2px; background:var(--world-accent); margin-bottom:16px; }
+.domain h2 { min-height:32px; color:#eaf5f7; font-size:13px; font-weight:600; }
+.chips { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:10px; }
+.chips span { min-width:0; display:flex; align-items:center; gap:6px; padding:7px 9px; border-radius:8px; background:rgba(16,44,61,.95); color:#a8bccb; font-size:12px; line-height:1.2; }
+.chips i { flex:none; color:var(--world-accent); font-size:13px; }
+@media(max-width:900px) { .domains { width:100%; } }
+@media(max-width:700px) { .domains { grid-template-columns:1fr; margin-top:42px; gap:12px; } .domain { min-height:0; } .chips { display:flex; flex-wrap:wrap; } }

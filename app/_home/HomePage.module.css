@@ -1,0 +1,239 @@
+.page {
+  min-height: 100svh;
+  background: #030912;
+  color: #eaf5f7;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: max(780px, 100svh);
+  flex-direction: column;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, #030912 0%, rgba(3, 9, 18, 0.96) 39%, rgba(3, 9, 18, 0.48) 72%, rgba(3, 9, 18, 0.68) 100%),
+    radial-gradient(ellipse at 78% 48%, rgba(18, 102, 133, 0.24), transparent 46%),
+    #030912;
+}
+
+.hero::before {
+  position: absolute;
+  z-index: -2;
+  inset: 0 auto 0 0;
+  width: 68%;
+  background-image: url('/images/space/landing-cinematic.png');
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: auto 100%;
+  content: '';
+  opacity: 0.38;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 100%);
+  pointer-events: none;
+}
+
+.canvas {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* The existing canvas scene places its black hole to the left; mirroring the
+   canvas moves that same animation to the right without changing its motion. */
+.canvas > div {
+  z-index: 0;
+  opacity: 1;
+  filter: brightness(1.8) contrast(1.2) saturate(1.25);
+  transform: scaleX(-1);
+}
+
+.header {
+  z-index: 1;
+  display: flex;
+  width: min(100% - 80px, 1270px);
+  margin-inline: auto;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  padding-top: 34px;
+}
+
+.brand {
+  color: #eaf5f7;
+  font-size: 1.45rem;
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.brand:focus-visible,
+.primaryAction:focus-visible {
+  outline: 2px solid #7ce8dd;
+  outline-offset: 4px;
+}
+
+.content {
+  z-index: 1;
+  width: min(100% - 80px, 1270px);
+  margin: auto;
+  padding-block: 90px 98px;
+}
+
+.eyebrow {
+  margin: 0 0 24px 14px;
+  color: #7ce8dd;
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: 0.015em;
+}
+
+.title {
+  margin: 0 0 24px;
+  padding-left: 10px;
+  border-left: 3px solid rgba(124, 232, 221, 0.82);
+  color: #eaf5f7;
+  font-size: clamp(4rem, 7.4vw, 5.45rem);
+  font-weight: 750;
+  line-height: 1.07;
+  letter-spacing: -0.055em;
+}
+
+.description {
+  max-width: 710px;
+  margin: 0 0 38px 18px;
+  color: #a8bccb;
+  font-size: clamp(1rem, 1.45vw, 1.25rem);
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-left: 18px;
+}
+
+.primaryAction {
+  display: inline-flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 22px;
+  border-radius: 10px;
+  color: #eaf5f7;
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.primaryAction {
+  min-width: 248px;
+  background: #0b8689;
+}
+
+.primaryAction:hover {
+  background: #0a9b9d;
+  transform: translateY(-1px);
+}
+
+.signature {
+  margin: 30px 0 0 18px;
+  color: #63899a;
+  font-size: 0.68rem;
+  font-weight: 550;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    min-height: max(700px, 100svh);
+    background:
+      linear-gradient(90deg, rgba(3, 9, 18, 0.97), rgba(3, 9, 18, 0.75)),
+      radial-gradient(ellipse at 78% 48%, rgba(18, 102, 133, 0.22), transparent 50%),
+      #030912;
+  }
+
+  .hero::before {
+    width: 100%;
+    background-size: auto 78%;
+    background-position: 30% center;
+    opacity: 0.28;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 82%);
+    mask-image: linear-gradient(90deg, #000 0%, transparent 82%);
+  }
+
+  .canvas > div {
+    opacity: 0.9;
+    filter: brightness(1.55) contrast(1.15) saturate(1.2);
+  }
+
+  .header,
+  .content {
+    width: calc(100% - 40px);
+  }
+
+  .header {
+    padding-top: 24px;
+  }
+
+  .content {
+    padding-block: 70px 76px;
+  }
+
+  .eyebrow {
+    margin-left: 10px;
+    font-size: 0.7rem;
+  }
+
+  .title {
+    font-size: clamp(3.4rem, 15vw, 5rem);
+  }
+
+  .description {
+    margin-left: 13px;
+  }
+
+  .desktopBreak {
+    display: none;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 13px;
+  }
+
+  .primaryAction {
+    width: min(100%, 300px);
+  }
+
+  .signature {
+    margin-left: 13px;
+    font-size: 0.58rem;
+  }
+
+}
+
+@media (max-width: 380px) {
+  .title {
+    font-size: 3.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryAction {
+    transition: none;
+  }
+
+  .primaryAction:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,10 @@
+.about { position:relative; }
+.about section { background:transparent; }
+.about section:first-child { min-height:600px; display:flex; align-items:center; padding-top:65px; }
+.about :global(.glass-card) { background:rgba(8,23,39,.7); border-color:rgba(61,102,119,.4); backdrop-filter:blur(10px); }
+.about :global(.bg-grid-dark) { background:transparent; }
+.about h2 { color:#b5f6ee; }
+.about h2 i { color:var(--world-accent); }
+.about h3 { color:#eaf5f7; }
+.about blockquote { border-color:var(--world-accent); }
+@media(max-width:900px) { .about section:first-child { min-height:0; padding-top:55px; } }

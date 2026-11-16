@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import PortfolioSubpage from '../_shared/PortfolioSubpage';
 import { AboutSection, EducationSection } from './_components/AboutSections';
 import { AreasOfWorkSection } from './_components/AreasOfWorkSection';
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -9,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <PortfolioSubpage planetId="about"><AboutSection /><AreasOfWorkSection /><EducationSection /></PortfolioSubpage>;
+  return <PortfolioSubpage planetId="about"><div className={styles.about}><AboutSection /><AreasOfWorkSection /><EducationSection /></div></PortfolioSubpage>;
 }
