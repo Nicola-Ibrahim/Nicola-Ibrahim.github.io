@@ -1,5 +1,3 @@
-import ParticleSphereCanvas from './ParticleSphereCanvas';
-
 export function AboutSection() {
   return (
     <section id="about" className="py-24 relative scroll-mt-20">
@@ -14,9 +12,6 @@ export function AboutSection() {
             <div><p className="text-3xl font-black text-primary mb-1">4+</p><p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Years of experience</p></div>
             <div><p className="text-3xl font-black text-accent mb-1">M.Sc.</p><p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Computer Engineering</p></div>
           </div>
-        </div>
-        <div className="relative aspect-square max-w-lg w-full mx-auto rounded-3xl overflow-hidden" aria-hidden="true">
-          <ParticleSphereCanvas />
         </div>
       </div>
     </section>

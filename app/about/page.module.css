@@ -1,7 +1,6 @@
 .about { position:relative; background:linear-gradient(180deg,transparent 0,rgba(8,71,78,.12) 420px,#030912 920px); }
 .about section { background:transparent; }
 .about section:first-child { min-height:600px; display:flex; align-items:center; padding-top:65px; }
-.about :global(#about) > div > div:last-child { opacity:.55; mask-image:radial-gradient(circle,#000 42%,transparent 76%); }
 .about :global(.glass-card) { background:rgba(8,23,39,.7); border-color:rgba(61,102,119,.4); backdrop-filter:blur(10px); }
 .about :global(.bg-grid-dark) { background:transparent; }
 .about h2 { color:#b5f6ee; }
