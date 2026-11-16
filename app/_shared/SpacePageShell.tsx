@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import type { ReactNode } from 'react';
+import TransitionLink from './TransitionLink';
 import styles from './SpacePageShell.module.css';
 
 type World = 'projects' | 'about' | 'skills' | 'contact';
@@ -21,9 +21,9 @@ const links = [
 
 export function SpaceNav({ active }: { active?: World }) {
   return <header className={styles.header}>
-    <div className={styles.brand}><Link href="/" aria-label="Nicola Ibrahim home">N / I</Link><span>SOFTWARE ENGINEER</span></div>
+    <div className={styles.brand}><TransitionLink href="/" aria-label="Nicola Ibrahim home">N / I</TransitionLink><span>SOFTWARE ENGINEER</span></div>
     <nav aria-label="Main navigation" className={styles.nav}>
-      {links.map(link => <Link key={link.id} href={link.href} aria-current={active === link.id ? 'page' : undefined} className={active === link.id ? styles.active : undefined}>{link.label}</Link>)}
+      {links.map(link => <TransitionLink key={link.id} href={link.href} aria-current={active === link.id ? 'page' : undefined} className={active === link.id ? styles.active : undefined}>{link.label}</TransitionLink>)}
     </nav>
   </header>;
 }
@@ -35,7 +35,7 @@ export default function SpacePageShell({ world, children }: { world: World; chil
     <div className={styles.content}>
       <SpaceNav active={world} />
       <main>{children}</main>
-      {(world === 'about' || world === 'projects') && <footer className={styles.siteFooter}><Link href="/roadmap">Roadmap</Link></footer>}
+      {(world === 'about' || world === 'projects') && <footer className={styles.siteFooter}><TransitionLink href="/roadmap">Roadmap</TransitionLink></footer>}
     </div>
   </div>;
 }

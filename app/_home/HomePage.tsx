@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import TransitionLink from '../_shared/TransitionLink';
 import BlackholeCanvas from './BlackholeCanvas';
 import styles from './HomePage.module.css';
 
@@ -11,7 +11,7 @@ export default function HomePage() {
         </div>
 
         <header className={styles.header}>
-          <Link href="/" className={styles.brand} aria-label="Nicola Ibrahim home">N / I</Link>
+          <TransitionLink href="/" className={styles.brand} aria-label="Nicola Ibrahim home">N / I</TransitionLink>
         </header>
 
         <div className={styles.content}>
@@ -21,7 +21,7 @@ export default function HomePage() {
             I design backend services, develop software platforms, and explore practical applications of AI.
           </p>
           <nav className={styles.actions} aria-label="Explore the portfolio">
-            <Link href="/about" className={styles.primaryAction}>Explore portfolio <span aria-hidden="true">↗</span></Link>
+            <TransitionLink href="/about" className={styles.primaryAction}>Explore portfolio <span aria-hidden="true">↗</span></TransitionLink>
           </nav>
           <p className={styles.signature}>DESIGN&nbsp; / &nbsp;ENGINEERING&nbsp; / &nbsp;EXPERIMENTATION</p>
         </div>
